@@ -1,0 +1,14 @@
+.DS_Store
+Thumbs.db
+node_modules/
+.next/
+dist/
+build/
+out/
+.vercel
+*.log
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
