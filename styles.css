@@ -32,6 +32,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 0.5rem);
 }
 
 body {
@@ -232,8 +233,8 @@ p {
   display: block;
   background: #fff;
   border-radius: 999px;
-  opacity: 0.78;
-  filter: blur(1px);
+  opacity: 0.42;
+  filter: blur(8px);
   animation: drift 42s linear infinite;
 }
 
@@ -335,6 +336,13 @@ p {
 }
 
 /* work */
+.work,
+.studio,
+.process,
+.close {
+  scroll-margin-top: var(--header-h);
+}
+
 .work {
   background: var(--cream);
   padding: 4.5rem 0 5.5rem;
@@ -451,7 +459,7 @@ p {
 .studio {
   position: relative;
   background: var(--soft-blue);
-  padding: 3.5rem 0 4.25rem;
+  padding: 3.5rem 0 0;
   overflow: hidden;
 }
 
@@ -578,12 +586,12 @@ p {
 
 @keyframes bob {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-14px); }
+  50% { transform: translateY(-18px); }
 }
 
 @keyframes wiggle {
-  0%, 100% { transform: rotate(-8deg); }
-  50% { transform: rotate(10deg); }
+  0%, 100% { transform: rotate(-11deg); }
+  50% { transform: rotate(13deg); }
 }
 
 @keyframes drift {
