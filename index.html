@@ -3,24 +3,211 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mango Studios</title>
-  <style>
-    :root { color-scheme: dark; }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { min-height: 100vh; font-family: ui-sans-serif, system-ui, sans-serif; background: #14110f; color: #f4ece4; display: grid; place-items: center; padding: 32px; }
-    main { max-width: 36rem; }
-    p.mark { color: #f2a65a; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.8rem; margin-bottom: 12px; }
-    h1 { font-size: clamp(2.4rem, 8vw, 4.2rem); line-height: 0.95; margin-bottom: 16px; }
-    p.lede { color: #cbbbae; font-size: 1.15rem; line-height: 1.5; }
-    p.by { margin-top: 28px; color: #8f8176; font-size: 0.95rem; }
-  </style>
+  <meta name="theme-color" content="#FFF9ED">
+  <title>mango studios — apps, sites, and other ripe ideas</title>
+  <meta name="description" content="mango studios makes apps, sites, digital products, and other ventures. a small optimistic studio run by Jack Koll-Gunderson.">
+  <link rel="icon" href="assets/logo-stamp.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/logo-stamp.png">
+  <meta property="og:title" content="mango studios">
+  <meta property="og:description" content="we make apps, sites, and other ripe ideas.">
+  <meta property="og:image" content="assets/logo.png">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,500&family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,700;1,9..144,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main>
-    <p class="mark">Mango Studios</p>
-    <h1>Apps, sites, and digital products.</h1>
-    <p class="lede">We build software and ship whatever else can make money.</p>
-    <p class="by">Jack Koll-Gunderson</p>
+  <a class="skip" href="#main">skip to content</a>
+
+  <header class="site-header" id="top">
+    <a class="brand" href="#top">
+      <img class="brand-mark" src="assets/logo.png" width="48" height="48" alt="mango studios">
+      <span class="brand-name">mango studios</span>
+    </a>
+    <nav class="nav" aria-label="primary">
+      <a href="#work">work</a>
+      <a href="#studio">studio</a>
+      <a href="#process">process</a>
+      <a class="btn btn-sm" href="mailto:jackkollgunderson@gmail.com?subject=hello%20from%20mango%20studios">say hello</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-label="intro">
+      <div class="hero-sky" data-parallax="0.12" aria-hidden="true"></div>
+      <div class="cloud-layer cloud-back" data-parallax="0.24" aria-hidden="true">
+        <span class="cloud c1"></span>
+        <span class="cloud c2"></span>
+        <span class="cloud c3"></span>
+      </div>
+      <div class="cloud-layer cloud-mid" data-parallax="0.4" aria-hidden="true">
+        <span class="cloud c4"></span>
+        <span class="cloud c5"></span>
+      </div>
+
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">mango studios</p>
+          <h1>we make apps, sites, and other ripe ideas.</h1>
+          <p class="lede">software, digital products, and whatever else can make money.</p>
+          <a class="btn" href="mailto:jackkollgunderson@gmail.com?subject=hello%20from%20mango%20studios">say hello</a>
+        </div>
+
+        <div class="hero-fruit" data-parallax="0.55" aria-hidden="true">
+          <div class="mango-bob">
+            <img class="mango-body" src="assets/mango-body.png" alt="" width="470" height="666">
+            <img class="mango-leaf" src="assets/leaf.png" alt="" width="470" height="666">
+          </div>
+        </div>
+      </div>
+
+      <svg class="scallop scallop-bottom" viewBox="0 0 1440 72" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 24c80 32 160 32 240 0s160-32 240 0 160 32 240 0 160-32 240 0 160 32 240 0 160-32 240 0v48H0z"/>
+      </svg>
+    </section>
+
+    <section class="work" id="work">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="eyebrow">offerings</p>
+          <h2>what we grow</h2>
+          <p>four kinds of work. no fake case-study names. just the fruit.</p>
+        </header>
+
+        <div class="work-grid">
+          <article class="card card-mango">
+            <p class="card-kicker">01</p>
+            <h3>apps</h3>
+            <p>software you can hold in a pocket or a browser tab.</p>
+            <svg class="doodle" viewBox="0 0 160 120" fill="none" aria-hidden="true">
+              <rect class="draw" pathLength="1" x="48" y="8" width="64" height="104" rx="12" stroke="currentColor" stroke-width="3.5"/>
+              <rect class="draw" pathLength="1" x="58" y="22" width="44" height="68" rx="4" stroke="currentColor" stroke-width="3"/>
+              <circle class="draw" pathLength="1" cx="80" cy="102" r="5" stroke="currentColor" stroke-width="3"/>
+              <ellipse cx="108" cy="28" rx="10" ry="12" fill="#FFE169"/>
+              <ellipse cx="116" cy="16" rx="4" ry="5.5" transform="rotate(24 116 16)" fill="#4BA33D"/>
+            </svg>
+          </article>
+
+          <article class="card card-tangerine">
+            <p class="card-kicker">02</p>
+            <h3>sites</h3>
+            <p>pages with a point of view, not a template.</p>
+            <svg class="doodle" viewBox="0 0 160 100" fill="none" aria-hidden="true">
+              <rect class="draw" pathLength="1" x="18" y="16" width="124" height="72" rx="10" stroke="currentColor" stroke-width="3.5"/>
+              <path class="draw" pathLength="1" d="M18 36h124" stroke="currentColor" stroke-width="3"/>
+              <circle cx="36" cy="26" r="4" fill="currentColor"/>
+              <circle cx="50" cy="26" r="4" fill="currentColor"/>
+              <circle cx="64" cy="26" r="4" fill="currentColor"/>
+              <circle class="draw" pathLength="1" cx="88" cy="64" r="16" stroke="currentColor" stroke-width="3"/>
+              <path class="draw" pathLength="1" d="M88 50v14h12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </article>
+
+          <article class="card card-leaf">
+            <p class="card-kicker">03</p>
+            <h3>products</h3>
+            <p>digital things people actually use.</p>
+            <svg class="doodle" viewBox="0 0 160 100" fill="none" aria-hidden="true">
+              <path class="draw" pathLength="1" d="M40 40h80v44H40z" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/>
+              <path class="draw" pathLength="1" d="M40 40l40-18 40 18" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/>
+              <path class="draw" pathLength="1" d="M80 22v62" stroke="currentColor" stroke-width="3"/>
+              <ellipse cx="104" cy="28" rx="8" ry="10" fill="#FFE169"/>
+            </svg>
+          </article>
+
+          <article class="card card-berry">
+            <p class="card-kicker">04</p>
+            <h3>ventures</h3>
+            <p>the rest of the orchard. if it can grow, we will try it.</p>
+            <svg class="doodle" viewBox="0 0 160 100" fill="none" aria-hidden="true">
+              <path class="draw" pathLength="1" d="M28 72c18-8 28-28 24-44 20 8 40 6 56-8-4 22-2 40 12 56" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+              <path class="draw" pathLength="1" d="M52 28c8 4 14 14 14 22" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="108" cy="20" r="7" fill="#FFE169"/>
+            </svg>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="studio" id="studio">
+      <svg class="scallop scallop-top" viewBox="0 0 1440 72" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 48c80-32 160-32 240 0s160 32 240 0 160-32 240 0 160 32 240 0 160-32 240 0 160 32 240 0V0H0z"/>
+      </svg>
+
+      <div class="wrap studio-inner">
+        <p class="eyebrow">the studio</p>
+        <h2>small on purpose. optimistic by default.</h2>
+        <p class="studio-bio">Jack Koll-Gunderson runs mango studios. we make apps, sites, digital products, and other ventures. bold color, short copy, and shipping the thing.</p>
+      </div>
+
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker-track">
+          <span>juicy</span><span>optimistic</span><span>graphic</span><span>tactile</span><span>friendly</span><span>handmade</span><span>sunny</span>
+          <span>juicy</span><span>optimistic</span><span>graphic</span><span>tactile</span><span>friendly</span><span>handmade</span><span>sunny</span>
+        </div>
+      </div>
+
+      <svg class="scallop scallop-bottom" viewBox="0 0 1440 72" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 24c80 32 160 32 240 0s160-32 240 0 160 32 240 0 160-32 240 0 160 32 240 0 160-32 240 0v48H0z"/>
+      </svg>
+    </section>
+
+    <section class="process" id="process">
+      <div class="wrap">
+        <header class="section-head on-bright">
+          <p class="eyebrow">how</p>
+          <h2>talk. sketch. build. ship.</h2>
+        </header>
+
+        <ol class="steps">
+          <li>
+            <span class="step-num">01</span>
+            <h3>talk</h3>
+            <p>a real conversation. not a forty-page brief.</p>
+          </li>
+          <li>
+            <span class="step-num">02</span>
+            <h3>sketch</h3>
+            <p>shape before polish. paper, pixels, either.</p>
+          </li>
+          <li>
+            <span class="step-num">03</span>
+            <h3>build</h3>
+            <p>handmade software, shipped in slices.</p>
+          </li>
+          <li>
+            <span class="step-num">04</span>
+            <h3>ship</h3>
+            <p>launch, learn, grow the next ripe thing.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="close" id="hello">
+      <div class="wrap close-inner">
+        <h2>got something to grow?</h2>
+        <p>one studio. one inbox. say hello.</p>
+        <a class="btn btn-on-mango" href="mailto:jackkollgunderson@gmail.com?subject=hello%20from%20mango%20studios">say hello</a>
+      </div>
+    </section>
   </main>
+
+  <footer class="site-footer">
+    <a class="brand" href="#top">
+      <img class="brand-mark" src="assets/logo.png" width="48" height="48" alt="">
+      <span class="brand-name">mango studios</span>
+    </a>
+    <p>Jack Koll-Gunderson</p>
+    <p>
+      <a href="mailto:jackkollgunderson@gmail.com">email</a>
+      ·
+      <a href="https://github.com/Jack-Attackz101">github</a>
+    </p>
+    <p class="fine">© 2026 mango studios</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
