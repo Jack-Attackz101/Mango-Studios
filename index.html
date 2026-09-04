@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#FFF9ED">
   <title>mango studios — apps, sites, and other ripe ideas</title>
@@ -34,8 +34,11 @@
   </header>
 
   <main id="main">
+
+    <!-- ── HERO ───────────────────────────────── -->
     <section class="hero" aria-label="intro">
       <div class="hero-sky" data-parallax="0.12" aria-hidden="true"></div>
+
       <div class="cloud-layer cloud-back" data-parallax="0.24" aria-hidden="true">
         <span class="cloud c1"></span>
         <span class="cloud c2"></span>
@@ -67,6 +70,7 @@
       </svg>
     </section>
 
+    <!-- ── WORK ───────────────────────────────── -->
     <section class="work" id="work">
       <div class="wrap">
         <header class="section-head">
@@ -76,60 +80,150 @@
         </header>
 
         <div class="work-grid">
-          <article class="card card-mango">
+
+          <!-- 01 Apps -->
+          <article class="card card-sky">
             <p class="card-kicker">01</p>
             <h3>apps</h3>
             <p>software you can hold in a pocket or a browser tab.</p>
-            <svg class="doodle" viewBox="0 0 160 120" fill="none" aria-hidden="true">
-              <rect class="draw" pathLength="1" x="48" y="8" width="64" height="104" rx="12" stroke="currentColor" stroke-width="3.5"/>
-              <rect class="draw" pathLength="1" x="58" y="22" width="44" height="68" rx="4" stroke="currentColor" stroke-width="3"/>
-              <circle class="draw" pathLength="1" cx="80" cy="102" r="5" stroke="currentColor" stroke-width="3"/>
-              <ellipse cx="108" cy="28" rx="10" ry="12" fill="#FFE169"/>
-              <ellipse cx="116" cy="16" rx="4" ry="5.5" transform="rotate(24 116 16)" fill="#4BA33D"/>
-            </svg>
+            <div class="icon-wrap" aria-hidden="true">
+              <svg class="icon-3d" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- shadow -->
+                <ellipse cx="91" cy="158" rx="42" ry="7" fill="#24211D" opacity="0.14"/>
+                <!-- right depth -->
+                <path d="M115 42 L126 32 L126 146 L115 156" fill="#1A3FA8"/>
+                <!-- top depth -->
+                <path d="M60 42 L71 32 L126 32 L115 42" fill="#5B8DF0" opacity="0.9"/>
+                <!-- body -->
+                <rect x="60" y="42" width="55" height="114" rx="14" fill="#FFF9ED" stroke="#24211D" stroke-width="2.5"/>
+                <!-- screen -->
+                <rect x="67" y="56" width="41" height="74" rx="6" fill="#356EEA"/>
+                <!-- camera pill -->
+                <rect x="79" y="48.5" width="17" height="4.5" rx="2.25" fill="#24211D" opacity="0.18"/>
+                <!-- home indicator -->
+                <rect x="77" y="142" width="21" height="4" rx="2" fill="#24211D" opacity="0.2"/>
+                <!-- app icons -->
+                <rect x="72" y="63" width="14" height="14" rx="3.5" fill="#FFC928"/>
+                <rect x="91" y="63" width="14" height="14" rx="3.5" fill="#5C9B45"/>
+                <rect x="72" y="82" width="14" height="14" rx="3.5" fill="#FFF9ED" opacity="0.4"/>
+                <rect x="91" y="82" width="14" height="14" rx="3.5" fill="#FFF9ED" opacity="0.25"/>
+                <!-- content rows -->
+                <rect x="72" y="106" width="32" height="5" rx="2.5" fill="#FFF9ED" opacity="0.22"/>
+                <rect x="72" y="116" width="24" height="5" rx="2.5" fill="#FFF9ED" opacity="0.16"/>
+                <!-- highlight -->
+                <path d="M71 60 Q77 78 71 105" stroke="white" stroke-width="4" stroke-linecap="round" opacity="0.18" fill="none"/>
+              </svg>
+            </div>
           </article>
 
-          <article class="card card-tangerine">
+          <!-- 02 Sites -->
+          <article class="card card-mango">
             <p class="card-kicker">02</p>
             <h3>sites</h3>
             <p>pages with a point of view, not a template.</p>
-            <svg class="doodle" viewBox="0 0 160 100" fill="none" aria-hidden="true">
-              <rect class="draw" pathLength="1" x="18" y="16" width="124" height="72" rx="10" stroke="currentColor" stroke-width="3.5"/>
-              <path class="draw" pathLength="1" d="M18 36h124" stroke="currentColor" stroke-width="3"/>
-              <circle cx="36" cy="26" r="4" fill="currentColor"/>
-              <circle cx="50" cy="26" r="4" fill="currentColor"/>
-              <circle cx="64" cy="26" r="4" fill="currentColor"/>
-              <circle class="draw" pathLength="1" cx="88" cy="64" r="16" stroke="currentColor" stroke-width="3"/>
-              <path class="draw" pathLength="1" d="M88 50v14h12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-            </svg>
+            <div class="icon-wrap" aria-hidden="true">
+              <svg class="icon-3d" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- shadow -->
+                <ellipse cx="90" cy="159" rx="48" ry="7" fill="#24211D" opacity="0.14"/>
+                <!-- right depth -->
+                <path d="M127 37 L138 27 L138 145 L127 155" fill="#A07800"/>
+                <!-- top depth -->
+                <path d="M47 37 L58 27 L138 27 L127 37" fill="#FFE169" opacity="0.9"/>
+                <!-- body -->
+                <rect x="47" y="37" width="80" height="118" rx="11" fill="#FFF9ED" stroke="#24211D" stroke-width="2.5"/>
+                <!-- toolbar fill -->
+                <rect x="47" y="37" width="80" height="30" rx="11" fill="#FFC928"/>
+                <!-- toolbar bottom edge flat -->
+                <rect x="47" y="54" width="80" height="13" fill="#FFC928"/>
+                <!-- traffic dots -->
+                <circle cx="61" cy="52" r="5" fill="#24211D" opacity="0.2"/>
+                <circle cx="74" cy="52" r="5" fill="#24211D" opacity="0.2"/>
+                <circle cx="87" cy="52" r="5" fill="#24211D" opacity="0.2"/>
+                <!-- url bar -->
+                <rect x="97" y="46" width="23" height="12" rx="4" fill="#FFF9ED" opacity="0.42"/>
+                <!-- hero image block -->
+                <rect x="57" y="80" width="60" height="26" rx="4" fill="#29AFE0" opacity="0.6"/>
+                <!-- content rows -->
+                <rect x="57" y="115" width="50" height="6" rx="2" fill="#24211D" opacity="0.1"/>
+                <rect x="57" y="127" width="40" height="5" rx="2" fill="#24211D" opacity="0.1"/>
+                <rect x="57" y="138" width="46" height="5" rx="2" fill="#24211D" opacity="0.1"/>
+                <!-- screen highlight -->
+                <path d="M57 80 Q60 82 57 104" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.22" fill="none"/>
+              </svg>
+            </div>
           </article>
 
-          <article class="card card-leaf">
+          <!-- 03 Products -->
+          <article class="card card-green">
             <p class="card-kicker">03</p>
             <h3>products</h3>
             <p>digital things people actually use.</p>
-            <svg class="doodle" viewBox="0 0 160 100" fill="none" aria-hidden="true">
-              <path class="draw" pathLength="1" d="M40 40h80v44H40z" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/>
-              <path class="draw" pathLength="1" d="M40 40l40-18 40 18" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/>
-              <path class="draw" pathLength="1" d="M80 22v62" stroke="currentColor" stroke-width="3"/>
-              <ellipse cx="104" cy="28" rx="8" ry="10" fill="#FFE169"/>
-            </svg>
+            <div class="icon-wrap" aria-hidden="true">
+              <svg class="icon-3d" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- shadow -->
+                <ellipse cx="90" cy="160" rx="46" ry="7" fill="#24211D" opacity="0.2"/>
+                <!-- box left face -->
+                <path d="M90 100 L50 77 L50 136 L90 159" fill="#4BA33D"/>
+                <!-- box right face -->
+                <path d="M90 100 L130 77 L130 136 L90 159" fill="#3A8A2E"/>
+                <!-- box top (floor) -->
+                <path d="M90 48 L130 71 L90 94 L50 71 Z" fill="#7BBF62"/>
+                <!-- open lid left -->
+                <path d="M50 71 L50 42 L90 19 L90 48 Z" fill="#FFF9ED" opacity="0.88"/>
+                <!-- open lid right -->
+                <path d="M130 71 L130 42 L90 19 L90 48 Z" fill="#FFF9ED" opacity="0.7"/>
+                <!-- lid fold crease -->
+                <path d="M90 19 L90 48" stroke="#24211D" stroke-width="1.5" opacity="0.15" fill="none"/>
+                <!-- box edge highlights -->
+                <path d="M50 77 L90 100 L130 77" stroke="white" stroke-width="1.5" opacity="0.25" fill="none"/>
+                <path d="M90 100 L90 159" stroke="white" stroke-width="1" opacity="0.18" fill="none"/>
+                <!-- mango dot inside box -->
+                <ellipse cx="90" cy="77" rx="12" ry="8" fill="#FFC928" opacity="0.7"/>
+              </svg>
+            </div>
           </article>
 
-          <article class="card card-berry">
-            <p class="card-kicker">04</p>
-            <h3>ventures</h3>
-            <p>the rest of the orchard. if it can grow, we will try it.</p>
-            <svg class="doodle" viewBox="0 0 160 100" fill="none" aria-hidden="true">
-              <path class="draw" pathLength="1" d="M28 72c18-8 28-28 24-44 20 8 40 6 56-8-4 22-2 40 12 56" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
-              <path class="draw" pathLength="1" d="M52 28c8 4 14 14 14 22" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-              <circle cx="108" cy="20" r="7" fill="#FFE169"/>
-            </svg>
+          <!-- 04 Ventures (full-width banner) -->
+          <article class="card card-cream">
+            <div class="card-body">
+              <p class="card-kicker">04</p>
+              <h3>ventures</h3>
+              <p>the rest of the orchard. if it can grow, we will try it.</p>
+            </div>
+            <div class="icon-wrap" aria-hidden="true">
+              <svg class="icon-3d" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- exhaust flame -->
+                <path d="M78 146 Q90 170 102 146" fill="#FFC928"/>
+                <path d="M82 146 Q90 160 98 146" fill="#FFE169"/>
+                <!-- smoke ellipse -->
+                <ellipse cx="90" cy="155" rx="20" ry="6" fill="#24211D" opacity="0.09"/>
+                <!-- left fin -->
+                <path d="M66 122 L46 142 L66 137 Z" fill="#FFC928" stroke="#24211D" stroke-width="2.2" stroke-linejoin="round"/>
+                <!-- right fin -->
+                <path d="M114 122 L134 142 L114 137 Z" fill="#FFC928" stroke="#24211D" stroke-width="2.2" stroke-linejoin="round"/>
+                <!-- body shadow slice -->
+                <path d="M102 118 Q118 94 102 38 L114 120 Z" fill="#24211D" opacity="0.05"/>
+                <!-- rocket body -->
+                <path d="M66 122 Q66 64 90 33 Q114 64 114 122 Z" fill="#FFF9ED" stroke="#24211D" stroke-width="2.5"/>
+                <!-- sky-blue nose area tint -->
+                <path d="M90 33 Q114 64 114 98 L66 98 Q66 64 90 33 Z" fill="#356EEA" opacity="0.12"/>
+                <!-- accent stripe -->
+                <line x1="70" y1="111" x2="110" y2="111" stroke="#356EEA" stroke-width="2.5" stroke-linecap="round" opacity="0.45"/>
+                <!-- porthole window -->
+                <circle cx="90" cy="88" r="17" fill="#356EEA" stroke="#24211D" stroke-width="2.5"/>
+                <!-- window highlight -->
+                <circle cx="84" cy="82" r="6" fill="white" opacity="0.28"/>
+                <!-- body highlight -->
+                <path d="M77 48 Q82 70 79 90" stroke="white" stroke-width="4" stroke-linecap="round" opacity="0.22" fill="none"/>
+              </svg>
+            </div>
           </article>
+
         </div>
       </div>
     </section>
 
+    <!-- ── STUDIO ──────────────────────────────── -->
     <section class="studio" id="studio">
       <svg class="scallop scallop-top" viewBox="0 0 1440 72" preserveAspectRatio="none" aria-hidden="true">
         <path d="M0 48c80-32 160-32 240 0s160 32 240 0 160-32 240 0 160 32 240 0 160-32 240 0 160 32 240 0V0H0z"/>
@@ -137,7 +231,7 @@
 
       <div class="wrap studio-inner">
         <p class="eyebrow">the studio</p>
-        <h2>small on purpose. optimistic by default.</h2>
+        <h2>small on purpose.<br>optimistic by default.</h2>
         <p class="studio-bio">Jack Koll-Gunderson runs mango studios. we make apps, sites, digital products, and other ventures. bold color, short copy, and shipping the thing.</p>
       </div>
 
@@ -149,30 +243,31 @@
       </div>
     </section>
 
+    <!-- ── PROCESS ─────────────────────────────── -->
     <section class="process" id="process">
       <div class="wrap">
-        <header class="section-head on-bright">
+        <header class="section-head">
           <p class="eyebrow">how</p>
           <h2>talk. sketch. build. ship.</h2>
         </header>
 
         <ol class="steps">
-          <li>
+          <li class="step-item">
             <span class="step-num">01</span>
             <h3>talk</h3>
             <p>a real conversation. not a forty-page brief.</p>
           </li>
-          <li>
+          <li class="step-item">
             <span class="step-num">02</span>
             <h3>sketch</h3>
             <p>shape before polish. paper, pixels, either.</p>
           </li>
-          <li>
+          <li class="step-item">
             <span class="step-num">03</span>
             <h3>build</h3>
             <p>handmade software, shipped in slices.</p>
           </li>
-          <li>
+          <li class="step-item">
             <span class="step-num">04</span>
             <h3>ship</h3>
             <p>launch, learn, grow the next ripe thing.</p>
@@ -181,13 +276,15 @@
       </div>
     </section>
 
+    <!-- ── CTA ────────────────────────────────── -->
     <section class="close" id="hello">
       <div class="wrap close-inner">
         <h2>got something to grow?</h2>
         <p>one studio. one inbox. say hello.</p>
-        <a class="btn btn-on-mango" href="mailto:jackkollgunderson@gmail.com?subject=hello%20from%20mango%20studios">say hello</a>
+        <a class="btn btn-on-dark" href="mailto:jackkollgunderson@gmail.com?subject=hello%20from%20mango%20studios">say hello</a>
       </div>
     </section>
+
   </main>
 
   <footer class="site-footer">
