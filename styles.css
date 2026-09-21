@@ -297,6 +297,14 @@ p { max-width: 38rem; }
 .work {
   background: var(--cream);
   padding: 5rem 0 6rem;
+  position: relative;
+}
+.work::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(36,33,29,.048) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
 }
 
 .section-head { margin-bottom: 2.5rem; }
@@ -561,6 +569,47 @@ p { max-width: 38rem; }
 .site-footer a { font-weight: 700; text-decoration: none; }
 .site-footer a:hover { text-decoration: underline; }
 .fine { opacity: 0.5; font-size: 0.88rem; }
+
+/* ─── Step icons ────────────────────────────── */
+.step-icon {
+  width: 2rem; height: 2rem;
+  margin-bottom: 0.75rem;
+  color: var(--mango-light);
+  flex-shrink: 0;
+}
+
+/* ─── Button arrow ───────────────────────────── */
+.btn-arrow {
+  width: 1rem; height: 1rem;
+  flex-shrink: 0;
+  transition: transform var(--dur-ui) var(--ease-spring);
+}
+.btn:hover .btn-arrow { transform: translateX(3px); }
+
+/* ─── CTA watermark ──────────────────────────── */
+.close-deco {
+  position: absolute;
+  right: -6rem; bottom: -5rem;
+  width: 30rem; height: 30rem;
+  opacity: 0.065;
+  pointer-events: none;
+  color: var(--ink);
+  z-index: 0;
+}
+
+/* ─── Footer links ───────────────────────────── */
+.footer-links {
+  display: flex; align-items: center; gap: 1.1rem;
+}
+.footer-link {
+  display: inline-flex; align-items: center; gap: 0.38rem;
+  font-weight: 700; text-decoration: none;
+}
+.footer-link:hover { text-decoration: underline; }
+.footer-link svg {
+  width: 1rem; height: 1rem;
+  flex-shrink: 0;
+}
 
 /* ─── Keyframes ─────────────────────────────── */
 @keyframes bob {
