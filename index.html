@@ -18,6 +18,16 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- Cursor -->
+  <div class="cursor-dot"  aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <!-- Page curtain -->
+  <div class="curtain" aria-hidden="true">
+    <div class="curtain-panel"></div>
+    <div class="curtain-panel"></div>
+  </div>
+
   <a class="skip" href="#main">skip to content</a>
 
   <header class="site-header" id="top">
@@ -37,32 +47,43 @@
 
     <!-- ── HERO ───────────────────────────────── -->
     <section class="hero" aria-label="intro">
-      <div class="hero-sky" data-parallax="0.12" aria-hidden="true"></div>
+      <div class="hero-sky" aria-hidden="true"></div>
 
-      <div class="cloud-layer cloud-back" data-parallax="0.24" aria-hidden="true">
+      <div class="cloud-layer cloud-back" aria-hidden="true">
         <span class="cloud c1"></span>
         <span class="cloud c2"></span>
         <span class="cloud c3"></span>
       </div>
-      <div class="cloud-layer cloud-mid" data-parallax="0.4" aria-hidden="true">
+      <div class="cloud-layer cloud-mid" aria-hidden="true">
         <span class="cloud c4"></span>
         <span class="cloud c5"></span>
       </div>
 
+      <!-- kargul-style year marker -->
+      <span class="hero-year" aria-hidden="true">est. 2026</span>
+
       <div class="hero-inner">
         <div class="hero-copy">
-          <p class="eyebrow">mango studios</p>
-          <h1>we make apps, sites, and other ripe ideas.</h1>
-          <p class="lede">software, digital products, and whatever else can make money.</p>
+          <p class="eyebrow hero-eyebrow">mango studios</p>
+          <h1>we make ripe ideas.</h1>
+          <p class="lede">apps, sites, digital products,<br>and other good bets.</p>
           <a class="btn" href="mailto:jackkollgunderson@gmail.com?subject=hello%20from%20mango%20studios">say hello <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="2" y1="8" x2="14" y2="8"/><polyline points="9 3 14 8 9 13"/></svg></a>
         </div>
 
-        <div class="hero-fruit" data-parallax="0.55" aria-hidden="true">
-          <div class="mango-bob">
-            <img class="mango-body" src="assets/mango-body.png" alt="" width="470" height="666">
-            <img class="mango-leaf" src="assets/leaf.png" alt="" width="470" height="666">
+        <!-- THREE.JS MOUNT POINT — your canvas mounts here.
+             Hide .sphere-placeholder once the renderer is appended. -->
+        <div id="three-mount" class="hero-sphere-slot" aria-hidden="true">
+          <div class="sphere-placeholder">
+            <div class="sphere-inner-ring"></div>
+            <div class="sphere-shine"></div>
           </div>
         </div>
+      </div>
+
+      <!-- scroll nudge -->
+      <div class="scroll-indicator" aria-hidden="true">
+        <span class="scroll-line"></span>
+        <span class="scroll-text">scroll</span>
       </div>
 
       <svg class="scallop scallop-bottom" viewBox="0 0 1440 72" preserveAspectRatio="none" aria-hidden="true">
@@ -315,6 +336,11 @@
     <p class="fine">© 2026 mango studios</p>
   </footer>
 
+  <!-- Motion stack -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
