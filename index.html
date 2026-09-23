@@ -2,345 +2,143 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#FFF9ED">
-  <title>mango studios — apps, sites, and other ripe ideas</title>
-  <meta name="description" content="mango studios makes apps, sites, digital products, and other ventures. a small optimistic studio run by Jack Koll-Gunderson.">
-  <link rel="icon" href="assets/logo-stamp.png" type="image/png">
-  <link rel="apple-touch-icon" href="assets/logo-stamp.png">
-  <meta property="og:title" content="mango studios">
-  <meta property="og:description" content="we make apps, sites, and other ripe ideas.">
-  <meta property="og:image" content="assets/logo.png">
-  <meta property="og:type" content="website">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intelligence Designed To Evolve</title>
+
+  <!-- Inter (UI) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,500&family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,700;1,9..144,800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- BubbledotICG-FinePos (retro dot-matrix display) -->
+  <link href="https://db.onlinewebfonts.com/c/8cb707a9b8a73f8a7403336b861c3074?family=BubbledotICG-FinePos" rel="stylesheet">
+
+  <!-- Font Awesome 6.5.2 (enterprise brand icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Cursor -->
-  <div class="cursor-dot"  aria-hidden="true"></div>
-  <div class="cursor-ring" aria-hidden="true"></div>
 
-  <!-- Page curtain -->
-  <div class="curtain" aria-hidden="true">
-    <div class="curtain-panel"></div>
-    <div class="curtain-panel"></div>
+  <!-- Background video -->
+  <div class="bg">
+    <video class="bg-video" autoplay muted loop playsinline>
+      <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260809_012548_ef22562c-c0ae-4816-ad9d-f8922af4e6a7.mp4" type="video/mp4">
+    </video>
   </div>
 
-  <a class="skip" href="#main">skip to content</a>
+  <div class="page">
 
-  <header class="site-header" id="top">
-    <a class="brand" href="#top">
-      <img class="brand-mark" src="assets/logo.png" width="48" height="48" alt="mango studios">
-      <span class="brand-name">mango studios</span>
-    </a>
-    <nav class="nav" aria-label="primary">
-      <a href="#work">work</a>
-      <a href="#studio">studio</a>
-      <a href="#process">process</a>
-      <a class="btn btn-sm" href="mailto:jackkollgunderson@gmail.com?subject=hello%20from%20mango%20studios">say hello</a>
-    </nav>
-  </header>
+    <!-- ── HEADER ── -->
+    <header class="header">
 
-  <main id="main">
-
-    <!-- ── HERO ───────────────────────────────── -->
-    <section class="hero" aria-label="intro">
-      <div class="hero-sky" aria-hidden="true"></div>
-
-      <div class="cloud-layer cloud-back" aria-hidden="true">
-        <span class="cloud c1"></span>
-        <span class="cloud c2"></span>
-        <span class="cloud c3"></span>
-      </div>
-      <div class="cloud-layer cloud-mid" aria-hidden="true">
-        <span class="cloud c4"></span>
-        <span class="cloud c5"></span>
+      <!-- Desktop -->
+      <div class="header-desktop">
+        <a class="logo-btn" href="#" aria-label="Home">
+          <img src="assets/logo.webp" alt="" width="52" height="52">
+        </a>
+        <nav class="nav-pill" aria-label="Primary navigation">
+          <a href="#" class="nav-link active" aria-current="page">Home</a>
+          <a href="#" class="nav-link">Product</a>
+          <a href="#" class="nav-link">Case Studies</a>
+          <a href="#" class="nav-link">Contact</a>
+        </nav>
+        <a href="#" class="sign-in-btn">Sign in</a>
       </div>
 
-      <!-- kargul-style year marker -->
-      <span class="hero-year" aria-hidden="true">est. 2026</span>
+      <!-- Mobile -->
+      <div class="header-mobile">
+        <a class="logo-btn logo-btn--lg" href="#" aria-label="Home">
+          <img src="assets/logo.webp" alt="" width="52" height="52">
+        </a>
+        <button class="burger" id="burger-btn"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Open navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
 
-      <div class="hero-inner">
-        <div class="hero-copy">
-          <p class="eyebrow hero-eyebrow">mango studios</p>
-          <h1>we make ripe ideas.</h1>
-          <p class="lede">apps, sites, digital products,<br>and other good bets.</p>
-          <a class="btn" href="mailto:jackkollgunderson@gmail.com?subject=hello%20from%20mango%20studios">say hello <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="2" y1="8" x2="14" y2="8"/><polyline points="9 3 14 8 9 13"/></svg></a>
-        </div>
+    </header>
 
-        <!-- THREE.JS MOUNT POINT — your canvas mounts here.
-             Hide .sphere-placeholder once the renderer is appended. -->
-        <div id="three-mount" class="hero-sphere-slot" aria-hidden="true">
-          <div class="sphere-placeholder">
-            <div class="sphere-inner-ring"></div>
-            <div class="sphere-shine"></div>
+    <!-- Mobile overlay + menu -->
+    <div class="menu-overlay" id="menu-overlay" hidden aria-hidden="true"></div>
+    <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation" hidden>
+      <nav class="mobile-nav">
+        <a href="#" class="mobile-link active" aria-current="page" style="--li:0">Home</a>
+        <a href="#" class="mobile-link" style="--li:1">Product</a>
+        <a href="#" class="mobile-link" style="--li:2">Case Studies</a>
+        <a href="#" class="mobile-link" style="--li:3">Contact</a>
+      </nav>
+      <a href="#" class="mobile-sign-in">Sign in</a>
+    </div>
+
+    <!-- ── HERO ── -->
+    <main class="hero" id="main-content">
+
+      <!-- Trust row -->
+      <div class="trust-row">
+        <div class="avatars">
+          <div class="avatar anim" style="--d:.05s;z-index:4">
+            <div class="avatar-inner"><i class="fa-brands fa-microsoft" aria-hidden="true"></i></div>
+          </div>
+          <div class="avatar anim" style="--d:.10s;z-index:2">
+            <div class="avatar-inner"><i class="fa-brands fa-amazon" aria-hidden="true"></i></div>
+          </div>
+          <div class="avatar anim" style="--d:.15s;z-index:1">
+            <div class="avatar-inner"><i class="fa-brands fa-google" aria-hidden="true"></i></div>
           </div>
         </div>
-      </div>
-
-      <!-- scroll nudge -->
-      <div class="scroll-indicator" aria-hidden="true">
-        <span class="scroll-line"></span>
-        <span class="scroll-text">scroll</span>
-      </div>
-
-      <svg class="scallop scallop-bottom" viewBox="0 0 1440 72" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M0 24c80 32 160 32 240 0s160-32 240 0 160 32 240 0 160-32 240 0 160 32 240 0 160-32 240 0v48H0z"/>
-      </svg>
-    </section>
-
-    <!-- ── WORK ───────────────────────────────── -->
-    <section class="work" id="work">
-      <div class="wrap">
-        <header class="section-head">
-          <p class="eyebrow">offerings</p>
-          <h2>what we grow</h2>
-          <p>apps, sites, products, and other bets. short copy. shipped work.</p>
-        </header>
-
-        <div class="work-grid">
-
-          <!-- 01 Apps -->
-          <article class="card card-sky">
-            <p class="card-kicker">01</p>
-            <h3>apps</h3>
-            <p>software you can hold in a pocket or a browser tab.</p>
-            <div class="icon-wrap" aria-hidden="true">
-              <svg class="icon-3d" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- shadow -->
-                <ellipse cx="91" cy="158" rx="42" ry="7" fill="#24211D" opacity="0.14"/>
-                <!-- right depth -->
-                <path d="M115 42 L126 32 L126 146 L115 156" fill="#1A3FA8"/>
-                <!-- top depth -->
-                <path d="M60 42 L71 32 L126 32 L115 42" fill="#5B8DF0" opacity="0.9"/>
-                <!-- body -->
-                <rect x="60" y="42" width="55" height="114" rx="14" fill="#FFF9ED" stroke="#24211D" stroke-width="2.5"/>
-                <!-- screen -->
-                <rect x="67" y="56" width="41" height="74" rx="6" fill="#356EEA"/>
-                <!-- camera pill -->
-                <rect x="79" y="48.5" width="17" height="4.5" rx="2.25" fill="#24211D" opacity="0.18"/>
-                <!-- home indicator -->
-                <rect x="77" y="142" width="21" height="4" rx="2" fill="#24211D" opacity="0.2"/>
-                <!-- app icons -->
-                <rect x="72" y="63" width="14" height="14" rx="3.5" fill="#FFC928"/>
-                <rect x="91" y="63" width="14" height="14" rx="3.5" fill="#5C9B45"/>
-                <rect x="72" y="82" width="14" height="14" rx="3.5" fill="#FFF9ED" opacity="0.4"/>
-                <rect x="91" y="82" width="14" height="14" rx="3.5" fill="#FFF9ED" opacity="0.25"/>
-                <!-- content rows -->
-                <rect x="72" y="106" width="32" height="5" rx="2.5" fill="#FFF9ED" opacity="0.22"/>
-                <rect x="72" y="116" width="24" height="5" rx="2.5" fill="#FFF9ED" opacity="0.16"/>
-                <!-- highlight -->
-                <path d="M71 60 Q77 78 71 105" stroke="white" stroke-width="4" stroke-linecap="round" opacity="0.18" fill="none"/>
-              </svg>
-            </div>
-          </article>
-
-          <!-- 02 Sites -->
-          <article class="card card-mango">
-            <p class="card-kicker">02</p>
-            <h3>sites</h3>
-            <p>pages with a point of view, not a template.</p>
-            <div class="icon-wrap" aria-hidden="true">
-              <svg class="icon-3d" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- shadow -->
-                <ellipse cx="90" cy="159" rx="48" ry="7" fill="#24211D" opacity="0.14"/>
-                <!-- right depth -->
-                <path d="M127 37 L138 27 L138 145 L127 155" fill="#A07800"/>
-                <!-- top depth -->
-                <path d="M47 37 L58 27 L138 27 L127 37" fill="#FFE169" opacity="0.9"/>
-                <!-- body -->
-                <rect x="47" y="37" width="80" height="118" rx="11" fill="#FFF9ED" stroke="#24211D" stroke-width="2.5"/>
-                <!-- toolbar fill -->
-                <rect x="47" y="37" width="80" height="30" rx="11" fill="#FFC928"/>
-                <!-- toolbar bottom edge flat -->
-                <rect x="47" y="54" width="80" height="13" fill="#FFC928"/>
-                <!-- traffic dots -->
-                <circle cx="61" cy="52" r="5" fill="#24211D" opacity="0.2"/>
-                <circle cx="74" cy="52" r="5" fill="#24211D" opacity="0.2"/>
-                <circle cx="87" cy="52" r="5" fill="#24211D" opacity="0.2"/>
-                <!-- url bar -->
-                <rect x="97" y="46" width="23" height="12" rx="4" fill="#FFF9ED" opacity="0.42"/>
-                <!-- hero image block -->
-                <rect x="57" y="80" width="60" height="26" rx="4" fill="#29AFE0" opacity="0.6"/>
-                <!-- content rows -->
-                <rect x="57" y="115" width="50" height="6" rx="2" fill="#24211D" opacity="0.1"/>
-                <rect x="57" y="127" width="40" height="5" rx="2" fill="#24211D" opacity="0.1"/>
-                <rect x="57" y="138" width="46" height="5" rx="2" fill="#24211D" opacity="0.1"/>
-                <!-- screen highlight -->
-                <path d="M57 80 Q60 82 57 104" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.22" fill="none"/>
-              </svg>
-            </div>
-          </article>
-
-          <!-- 03 Products -->
-          <article class="card card-green">
-            <p class="card-kicker">03</p>
-            <h3>products</h3>
-            <p>digital things people actually use.</p>
-            <div class="icon-wrap" aria-hidden="true">
-              <svg class="icon-3d" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- shadow -->
-                <ellipse cx="90" cy="160" rx="46" ry="7" fill="#24211D" opacity="0.2"/>
-                <!-- box left face -->
-                <path d="M90 100 L50 77 L50 136 L90 159" fill="#4BA33D"/>
-                <!-- box right face -->
-                <path d="M90 100 L130 77 L130 136 L90 159" fill="#3A8A2E"/>
-                <!-- box top (floor) -->
-                <path d="M90 48 L130 71 L90 94 L50 71 Z" fill="#7BBF62"/>
-                <!-- open lid left -->
-                <path d="M50 71 L50 42 L90 19 L90 48 Z" fill="#FFF9ED" opacity="0.88"/>
-                <!-- open lid right -->
-                <path d="M130 71 L130 42 L90 19 L90 48 Z" fill="#FFF9ED" opacity="0.7"/>
-                <!-- lid fold crease -->
-                <path d="M90 19 L90 48" stroke="#24211D" stroke-width="1.5" opacity="0.15" fill="none"/>
-                <!-- box edge highlights -->
-                <path d="M50 77 L90 100 L130 77" stroke="white" stroke-width="1.5" opacity="0.25" fill="none"/>
-                <path d="M90 100 L90 159" stroke="white" stroke-width="1" opacity="0.18" fill="none"/>
-                <!-- mango dot inside box -->
-                <ellipse cx="90" cy="77" rx="12" ry="8" fill="#FFC928" opacity="0.7"/>
-              </svg>
-            </div>
-          </article>
-
-          <!-- 04 Ventures (full-width banner) -->
-          <article class="card card-cream">
-            <div class="card-body">
-              <p class="card-kicker">04</p>
-              <h3>ventures</h3>
-              <p>the rest of the orchard. if it can grow, we will try it.</p>
-            </div>
-            <div class="icon-wrap" aria-hidden="true">
-              <svg class="icon-3d" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- exhaust flame -->
-                <path d="M78 146 Q90 170 102 146" fill="#FFC928"/>
-                <path d="M82 146 Q90 160 98 146" fill="#FFE169"/>
-                <!-- smoke ellipse -->
-                <ellipse cx="90" cy="155" rx="20" ry="6" fill="#24211D" opacity="0.09"/>
-                <!-- left fin -->
-                <path d="M66 122 L46 142 L66 137 Z" fill="#FFC928" stroke="#24211D" stroke-width="2.2" stroke-linejoin="round"/>
-                <!-- right fin -->
-                <path d="M114 122 L134 142 L114 137 Z" fill="#FFC928" stroke="#24211D" stroke-width="2.2" stroke-linejoin="round"/>
-                <!-- body shadow slice -->
-                <path d="M102 118 Q118 94 102 38 L114 120 Z" fill="#24211D" opacity="0.05"/>
-                <!-- rocket body -->
-                <path d="M66 122 Q66 64 90 33 Q114 64 114 122 Z" fill="#FFF9ED" stroke="#24211D" stroke-width="2.5"/>
-                <!-- sky-blue nose area tint -->
-                <path d="M90 33 Q114 64 114 98 L66 98 Q66 64 90 33 Z" fill="#356EEA" opacity="0.12"/>
-                <!-- accent stripe -->
-                <line x1="70" y1="111" x2="110" y2="111" stroke="#356EEA" stroke-width="2.5" stroke-linecap="round" opacity="0.45"/>
-                <!-- porthole window -->
-                <circle cx="90" cy="88" r="17" fill="#356EEA" stroke="#24211D" stroke-width="2.5"/>
-                <!-- window highlight -->
-                <circle cx="84" cy="82" r="6" fill="white" opacity="0.28"/>
-                <!-- body highlight -->
-                <path d="M77 48 Q82 70 79 90" stroke="white" stroke-width="4" stroke-linecap="round" opacity="0.22" fill="none"/>
-              </svg>
-            </div>
-          </article>
-
+        <div class="trust-pill anim" style="--d:.20s">
+          Trusted by 2000+ Enterprises
         </div>
       </div>
-    </section>
 
-    <!-- ── STUDIO ──────────────────────────────── -->
-    <section class="studio" id="studio">
-      <svg class="scallop scallop-top" viewBox="0 0 1440 72" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M0 48c80-32 160-32 240 0s160 32 240 0 160-32 240 0 160 32 240 0 160-32 240 0 160 32 240 0V0H0z"/>
-      </svg>
+      <!-- Headline -->
+      <h1 class="headline" aria-label="Intelligence Designed To Evolve">
+        <span class="headline-line" style="--d:.12s">Intelligence</span>
+        <span class="headline-line" style="--d:.30s">Designed To Evolve</span>
+      </h1>
 
-      <div class="wrap studio-inner">
-        <p class="eyebrow">the studio</p>
-        <h2>small on purpose.<br>optimistic by default.</h2>
-        <p class="studio-bio">Jack Koll-Gunderson runs mango studios. we make apps, sites, digital products, and other ventures. bold color, short copy, and shipping the thing.</p>
+      <!-- Subhead -->
+      <p class="subhead anim" style="--d:.28s">
+        Build applications that reason, adapt and collaborate using a modular<br class="br-md">
+        AI platform designed for production.
+      </p>
+
+      <!-- CTA -->
+      <a href="#" class="cta" style="--d:.40s">Get Started</a>
+
+    </main>
+
+    <!-- ── STATS ── -->
+    <footer class="stats" aria-label="Platform metrics">
+      <div class="stat anim" style="--d:.50s" data-target="120" data-suffix="ms" data-decimals="0">
+        <span class="stat-icon" aria-hidden="true">&lt;</span>
+        <span class="stat-value">0ms</span>
+        <span class="stat-label">Inference Time</span>
       </div>
-
-      <div class="ticker" aria-hidden="true">
-        <div class="ticker-track">
-          <span>juicy</span><span>optimistic</span><span>graphic</span><span>tactile</span><span>friendly</span><span>handmade</span><span>sunny</span>
-          <span>juicy</span><span>optimistic</span><span>graphic</span><span>tactile</span><span>friendly</span><span>handmade</span><span>sunny</span>
-        </div>
+      <div class="stat anim" style="--d:.58s" data-target="99.99" data-suffix="%" data-decimals="2">
+        <span class="stat-icon" aria-hidden="true">%</span>
+        <span class="stat-value">0.00%</span>
+        <span class="stat-label">Platform Uptime</span>
       </div>
-    </section>
-
-    <!-- ── PROCESS ─────────────────────────────── -->
-    <section class="process" id="process">
-      <div class="wrap">
-        <header class="section-head">
-          <p class="eyebrow">how</p>
-          <h2>talk. sketch. build. ship.</h2>
-        </header>
-
-        <ol class="steps">
-          <li class="step-item">
-            <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            <span class="step-num">01</span>
-            <h3>talk</h3>
-            <p>a real conversation. not a forty-page brief.</p>
-          </li>
-          <li class="step-item">
-            <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
-            <span class="step-num">02</span>
-            <h3>sketch</h3>
-            <p>shape before polish. paper, pixels, either.</p>
-          </li>
-          <li class="step-item">
-            <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-            <span class="step-num">03</span>
-            <h3>build</h3>
-            <p>handmade software, shipped in slices.</p>
-          </li>
-          <li class="step-item">
-            <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-            <span class="step-num">04</span>
-            <h3>ship</h3>
-            <p>launch, learn, grow the next ripe thing.</p>
-          </li>
-        </ol>
+      <div class="stat anim" style="--d:.66s" data-target="24" data-suffix="/7" data-decimals="0">
+        <span class="stat-icon" aria-hidden="true">*</span>
+        <span class="stat-value">0/7</span>
+        <span class="stat-label">Autonomous Runtime</span>
       </div>
-    </section>
-
-    <!-- ── CTA ────────────────────────────────── -->
-    <section class="close" id="hello">
-      <svg class="close-deco" viewBox="0 0 400 400" fill="none" aria-hidden="true">
-        <path d="M200 55 C260 55 325 110 330 185 C335 268 280 340 200 345 C120 350 65 275 68 192 C71 110 138 55 200 55 Z" stroke="currentColor" stroke-width="14" fill="none"/>
-        <path d="M200 55 C208 20 232 12 226 36" stroke="currentColor" stroke-width="10" stroke-linecap="round" fill="none"/>
-        <path d="M226 36 C240 28 256 30 248 48" stroke="currentColor" stroke-width="8" stroke-linecap="round" fill="none"/>
-      </svg>
-      <div class="wrap close-inner">
-        <h2>got something to grow?</h2>
-        <p>one studio. one inbox. say hello.</p>
-        <a class="btn btn-on-dark" href="mailto:jackkollgunderson@gmail.com?subject=hello%20from%20mango%20studios">say hello <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="2" y1="8" x2="14" y2="8"/><polyline points="9 3 14 8 9 13"/></svg></a>
+      <div class="stat anim" style="--d:.74s" data-target="2.4" data-suffix="M" data-decimals="1">
+        <span class="stat-icon" aria-hidden="true">#</span>
+        <span class="stat-value">0.0M</span>
+        <span class="stat-label">Context Windows</span>
       </div>
-    </section>
+    </footer>
 
-  </main>
+  </div>
 
-  <footer class="site-footer">
-    <a class="brand" href="#top">
-      <img class="brand-mark" src="assets/logo.png" width="48" height="48" alt="">
-      <span class="brand-name">mango studios</span>
-    </a>
-    <p>Jack Koll-Gunderson</p>
-    <div class="footer-links">
-      <a class="footer-link" href="mailto:jackkollgunderson@gmail.com">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        email
-      </a>
-      <a class="footer-link" href="https://github.com/Jack-Attackz101">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
-        github
-      </a>
-    </div>
-    <p class="fine">© 2026 mango studios</p>
-  </footer>
-
-  <!-- Motion stack -->
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js"></script>
-  <script src="script.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
