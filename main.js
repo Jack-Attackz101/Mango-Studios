@@ -28,7 +28,7 @@ function animateCount(valueEl, target, decimals, suffix, duration) {
 const statEls = document.querySelectorAll('.stat[data-target]');
 
 const statObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry, i) => {
+  entries.forEach((entry) => {
     if (!entry.isIntersecting) return;
     const el       = entry.target;
     const idx      = [...statEls].indexOf(el);
@@ -47,8 +47,8 @@ const statObserver = new IntersectionObserver((entries) => {
 statEls.forEach(el => statObserver.observe(el));
 
 /* ── Mobile menu ── */
-const burgerBtn  = document.getElementById('burger-btn');
-const mobileMenu = document.getElementById('mobile-menu');
+const burgerBtn   = document.getElementById('burger-btn');
+const mobileMenu  = document.getElementById('mobile-menu');
 const menuOverlay = document.getElementById('menu-overlay');
 
 function openMenu() {
