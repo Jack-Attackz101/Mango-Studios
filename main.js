@@ -1,6 +1,6 @@
 /* ─────────────────────────────────────────────
    Mango Studios · main.js
-   Count-up stats + mobile menu
+   Count-up stats + mobile menu + scroll reveal
    ───────────────────────────────────────────── */
 
 'use strict';
@@ -45,6 +45,19 @@ const statObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.25 });
 
 statEls.forEach(el => statObserver.observe(el));
+
+/* ── Scroll reveal ── */
+const revealEls = document.querySelectorAll('.reveal');
+
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add('is-visible');
+    revealObserver.unobserve(entry.target);
+  });
+}, { threshold: 0.12 });
+
+revealEls.forEach(el => revealObserver.observe(el));
 
 /* ── Mobile menu ── */
 const burgerBtn   = document.getElementById('burger-btn');
