@@ -34,7 +34,7 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   const layer = document.getElementById('trail');
   if (!area || !layer) return;
 
-  const ICONS = ['skull', 'hourglass', 'wink', 'camera', 'pizza', 'key', 'mug'].map(function (name) {
+  const ICONS = ['skull', 'hourglass', 'wink', 'camera', 'pencil', 'pizza', 'key', 'mug'].map(function (name) {
     const src = 'assets/trail-' + name + '.png';
     new Image().src = src;
     return src;
