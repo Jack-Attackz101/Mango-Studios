@@ -103,3 +103,90 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   if (document.readyState === 'complete') setTimeout(intro, 400);
   else window.addEventListener('load', function () { setTimeout(intro, 400); });
 })();
+
+// Liquid glass menu bar: sliding glass blob, pointer sheen, tone swap over dark sections, mobile menu.
+(function () {
+  const nav = document.getElementById('nav');
+  if (!nav) return;
+  const bar = nav.querySelector('.nav-bar');
+  const track = nav.querySelector('.nav-track');
+  const blob = nav.querySelector('.nav-blob');
+  const toggle = nav.querySelector('.nav-toggle');
+  const menu = document.getElementById('nav-menu');
+
+  function moveBlob(link) {
+    if (!link || !track.offsetWidth) { blob.style.opacity = '0'; return; }
+    const t = track.getBoundingClientRect();
+    const r = link.getBoundingClientRect();
+    blob.style.width = r.width + 'px';
+    blob.style.transform = 'translateX(' + (r.left - t.left) + 'px)';
+    blob.style.opacity = '1';
+    blob.classList.remove('is-squish');
+    void blob.offsetWidth;
+    blob.classList.add('is-squish');
+  }
+  function current() { return track.querySelector('[aria-current="page"]'); }
+
+  track.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('pointerenter', function () { moveBlob(a); });
+    a.addEventListener('focus', function () { moveBlob(a); });
+  });
+  track.addEventListener('pointerleave', function () { moveBlob(current()); });
+  track.addEventListener('focusout', function () { moveBlob(current()); });
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(function () { moveBlob(current()); });
+  window.addEventListener('resize', function () { moveBlob(current()); });
+
+  [bar, menu].forEach(function (el) {
+    el.addEventListener('pointermove', function (e) {
+      const r = el.getBoundingClientRect();
+      el.style.setProperty('--gx', (e.clientX - r.left) + 'px');
+      el.style.setProperty('--gy', (e.clientY - r.top) + 'px');
+      el.classList.add('is-lit');
+    });
+    el.addEventListener('pointerleave', function () { el.classList.remove('is-lit'); });
+  });
+
+  function setOpen(open) {
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.textContent = open ? 'Close' : 'Menu';
+    menu.hidden = !open;
+  }
+  toggle.addEventListener('click', function () { setOpen(menu.hidden); });
+  menu.addEventListener('click', function (e) { if (e.target.closest('a')) setOpen(false); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !menu.hidden) { setOpen(false); toggle.focus(); }
+  });
+
+  let ticking = false;
+  function tone() {
+    ticking = false;
+    const y = bar.getBoundingClientRect().top + bar.offsetHeight / 2;
+    const dark = [].some.call(document.querySelectorAll('[data-nav-dark]'), function (el) {
+      if (!el.offsetParent && el.offsetHeight === 0) return false;
+      const r = el.getBoundingClientRect();
+      return r.top <= y && r.bottom >= y;
+    });
+    nav.classList.toggle('is-dark', dark);
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(tone); }
+  }, { passive: true });
+  tone();
+})();
+
+// Copy-to-clipboard buttons (the email address), with a fallback when the clipboard is refused.
+document.querySelectorAll('[data-copy]').forEach(function (btn) {
+  const label = btn.textContent;
+  btn.addEventListener('click', function () {
+    const text = btn.dataset.copy;
+    function done(msg) {
+      btn.textContent = msg;
+      setTimeout(function () { btn.textContent = label; }, 1800);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { done('Copied'); }, function () { done(text); });
+    } else {
+      done(text);
+    }
+  });
+});

@@ -4,65 +4,178 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mango Studios</title>
-  <meta name="description" content="Mango Studios builds custom sites and apps, AI agents and automations.">
+  <meta name="description" content="Mango Studios builds custom sites and apps, AI agents and automations. Stay weird, ship anyway.">
+  <link rel="icon" href="assets/logo-stamp.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,900&family=Chewy&family=Inter+Tight:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,900&family=Chewy&family=Inter+Tight:wght@500;600;650;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-  <div class="stage" id="stage">
-    <section class="hero" id="hero" aria-label="Mango Studios">
-      <div class="hero-inner" id="hero-inner">
-        <div class="sky" id="hero-sky"></div>
-        <h1 class="hero-title">Mango <span>Studios</span></h1>
-        <div class="trail" id="trail" aria-hidden="true"></div>
-        <div class="hero-shade" id="hero-shade"></div>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="nav" id="nav">
+    <nav class="nav-bar glass" aria-label="Main">
+      <a class="nav-logo" href="index.html"><img src="assets/logo-stamp.png" alt="" width="48" height="48"><span>Mango Studios</span></a>
+      <div class="nav-track">
+        <span class="nav-blob" aria-hidden="true"><i></i></span>
+        <ul class="nav-links">
+          <li><a href="sites-and-apps.html">Sites &amp; Apps</a></li>
+          <li><a href="ai-agents.html">AI Agents</a></li>
+          <li><a href="automations.html">Automations</a></li>
+          <li><a href="software.html">Software</a></li>
+          <li><a href="index.html#about">About</a></li>
+        </ul>
       </div>
-    </section>
-  </div>
+      <a class="btn btn--sm" href="mailto:hello@mangostudios.xyz?subject=New%20project">Start a project</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">Menu</button>
+    </nav>
+    <div class="nav-menu glass" id="nav-menu" hidden>
+      <a href="sites-and-apps.html">Sites &amp; Apps</a>
+      <a href="ai-agents.html">AI Agents</a>
+      <a href="automations.html">Automations</a>
+      <a href="software.html">Software</a>
+      <a href="index.html#about">About</a>
+      <a class="btn" href="mailto:hello@mangostudios.xyz?subject=New%20project">Start a project</a>
+    </div>
+  </header>
 
-  <section class="about" id="about" aria-labelledby="about-title">
-    <div class="sky"></div>
-    <div class="about-inner">
-      <img class="about-mango" src="assets/mango-point.png" alt="Mickey Mango pointing" width="722" height="716">
-      <div class="about-copy">
-        <h2 class="about-title" id="about-title">About us</h2>
-        <div class="blob">
-          <svg class="blob-shape" viewBox="0 0 100 100" aria-hidden="true">
-            <path d="M54.21 4.49A30 30 0 0 1 95.51 45.79A8 8 0 0 0 95.51 54.21A30 30 0 0 1 54.21 95.51A8 8 0 0 0 45.79 95.51A30 30 0 0 1 4.49 54.21A8 8 0 0 0 4.49 45.79A30 30 0 0 1 45.79 4.49A8 8 0 0 0 54.21 4.49Z"/>
-          </svg>
-          <div class="blob-text">
-            <p>Mango Studios is a small studio run by Jack Koll-Gunderson.</p>
-            <p>We design and build custom websites, apps, AI agents and automations for people who want their idea shipped, not stuck in a doc.</p>
+  <main id="main">
+    <div class="stage" id="stage">
+      <section class="hero" id="hero" aria-label="Mango Studios">
+        <div class="hero-inner" id="hero-inner">
+          <div class="sky" id="hero-sky"></div>
+          <h1 class="hero-title">Mango <span>Studios</span></h1>
+          <div class="trail" id="trail" aria-hidden="true"></div>
+          <a class="hero-cue glass" href="#services">See what we build <span aria-hidden="true">↓</span></a>
+          <div class="hero-shade" id="hero-shade"></div>
+        </div>
+      </section>
+    </div>
+
+    <section class="about" id="about" aria-labelledby="about-title">
+      <div class="sky"></div>
+      <div class="about-inner">
+        <div class="about-copy">
+          <span class="pill">About us</span>
+          <h2 class="about-headline display ink-shadow" id="about-title">We build the real thing, not the pitch deck.</h2>
+          <div class="paper about-card">
+            <p><strong>Mango Studios is a software development company. We build our own products, and we build for clients.</strong></p>
+            <p>On our own side, we're developing a portfolio of apps across consumer tools and productivity software, shipping under the Mango Studios name as they're finished.</p>
+            <p>On the client side, we run lean: small team, direct communication, and work that moves at the speed of an actual conversation instead of a quarterly roadmap.</p>
           </div>
         </div>
+        <img class="about-mango" src="assets/mango-point.png" alt="Mickey Mango, our mascot, pointing" width="722" height="716">
+      </div>
+      <ul class="stats">
+        <li class="stat">
+          <span class="stat-blob"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M54.21 4.49A30 30 0 0 1 95.51 45.79A8 8 0 0 0 95.51 54.21A30 30 0 0 1 54.21 95.51A8 8 0 0 0 45.79 95.51A30 30 0 0 1 4.49 54.21A8 8 0 0 0 4.49 45.79A30 30 0 0 1 45.79 4.49A8 8 0 0 0 54.21 4.49Z"/></svg><b>4</b></span>
+          <p>service lines, one direct line to the builder</p>
+        </li>
+        <li class="stat">
+          <span class="stat-blob"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M54.21 4.49A30 30 0 0 1 95.51 45.79A8 8 0 0 0 95.51 54.21A30 30 0 0 1 54.21 95.51A8 8 0 0 0 45.79 95.51A30 30 0 0 1 4.49 54.21A8 8 0 0 0 4.49 45.79A30 30 0 0 1 45.79 4.49A8 8 0 0 0 54.21 4.49Z"/></svg><b>0</b></span>
+          <p>account managers between you and your project</p>
+        </li>
+        <li class="stat">
+          <span class="stat-blob"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M54.21 4.49A30 30 0 0 1 95.51 45.79A8 8 0 0 0 95.51 54.21A30 30 0 0 1 54.21 95.51A8 8 0 0 0 45.79 95.51A30 30 0 0 1 4.49 54.21A8 8 0 0 0 4.49 45.79A30 30 0 0 1 45.79 4.49A8 8 0 0 0 54.21 4.49Z"/></svg><b>1</b></span>
+          <p>conversation to get a real quote, not a sales call</p>
+        </li>
+      </ul>
+    </section>
+
+    <section class="services" id="services" aria-labelledby="services-title">
+      <h2 class="services-title" id="services-title">Our Services</h2>
+      <ul class="cards">
+        <li>
+          <a class="card" href="sites-and-apps.html">
+            <span class="price-tag">from <b>$250</b></span>
+            <img class="card-icon" src="assets/icon-key.png" alt="" width="314" height="336">
+            <h3 class="card-title">Custom Sites<br>&amp; Apps</h3>
+          </a>
+        </li>
+        <li>
+          <a class="card" href="ai-agents.html">
+            <span class="price-tag">from <b>$500</b></span>
+            <img class="card-icon" src="assets/icon-wink.png" alt="" width="306" height="318">
+            <h3 class="card-title">Custom AI<br>Agents</h3>
+          </a>
+        </li>
+        <li>
+          <a class="card" href="automations.html">
+            <span class="price-tag">from <b>$300</b></span>
+            <img class="card-icon" src="assets/icon-cursor.png" alt="" width="252" height="357">
+            <h3 class="card-title">Custom<br>Automations</h3>
+          </a>
+        </li>
+      </ul>
+      <div class="consult">
+        <h3>AI Consulting</h3>
+        <p>A straight, practical consultation on how AI could actually apply to your business. No jargon, no upsell, just what's worth doing and what isn't yet.</p>
+        <div class="consult-actions">
+          <span class="pill pill--yellow">$100 / session</span>
+          <a class="btn btn--white btn--sm" href="mailto:hello@mangostudios.xyz?subject=AI%20Consulting">Book a session</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="teaser" aria-labelledby="teaser-title">
+      <img class="teaser-sticker" src="assets/trail-camera.png" alt="" style="left:5%;top:14%;transform:rotate(-14deg)">
+      <img class="teaser-sticker" src="assets/trail-pencil.png" alt="" style="right:7%;top:12%;transform:rotate(16deg)">
+      <img class="teaser-sticker" src="assets/trail-mug.png" alt="" style="left:10%;bottom:12%;transform:rotate(9deg)">
+      <img class="teaser-sticker" src="assets/trail-hourglass.png" alt="" style="right:11%;bottom:14%;transform:rotate(-10deg)">
+      <div class="teaser-inner">
+        <span class="pill">Our software</span>
+        <h2 class="display" id="teaser-title">We make our own apps too.</h2>
+        <p>Consumer tools and productivity software, shipping under the Mango Studios name as they're finished.</p>
+        <a class="btn btn--white" href="software.html">See our software</a>
+      </div>
+    </section>
+
+    <section class="closing" data-nav-dark aria-labelledby="closing-title">
+      <div class="closing-inner">
+        <h2 class="display" id="closing-title">Stay weird, ship anyway.</h2>
+        <p>Tell us what you're trying to build. We'll tell you honestly whether it's a fit, and what it actually costs.</p>
+        <div class="closing-actions">
+          <a class="btn" href="mailto:hello@mangostudios.xyz?subject=New%20project">Email hello@mangostudios.xyz</a>
+          <button class="btn btn--white" type="button" data-copy="hello@mangostudios.xyz">Copy address</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" data-nav-dark>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html"><img src="assets/logo-stamp.png" alt="" width="48" height="48"><span class="footer-mark">Mango Studios</span></a>
+        <p>Custom software, built lean.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Services</h3>
+        <ul>
+          <li><a href="sites-and-apps.html">Custom Sites &amp; Apps</a></li>
+          <li><a href="ai-agents.html">Custom AI Agents</a></li>
+          <li><a href="automations.html">Custom Automations</a></li>
+          <li><a href="mailto:hello@mangostudios.xyz?subject=AI%20Consulting">AI Consulting</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Studio</h3>
+        <ul>
+          <li><a href="software.html">Our software</a></li>
+          <li><a href="index.html#about">About</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Contact</h3>
+        <ul>
+          <li><a href="mailto:hello@mangostudios.xyz">hello@mangostudios.xyz</a></li>
+          <li><a href="https://mangostudios.xyz">mangostudios.xyz</a></li>
+        </ul>
       </div>
     </div>
-  </section>
-
-  <section class="services" id="services" aria-labelledby="services-title">
-    <h2 class="services-title" id="services-title">Our Services</h2>
-    <ul class="cards">
-      <li class="card">
-        <img class="card-icon" src="assets/icon-key.png" alt="" width="314" height="336">
-        <h3 class="card-title">Custom Sites<br>&amp; Apps</h3>
-      </li>
-      <li class="card">
-        <img class="card-icon" src="assets/icon-wink.png" alt="" width="306" height="318">
-        <h3 class="card-title">Custom AI<br>Agents</h3>
-      </li>
-      <li class="card">
-        <img class="card-icon" src="assets/icon-cursor.png" alt="" width="252" height="357">
-        <h3 class="card-title">Custom<br>Automations</h3>
-      </li>
-    </ul>
-  </section>
-
-  <footer class="footer">
-    <span class="footer-mark">Mango Studios</span>
-    <span class="footer-copy">© 2026 Mango Studios</span>
+    <div class="footer-base">
+      <span>© 2026 Mango Studios</span>
+      <span>Stay weird, ship anyway.</span>
+    </div>
   </footer>
 
   <script src="main.js"></script>
