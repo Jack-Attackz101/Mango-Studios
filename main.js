@@ -114,16 +114,23 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   const toggle = nav.querySelector('.nav-toggle');
   const menu = document.getElementById('nav-menu');
 
+  let blobX = null;
   function moveBlob(link) {
-    if (!link || !track.offsetWidth) { blob.style.opacity = '0'; return; }
+    if (!link || !track.offsetWidth) { blob.style.opacity = '0'; blobX = null; return; }
     const t = track.getBoundingClientRect();
     const r = link.getBoundingClientRect();
+    const x = r.left - t.left;
+    if (blobX !== null && Math.abs(x - blobX) > 1) {
+      // stretch from the trailing edge, toward where it is heading
+      blob.style.setProperty('--from', x > blobX ? '0%' : '100%');
+      blob.classList.remove('is-moving');
+      void blob.offsetWidth;
+      blob.classList.add('is-moving');
+    }
     blob.style.width = r.width + 'px';
-    blob.style.transform = 'translateX(' + (r.left - t.left) + 'px)';
+    blob.style.transform = 'translateX(' + x + 'px)';
     blob.style.opacity = '1';
-    blob.classList.remove('is-squish');
-    void blob.offsetWidth;
-    blob.classList.add('is-squish');
+    blobX = x;
   }
   function current() { return track.querySelector('[aria-current="page"]'); }
 
@@ -146,15 +153,24 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
     el.addEventListener('pointerleave', function () { el.classList.remove('is-lit'); });
   });
 
+  let hideTimer = 0;
+  menu.dataset.state = 'closed';
   function setOpen(open) {
     toggle.setAttribute('aria-expanded', String(open));
     toggle.textContent = open ? 'Close' : 'Menu';
-    menu.hidden = !open;
+    clearTimeout(hideTimer);
+    if (open) {
+      menu.hidden = false;
+      requestAnimationFrame(function () { menu.dataset.state = 'open'; });
+    } else {
+      menu.dataset.state = 'closed';
+      hideTimer = setTimeout(function () { menu.hidden = true; }, 340);
+    }
   }
-  toggle.addEventListener('click', function () { setOpen(menu.hidden); });
+  toggle.addEventListener('click', function () { setOpen(menu.dataset.state !== 'open'); });
   menu.addEventListener('click', function (e) { if (e.target.closest('a')) setOpen(false); });
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && !menu.hidden) { setOpen(false); toggle.focus(); }
+    if (e.key === 'Escape' && menu.dataset.state === 'open') { setOpen(false); toggle.focus(); }
   });
 
   let ticking = false;

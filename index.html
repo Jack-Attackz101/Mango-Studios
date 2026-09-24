@@ -53,33 +53,25 @@
     </div>
 
     <section class="about" id="about" aria-labelledby="about-title">
-      <div class="sky"></div>
-      <div class="about-inner">
+      <div class="about-grid">
         <div class="about-copy">
-          <span class="pill">About us</span>
-          <h2 class="about-headline display ink-shadow" id="about-title">We build the real thing, not the pitch deck.</h2>
-          <div class="paper about-card">
-            <p><strong>Mango Studios is a software development company. We build our own products, and we build for clients.</strong></p>
+          <h2 class="about-headline display" id="about-title">We build the real thing, not the pitch deck.</h2>
+          <div class="about-text">
+            <p class="lead">Mango Studios is a software development company. We build our own products, and we build for clients.</p>
             <p>On our own side, we're developing a portfolio of apps across consumer tools and productivity software, shipping under the Mango Studios name as they're finished.</p>
             <p>On the client side, we run lean: small team, direct communication, and work that moves at the speed of an actual conversation instead of a quarterly roadmap.</p>
           </div>
         </div>
-        <img class="about-mango" src="assets/mango-point.png" alt="Mickey Mango, our mascot, pointing" width="722" height="716">
+        <figure class="about-figure">
+          <svg class="about-blob" viewBox="0 0 100 100" aria-hidden="true"><path d="M54.21 4.49A30 30 0 0 1 95.51 45.79A8 8 0 0 0 95.51 54.21A30 30 0 0 1 54.21 95.51A8 8 0 0 0 45.79 95.51A30 30 0 0 1 4.49 54.21A8 8 0 0 0 4.49 45.79A30 30 0 0 1 45.79 4.49A8 8 0 0 0 54.21 4.49Z"/></svg>
+          <img class="about-mango" src="assets/mango-point.png" alt="Mickey Mango, our mascot, pointing" width="722" height="716">
+        </figure>
       </div>
-      <ul class="stats">
-        <li class="stat">
-          <span class="stat-blob"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M54.21 4.49A30 30 0 0 1 95.51 45.79A8 8 0 0 0 95.51 54.21A30 30 0 0 1 54.21 95.51A8 8 0 0 0 45.79 95.51A30 30 0 0 1 4.49 54.21A8 8 0 0 0 4.49 45.79A30 30 0 0 1 45.79 4.49A8 8 0 0 0 54.21 4.49Z"/></svg><b>4</b></span>
-          <p>service lines, one direct line to the builder</p>
-        </li>
-        <li class="stat">
-          <span class="stat-blob"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M54.21 4.49A30 30 0 0 1 95.51 45.79A8 8 0 0 0 95.51 54.21A30 30 0 0 1 54.21 95.51A8 8 0 0 0 45.79 95.51A30 30 0 0 1 4.49 54.21A8 8 0 0 0 4.49 45.79A30 30 0 0 1 45.79 4.49A8 8 0 0 0 54.21 4.49Z"/></svg><b>0</b></span>
-          <p>account managers between you and your project</p>
-        </li>
-        <li class="stat">
-          <span class="stat-blob"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M54.21 4.49A30 30 0 0 1 95.51 45.79A8 8 0 0 0 95.51 54.21A30 30 0 0 1 54.21 95.51A8 8 0 0 0 45.79 95.51A30 30 0 0 1 4.49 54.21A8 8 0 0 0 4.49 45.79A30 30 0 0 1 45.79 4.49A8 8 0 0 0 54.21 4.49Z"/></svg><b>1</b></span>
-          <p>conversation to get a real quote, not a sales call</p>
-        </li>
-      </ul>
+      <dl class="stats">
+        <div class="stat"><dt>4</dt><dd>service lines, one direct line to the builder</dd></div>
+        <div class="stat"><dt>0</dt><dd>account managers between you and your project</dd></div>
+        <div class="stat"><dt>1</dt><dd>conversation to get a real quote, not a sales call</dd></div>
+      </dl>
     </section>
 
     <section class="services" id="services" aria-labelledby="services-title">
@@ -108,23 +100,18 @@
         </li>
       </ul>
       <div class="consult">
-        <h3>AI Consulting</h3>
-        <p>A straight, practical consultation on how AI could actually apply to your business. No jargon, no upsell, just what's worth doing and what isn't yet.</p>
-        <div class="consult-actions">
-          <span class="pill pill--yellow">$100 / session</span>
-          <a class="btn btn--white btn--sm" href="mailto:hello@mangostudios.xyz?subject=AI%20Consulting">Book a session</a>
+        <img class="consult-icon" src="assets/trail-mug.png" alt="" width="175" height="184">
+        <div class="consult-copy">
+          <h3>AI Consulting <span>$100 / session</span></h3>
+          <p>A straight, practical consultation on how AI could actually apply to your business. No jargon, no upsell, just what's worth doing and what isn't yet.</p>
         </div>
+        <a class="btn btn--white" href="mailto:hello@mangostudios.xyz?subject=AI%20Consulting">Book a session</a>
       </div>
     </section>
 
     <section class="teaser" aria-labelledby="teaser-title">
-      <img class="teaser-sticker" src="assets/trail-camera.png" alt="" style="left:5%;top:14%;transform:rotate(-14deg)">
-      <img class="teaser-sticker" src="assets/trail-pencil.png" alt="" style="right:7%;top:12%;transform:rotate(16deg)">
-      <img class="teaser-sticker" src="assets/trail-mug.png" alt="" style="left:10%;bottom:12%;transform:rotate(9deg)">
-      <img class="teaser-sticker" src="assets/trail-hourglass.png" alt="" style="right:11%;bottom:14%;transform:rotate(-10deg)">
-      <div class="teaser-inner">
-        <span class="pill">Our software</span>
-        <h2 class="display" id="teaser-title">We make our own apps too.</h2>
+      <h2 class="display" id="teaser-title">We make our own apps too.</h2>
+      <div class="teaser-side">
         <p>Consumer tools and productivity software, shipping under the Mango Studios name as they're finished.</p>
         <a class="btn btn--white" href="software.html">See our software</a>
       </div>
