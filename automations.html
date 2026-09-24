@@ -13,30 +13,16 @@
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
-  <header class="nav" id="nav">
-    <nav class="nav-bar glass" aria-label="Main">
-      <a class="nav-logo" href="index.html"><img src="assets/logo-stamp.png" alt="" width="48" height="48"><span>Mango Studios</span></a>
-      <div class="nav-track">
-        <span class="nav-blob" aria-hidden="true"><i></i></span>
-        <ul class="nav-links">
-          <li><a href="sites-and-apps.html">Sites &amp; Apps</a></li>
-          <li><a href="ai-agents.html">AI Agents</a></li>
-          <li><a href="automations.html" aria-current="page">Automations</a></li>
-          <li><a href="software.html">Software</a></li>
-          <li><a href="index.html#about">About</a></li>
-        </ul>
-      </div>
-      <a class="btn btn--sm" href="mailto:hello@mangostudios.xyz?subject=New%20project">Start a project</a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">Menu</button>
+  <header class="nav">
+    <nav class="nav-bar" aria-label="Main">
+      <a class="nav-brand" href="index.html">Mango Studios</a>
+      <ul class="nav-links">
+        <li><a href="index.html#services" aria-current="true" data-section="services">Services</a></li>
+        <li><a href="software.html" data-section="software">Software</a></li>
+        <li><a href="index.html#about" data-section="about">About</a></li>
+      </ul>
+      <a class="btn btn--sm nav-cta" href="mailto:hello@mangostudios.xyz?subject=New%20project">Start a project</a>
     </nav>
-    <div class="nav-menu glass" id="nav-menu" hidden>
-      <a href="sites-and-apps.html">Sites &amp; Apps</a>
-      <a href="ai-agents.html">AI Agents</a>
-      <a href="automations.html" aria-current="page">Automations</a>
-      <a href="software.html">Software</a>
-      <a href="index.html#about">About</a>
-      <a class="btn" href="mailto:hello@mangostudios.xyz?subject=New%20project">Start a project</a>
-    </div>
   </header>
 
   <main id="main">
@@ -46,14 +32,18 @@
         <div class="page-hero-copy">
           <h1 class="page-title display" id="page-title">Custom Automations</h1>
           <p class="page-lead">AI-driven automation that removes manual, repetitive work, covering workflows, IT systems, and daily operations, for a single shop or a full operation.</p>
-          <div class="hero-actions">
-            <a class="btn" href="mailto:hello@mangostudios.xyz?subject=Custom%20Automations">Start a project</a>
-            <a class="btn btn--white" href="index.html#services">All services</a>
-          </div>
+          <a class="btn" href="mailto:hello@mangostudios.xyz?subject=Custom%20Automations">Start a project</a>
         </div>
-        <div class="icon-tile">
-          <span class="price-badge"><small>Starts at</small><b>$300</b></span>
-          <img src="assets/icon-cursor.png" alt="" width="252" height="357">
+        <div class="icon-tile"><img src="assets/icon-cursor.png" alt="" width="252" height="357"></div>
+      </div>
+    </section>
+
+    <section class="price" aria-label="Price">
+      <div class="price-inner">
+        <p class="price-figure"><span class="price-label">Starts at</span> <span class="price-amount">$300</span></p>
+        <div class="price-side">
+          <p>The final price depends on how many tasks you automate. One conversation gets you a real quote before any work starts.</p>
+          <a class="btn btn--white" href="mailto:hello@mangostudios.xyz?subject=Custom%20Automations%20quote">Get a quote</a>
         </div>
       </div>
     </section>
@@ -83,42 +73,21 @@
       </ul>
     </section>
 
-    <section class="process" aria-labelledby="process-title">
-      <h2 class="section-title display" id="process-title">How it goes</h2>
-      <ol class="process-list">
-        <li>
-          <span class="step-num" aria-hidden="true">1</span>
-          <h3>Tell us what you need</h3>
-          <p>One conversation. You get an honest answer on whether it's a fit, and a real quote.</p>
-        </li>
-        <li>
-          <span class="step-num" aria-hidden="true">2</span>
-          <h3>Talk to the builder</h3>
-          <p>No account managers. The person you message is the person doing the work.</p>
-        </li>
-        <li>
-          <span class="step-num" aria-hidden="true">3</span>
-          <h3>Handed over running</h3>
-          <p>Set up in your tools, tested on real work, and explained so you know what it does.</p>
-        </li>
-      </ol>
-    </section>
-
     <section class="others" aria-labelledby="others-title">
       <h2 class="others-title display" id="others-title">Other services</h2>
       <ul class="mini-cards">
-        <li><a class="mini-card" href="sites-and-apps.html"><img src="assets/icon-key.png" alt="" width="314" height="336"><span class="mini-name">Custom Sites &amp; Apps</span><span class="mini-price">from $250</span></a></li>
-        <li><a class="mini-card" href="ai-agents.html"><img src="assets/icon-wink.png" alt="" width="306" height="318"><span class="mini-name">Custom AI Agents</span><span class="mini-price">from $500</span></a></li>
-        <li><a class="mini-card" href="mailto:hello@mangostudios.xyz?subject=AI%20Consulting"><img src="assets/trail-mug.png" alt="" width="175" height="184"><span class="mini-name">AI Consulting</span><span class="mini-price">$100 / session</span></a></li>
+        <li><a class="mini-card" href="sites-and-apps.html"><img src="assets/icon-key.png" alt="" width="314" height="336"><span class="mini-name">Custom Sites &amp; Apps</span></a></li>
+        <li><a class="mini-card" href="ai-agents.html"><img src="assets/icon-wink.png" alt="" width="306" height="318"><span class="mini-name">Custom AI Agents</span></a></li>
+        <li><a class="mini-card" href="consulting.html"><img src="assets/trail-mug.png" alt="" width="175" height="184"><span class="mini-name">AI Consulting</span></a></li>
       </ul>
     </section>
 
   </main>
 
-  <footer class="footer" data-nav-dark>
+  <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <a href="index.html"><img src="assets/logo-stamp.png" alt="" width="48" height="48"><span class="footer-mark">Mango Studios</span></a>
+        <a class="footer-mark" href="index.html">Mango Studios</a>
         <p>Custom software, built lean.</p>
       </div>
       <div class="footer-col">
@@ -127,7 +96,7 @@
           <li><a href="sites-and-apps.html">Custom Sites &amp; Apps</a></li>
           <li><a href="ai-agents.html">Custom AI Agents</a></li>
           <li><a href="automations.html">Custom Automations</a></li>
-          <li><a href="mailto:hello@mangostudios.xyz?subject=AI%20Consulting">AI Consulting</a></li>
+          <li><a href="consulting.html">AI Consulting</a></li>
         </ul>
       </div>
       <div class="footer-col">

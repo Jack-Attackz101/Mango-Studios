@@ -13,30 +13,16 @@
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
-  <header class="nav" id="nav">
-    <nav class="nav-bar glass" aria-label="Main">
-      <a class="nav-logo" href="index.html"><img src="assets/logo-stamp.png" alt="" width="48" height="48"><span>Mango Studios</span></a>
-      <div class="nav-track">
-        <span class="nav-blob" aria-hidden="true"><i></i></span>
-        <ul class="nav-links">
-          <li><a href="sites-and-apps.html">Sites &amp; Apps</a></li>
-          <li><a href="ai-agents.html">AI Agents</a></li>
-          <li><a href="automations.html">Automations</a></li>
-          <li><a href="software.html">Software</a></li>
-          <li><a href="index.html#about">About</a></li>
-        </ul>
-      </div>
-      <a class="btn btn--sm" href="mailto:hello@mangostudios.xyz?subject=New%20project">Start a project</a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">Menu</button>
+  <header class="nav">
+    <nav class="nav-bar" aria-label="Main">
+      <a class="nav-brand" href="index.html">Mango Studios</a>
+      <ul class="nav-links">
+        <li><a href="index.html#services" data-section="services">Services</a></li>
+        <li><a href="software.html" data-section="software">Software</a></li>
+        <li><a href="index.html#about" data-section="about">About</a></li>
+      </ul>
+      <a class="btn btn--sm nav-cta" href="mailto:hello@mangostudios.xyz?subject=New%20project">Start a project</a>
     </nav>
-    <div class="nav-menu glass" id="nav-menu" hidden>
-      <a href="sites-and-apps.html">Sites &amp; Apps</a>
-      <a href="ai-agents.html">AI Agents</a>
-      <a href="automations.html">Automations</a>
-      <a href="software.html">Software</a>
-      <a href="index.html#about">About</a>
-      <a class="btn" href="mailto:hello@mangostudios.xyz?subject=New%20project">Start a project</a>
-    </div>
   </header>
 
   <main id="main">
@@ -54,22 +40,26 @@
     <section class="about" id="about" aria-labelledby="about-title">
       <div class="about-grid">
         <div class="about-copy">
-          <h2 class="about-headline display" id="about-title">We build the real thing, not the pitch deck.</h2>
-          <div class="about-text">
-            <p class="lead">Mango Studios is a software development company. We build our own products, and we build for clients.</p>
-            <p>On our own side, we're developing a portfolio of apps across consumer tools and productivity software, shipping under the Mango Studios name as they're finished.</p>
-            <p>On the client side, we run lean: small team, direct communication, and work that moves at the speed of an actual conversation instead of a quarterly roadmap.</p>
-          </div>
+          <h2 class="about-title display" id="about-title">About us</h2>
+          <p class="about-lead">Mango Studios is a small software studio. We design, build and launch websites, apps, AI agents and automations for businesses, and we make our own apps too.</p>
+          <p class="about-body">You work with the person building your project from the first email to launch day. No account managers and no six-month plans, just a clear quote and a working product.</p>
         </div>
-        <figure class="about-figure">
-          <img class="about-mango" src="assets/mango-point.png" alt="Mickey Mango, our mascot, pointing" width="722" height="716">
-        </figure>
+        <img class="about-mango" src="assets/mango-point.png" alt="Mickey Mango, our mascot, pointing" width="722" height="716">
       </div>
-      <dl class="stats">
-        <div class="stat"><dt>4</dt><dd>service lines, one direct line to the builder</dd></div>
-        <div class="stat"><dt>0</dt><dd>account managers between you and your project</dd></div>
-        <div class="stat"><dt>1</dt><dd>conversation to get a real quote, not a sales call</dd></div>
-      </dl>
+      <ul class="points">
+        <li>
+          <h3>Talk to the builder</h3>
+          <p>The person you email is the person doing the work.</p>
+        </li>
+        <li>
+          <h3>Honest quotes</h3>
+          <p>One conversation gets you a real price and a straight answer on whether we're a fit.</p>
+        </li>
+        <li>
+          <h3>Our own apps</h3>
+          <p>We also build consumer and productivity apps under the Mango Studios name. <a href="software.html">See our software</a></p>
+        </li>
+      </ul>
     </section>
 
     <section class="services" id="services" aria-labelledby="services-title">
@@ -77,42 +67,37 @@
       <ul class="cards">
         <li>
           <a class="card" href="sites-and-apps.html">
-            <span class="price-tag">from <b>$250</b></span>
             <img class="card-icon" src="assets/icon-key.png" alt="" width="314" height="336">
             <h3 class="card-title">Custom Sites<br>&amp; Apps</h3>
           </a>
         </li>
         <li>
           <a class="card" href="ai-agents.html">
-            <span class="price-tag">from <b>$500</b></span>
             <img class="card-icon" src="assets/icon-wink.png" alt="" width="306" height="318">
             <h3 class="card-title">Custom AI<br>Agents</h3>
           </a>
         </li>
         <li>
           <a class="card" href="automations.html">
-            <span class="price-tag">from <b>$300</b></span>
             <img class="card-icon" src="assets/icon-cursor.png" alt="" width="252" height="357">
             <h3 class="card-title">Custom<br>Automations</h3>
           </a>
         </li>
+        <li>
+          <a class="card" href="consulting.html">
+            <img class="card-icon" src="assets/trail-mug.png" alt="" width="175" height="184">
+            <h3 class="card-title">AI<br>Consulting</h3>
+          </a>
+        </li>
       </ul>
-      <div class="consult">
-        <img class="consult-icon" src="assets/trail-mug.png" alt="" width="175" height="184">
-        <div class="consult-copy">
-          <h3>AI Consulting <span>$100 / session</span></h3>
-          <p>A straight, practical consultation on how AI could actually apply to your business. No jargon, no upsell, just what's worth doing and what isn't yet.</p>
-        </div>
-        <a class="btn btn--white" href="mailto:hello@mangostudios.xyz?subject=AI%20Consulting">Book a session</a>
-      </div>
     </section>
 
   </main>
 
-  <footer class="footer" data-nav-dark>
+  <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <a href="index.html"><img src="assets/logo-stamp.png" alt="" width="48" height="48"><span class="footer-mark">Mango Studios</span></a>
+        <a class="footer-mark" href="index.html">Mango Studios</a>
         <p>Custom software, built lean.</p>
       </div>
       <div class="footer-col">
@@ -121,7 +106,7 @@
           <li><a href="sites-and-apps.html">Custom Sites &amp; Apps</a></li>
           <li><a href="ai-agents.html">Custom AI Agents</a></li>
           <li><a href="automations.html">Custom Automations</a></li>
-          <li><a href="mailto:hello@mangostudios.xyz?subject=AI%20Consulting">AI Consulting</a></li>
+          <li><a href="consulting.html">AI Consulting</a></li>
         </ul>
       </div>
       <div class="footer-col">
