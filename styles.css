@@ -14,11 +14,7 @@
   --font-cartoon: "Chewy", "Comic Sans MS", cursive;
   --font-text: "Inter Tight", "Helvetica Neue", Arial, sans-serif;
 
-  /* Mickey Mango size + spacing in the parade */
-  --mh: min(71vh, 62vw);
-  --mh: min(71svh, 62vw);
-  --mw: calc(var(--mh) * 0.825);
-  --pitch: calc(var(--mw) * 1.55);
+  --trail-size: clamp(64px, 7.5vw, 124px);
 
   color-scheme: light;
 }
@@ -34,12 +30,13 @@ img { display: block; }
   background: var(--sky-blue) url("assets/sky-clouds.webp") repeat-x 0 50% / auto 100%;
 }
 
-/* ── HERO + PARADE ─────────────────────────── */
+/* ── HERO ──────────────────────────────────── */
 
+/* Pinned for one extra screen so About can slide up over it */
 .stage {
   position: relative;
-  height: 470vh;
-  height: 470svh;
+  height: 200vh;
+  height: 200svh;
 }
 
 .hero {
@@ -55,13 +52,15 @@ img { display: block; }
   position: absolute;
   inset: 0;
   overflow: hidden;
+  display: grid;
+  place-items: center;
   transform-origin: 50% 0;
+  cursor: crosshair;
 }
 
 .hero-title {
   position: relative;
   z-index: 2;
-  padding-top: 3.2vh;
   text-align: center;
   font-family: var(--font-display);
   font-stretch: 125%;
@@ -72,36 +71,32 @@ img { display: block; }
   text-transform: uppercase;
   color: var(--title-yellow);
   white-space: nowrap;
+  user-select: none;
 }
 
-.parade-window {
+.trail {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 3;
   pointer-events: none;
 }
 
-.parade {
+.trail img {
   position: absolute;
-  bottom: 3.5svh;
-  left: calc(50vw - var(--pitch) * 1.5);
-  display: flex;
-  will-change: transform;
-}
-
-.walker {
-  flex: none;
-  width: var(--pitch);
-  display: flex;
-  justify-content: center;
-}
-
-.walker img {
-  height: var(--mh);
+  left: 0;
+  top: 0;
+  height: var(--trail-size);
   width: auto;
   max-width: none;
-  transform: translateY(var(--bob, 0px)) rotate(var(--tilt, 0deg));
-  transform-origin: 50% 100%;
+  will-change: transform, opacity;
+  animation: sticker 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes sticker {
+  0%   { transform: translate(var(--x), var(--y)) translate(-50%, -50%) rotate(var(--r0)) scale(0.2); opacity: 1; }
+  22%  { transform: translate(var(--x), var(--y)) translate(-50%, -50%) rotate(var(--r)) scale(1); opacity: 1; }
+  70%  { transform: translate(var(--x), var(--y)) translate(-50%, -50%) rotate(var(--r)) scale(1); opacity: 1; }
+  100% { transform: translate(var(--x), var(--y)) translate(-50%, calc(-50% + 18px)) rotate(var(--r)) scale(0.6); opacity: 0; }
 }
 
 .hero-shade {
@@ -304,12 +299,7 @@ img { display: block; }
 /* ── NARROW / PORTRAIT ─────────────────────── */
 
 @media (max-aspect-ratio: 4/5) {
-  :root {
-    --mh: min(58vh, 96vw);
-    --mh: min(58svh, 96vw);
-    --pitch: calc(var(--mw) * 1.4);
-  }
-  .hero-title { font-size: 14.6vw; white-space: normal; padding-top: 6svh; line-height: 0.95; }
+  .hero-title { font-size: 14.6vw; white-space: normal; line-height: 0.95; }
   .hero-title span { display: block; }
 }
 
@@ -327,8 +317,14 @@ img { display: block; }
   .card-title { font-size: clamp(34px, 10vw, 48px); }
 }
 
+@keyframes sticker-still {
+  0%, 70% { transform: translate(var(--x), var(--y)) translate(-50%, -50%) rotate(var(--r)); opacity: 1; }
+  100%    { transform: translate(var(--x), var(--y)) translate(-50%, -50%) rotate(var(--r)); opacity: 0; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .about-mango { animation: none; }
+  .trail img { animation-name: sticker-still; animation-timing-function: ease-out; }
   .card, .card:hover { transition: none; transform: none; }
   .card:hover .card-icon { animation: none; }
 }
