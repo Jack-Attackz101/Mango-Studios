@@ -13,17 +13,29 @@
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
-  <header class="nav">
-    <nav class="nav-bar" aria-label="Main">
-      <a class="nav-brand" href="index.html">Mango Studios</a>
-      <ul class="nav-links">
-        <li><a href="index.html#services" data-section="services">Services</a></li>
+  <aside class="sidebar" aria-label="Site">
+    <a class="side-brand" href="index.html">Mango<br>Studios</a>
+    <p class="side-tag">Custom software, built lean. Toronto.</p>
+    <nav aria-label="Main">
+      <ul class="side-links">
+        <li><a href="index.html#services" data-section="services">Services</a>
+          <ul class="side-sub">
+            <li><a href="sites-and-apps.html">Custom Sites &amp; Apps</a></li>
+            <li><a href="ai-agents.html">Custom AI Agents</a></li>
+            <li><a href="automations.html">Custom Automations</a></li>
+            <li><a href="consulting.html">AI Consulting</a></li>
+          </ul>
+        </li>
         <li><a href="software.html" aria-current="true" data-section="software">Software</a></li>
+        <li><a href="index.html#team" data-section="team">Team</a></li>
         <li><a href="index.html#about" data-section="about">About</a></li>
       </ul>
-      <a class="btn btn--sm nav-cta" href="mailto:hello@mangostudios.xyz?subject=New%20project">Start a project</a>
     </nav>
-  </header>
+    <div class="side-foot">
+      <a class="btn side-cta" href="mailto:hello@mangostudios.xyz?subject=New%20project">Start<span class="cta-rest">&nbsp;a project</span></a>
+      <a class="side-mail" href="mailto:hello@mangostudios.xyz">hello@mangostudios.xyz</a>
+    </div>
+  </aside>
 
   <main id="main">
     <section class="page-hero" aria-labelledby="page-title">
@@ -45,13 +57,13 @@
       </div>
       <ul class="rows rows--status">
         <li>
-          <h3>Consumer tools</h3>
-          <p>Everyday apps that make one thing simpler.</p>
-          <span class="status">In development</span>
+          <h3>Iris</h3>
+          <p>A macOS menu bar app that looks after your eyes while you work.</p>
+          <span class="status">Closest to launch</span>
         </li>
         <li>
-          <h3>Productivity software</h3>
-          <p>Tools that cut down the busywork in a working day.</p>
+          <h3>Alpine</h3>
+          <p>A learn-to-build platform that teaches kids to make their own software.</p>
           <span class="status">In development</span>
         </li>
       </ul>
@@ -78,6 +90,7 @@
         <h3>Studio</h3>
         <ul>
           <li><a href="software.html">Our software</a></li>
+          <li><a href="index.html#team">Team</a></li>
           <li><a href="index.html#about">About</a></li>
         </ul>
       </div>

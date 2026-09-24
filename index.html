@@ -13,24 +13,43 @@
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
-  <header class="nav">
-    <nav class="nav-bar" aria-label="Main">
-      <a class="nav-brand" href="index.html">Mango Studios</a>
-      <ul class="nav-links">
-        <li><a href="index.html#services" data-section="services">Services</a></li>
+  <aside class="sidebar" aria-label="Site">
+    <a class="side-brand" href="index.html">Mango<br>Studios</a>
+    <p class="side-tag">Custom software, built lean. Toronto.</p>
+    <nav aria-label="Main">
+      <ul class="side-links">
+        <li><a href="index.html#services" data-section="services">Services</a>
+          <ul class="side-sub">
+            <li><a href="sites-and-apps.html">Custom Sites &amp; Apps</a></li>
+            <li><a href="ai-agents.html">Custom AI Agents</a></li>
+            <li><a href="automations.html">Custom Automations</a></li>
+            <li><a href="consulting.html">AI Consulting</a></li>
+          </ul>
+        </li>
         <li><a href="software.html" data-section="software">Software</a></li>
+        <li><a href="index.html#team" data-section="team">Team</a></li>
         <li><a href="index.html#about" data-section="about">About</a></li>
       </ul>
-      <a class="btn btn--sm nav-cta" href="mailto:hello@mangostudios.xyz?subject=New%20project">Start a project</a>
     </nav>
-  </header>
+    <div class="side-foot">
+      <a class="btn side-cta" href="mailto:hello@mangostudios.xyz?subject=New%20project">Start<span class="cta-rest">&nbsp;a project</span></a>
+      <a class="side-mail" href="mailto:hello@mangostudios.xyz">hello@mangostudios.xyz</a>
+    </div>
+  </aside>
 
   <main id="main">
     <div class="stage" id="stage">
       <section class="hero" id="hero" aria-label="Mango Studios">
         <div class="hero-inner" id="hero-inner">
           <div class="sky" id="hero-sky"></div>
-          <h1 class="hero-title" id="hero-title">Mango <span>Studios</span></h1>
+          <h1 class="hero-title" id="hero-title"><span class="hero-word hero-word--top">Mango</span> <span class="hero-word hero-word--bottom">Studios</span></h1>
+          <div class="hero-ring" aria-hidden="true">
+            <svg class="ring-text" viewBox="0 0 200 200">
+              <defs><path id="ring-path" d="M100,100 m-82,0 a82,82 0 1,1 164,0 a82,82 0 1,1 -164,0"/></defs>
+              <text><textPath href="#ring-path" textLength="502" lengthAdjust="spacing">Sites &amp; Apps • AI Agents • Automations • AI Consulting • </textPath></text>
+            </svg>
+            <img class="ring-mark" src="assets/logo.png" alt="" width="640" height="640">
+          </div>
           <div class="trail" id="trail" aria-hidden="true"></div>
           <div class="hero-shade" id="hero-shade"></div>
         </div>
@@ -103,25 +122,25 @@
       <div class="deck" data-parallax="0.05">
         <ul class="deck-cards" id="deck">
           <li class="deck-card" data-pos="0">
-            <div class="deck-screen"><img src="assets/trail-camera.png" alt="" width="299" height="260"></div>
+            <div class="deck-screen"><img src="assets/trail-hourglass.png" alt="" width="198" height="267"></div>
             <div class="deck-body">
-              <span class="deck-kind">Consumer tools</span>
-              <h3>Everyday apps</h3>
-              <p>Small apps that make one part of your day simpler.</p>
-              <span class="status">In development</span>
+              <span class="deck-kind">macOS menu bar app</span>
+              <h3>Iris</h3>
+              <p>A menu bar app that looks after your eyes while you work on a Mac.</p>
+              <span class="status">Closest to launch</span>
             </div>
           </li>
           <li class="deck-card" data-pos="1" aria-hidden="true">
-            <div class="deck-screen"><img src="assets/trail-hourglass.png" alt="" width="198" height="267"></div>
+            <div class="deck-screen"><img src="assets/trail-pencil.png" alt="" width="143" height="186"></div>
             <div class="deck-body">
-              <span class="deck-kind">Productivity software</span>
-              <h3>Work tools</h3>
-              <p>Tools that cut the busywork out of a working day.</p>
+              <span class="deck-kind">Learn-to-build platform</span>
+              <h3>Alpine</h3>
+              <p>A platform that teaches kids to build their own software.</p>
               <span class="status">In development</span>
             </div>
           </li>
           <li class="deck-card" data-pos="2" aria-hidden="true">
-            <div class="deck-screen"><img src="assets/trail-pencil.png" alt="" width="143" height="186"></div>
+            <div class="deck-screen"><img src="assets/trail-camera.png" alt="" width="299" height="260"></div>
             <div class="deck-body">
               <span class="deck-kind">Next up</span>
               <h3>On the drawing board</h3>
@@ -136,6 +155,43 @@
           <button class="deck-btn" type="button" data-dir="1" aria-label="Next app">→</button>
         </div>
       </div>
+    </section>
+
+    <section class="team" id="team" aria-labelledby="team-title">
+      <div class="team-head">
+        <h2 class="team-title display" id="team-title">Meet the team</h2>
+        <p>Three people and a lot of AI. When you work with us, you talk to one of the three people here.</p>
+      </div>
+      <ul class="team-grid">
+        <li class="member">
+          <span class="avatar"><img src="assets/team-jack.webp" alt="Jack Koll-Gunderson" width="520" height="520"></span>
+          <h3 class="member-name">Jack Koll-Gunderson</h3>
+          <p class="member-role">CEO &amp; Founder</p>
+          <p class="member-bio">Jack founded Mango Studios and builds most of what it ships. He already runs two live SaaS products, Klaritea and Tvarit, and is building the studio's own apps, Iris and Alpine. He trains every new teammate himself.</p>
+          <a class="btn btn--white btn--sm member-link" href="https://www.linkedin.com/in/jack-koll-gunderson-28a6aa3a1/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+        </li>
+        <li class="member">
+          <span class="avatar"><img src="assets/team-james.webp" alt="James Hamilton" width="520" height="520"></span>
+          <h3 class="member-name">James Hamilton</h3>
+          <p class="member-role">Head of Sites &amp; Apps</p>
+          <p class="member-bio">James runs Custom Sites &amp; Apps. He was one of the first two people to join, and Jack taught him the craft one-on-one: multi-agent coding, clean version control and reviewing every change before it ships. He went from trainee to running the service line.</p>
+          <a class="btn btn--white btn--sm member-link" href="https://www.linkedin.com/in/james-hamilton-3279b3410/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+        </li>
+        <li class="member">
+          <span class="avatar avatar--empty"></span>
+          <h3 class="member-name">Hayden Morton</h3>
+          <p class="member-role">Head of Automation</p>
+          <p class="member-bio">Hayden runs Custom Automations. He joined alongside James, already fluent in automation tools, and was doing client work from his first week. He picks whatever fits each client's systems, from Codex to Tines, instead of forcing one platform on everyone.</p>
+          <a class="btn btn--white btn--sm member-link" href="https://www.linkedin.com/in/hayden-morton-71848a438/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+        </li>
+        <li class="member member--ai">
+          <span class="avatar avatar--ai"><img src="assets/trail-wink.png" alt="" width="302" height="313"></span>
+          <h3 class="member-name">The AI crew</h3>
+          <p class="member-role">Directed by the three of us</p>
+          <p class="member-bio">Behind the three of us is a crew of AI agents that write code, test it and research. We direct them, review everything they make and stand behind all of it. That's how a small team ships like a big one.</p>
+          <a class="btn btn--white btn--sm member-link" href="ai-agents.html">See AI Agents <span aria-hidden="true">→</span></a>
+        </li>
+      </ul>
     </section>
 
     <section class="manifesto" aria-labelledby="manifesto-title">
@@ -172,6 +228,7 @@
         <h3>Studio</h3>
         <ul>
           <li><a href="software.html">Our software</a></li>
+          <li><a href="index.html#team">Team</a></li>
           <li><a href="index.html#about">About</a></li>
         </ul>
       </div>

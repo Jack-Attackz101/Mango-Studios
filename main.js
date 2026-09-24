@@ -203,3 +203,45 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   }, { threshold: 0.3 }).observe(deck);
   layout();
 })();
+
+// Fit MANGO and STUDIOS to the hero's width. Both sizes are in cqw, so one measurement holds at every width.
+(function () {
+  const inner = document.getElementById('hero-inner');
+  if (!inner) return;
+  const words = [['--fit-top', inner.querySelector('.hero-word--top')], ['--fit-bottom', inner.querySelector('.hero-word--bottom')]];
+  function fit() {
+    const w = inner.clientWidth;
+    if (!w) return;
+    words.forEach(function (pair) {
+      const el = pair[1];
+      inner.style.setProperty(pair[0], '10cqw');
+      const measured = el.getBoundingClientRect().width;
+      if (measured) inner.style.setProperty(pair[0], (10 * (w * 0.96) / measured).toFixed(3) + 'cqw');
+    });
+  }
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(fit);
+  window.addEventListener('load', fit);
+})();
+
+// Sidebar follows the section in view on the home page.
+(function () {
+  const links = [].slice.call(document.querySelectorAll('.side-links a[data-section]'));
+  const map = { hero: '', about: 'about', services: 'services', apps: 'software', team: 'team' };
+  const targets = Object.keys(map).map(function (id) { return document.getElementById(id); }).filter(Boolean);
+  if (!links.length || targets.length < 3) return;
+  const inView = new Set();
+  const spy = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) inView.add(entry.target); else inView.delete(entry.target);
+    });
+    // the pinned hero stays "in view" under About, so the latest section in page order wins
+    const current = targets.filter(function (t) { return inView.has(t); }).pop();
+    if (!current) return;
+    const section = map[current.id];
+    links.forEach(function (a) {
+      if (a.dataset.section === section) a.setAttribute('aria-current', 'true');
+      else a.removeAttribute('aria-current');
+    });
+  }, { rootMargin: '-50% 0px -50% 0px' });
+  targets.forEach(function (t) { spy.observe(t); });
+})();
