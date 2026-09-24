@@ -189,20 +189,3 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   }, { passive: true });
   tone();
 })();
-
-// Copy-to-clipboard buttons (the email address), with a fallback when the clipboard is refused.
-document.querySelectorAll('[data-copy]').forEach(function (btn) {
-  const label = btn.textContent;
-  btn.addEventListener('click', function () {
-    const text = btn.dataset.copy;
-    function done(msg) {
-      btn.textContent = msg;
-      setTimeout(function () { btn.textContent = label; }, 1800);
-    }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(function () { done('Copied'); }, function () { done(text); });
-    } else {
-      done(text);
-    }
-  });
-});

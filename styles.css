@@ -569,36 +569,6 @@ a { color: inherit; }
 .teaser-side { display: grid; justify-items: start; gap: 24px; }
 .teaser-side p { max-width: 40ch; font: 600 var(--t-lead)/1.45 var(--font-text); color: var(--ink); }
 
-/* ── CLOSING CTA ("iris out" end card) ─────── */
-
-.closing {
-  position: relative;
-  z-index: 2;
-  overflow: hidden;
-  background: var(--ink);
-  color: #fff;
-  padding: clamp(96px, 11vw, 176px) var(--gutter);
-  text-align: center;
-}
-.closing::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 220vmax;
-  height: 220vmax;
-  transform: translate(-50%, -50%);
-  background: repeating-radial-gradient(circle, #151515 0 42px, #1b1b1b 42px 84px);
-}
-.closing-inner { position: relative; max-width: 1040px; margin: 0 auto; display: grid; justify-items: center; gap: 28px; }
-.closing h2 { font-size: clamp(2.5rem, 0.8rem + 6.4vw, 7.75rem); color: var(--title-yellow); }
-.closing p { max-width: 46ch; font: 500 var(--t-lead)/1.5 var(--font-text); color: rgba(255, 255, 255, 0.84); }
-.closing-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
-.closing .btn { border-color: #fff; box-shadow: 0 4px 0 #fff; }
-.closing .btn--white { background: transparent; color: #fff; }
-.closing .btn:hover { box-shadow: 0 6px 0 #fff; }
-.closing .btn:active { box-shadow: 0 1px 0 #fff; }
-
 /* ── FOOTER ────────────────────────────────── */
 
 .footer {
