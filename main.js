@@ -1,107 +1,54 @@
-/* ─────────────────────────────────────────────
-   Mango Studios · main.js
-   Count-up stats + mobile menu + scroll reveal
-   ───────────────────────────────────────────── */
-
 'use strict';
 
-/* ── Easing ── */
-function easeOutCubic(t) {
-  return 1 - Math.pow(1 - t, 3);
-}
+// Scrolling down while the hero is pinned walks the Mickey Mango parade left.
+// Every walker is identical, so offsetting by (distance mod pitch) loops seamlessly.
+(function () {
+  const stage = document.getElementById('stage');
+  const heroInner = document.getElementById('hero-inner');
+  const parade = document.getElementById('parade');
+  const sky = document.getElementById('hero-sky');
+  const shade = document.getElementById('hero-shade');
+  if (!stage || !parade) return;
 
-/* ── Count-up ── */
-function animateCount(valueEl, target, decimals, suffix, duration) {
-  const start = performance.now();
+  const MANGOS_PER_PASS = 6;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function tick(now) {
-    const progress = Math.min((now - start) / duration, 1);
-    const current  = easeOutCubic(progress) * target;
-    valueEl.textContent = current.toFixed(decimals) + suffix;
-    if (progress < 1) requestAnimationFrame(tick);
+  let vh = 0, pitch = 1, paradeRange = 1, walkPerPx = 0, skyTile = 1;
+  let ticking = false;
+
+  function measure() {
+    vh = document.getElementById('hero').offsetHeight;
+    pitch = parade.firstElementChild.getBoundingClientRect().width || 1;
+    paradeRange = Math.max(1, stage.offsetHeight - 2 * vh);
+    walkPerPx = (MANGOS_PER_PASS * pitch) / paradeRange;
+    skyTile = vh * (2560 / 1440);
+    render();
   }
 
-  requestAnimationFrame(tick);
-}
+  function render() {
+    ticking = false;
+    const y = Math.max(0, window.scrollY - stage.offsetTop);
+    const walked = y * walkPerPx;
 
-/* ── Observe stats ── */
-const statEls = document.querySelectorAll('.stat[data-target]');
+    parade.style.transform = 'translate3d(' + (-(walked % pitch)).toFixed(1) + 'px,0,0)';
+    if (sky) sky.style.backgroundPositionX = (-(walked * 0.22) % skyTile).toFixed(1) + 'px';
 
-const statObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (!entry.isIntersecting) return;
-    const el       = entry.target;
-    const idx      = [...statEls].indexOf(el);
-    const target   = parseFloat(el.dataset.target);
-    const decimals = parseInt(el.dataset.decimals, 10);
-    const suffix   = el.dataset.suffix;
-    const valueEl  = el.querySelector('.stat-value');
-    const delay    = 480 + idx * 90;
-    const duration = 1500 + idx * 80;
+    if (!reduceMotion) {
+      const phase = (walked / (pitch / 2)) * Math.PI;
+      parade.style.setProperty('--bob', (-Math.abs(Math.sin(phase)) * vh * 0.022).toFixed(1) + 'px');
+      parade.style.setProperty('--tilt', (Math.sin(phase) * 3).toFixed(2) + 'deg');
 
-    setTimeout(() => animateCount(valueEl, target, decimals, suffix, duration), delay);
-    statObserver.unobserve(el);
-  });
-}, { threshold: 0.25 });
-
-statEls.forEach(el => statObserver.observe(el));
-
-/* ── Scroll reveal ── */
-const revealEls = document.querySelectorAll('.reveal');
-
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (!entry.isIntersecting) return;
-    entry.target.classList.add('is-visible');
-    revealObserver.unobserve(entry.target);
-  });
-}, { threshold: 0.12 });
-
-revealEls.forEach(el => revealObserver.observe(el));
-
-/* ── Mobile menu ── */
-const burgerBtn   = document.getElementById('burger-btn');
-const mobileMenu  = document.getElementById('mobile-menu');
-const menuOverlay = document.getElementById('menu-overlay');
-
-function openMenu() {
-  burgerBtn.setAttribute('aria-expanded', 'true');
-  mobileMenu.hidden  = false;
-  menuOverlay.hidden = false;
-  document.body.classList.add('menu-open');
-  mobileMenu.querySelector('a')?.focus();
-}
-
-function closeMenu() {
-  burgerBtn.setAttribute('aria-expanded', 'false');
-  mobileMenu.hidden  = true;
-  menuOverlay.hidden = true;
-  document.body.classList.remove('menu-open');
-}
-
-if (burgerBtn) {
-  burgerBtn.addEventListener('click', () => {
-    burgerBtn.getAttribute('aria-expanded') === 'true' ? closeMenu() : openMenu();
-  });
-}
-
-if (menuOverlay) {
-  menuOverlay.addEventListener('click', closeMenu);
-}
-
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && burgerBtn?.getAttribute('aria-expanded') === 'true') {
-    closeMenu();
-    burgerBtn.focus();
+      const cover = Math.min(1, Math.max(0, (y - paradeRange) / vh));
+      heroInner.style.transform = cover ? 'scale(' + (1 - cover * 0.06).toFixed(4) + ')' : '';
+      heroInner.style.borderRadius = (cover * 44).toFixed(1) + 'px';
+      shade.style.opacity = (cover * 0.45).toFixed(3);
+    }
   }
-});
 
-if (mobileMenu) {
-  mobileMenu.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', closeMenu);
-  });
-}
-
-window.addEventListener('resize', () => {
-  if (window.innerWidth > 720) closeMenu();
-}, { passive: true });
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(render); }
+  }, { passive: true });
+  window.addEventListener('resize', measure);
+  window.addEventListener('load', measure);
+  measure();
+})();
