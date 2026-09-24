@@ -30,7 +30,7 @@
       <section class="hero" id="hero" aria-label="Mango Studios">
         <div class="hero-inner" id="hero-inner">
           <div class="sky" id="hero-sky"></div>
-          <h1 class="hero-title">Mango <span>Studios</span></h1>
+          <h1 class="hero-title" id="hero-title">Mango <span>Studios</span></h1>
           <div class="trail" id="trail" aria-hidden="true"></div>
           <div class="hero-shade" id="hero-shade"></div>
         </div>
@@ -41,23 +41,23 @@
       <div class="about-grid">
         <div class="about-copy">
           <h2 class="about-title display" id="about-title">About us</h2>
-          <p class="about-lead">Mango Studios is a small software studio. We design, build and launch websites, apps, AI agents and automations for businesses, and we make our own apps too.</p>
-          <p class="about-body">You work with the person building your project from the first email to launch day. No account managers and no six-month plans, just a clear quote and a working product.</p>
+          <p class="about-lead">Mango Studios is a small software studio. We build websites, apps, AI agents and automations for businesses, and we make our own apps too.</p>
+          <p class="about-body">When you work with us, you work with the person building your project, from the first email to launch day. You get a straight answer on what it costs, then we get to work.</p>
         </div>
-        <img class="about-mango" src="assets/mango-point.png" alt="Mickey Mango, our mascot, pointing" width="722" height="716">
+        <img class="about-mango" data-parallax="-0.12" src="assets/mango-point.png" alt="Mickey Mango, our mascot, pointing" width="722" height="716">
       </div>
       <ul class="points">
         <li>
-          <h3>Talk to the builder</h3>
-          <p>The person you email is the person doing the work.</p>
+          <h3>Straight to the builder</h3>
+          <p>The person you email is the person doing the work, so nothing gets lost in a hand-off.</p>
         </li>
         <li>
-          <h3>Honest quotes</h3>
-          <p>One conversation gets you a real price and a straight answer on whether we're a fit.</p>
+          <h3>Prices up front</h3>
+          <p>One conversation gets you a real quote and an honest answer on whether we're a fit.</p>
         </li>
         <li>
-          <h3>Our own apps</h3>
-          <p>We also build consumer and productivity apps under the Mango Studios name. <a href="software.html">See our software</a></p>
+          <h3>We ship</h3>
+          <p>Tight scope, quick turnaround and a working product at the end.</p>
         </li>
       </ul>
     </section>
@@ -65,30 +65,89 @@
     <section class="services" id="services" aria-labelledby="services-title">
       <h2 class="services-title" id="services-title">Our Services</h2>
       <ul class="cards">
-        <li>
+        <li data-parallax="0.03">
           <a class="card" href="sites-and-apps.html">
             <img class="card-icon" src="assets/icon-key.png" alt="" width="314" height="336">
             <h3 class="card-title">Custom Sites<br>&amp; Apps</h3>
           </a>
         </li>
-        <li>
+        <li data-parallax="-0.02">
           <a class="card" href="ai-agents.html">
             <img class="card-icon" src="assets/icon-wink.png" alt="" width="306" height="318">
             <h3 class="card-title">Custom AI<br>Agents</h3>
           </a>
         </li>
-        <li>
+        <li data-parallax="0.05">
           <a class="card" href="automations.html">
             <img class="card-icon" src="assets/icon-cursor.png" alt="" width="252" height="357">
             <h3 class="card-title">Custom<br>Automations</h3>
           </a>
         </li>
-        <li>
-          <a class="card" href="consulting.html">
-            <img class="card-icon" src="assets/trail-mug.png" alt="" width="175" height="184">
-            <h3 class="card-title">AI<br>Consulting</h3>
-          </a>
-        </li>
+      </ul>
+      <a class="consult" href="consulting.html">
+        <img class="consult-icon" src="assets/trail-mug.png" alt="" width="175" height="184">
+        <span class="consult-copy">
+          <span class="consult-name">AI Consulting <span class="consult-price">$100 / session</span></span>
+          <span class="consult-text">A straight, practical consultation on how AI could actually apply to your business. No jargon, no upsell, just what's worth doing and what isn't yet.</span>
+        </span>
+        <span class="consult-go" aria-hidden="true">→</span>
+      </a>
+    </section>
+
+    <section class="apps" id="apps" aria-labelledby="apps-title">
+      <div class="apps-copy">
+        <h2 class="apps-title display" id="apps-title">Our apps</h2>
+        <p>Alongside client work, we build our own consumer and productivity apps under the Mango Studios name. Here's what's on the bench.</p>
+        <a class="btn btn--white" href="software.html">See all our software</a>
+      </div>
+      <div class="deck" data-parallax="0.05">
+        <ul class="deck-cards" id="deck">
+          <li class="deck-card" data-pos="0">
+            <div class="deck-screen"><img src="assets/trail-camera.png" alt="" width="299" height="260"></div>
+            <div class="deck-body">
+              <span class="deck-kind">Consumer tools</span>
+              <h3>Everyday apps</h3>
+              <p>Small apps that make one part of your day simpler.</p>
+              <span class="status">In development</span>
+            </div>
+          </li>
+          <li class="deck-card" data-pos="1" aria-hidden="true">
+            <div class="deck-screen"><img src="assets/trail-hourglass.png" alt="" width="198" height="267"></div>
+            <div class="deck-body">
+              <span class="deck-kind">Productivity software</span>
+              <h3>Work tools</h3>
+              <p>Tools that cut the busywork out of a working day.</p>
+              <span class="status">In development</span>
+            </div>
+          </li>
+          <li class="deck-card" data-pos="2" aria-hidden="true">
+            <div class="deck-screen"><img src="assets/trail-pencil.png" alt="" width="143" height="186"></div>
+            <div class="deck-body">
+              <span class="deck-kind">Next up</span>
+              <h3>On the drawing board</h3>
+              <p>There's always another idea in the sketchbook. It gets a name when it ships.</p>
+              <span class="status">Sketching</span>
+            </div>
+          </li>
+        </ul>
+        <div class="deck-controls">
+          <button class="deck-btn" type="button" data-dir="-1" aria-label="Previous app">←</button>
+          <span class="deck-count" id="deck-count" aria-live="polite">1 / 3</span>
+          <button class="deck-btn" type="button" data-dir="1" aria-label="Next app">→</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="manifesto" aria-labelledby="manifesto-title">
+      <div class="sky manifesto-sky" data-parallax="0.3"></div>
+      <h2 class="manifesto-title" id="manifesto-title">Our manifesto</h2>
+      <ul class="manifesto-lines">
+        <li class="" data-drift="0.1"><span>Small on purpose.</span></li>
+        <li class="tape" data-drift="-0.1"><span>You talk to the builder.</span></li>
+        <li class="" data-drift="0.1"><span>Prices up front.</span></li>
+        <li class="tape" data-drift="-0.1"><span>Ship the real thing.</span></li>
+        <li class="" data-drift="0.1"><span>Skip what isn't worth it.</span></li>
+        <li class="tape" data-drift="-0.1"><span>Make it fun to use.</span></li>
       </ul>
     </section>
 

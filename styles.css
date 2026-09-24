@@ -343,13 +343,166 @@ a { color: inherit; }
   text-align: center;
 }
 
-/* four service lines, one row of matching cards */
-.cards { grid-template-columns: repeat(4, 1fr); gap: 2vw; }
+/* the three build services; AI Consulting sits apart underneath */
 .cards > li { display: flex; }
 .card { width: 100%; text-decoration: none; color: inherit; -webkit-tap-highlight-color: transparent; }
-.card-title { font-size: clamp(28px, 2.9vw, 56px); }
 .card:focus-visible { outline: 4px solid #fff; outline-offset: 5px; }
 .card:active { transform: translateY(-4px) scale(0.985); transition-duration: 0.08s; }
+
+.consult {
+  max-width: 1800px;
+  margin: 2.9vw auto 0;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: clamp(16px, 2.4vw, 40px);
+  padding: clamp(18px, 2vw, 28px) clamp(22px, 2.6vw, 44px);
+  background: var(--paper);
+  border: clamp(5px, 0.55vw, 10px) solid var(--ink);
+  border-radius: clamp(22px, 2.4vw, 46px);
+  color: var(--ink);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.4s var(--ease);
+}
+.consult:hover { transform: translateY(-4px); }
+.consult:active { transform: translateY(-1px) scale(0.99); transition-duration: 0.08s; }
+.consult:focus-visible { outline: 4px solid #fff; outline-offset: 5px; }
+.consult-icon { width: clamp(60px, 5.5vw, 96px); height: auto; transform: rotate(-6deg); }
+.consult-copy { display: grid; gap: 6px; }
+.consult-name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 16px;
+  font-family: var(--font-cartoon);
+  font-size: clamp(30px, 2.8vw, 52px);
+  line-height: 1;
+}
+.consult-price { font: 800 clamp(14px, 1.1vw, 18px)/1 var(--font-text); }
+.consult-text { max-width: 64ch; font: 500 var(--t-body)/1.5 var(--font-text); }
+.consult-go {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  background: var(--title-yellow);
+  font: 700 24px/1 var(--font-text);
+  transition: transform 0.4s var(--ease);
+}
+.consult:hover .consult-go { transform: translateX(4px); }
+
+/* ── OUR APPS: a deck that deals one app at a time ─ */
+
+.apps {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  background: var(--title-yellow);
+  border-top: 6px solid var(--ink);
+  padding: clamp(80px, 9vw, 140px) var(--gutter);
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  align-items: center;
+  gap: clamp(40px, 6vw, 104px);
+}
+.apps-copy { display: grid; justify-items: start; gap: 24px; max-width: 520px; justify-self: end; }
+.apps-title { font-size: var(--t-h2); color: var(--ink); }
+.apps-copy p { font: 600 var(--t-lead)/1.45 var(--font-text); color: var(--ink); }
+
+.deck { position: relative; width: min(100%, 520px); }
+.deck-cards { list-style: none; position: relative; display: grid; grid-template-columns: minmax(0, 1fr); }
+.deck-card {
+  grid-area: 1 / 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
+  background: var(--paper);
+  border: 5px solid var(--ink);
+  border-radius: 32px;
+  overflow: hidden;
+  transform-origin: 50% 100%;
+  transition: transform 0.6s var(--ease), opacity 0.4s var(--ease);
+}
+.deck-card[data-pos="0"] { z-index: 3; transform: none; }
+.deck-card[data-pos="1"] { z-index: 2; transform: translate(22px, 16px) rotate(3.5deg) scale(0.96); }
+.deck-card[data-pos="2"] { z-index: 1; transform: translate(42px, 30px) rotate(7deg) scale(0.92); }
+.deck-card.is-leaving { z-index: 4; transform: translate(-115%, -4%) rotate(-12deg); opacity: 0; }
+.deck-screen {
+  aspect-ratio: 16 / 9;
+  display: grid;
+  place-items: center;
+  background: var(--card-blue) repeating-linear-gradient(135deg, transparent 0 22px, rgba(255, 255, 255, 0.4) 22px 44px);
+  border-bottom: 5px solid var(--ink);
+}
+.deck-screen img { width: auto; height: 62%; }
+.deck-body { padding: 22px 26px 26px; display: grid; justify-items: start; gap: 8px; }
+.deck-kind { font: 700 12px/1 var(--font-text); letter-spacing: 0.1em; text-transform: uppercase; color: rgba(17, 17, 17, 0.62); }
+.deck-body h3 { font-family: var(--font-cartoon); font-weight: 400; font-size: var(--t-h3); line-height: 1.02; color: var(--ink); }
+.deck-body p { font: 500 var(--t-body)/1.5 var(--font-text); color: var(--ink); }
+.deck-body .status { justify-self: start; margin-top: 6px; background: var(--card-blue); }
+.deck-controls { display: flex; align-items: center; gap: 14px; margin-top: 56px; }
+.deck-btn {
+  width: 50px;
+  height: 50px;
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  background: var(--paper);
+  font: 700 20px/1 var(--font-text);
+  color: var(--ink);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.18s var(--ease);
+}
+.deck-btn:hover { transform: translateY(-2px); }
+.deck-btn:active { transform: scale(0.94); transition-duration: 0.06s; }
+.deck-count { font: 700 15px/1 var(--font-text); font-variant-numeric: tabular-nums; color: var(--ink); }
+
+/* ── MANIFESTO: big lines that drift as you scroll ─ */
+
+.manifesto {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  border-top: 6px solid var(--ink);
+  padding: clamp(88px, 10vw, 160px) 0;
+}
+.manifesto-sky { inset: -25% 0; }
+.manifesto-title {
+  position: relative;
+  margin: 0 var(--gutter) clamp(28px, 4vw, 56px);
+  text-align: center;
+  font: 700 14px/1 var(--font-text);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.manifesto-lines { position: relative; list-style: none; display: flex; flex-direction: column; align-items: center; gap: clamp(10px, 1.6vw, 22px); }
+.manifesto-lines li {
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  font-weight: 900;
+  font-size: clamp(1.9rem, 0.4rem + 4vw, 4.5rem);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--ink);
+}
+.manifesto-lines li.tape span {
+  display: inline-block;
+  padding: 0.08em 0.3em 0.12em;
+  background: var(--title-yellow);
+  border: 5px solid var(--ink);
+  border-radius: 0.28em;
+  transform: rotate(-1.2deg);
+}
+.manifesto-lines li.tape:nth-child(4n) span { transform: rotate(1.2deg); }
+
+/* page heroes: the sky runs past the edges so it can move slower than the page */
+.page-sky { inset: -20% 0; }
 
 /* ── FOOTER ────────────────────────────────── */
 
@@ -519,13 +672,12 @@ a { color: inherit; }
 
 /* ── RESPONSIVE ────────────────────────────── */
 
-@media (max-width: 1080px) {
-  .cards { grid-template-columns: repeat(2, 1fr); gap: 28px; max-width: 760px; }
-  .card-title { font-size: clamp(30px, 4.6vw, 48px); }
-}
-
 @media (max-width: 900px) {
-  .about-grid, .page-hero-inner, .scope-head, .price-inner { grid-template-columns: 1fr; }
+  .about-grid, .page-hero-inner, .scope-head, .price-inner, .apps { grid-template-columns: 1fr; }
+  .apps-copy { justify-self: start; }
+  .deck { width: min(100% - 44px, 480px); }
+  .consult { grid-template-columns: auto 1fr; }
+  .consult-go { display: none; }
   .about-mango { order: -1; width: min(60vw, 280px); justify-self: center; }
   .points, .mini-cards { grid-template-columns: 1fr; }
   .icon-tile { width: min(70vw, 320px); }
@@ -562,6 +714,10 @@ a { color: inherit; }
   .card { aspect-ratio: auto; padding: 32px 20px 36px; gap: 20px; }
   .card-icon { height: auto; width: 46%; }
   .card-title { font-size: clamp(34px, 10vw, 48px); }
+  .consult { max-width: 420px; margin-top: 20px; }
+  .manifesto-lines { padding: 0 16px; }
+  .manifesto-lines li { white-space: normal; text-align: center; font-size: clamp(1.75rem, 8.4vw, 2.75rem); }
+  .manifesto-lines li.tape span { border-width: 4px; }
 }
 
 @media (max-width: 520px) {
@@ -574,6 +730,9 @@ a { color: inherit; }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .deck-card { transition: opacity 0.3s ease; }
+  .deck-card[data-pos="1"], .deck-card[data-pos="2"] { transform: none; opacity: 0; }
+  .deck-card.is-leaving { transform: none; }
   .trail img { animation-name: sticker-still; animation-timing-function: ease-out; }
   .card, .card:hover, .card:active, .btn, .btn:hover, .btn:active, .mini-card, .mini-card:hover { transition: none; transform: none; }
   .card:hover .card-icon { animation: none; }
