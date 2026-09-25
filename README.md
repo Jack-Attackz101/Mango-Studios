@@ -25,6 +25,7 @@ Software, sites, and digital products. Plus whatever else can make money.
 ```
 assets/   brand mark, sky, and fruit layers
 apps/     each product lives here
+  ambco/  American Metal Bearing concept site — three.js submarine + GSAP scroll dive
 ```
 
 ## people
