@@ -204,29 +204,106 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   layout();
 })();
 
-// Fit MANGO and STUDIOS to the hero's width. Both sizes are in cqw, so one measurement holds at every width.
+// Fit MANGO STUDIOS to the hero's width. The size is in cqw, so one measurement holds until the layout changes.
 (function () {
   const inner = document.getElementById('hero-inner');
-  if (!inner) return;
-  const words = [['--fit-top', inner.querySelector('.hero-word--top')], ['--fit-bottom', inner.querySelector('.hero-word--bottom')]];
+  const name = inner && inner.querySelector('.hero-name');
+  if (!name) return;
   function fit() {
     const w = inner.clientWidth;
     if (!w) return;
-    words.forEach(function (pair) {
-      const el = pair[1];
-      inner.style.setProperty(pair[0], '10cqw');
-      const measured = el.getBoundingClientRect().width;
-      if (measured) inner.style.setProperty(pair[0], (10 * (w * 0.96) / measured).toFixed(3) + 'cqw');
-    });
+    inner.style.setProperty('--fit', '10cqw');
+    const measured = name.getBoundingClientRect().width;
+    if (measured) inner.style.setProperty('--fit', (10 * (w * 0.9) / measured).toFixed(3) + 'cqw');
   }
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(fit);
   window.addEventListener('load', fit);
+  window.matchMedia('(max-aspect-ratio: 4/5)').addEventListener('change', fit);
+})();
+
+// Sidebar: slides in when the pointer reaches the left edge, tucks away when it leaves.
+(function () {
+  const bar = document.getElementById('sidebar');
+  const edge = document.querySelector('.side-edge');
+  if (!bar || !edge) return;
+  const canHover = window.matchMedia('(hover: hover) and (min-width: 761px)');
+  let timer = 0;
+  function open() { clearTimeout(timer); document.body.classList.add('side-open'); }
+  function close(delay) {
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      if (!bar.contains(document.activeElement)) document.body.classList.remove('side-open');
+    }, delay);
+  }
+  edge.addEventListener('pointerenter', function () { if (canHover.matches) open(); });
+  document.addEventListener('pointermove', function (e) {
+    if (!canHover.matches) return;
+    if (e.clientX <= 12) open();
+    else if (document.body.classList.contains('side-open') && e.clientX > bar.getBoundingClientRect().right + 48) close(200);
+  }, { passive: true });
+  bar.addEventListener('pointerenter', open);
+  bar.addEventListener('pointerleave', function () { close(260); });
+  bar.addEventListener('focusin', open);
+  bar.addEventListener('focusout', function () { close(0); });
+  bar.addEventListener('click', function (e) { if (e.target.closest('a')) close(120); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { document.activeElement.blur(); close(0); } });
+})();
+
+// Team: while the stage is pinned, each person rises from below, holds, then slides up as the next arrives.
+(function () {
+  const team = document.getElementById('team');
+  if (!team || reduceMotion) return;
+  const members = [].slice.call(team.querySelectorAll('.member'));
+  const grid = team.querySelector('.team-grid-bg');
+  const word = team.querySelector('.team-word');
+  const now = document.getElementById('team-now');
+  const n = members.length;
+  team.classList.add('is-scrolly');
+  let top = 0, vh = 1, ticking = false;
+
+  function measure() {
+    top = 0;
+    for (let el = team; el; el = el.offsetParent) top += el.offsetTop;
+    vh = window.innerHeight;
+    render();
+  }
+  function ease(k) { return 1 - Math.pow(1 - k, 3); }
+  function clamp(v) { return Math.max(0, Math.min(1, v)); }
+  // -0.4..0 rising, 0..0.3 holding, 0.3..0.6 leaving; the next person rises only after this one has gone
+  function place(el, u, last) {
+    let y = 0, o = 1;
+    if (u < 0) { const k = ease(clamp((u + 0.4) / 0.4)); y = (1 - k) * 0.7; o = clamp(k * 1.6); }
+    else if (!last && u > 0.3) { const k = clamp((u - 0.3) / 0.3); y = -k * k * 0.7; o = 1 - k; }
+    el.style.transform = 'translate3d(0,' + (y * vh).toFixed(1) + 'px,0)';
+    el.style.opacity = o.toFixed(3);
+  }
+  function render() {
+    ticking = false;
+    if (!team.offsetParent) return;
+    const p = (window.scrollY - top) / vh;
+    members.forEach(function (m, i) {
+      const u = p - i, last = i === n - 1;
+      place(m.querySelector('.avatar'), u, last);
+      place(m.querySelector('.member-text'), u - 0.06, last);
+      m.style.visibility = (u < -0.5 || (!last && u > 0.7)) ? 'hidden' : 'visible';
+    });
+    if (now) now.textContent = String(Math.max(1, Math.min(n, Math.round(p) + 1)));
+    if (grid) grid.style.transform = 'translate3d(0,' + (-(p * 0.3 * 56) % 56).toFixed(1) + 'px,0)';
+    if (word) word.style.transform = 'translate3d(0,' + (Math.max(-1, Math.min(n, p)) * -2).toFixed(2) + 'vh,0)';
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(render); }
+  }, { passive: true });
+  window.addEventListener('resize', measure);
+  window.addEventListener('load', measure);
+  window.addEventListener('hashchange', function () { setTimeout(measure, 0); });
+  measure();
 })();
 
 // Sidebar follows the section in view on the home page.
 (function () {
   const links = [].slice.call(document.querySelectorAll('.side-links a[data-section]'));
-  const map = { hero: '', about: 'about', services: 'services', apps: 'software', team: 'team' };
+  const map = { hero: '', about: 'about', services: 'services', apps: 'software', team: 'team', manifesto: 'manifesto' };
   const targets = Object.keys(map).map(function (id) { return document.getElementById(id); }).filter(Boolean);
   if (!links.length || targets.length < 3) return;
   const inView = new Set();

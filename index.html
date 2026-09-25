@@ -13,12 +13,13 @@
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
-  <aside class="sidebar" aria-label="Site">
+  <div class="side-edge" aria-hidden="true"><span class="side-tab">Menu</span></div>
+  <aside class="sidebar" id="sidebar" aria-label="Site">
     <a class="side-brand" href="index.html">Mango<br>Studios</a>
-    <p class="side-tag">Custom software, built lean. Toronto.</p>
     <nav aria-label="Main">
       <ul class="side-links">
-        <li><a href="index.html#services" data-section="services">Services</a>
+        <li class="side-about"><a href="index.html#about" data-section="about">About</a></li>
+        <li class="side-services"><a href="index.html#services" data-section="services">Services</a>
           <ul class="side-sub">
             <li><a href="sites-and-apps.html">Custom Sites &amp; Apps</a></li>
             <li><a href="ai-agents.html">Custom AI Agents</a></li>
@@ -26,14 +27,13 @@
             <li><a href="consulting.html">AI Consulting</a></li>
           </ul>
         </li>
-        <li><a href="software.html" data-section="software">Software</a></li>
-        <li><a href="index.html#team" data-section="team">Team</a></li>
-        <li><a href="index.html#about" data-section="about">About</a></li>
+        <li class="side-software"><a href="software.html" data-section="software">Software</a></li>
+        <li class="side-team"><a href="index.html#team" data-section="team">Team</a></li>
+        <li class="side-manifesto"><a href="index.html#manifesto" data-section="manifesto">Manifesto</a></li>
       </ul>
     </nav>
     <div class="side-foot">
-      <a class="btn side-cta" href="mailto:hello@mangostudios.xyz?subject=New%20project">Start<span class="cta-rest">&nbsp;a project</span></a>
-      <a class="side-mail" href="mailto:hello@mangostudios.xyz">hello@mangostudios.xyz</a>
+      <a class="btn side-cta" href="mailto:hello@mangostudios.xyz?subject=Hello">Talk to us</a>
     </div>
   </aside>
 
@@ -41,15 +41,13 @@
     <div class="stage" id="stage">
       <section class="hero" id="hero" aria-label="Mango Studios">
         <div class="hero-inner" id="hero-inner">
-          <div class="sky" id="hero-sky"></div>
-          <h1 class="hero-title" id="hero-title"><span class="hero-word hero-word--top">Mango</span> <span class="hero-word hero-word--bottom">Studios</span></h1>
-          <div class="hero-ring" aria-hidden="true">
-            <svg class="ring-text" viewBox="0 0 200 200">
-              <defs><path id="ring-path" d="M100,100 m-82,0 a82,82 0 1,1 164,0 a82,82 0 1,1 -164,0"/></defs>
-              <text><textPath href="#ring-path" textLength="502" lengthAdjust="spacing">Sites &amp; Apps • AI Agents • Automations • AI Consulting • </textPath></text>
-            </svg>
-            <img class="ring-mark" src="assets/logo.png" alt="" width="640" height="640">
+          <div class="sky sky--live" id="hero-sky"></div>
+          <div class="clouds-front" aria-hidden="true"></div>
+          <div class="hero-center" id="hero-title">
+            <h1 class="hero-title"><span class="hero-name"><span>Mango</span> <span>Studios</span></span></h1>
+            <p class="hero-sub">Sites, apps, AI agents and automations for businesses that need something built and shipped, not scoped for six months.</p>
           </div>
+          <div class="ticker" aria-hidden="true"><div class="ticker-run"><span class="tick-item"><img src="assets/icon-key.png" alt="">Custom Sites &amp; Apps</span><span class="tick-item"><img src="assets/icon-wink.png" alt="">Custom AI Agents</span><span class="tick-item"><img src="assets/icon-cursor.png" alt="">Custom Automations</span><span class="tick-item"><img src="assets/trail-mug.png" alt="">AI Consulting</span><span class="tick-item"><img src="assets/icon-key.png" alt="">Custom Sites &amp; Apps</span><span class="tick-item"><img src="assets/icon-wink.png" alt="">Custom AI Agents</span><span class="tick-item"><img src="assets/icon-cursor.png" alt="">Custom Automations</span><span class="tick-item"><img src="assets/trail-mug.png" alt="">AI Consulting</span></div></div>
           <div class="trail" id="trail" aria-hidden="true"></div>
           <div class="hero-shade" id="hero-shade"></div>
         </div>
@@ -157,45 +155,57 @@
       </div>
     </section>
 
-    <section class="team" id="team" aria-labelledby="team-title">
-      <div class="team-head">
-        <h2 class="team-title display" id="team-title">Meet the team</h2>
-        <p>Three people and a lot of AI. When you work with us, you talk to one of the three people here.</p>
-      </div>
-      <ul class="team-grid">
-        <li class="member">
+    <section class="team" id="team" aria-labelledby="team-title" style="--n: 4">
+      <div class="team-pin">
+        <div class="team-grid-bg" aria-hidden="true"></div>
+        <p class="team-word" aria-hidden="true">Team</p>
+        <div class="team-top">
+          <h2 class="team-title" id="team-title">Meet the team</h2>
+          <p class="team-count" aria-hidden="true"><span id="team-now">1</span> / 4</p>
+        </div>
+        <ol class="team-list">
+        <li class="member" data-i="0">
           <span class="avatar"><img src="assets/team-jack.webp" alt="Jack Koll-Gunderson" width="520" height="520"></span>
-          <h3 class="member-name">Jack Koll-Gunderson</h3>
-          <p class="member-role">CEO &amp; Founder</p>
-          <p class="member-bio">Jack founded Mango Studios and builds most of what it ships. He already runs two live SaaS products, Klaritea and Tvarit, and is building the studio's own apps, Iris and Alpine. He trains every new teammate himself.</p>
-          <a class="btn btn--white btn--sm member-link" href="https://www.linkedin.com/in/jack-koll-gunderson-28a6aa3a1/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+          <div class="member-text">
+            <p class="member-role">CEO &amp; Founder</p>
+            <h3 class="member-name">Jack Koll-Gunderson</h3>
+            <p class="member-bio">Jack founded Mango Studios and builds most of what it ships. He already runs two live SaaS products, Klaritea and Tvarit, and is building the studio's own apps, Iris and Alpine. He trains every new teammate himself.</p>
+            <a class="btn btn--white member-link" href="https://www.linkedin.com/in/jack-koll-gunderson-28a6aa3a1/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+          </div>
         </li>
-        <li class="member">
+        <li class="member" data-i="1">
           <span class="avatar"><img src="assets/team-james.webp" alt="James Hamilton" width="520" height="520"></span>
-          <h3 class="member-name">James Hamilton</h3>
-          <p class="member-role">Head of Sites &amp; Apps</p>
-          <p class="member-bio">James runs Custom Sites &amp; Apps. He was one of the first two people to join, and Jack taught him the craft one-on-one: multi-agent coding, clean version control and reviewing every change before it ships. He went from trainee to running the service line.</p>
-          <a class="btn btn--white btn--sm member-link" href="https://www.linkedin.com/in/james-hamilton-3279b3410/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+          <div class="member-text">
+            <p class="member-role">Head of Sites &amp; Apps</p>
+            <h3 class="member-name">James Hamilton</h3>
+            <p class="member-bio">James runs Custom Sites &amp; Apps. He was one of the first two people to join, and Jack taught him the craft one-on-one: multi-agent coding, clean version control and reviewing every change before it ships. He went from trainee to running the service line.</p>
+            <a class="btn btn--white member-link" href="https://www.linkedin.com/in/james-hamilton-3279b3410/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+          </div>
         </li>
-        <li class="member">
+        <li class="member" data-i="2">
           <span class="avatar avatar--empty"></span>
-          <h3 class="member-name">Hayden Morton</h3>
-          <p class="member-role">Head of Automation</p>
-          <p class="member-bio">Hayden runs Custom Automations. He joined alongside James, already fluent in automation tools, and was doing client work from his first week. He picks whatever fits each client's systems, from Codex to Tines, instead of forcing one platform on everyone.</p>
-          <a class="btn btn--white btn--sm member-link" href="https://www.linkedin.com/in/hayden-morton-71848a438/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+          <div class="member-text">
+            <p class="member-role">Head of Automation</p>
+            <h3 class="member-name">Hayden Morton</h3>
+            <p class="member-bio">Hayden runs Custom Automations. He joined alongside James, already fluent in automation tools, and was doing client work from his first week. He picks whatever fits each client's systems, from Codex to Tines, instead of forcing one platform on everyone.</p>
+            <a class="btn btn--white member-link" href="https://www.linkedin.com/in/hayden-morton-71848a438/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+          </div>
         </li>
-        <li class="member member--ai">
+        <li class="member" data-i="3">
           <span class="avatar avatar--ai"><img src="assets/trail-wink.png" alt="" width="302" height="313"></span>
-          <h3 class="member-name">The AI crew</h3>
-          <p class="member-role">Directed by the three of us</p>
-          <p class="member-bio">Behind the three of us is a crew of AI agents that write code, test it and research. We direct them, review everything they make and stand behind all of it. That's how a small team ships like a big one.</p>
-          <a class="btn btn--white btn--sm member-link" href="ai-agents.html">See AI Agents <span aria-hidden="true">→</span></a>
+          <div class="member-text">
+            <p class="member-role">Directed by the three of us</p>
+            <h3 class="member-name">The AI crew</h3>
+            <p class="member-bio">Behind the three of us is a crew of AI agents that write code, test it and research. We direct them, review everything they make and stand behind all of it. That's how a small team ships like a big one.</p>
+            <a class="btn btn--white member-link" href="ai-agents.html">See AI Agents <span aria-hidden="true">→</span></a>
+          </div>
         </li>
-      </ul>
+        </ol>
+      </div>
     </section>
 
-    <section class="manifesto" aria-labelledby="manifesto-title">
-      <div class="sky manifesto-sky" data-parallax="0.3"></div>
+    <section class="manifesto" id="manifesto" aria-labelledby="manifesto-title">
+      <div class="sky sky--live manifesto-sky" data-parallax="0.3"></div>
       <h2 class="manifesto-title" id="manifesto-title">Our manifesto</h2>
       <ul class="manifesto-lines">
         <li class="" data-drift="0.1"><span>Small team, real output.</span></li>

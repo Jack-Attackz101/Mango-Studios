@@ -13,12 +13,13 @@
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
-  <aside class="sidebar" aria-label="Site">
+  <div class="side-edge" aria-hidden="true"><span class="side-tab">Menu</span></div>
+  <aside class="sidebar" id="sidebar" aria-label="Site">
     <a class="side-brand" href="index.html">Mango<br>Studios</a>
-    <p class="side-tag">Custom software, built lean. Toronto.</p>
     <nav aria-label="Main">
       <ul class="side-links">
-        <li><a href="index.html#services" data-section="services">Services</a>
+        <li class="side-about"><a href="index.html#about" data-section="about">About</a></li>
+        <li class="side-services"><a href="index.html#services" data-section="services">Services</a>
           <ul class="side-sub">
             <li><a href="sites-and-apps.html">Custom Sites &amp; Apps</a></li>
             <li><a href="ai-agents.html">Custom AI Agents</a></li>
@@ -26,20 +27,19 @@
             <li><a href="consulting.html">AI Consulting</a></li>
           </ul>
         </li>
-        <li><a href="software.html" aria-current="true" data-section="software">Software</a></li>
-        <li><a href="index.html#team" data-section="team">Team</a></li>
-        <li><a href="index.html#about" data-section="about">About</a></li>
+        <li class="side-software"><a href="software.html" aria-current="true" data-section="software">Software</a></li>
+        <li class="side-team"><a href="index.html#team" data-section="team">Team</a></li>
+        <li class="side-manifesto"><a href="index.html#manifesto" data-section="manifesto">Manifesto</a></li>
       </ul>
     </nav>
     <div class="side-foot">
-      <a class="btn side-cta" href="mailto:hello@mangostudios.xyz?subject=New%20project">Start<span class="cta-rest">&nbsp;a project</span></a>
-      <a class="side-mail" href="mailto:hello@mangostudios.xyz">hello@mangostudios.xyz</a>
+      <a class="btn side-cta" href="mailto:hello@mangostudios.xyz?subject=Hello">Talk to us</a>
     </div>
   </aside>
 
   <main id="main">
     <section class="page-hero" aria-labelledby="page-title">
-      <div class="sky page-sky" data-parallax="0.3"></div>
+      <div class="sky sky--live page-sky" data-parallax="0.3"></div>
       <div class="page-hero-inner">
         <div class="page-hero-copy">
           <h1 class="page-title display" id="page-title">Our Software</h1>
