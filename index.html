@@ -21,14 +21,7 @@
       <a class="menu-brand" href="index.html">Mango Studios</a>
       <ul class="menu-links">
         <li><a href="index.html#about" data-section="about">About</a></li>
-        <li><a href="index.html#services" data-section="services">Services</a>
-          <ul class="menu-sub">
-            <li><a href="sites-and-apps.html">Custom Sites &amp; Apps</a></li>
-            <li><a href="ai-agents.html">Custom AI Agents</a></li>
-            <li><a href="automations.html">Custom Automations</a></li>
-            <li><a href="consulting.html">AI Consulting</a></li>
-          </ul>
-        </li>
+        <li><a href="index.html#services" data-section="services">Services</a></li>
         <li><a href="software.html" data-section="software">Software</a></li>
         <li><a href="index.html#team" data-section="team">Team</a></li>
         <li><a href="index.html#manifesto" data-section="manifesto">Manifesto</a></li>
@@ -54,26 +47,56 @@
     </div>
 
     <section class="about" id="about" aria-labelledby="about-title">
-      <div class="about-grid">
-        <div class="about-copy">
-          <h2 class="about-title display" id="about-title">About us</h2>
-          <p class="about-lead">Mango Studios is a small software studio. We build websites, apps, AI agents and automations for businesses, and we make our own apps too.</p>
-          <p class="about-body">When you work with us, you work with the person building your project, from the first email to launch day. You get a straight answer on what it costs, then we get to work.</p>
+      <div class="about-top">
+        <h2 class="about-title display" id="about-title">About us</h2>
+        <div class="about-text">
+          <p>Mango Studios is a small software studio. We build websites, apps, AI agents and automations for businesses, and we make our own apps too.</p>
+          <p>When you work with us, you work with the person building your project, from the first email to launch day. You get a straight answer on what it costs, then we get to work.</p>
         </div>
-        <img class="about-mango" data-parallax="-0.12" src="assets/mango-point.png" alt="Mickey Mango, our mascot, pointing" width="722" height="716">
       </div>
-      <ul class="points">
-        <li>
-          <h3>Straight to the builder</h3>
-          <p>The person you email is the person doing the work, so nothing gets lost in a hand-off.</p>
+      <div class="about-scene">
+        <div class="sun sun--top" data-parallax="-0.06" aria-hidden="true"></div>
+        <div class="about-band">
+          <div class="sky sky--live"></div>
+          <div class="sun sun--low" data-parallax="-0.06" aria-hidden="true"></div>
+          <img class="about-mango" data-parallax="-0.04" src="assets/mango-point.png" alt="Mickey Mango, our mascot" width="722" height="716">
+        </div>
+      </div>
+      <h3 class="values-title display">Our values</h3>
+      <svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
+        <defs>
+          <mask id="bite-mask"><rect width="100" height="100" fill="#fff"/><circle cx="89" cy="21" r="15" fill="#000"/></mask>
+          <clipPath id="disc-clip"><circle cx="50" cy="50" r="46"/></clipPath>
+        </defs>
+      </svg>
+      <ul class="values">
+        <li class="value">
+          <span class="value-disc value-disc--yellow">
+            <svg viewBox="0 0 100 100" aria-hidden="true"><g mask="url(#bite-mask)"><circle cx="50" cy="50" r="46"/></g><circle class="bite-edge" cx="89" cy="21" r="15" clip-path="url(#disc-clip)"/></svg>
+            <img src="assets/trail-wink.png" alt="" width="302" height="313">
+          </span>
+          <span class="value-name">Talk to the builder</span>
         </li>
-        <li>
-          <h3>Prices up front</h3>
-          <p>One conversation gets you a real quote and an honest answer on whether we're a fit.</p>
+        <li class="value">
+          <span class="value-disc value-disc--blue">
+            <svg viewBox="0 0 100 100" aria-hidden="true"><g mask="url(#bite-mask)"><circle cx="50" cy="50" r="46"/></g><circle class="bite-edge" cx="89" cy="21" r="15" clip-path="url(#disc-clip)"/></svg>
+            <img src="assets/trail-pencil.png" alt="" width="143" height="186">
+          </span>
+          <span class="value-name">Honest pricing</span>
         </li>
-        <li>
-          <h3>We ship</h3>
-          <p>Tight scope, quick turnaround and a working product at the end.</p>
+        <li class="value">
+          <span class="value-disc value-disc--orange">
+            <svg viewBox="0 0 100 100" aria-hidden="true"><g mask="url(#bite-mask)"><circle cx="50" cy="50" r="46"/></g><circle class="bite-edge" cx="89" cy="21" r="15" clip-path="url(#disc-clip)"/></svg>
+            <img src="assets/icon-cursor.png" alt="" width="252" height="357">
+          </span>
+          <span class="value-name">Real output</span>
+        </li>
+        <li class="value">
+          <span class="value-disc value-disc--paper">
+            <svg viewBox="0 0 100 100" aria-hidden="true"><g mask="url(#bite-mask)"><circle cx="50" cy="50" r="46"/></g><circle class="bite-edge" cx="89" cy="21" r="15" clip-path="url(#disc-clip)"/></svg>
+            <img src="assets/trail-key.png" alt="" width="308" height="330">
+          </span>
+          <span class="value-name">Right tool, every job</span>
         </li>
       </ul>
     </section>
@@ -154,9 +177,10 @@
       </div>
     </section>
 
-    <section class="team" id="team" aria-labelledby="team-title" style="--n: 4">
+    <section class="team" id="team" aria-labelledby="team-title" style="--n: 4" data-ride="62">
       <div class="team-pin">
         <div class="team-grid-bg" aria-hidden="true"></div>
+        <div class="rainbow" id="rainbow" aria-hidden="true"><span class="arc arc--ink" style="--in:0px;--w:5px"></span><span class="arc arc--orange" style="--in:5px;--w:34px"></span><span class="arc arc--ink" style="--in:39px;--w:4px"></span><span class="arc arc--yellow" style="--in:43px;--w:34px"></span><span class="arc arc--ink" style="--in:77px;--w:4px"></span><span class="arc arc--paper" style="--in:81px;--w:34px"></span><span class="arc arc--ink" style="--in:115px;--w:5px"></span></div>
         <p class="team-word" aria-hidden="true">Team</p>
         <div class="team-top">
           <h2 class="team-title" id="team-title">Meet the team</h2>
@@ -165,39 +189,31 @@
         <ol class="team-list">
         <li class="member" data-i="0">
           <span class="avatar"><img src="assets/team-jack.webp" alt="Jack Koll-Gunderson" width="520" height="520"></span>
-          <div class="member-text">
-            <p class="member-role">CEO &amp; Founder</p>
-            <h3 class="member-name">Jack Koll-Gunderson</h3>
-            <p class="member-bio">Jack founded Mango Studios and builds most of what it ships. He already runs two live SaaS products, Klaritea and Tvarit, and is building the studio's own apps, Iris and Alpine. He trains every new teammate himself.</p>
-            <a class="btn btn--white member-link" href="https://www.linkedin.com/in/jack-koll-gunderson-28a6aa3a1/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
-          </div>
+          <p class="member-role">CEO &amp; Founder</p>
+          <h3 class="member-name">Jack Koll-Gunderson</h3>
+          <p class="member-bio">Founded the studio and builds most of what it ships. Also runs two live SaaS products, Klaritea and Tvarit.</p>
+          <a class="btn btn--white btn--sm member-link" href="https://www.linkedin.com/in/jack-koll-gunderson-28a6aa3a1/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
         </li>
         <li class="member" data-i="1">
           <span class="avatar"><img src="assets/team-james.webp" alt="James Hamilton" width="520" height="520"></span>
-          <div class="member-text">
-            <p class="member-role">Head of Sites &amp; Apps</p>
-            <h3 class="member-name">James Hamilton</h3>
-            <p class="member-bio">James runs Custom Sites &amp; Apps. He was one of the first two people to join, and Jack taught him the craft one-on-one: multi-agent coding, clean version control and reviewing every change before it ships. He went from trainee to running the service line.</p>
-            <a class="btn btn--white member-link" href="https://www.linkedin.com/in/james-hamilton-3279b3410/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
-          </div>
+          <p class="member-role">Head of Sites &amp; Apps</p>
+          <h3 class="member-name">James Hamilton</h3>
+          <p class="member-bio">Leads Sites &amp; Apps. Learned the craft one-on-one from Jack, then took over the service line.</p>
+          <a class="btn btn--white btn--sm member-link" href="https://www.linkedin.com/in/james-hamilton-3279b3410/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
         </li>
         <li class="member" data-i="2">
           <span class="avatar avatar--empty"></span>
-          <div class="member-text">
-            <p class="member-role">Head of Automation</p>
-            <h3 class="member-name">Hayden Morton</h3>
-            <p class="member-bio">Hayden runs Custom Automations. He joined alongside James, already fluent in automation tools, and was doing client work from his first week. He picks whatever fits each client's systems, from Codex to Tines, instead of forcing one platform on everyone.</p>
-            <a class="btn btn--white member-link" href="https://www.linkedin.com/in/hayden-morton-71848a438/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
-          </div>
+          <p class="member-role">Head of Automation</p>
+          <h3 class="member-name">Hayden Morton</h3>
+          <p class="member-bio">Leads Automations. Picks whatever fits each client's systems, from Codex to Tines.</p>
+          <a class="btn btn--white btn--sm member-link" href="https://www.linkedin.com/in/hayden-morton-71848a438/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
         </li>
         <li class="member" data-i="3">
           <span class="avatar avatar--ai"><img src="assets/trail-wink.png" alt="" width="302" height="313"></span>
-          <div class="member-text">
-            <p class="member-role">Directed by the three of us</p>
-            <h3 class="member-name">The AI crew</h3>
-            <p class="member-bio">Behind the three of us is a crew of AI agents that write code, test it and research. We direct them, review everything they make and stand behind all of it. That's how a small team ships like a big one.</p>
-            <a class="btn btn--white member-link" href="ai-agents.html">See AI Agents <span aria-hidden="true">→</span></a>
-          </div>
+          <p class="member-role">Directed by the three of us</p>
+          <h3 class="member-name">The AI crew</h3>
+          <p class="member-bio">AI agents that code, test and research. We direct them and review everything they make.</p>
+          <a class="btn btn--white btn--sm member-link" href="ai-agents.html">See AI Agents <span aria-hidden="true">→</span></a>
         </li>
         </ol>
       </div>

@@ -21,14 +21,7 @@
       <a class="menu-brand" href="index.html">Mango Studios</a>
       <ul class="menu-links">
         <li><a href="index.html#about" data-section="about">About</a></li>
-        <li><a href="index.html#services" aria-current="true" data-section="services">Services</a>
-          <ul class="menu-sub">
-            <li><a href="sites-and-apps.html">Custom Sites &amp; Apps</a></li>
-            <li><a href="ai-agents.html">Custom AI Agents</a></li>
-            <li><a href="automations.html">Custom Automations</a></li>
-            <li><a href="consulting.html">AI Consulting</a></li>
-          </ul>
-        </li>
+        <li><a href="index.html#services" aria-current="true" data-section="services">Services</a></li>
         <li><a href="software.html" data-section="software">Software</a></li>
         <li><a href="index.html#team" data-section="team">Team</a></li>
         <li><a href="index.html#manifesto" data-section="manifesto">Manifesto</a></li>
@@ -44,7 +37,7 @@
         <div class="page-hero-copy">
           <h1 class="page-title display" id="page-title">AI Consulting</h1>
           <p class="page-lead">A straight, practical consultation on how AI could actually apply to your business. No jargon, no upsell, just what's worth doing and what isn't yet.</p>
-          <a class="btn" href="mailto:hello@mangostudios.xyz?subject=AI%20Consulting">Start a project</a>
+          <a class="btn" href="#book">Book a session</a>
         </div>
         <div class="icon-tile" data-parallax="0.08"><img src="assets/trail-mug.png" alt="" width="175" height="184"></div>
       </div>
@@ -52,10 +45,38 @@
 
     <section class="price" aria-label="Price">
       <div class="price-inner">
-        <p class="price-figure"><span class="price-label">Starts at</span> <span class="price-amount">$100</span> <span class="price-unit">per session</span></p>
+        <p class="price-figure"><span class="price-label">Every session</span> <span class="price-amount">$100</span></p>
         <div class="price-side">
-          <p>One session, one flat price. Book a time by email and bring your questions.</p>
-          <a class="btn btn--white" href="mailto:hello@mangostudios.xyz?subject=AI%20Consulting%20quote">Get a quote</a>
+          <p>One flat price, every time. No packages, no tiers and nothing to upgrade to.</p>
+          <a class="btn btn--white" href="#book">Pick a time</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="book" id="book" aria-labelledby="book-title">
+      <div class="book-head">
+        <h2 class="book-title display" id="book-title">Book a session</h2>
+        <p>Pick a day, then a time. Every day is open right now. Times are Toronto time (ET).</p>
+      </div>
+      <div class="book-grid" id="booking">
+        <div class="cal">
+          <div class="cal-top">
+            <button class="cal-nav" type="button" data-step="-1" aria-label="Previous month">←</button>
+            <h3 class="cal-month" id="cal-month" aria-live="polite">Month</h3>
+            <button class="cal-nav" type="button" data-step="1" aria-label="Next month">→</button>
+          </div>
+          <div class="cal-week" aria-hidden="true"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+          <div class="cal-days" id="cal-days" role="grid" aria-labelledby="cal-month"></div>
+          <p class="cal-key"><span class="dot" aria-hidden="true"></span> Open</p>
+        </div>
+        <div class="slots">
+          <h3 class="slots-title" id="slots-title">Pick a day first</h3>
+          <div class="slot-list" id="slot-list" role="group" aria-labelledby="slots-title"></div>
+          <div class="book-sum" id="book-sum" hidden>
+            <p class="book-choice" id="book-choice"></p>
+            <a class="btn book-go" id="book-go" href="mailto:hello@mangostudios.xyz">Request this time</a>
+            <p class="book-note">Opens an email to hello@mangostudios.xyz with your time filled in. We reply to confirm.</p>
+          </div>
         </div>
       </div>
     </section>

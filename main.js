@@ -251,47 +251,52 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   });
 })();
 
-// Team: while the stage is pinned, each person rises from below, holds, then slides up as the next arrives.
+// Team: while the stage is pinned, each card rides the rainbow in from one side, over the top and out the other.
 (function () {
   const team = document.getElementById('team');
-  if (!team || reduceMotion) return;
+  const rainbow = document.getElementById('rainbow');
+  if (!team || !rainbow || reduceMotion) return;
   const members = [].slice.call(team.querySelectorAll('.member'));
+  const pin = team.querySelector('.team-pin');
   const grid = team.querySelector('.team-grid-bg');
-  const word = team.querySelector('.team-word');
   const now = document.getElementById('team-now');
+  const ride = parseFloat(team.dataset.ride || 62);
   const n = members.length;
   team.classList.add('is-scrolly');
-  let top = 0, vh = 1, ticking = false;
+  let top = 0, vh = 1, arc = null, ticking = false;
 
   function measure() {
     top = 0;
     for (let el = team; el; el = el.offsetParent) top += el.offsetTop;
     vh = window.innerHeight;
+    const p = pin.getBoundingClientRect(), r = rainbow.getBoundingClientRect();
+    // the path runs along the middle band of the rainbow, in the pin's coordinates
+    arc = {
+      cx: r.left - p.left + r.width / 2,
+      cy: r.bottom - p.top,
+      rx: r.width / 2 - ride,
+      ry: r.height - ride,
+    };
     render();
-  }
-  function ease(k) { return 1 - Math.pow(1 - k, 3); }
-  function clamp(v) { return Math.max(0, Math.min(1, v)); }
-  // -0.4..0 rising, 0..0.3 holding, 0.3..0.6 leaving; the next person rises only after this one has gone
-  function place(el, u, last) {
-    let y = 0, o = 1;
-    if (u < 0) { const k = ease(clamp((u + 0.4) / 0.4)); y = (1 - k) * 0.7; o = clamp(k * 1.6); }
-    else if (!last && u > 0.3) { const k = clamp((u - 0.3) / 0.3); y = -k * k * 0.7; o = 1 - k; }
-    el.style.transform = 'translate3d(0,' + (y * vh).toFixed(1) + 'px,0)';
-    el.style.opacity = o.toFixed(3);
   }
   function render() {
     ticking = false;
-    if (!team.offsetParent) return;
+    if (!team.offsetParent || !arc) return;
     const p = (window.scrollY - top) / vh;
     members.forEach(function (m, i) {
-      const u = p - i, last = i === n - 1;
-      place(m.querySelector('.avatar'), u, last);
-      place(m.querySelector('.member-text'), u - 0.06, last);
-      m.style.visibility = (u < -0.5 || (!last && u > 0.7)) ? 'hidden' : 'visible';
+      const u = (p - i - 0.5) * 2;               // -1 entering on the left, 0 at the top, 1 leaving on the right
+      if (u < -1.05 || u > 1.05) { m.style.visibility = 'hidden'; return; }
+      m.style.visibility = 'visible';
+      const s = Math.sign(u) * Math.pow(Math.abs(u), 1.7); // lingers near the top
+      const a = Math.PI / 2 - s * (Math.PI / 2 + 0.25);
+      const x = arc.cx + arc.rx * Math.cos(a) - m.offsetWidth / 2;
+      const y = arc.cy - arc.ry * Math.sin(a) - m.offsetHeight / 2;
+      const edge = Math.max(0, Math.abs(u) - 0.7) / 0.3;
+      m.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) rotate(' + (s * 16).toFixed(2) + 'deg) scale(' + (1 - Math.abs(s) * 0.12).toFixed(3) + ')';
+      m.style.opacity = (1 - Math.min(1, edge)).toFixed(3);
     });
-    if (now) now.textContent = String(Math.max(1, Math.min(n, Math.round(p) + 1)));
+    if (now) now.textContent = String(Math.max(1, Math.min(n, Math.floor(p) + 1)));
     if (grid) grid.style.transform = 'translate3d(0,' + (-(p * 0.3 * 56) % 56).toFixed(1) + 'px,0)';
-    if (word) word.style.transform = 'translate3d(0,' + (Math.max(-1, Math.min(n, p)) * -2).toFixed(2) + 'vh,0)';
   }
   window.addEventListener('scroll', function () {
     if (!ticking) { ticking = true; requestAnimationFrame(render); }
@@ -299,7 +304,101 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   window.addEventListener('resize', measure);
   window.addEventListener('load', measure);
   window.addEventListener('hashchange', function () { setTimeout(measure, 0); });
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(measure);
   measure();
+})();
+
+// Booking: pick a day, then a time, then send the request by email. Times are Toronto time.
+(function () {
+  const root = document.getElementById('booking');
+  if (!root) return;
+  // Fully open for now: every day of the week, hourly from 9 AM to 4 PM.
+  const OPEN_WEEKDAYS = [0, 1, 2, 3, 4, 5, 6];
+  const OPEN_HOURS = [9, 10, 11, 12, 13, 14, 15, 16];
+  const MONTHS_AHEAD = 3;
+  const TZ = 'America/Toronto';
+  const EMAIL = 'hello@mangostudios.xyz';
+
+  const monthEl = document.getElementById('cal-month');
+  const daysEl = document.getElementById('cal-days');
+  const slotTitle = document.getElementById('slots-title');
+  const slotList = document.getElementById('slot-list');
+  const sum = document.getElementById('book-sum');
+  const choice = document.getElementById('book-choice');
+  const go = document.getElementById('book-go');
+  const prev = root.querySelector('[data-step="-1"]');
+  const next = root.querySelector('[data-step="1"]');
+
+  const todayParts = new Intl.DateTimeFormat('en-CA', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date()).split('-').map(Number);
+  const today = new Date(todayParts[0], todayParts[1] - 1, todayParts[2]);
+  const nowHour = Number(new Intl.DateTimeFormat('en-US', { timeZone: TZ, hour: 'numeric', hourCycle: 'h23' }).format(new Date()));
+  let view = new Date(today.getFullYear(), today.getMonth(), 1);
+  let picked = null, pickedHour = null;
+
+  const fmtMonth = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' });
+  const fmtDay = new Intl.DateTimeFormat('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+  function sameDay(a, b) { return a && b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate(); }
+  function hourLabel(h) { return (h % 12 || 12) + ':00 ' + (h < 12 ? 'AM' : 'PM'); }
+  function hoursFor(d) {
+    if (OPEN_WEEKDAYS.indexOf(d.getDay()) < 0 || d < today) return [];
+    return OPEN_HOURS.filter(function (h) { return !sameDay(d, today) || h > nowHour; });
+  }
+  function monthOffset(d) { return (d.getFullYear() - today.getFullYear()) * 12 + d.getMonth() - today.getMonth(); }
+
+  function renderMonth() {
+    monthEl.textContent = fmtMonth.format(view);
+    prev.disabled = monthOffset(view) <= 0;
+    next.disabled = monthOffset(view) >= MONTHS_AHEAD;
+    daysEl.textContent = '';
+    for (let i = 0; i < view.getDay(); i++) {
+      const blank = document.createElement('span');
+      blank.className = 'cal-blank';
+      daysEl.appendChild(blank);
+    }
+    const last = new Date(view.getFullYear(), view.getMonth() + 1, 0).getDate();
+    for (let day = 1; day <= last; day++) {
+      const d = new Date(view.getFullYear(), view.getMonth(), day);
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'cal-day' + (sameDay(d, today) ? ' is-today' : '');
+      btn.textContent = String(day);
+      const open = hoursFor(d).length > 0;
+      btn.disabled = !open;
+      btn.setAttribute('aria-label', fmtDay.format(d) + (open ? ', open' : ', unavailable'));
+      btn.setAttribute('aria-pressed', String(sameDay(d, picked)));
+      btn.addEventListener('click', function () { pickDay(d); });
+      daysEl.appendChild(btn);
+    }
+  }
+  function pickDay(d) {
+    picked = d;
+    pickedHour = null;
+    renderMonth();
+    slotTitle.textContent = fmtDay.format(d);
+    slotList.textContent = '';
+    hoursFor(d).forEach(function (h) {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'slot';
+      b.textContent = hourLabel(h);
+      b.setAttribute('aria-pressed', 'false');
+      b.addEventListener('click', function () { pickHour(h); });
+      slotList.appendChild(b);
+    });
+    sum.hidden = true;
+  }
+  function pickHour(h) {
+    pickedHour = h;
+    [].forEach.call(slotList.children, function (b) { b.setAttribute('aria-pressed', String(b.textContent === hourLabel(h))); });
+    const when = fmtDay.format(picked) + ' at ' + hourLabel(h) + ' ET';
+    choice.textContent = when;
+    go.href = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent('AI Consulting session') +
+      '&body=' + encodeURIComponent("Hi Mango Studios,\n\nI'd like to book an AI Consulting session on " + when + ' (Toronto time).\n\n');
+    sum.hidden = false;
+  }
+  prev.addEventListener('click', function () { view = new Date(view.getFullYear(), view.getMonth() - 1, 1); renderMonth(); });
+  next.addEventListener('click', function () { view = new Date(view.getFullYear(), view.getMonth() + 1, 1); renderMonth(); });
+  renderMonth();
 })();
 
 // The menu marks the section in view on the home page.
