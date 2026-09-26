@@ -8,7 +8,7 @@
   <link rel="icon" href="assets/logo-stamp.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,900&family=Chewy&family=Inter+Tight:wght@500;600;650;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,900&family=Chewy&family=Fredoka:wght@500;600&family=Inter+Tight:wght@500;600;650;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -17,6 +17,7 @@
     <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu-panel" aria-label="Open menu">
       <span class="menu-lines" aria-hidden="true"><i></i><i></i><i></i></span>
     </button>
+    <div class="menu-scrim" id="menu-scrim" hidden></div>
     <nav class="menu-panel" id="menu-panel" aria-label="Main" hidden>
       <a class="menu-brand" href="index.html">Mango Studios</a>
       <ul class="menu-links">
@@ -46,44 +47,10 @@
 
     <section class="work-sec" id="work-apps" aria-labelledby="work-apps-title">
       <div class="work-head"><h2 class="work-title display" id="work-apps-title">Apps</h2></div>
-      <ul class="work-grid">
-        <li class="work-card">
-          <div class="work-screen"><img src="assets/trail-hourglass.png" alt="" width="198" height="267"></div>
-          <div class="work-body">
-            <span class="work-kind">macOS menu bar app</span>
-            <h3>Iris</h3>
-            <p>A menu bar app that looks after your eyes while you work.</p>
-            <div class="work-foot"><span class="status">Closest to launch</span></div>
-          </div>
-        </li>
-        <li class="work-card">
-          <div class="work-screen"><img src="assets/trail-pencil.png" alt="" width="143" height="186"></div>
-          <div class="work-body">
-            <span class="work-kind">Learn-to-build platform</span>
-            <h3>Alpine</h3>
-            <p>Teaches kids to build their own software.</p>
-            <div class="work-foot"><span class="status">In development</span></div>
-          </div>
-        </li>
-        <li class="work-card">
-          <div class="work-screen"><img src="assets/trail-mug.png" alt="" width="175" height="184"></div>
-          <div class="work-body">
-            <span class="work-kind">SaaS product</span>
-            <h3>Klaritea</h3>
-            <p>A live SaaS product built by Jack.</p>
-            <div class="work-foot"><span class="status">Live</span><a class="btn btn--white btn--sm" href="https://klaritea.app" target="_blank" rel="noopener">Visit <span aria-hidden="true">↗</span></a></div>
-          </div>
-        </li>
-        <li class="work-card">
-          <div class="work-screen"><img src="assets/trail-camera.png" alt="" width="299" height="260"></div>
-          <div class="work-body">
-            <span class="work-kind">SaaS product</span>
-            <h3>Tvarit</h3>
-            <p>A live SaaS product built by Jack.</p>
-            <div class="work-foot"><span class="status">Live</span><a class="btn btn--white btn--sm" href="https://tvarit.app" target="_blank" rel="noopener">Visit <span aria-hidden="true">↗</span></a></div>
-          </div>
-        </li>
-      </ul>
+      <div class="work-empty">
+        <img src="assets/trail-hourglass.png" alt="" width="198" height="267">
+        <p>Our first apps are on the way. They show up here when they ship.</p>
+      </div>
     </section>
 
     <section class="work-sec" id="work-sites" aria-labelledby="work-sites-title">

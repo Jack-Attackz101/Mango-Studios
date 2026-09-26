@@ -152,146 +152,6 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   measure();
 })();
 
-// Our software: one line that cycles through our apps, swapping the sticker icon each time.
-(function () {
-  const el = document.getElementById('app-cycle');
-  if (!el) return;
-  const APPS = [
-    { name: 'Iris', kind: ', a macOS menu bar app for eye health', icon: 'assets/trail-hourglass.png' },
-    { name: 'Alpine', kind: ', a platform that teaches kids to build software', icon: 'assets/trail-pencil.png' },
-    { name: 'Klaritea', kind: ', a live SaaS product', icon: 'assets/trail-mug.png' },
-    { name: 'Tvarit', kind: ', a live SaaS product', icon: 'assets/trail-camera.png' },
-  ];
-  APPS.forEach(function (a) { new Image().src = a.icon; });
-  const icon = el.querySelector('.app-cycle-icon');
-  const text = el.querySelector('.app-cycle-text');
-  let i = 0, timer = 0;
-  function show(app) {
-    icon.src = app.icon;
-    text.textContent = '';
-    const b = document.createElement('b');
-    b.textContent = app.name;
-    text.append(b, app.kind);
-  }
-  function step() {
-    i = (i + 1) % APPS.length;
-    if (reduceMotion) { show(APPS[i]); return; }
-    el.classList.add('is-swapping');
-    setTimeout(function () { show(APPS[i]); el.classList.remove('is-swapping'); }, 320);
-  }
-  new IntersectionObserver(function (entries) {
-    clearInterval(timer);
-    if (entries[0].isIntersecting) timer = setInterval(step, 2600);
-  }).observe(el);
-})();
-
-// Let's build: a 3D mango that turns slowly and can be dragged around. three.js loads only when it's near.
-(function () {
-  const box = document.getElementById('mango3d');
-  if (!box) return;
-  const LIBS = ['vendor/three/three.min.js', 'vendor/three/fflate.min.js', 'vendor/three/FBXLoader.js', 'vendor/three/OrbitControls.js'];
-  const BLANK = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
-
-  function webgl() {
-    try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch (e) { return false; }
-  }
-  function load(src) {
-    return new Promise(function (resolve, reject) {
-      const s = document.createElement('script');
-      s.src = src; s.onload = resolve; s.onerror = reject;
-      document.head.appendChild(s);
-    });
-  }
-  function start() {
-    const THREE = window.THREE;
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-    renderer.outputEncoding = THREE.sRGBEncoding;
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 1000);
-    scene.add(new THREE.HemisphereLight(0xffffff, 0x6f9fc4, 0.85));
-    const sun = new THREE.DirectionalLight(0xffffff, 1.15);
-    sun.position.set(3, 5, 4);
-    scene.add(sun);
-
-    // three flat tones for a cartoon look
-    const tones = new THREE.DataTexture(new Uint8Array([70, 150, 235]), 3, 1, THREE.RedFormat);
-    tones.minFilter = tones.magFilter = THREE.NearestFilter;
-    tones.needsUpdate = true;
-
-    const manager = new THREE.LoadingManager();
-    // the model references texture files that aren't bundled; hand it a blank pixel instead
-    manager.setURLModifier(function (url) { return /\.(png|jpe?g|tga)$/i.test(url) ? BLANK : url; });
-    new THREE.FBXLoader(manager).load(window.MANGO_FBX_URL || 'assets/mango.fbx', function (model) {
-      const pivot = new THREE.Group();
-      const bounds = new THREE.Box3().setFromObject(model);
-      const size = bounds.getSize(new THREE.Vector3());
-      const radius = size.length() / 2;
-      model.position.sub(bounds.getCenter(new THREE.Vector3()));
-      const meshes = [];
-      model.traverse(function (o) { if (o.isMesh) meshes.push(o); });
-      meshes.forEach(function (o) {
-        if (!o.geometry.attributes.normal) o.geometry.computeVertexNormals();
-        o.material = new THREE.MeshToonMaterial({ color: new THREE.Color(0xf9b435).convertSRGBToLinear(), gradientMap: tones });
-        const outline = new THREE.Mesh(o.geometry, new THREE.MeshBasicMaterial({ color: 0x111111, side: THREE.BackSide }));
-        outline.material.onBeforeCompile = function (shader) {
-          shader.vertexShader = shader.vertexShader.replace('#include <begin_vertex>',
-            'vec3 transformed = position + normal * ' + (radius * 0.022 / (o.getWorldScale(new THREE.Vector3()).x || 1)).toFixed(5) + ';');
-        };
-        o.add(outline);
-      });
-      pivot.add(model);
-      scene.add(pivot);
-
-      const dist = radius / Math.sin((camera.fov * Math.PI / 180) / 2) * 1.08;
-      camera.position.set(0, radius * 0.15, dist);
-      camera.near = dist / 50; camera.far = dist * 10; camera.updateProjectionMatrix();
-
-      const controls = new THREE.OrbitControls(camera, renderer.domElement);
-      controls.enableZoom = false;
-      controls.enablePan = false;
-      controls.enableDamping = true;
-      controls.autoRotate = !reduceMotion;
-      controls.autoRotateSpeed = 1.6;
-      renderer.domElement.style.touchAction = 'pan-y';
-
-      function resize() {
-        const w = box.clientWidth, h = box.clientHeight;
-        renderer.setSize(w, h, false);
-        camera.aspect = w / h; camera.updateProjectionMatrix();
-      }
-      resize();
-      new ResizeObserver(resize).observe(box);
-      box.appendChild(renderer.domElement);
-      box.classList.add('is-live');
-      box.addEventListener('pointerdown', function () { box.classList.add('is-touched'); }, { once: true });
-
-      let running = false;
-      function frame() {
-        if (!running) return;
-        controls.update();
-        renderer.render(scene, camera);
-        requestAnimationFrame(frame);
-      }
-      new IntersectionObserver(function (entries) {
-        const was = running;
-        running = entries[0].isIntersecting;
-        if (running && !was) requestAnimationFrame(frame);
-      }).observe(box);
-    }, undefined, function (err) { console.warn('3D mango failed to load; showing the flat mango.', err); });
-  }
-
-  if (!webgl()) return;
-  const io = new IntersectionObserver(function (entries) {
-    if (!entries[0].isIntersecting) return;
-    io.disconnect();
-    LIBS.reduce(function (p, src) { return p.then(function () { return load(src); }); }, Promise.resolve())
-      .then(start)
-      .catch(function (err) { console.warn('3D mango failed to start; showing the flat mango.', err); });
-  }, { rootMargin: '600px 0px' });
-  io.observe(box);
-})();
-
 // Value cards tilt toward the pointer, as if you were holding the card at that angle.
 (function () {
   if (reduceMotion || !window.matchMedia('(hover: hover)').matches) return;
@@ -341,6 +201,7 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
 (function () {
   const btn = document.getElementById('menu-btn');
   const panel = document.getElementById('menu-panel');
+  const scrim = document.getElementById('menu-scrim');
   if (!btn || !panel) return;
   let hideTimer = 0;
   panel.dataset.state = 'closed';
@@ -348,12 +209,14 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
     btn.setAttribute('aria-expanded', String(open));
     btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     clearTimeout(hideTimer);
+    document.body.classList.toggle('menu-open', open);
     if (open) {
       panel.hidden = false;
+      if (scrim) scrim.hidden = false;
       requestAnimationFrame(function () { requestAnimationFrame(function () { panel.dataset.state = 'open'; }); });
     } else {
       panel.dataset.state = 'closed';
-      hideTimer = setTimeout(function () { panel.hidden = true; }, 380);
+      hideTimer = setTimeout(function () { panel.hidden = true; if (scrim) scrim.hidden = true; }, 450);
     }
   }
   btn.addEventListener('click', function () { setOpen(panel.dataset.state !== 'open'); });
