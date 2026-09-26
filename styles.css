@@ -419,6 +419,8 @@ body.menu-open .menu-scrim { opacity: 1; }
 .value-card.is-tilting .value-inner::after { opacity: 1; }
 .value-icon { width: auto; height: clamp(80px, 8vw, 112px); object-fit: contain; transform: translateZ(40px); }
 .value-name { font-family: var(--font-cartoon); font-weight: 400; font-size: clamp(28px, 2.4vw, 38px); line-height: 1.02; color: var(--ink); transform: translateZ(30px); }
+.value-inner--plain { align-content: center; }
+.value-inner--plain .value-name { font-size: clamp(40px, 3.8vw, 58px); }
 .value-text { max-width: 26ch; font: 500 15.5px/1.5 var(--font-text); color: var(--ink); transform: translateZ(20px); }
 
 /* ── SERVICES ──────────────────────────────── */
@@ -914,6 +916,7 @@ body.menu-open .menu-scrim { opacity: 1; }
 .rows h3 { font-family: var(--font-cartoon); font-weight: 400; font-size: var(--t-h3); line-height: 1; color: var(--ink); }
 .rows p { max-width: 48ch; font: 500 var(--t-lead)/1.45 var(--font-text); color: var(--ink); }
 .rows--status li { grid-template-columns: 0.8fr 1fr auto; }
+.row-link { font-weight: 700; text-decoration-thickness: 2px; text-underline-offset: 3px; }
 .status {
   justify-self: end;
   padding: 8px 14px;
