@@ -562,7 +562,7 @@ body.menu-open .menu-scrim { opacity: 1; }
 /* ── TEAM: a grid-paper stage, one person at a time ─ */
 
 .team { position: relative; z-index: 2; border-top: 6px solid var(--ink); background: var(--card-blue); }
-.team-pin { --arc-top: clamp(140px, 19svh, 210px); position: relative; overflow: hidden; padding: 28px var(--gutter) clamp(48px, 6vw, 88px); }
+.team-pin { --arc-top: clamp(170px, 22svh, 240px); position: relative; overflow: hidden; padding: 28px var(--gutter) clamp(48px, 6vw, 88px); }
 .team-grid-bg {
   position: absolute;
   inset: -60px 0;
@@ -623,11 +623,11 @@ body.menu-open .menu-scrim { opacity: 1; }
 
 .team-list { position: relative; z-index: 2; list-style: none; max-width: 1180px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; }
 .member {
-  width: min(300px, 80vw);
+  width: min(430px, 84vw);
   display: grid;
   justify-items: center;
-  gap: 6px;
-  padding: 22px 20px 22px;
+  gap: 10px;
+  padding: 32px 30px 30px;
   text-align: center;
   background: var(--paper);
   border: 5px solid var(--ink);
@@ -635,7 +635,7 @@ body.menu-open .menu-scrim { opacity: 1; }
   box-shadow: 8px 8px 0 var(--ink);
 }
 .avatar {
-  width: 112px;
+  width: 180px;
   aspect-ratio: 1;
   margin-bottom: 8px;
   border: 5px solid var(--ink);
@@ -647,9 +647,9 @@ body.menu-open .menu-scrim { opacity: 1; }
 .avatar--empty { background: #ECE8DC; }
 .avatar--ai { display: grid; place-items: center; background: var(--title-yellow); }
 .avatar--ai img { width: 62%; height: auto; }
-.member-role { font: 800 11.5px/1.3 var(--font-text); letter-spacing: 0.1em; text-transform: uppercase; color: rgba(17, 17, 17, 0.65); }
-.member-name { font-family: var(--font-cartoon); font-weight: 400; font-size: 31px; line-height: 1; color: var(--ink); }
-.member-bio { max-width: 30ch; font: 500 15px/1.5 var(--font-text); color: var(--ink); }
+.member-role { font: 800 13px/1.3 var(--font-text); letter-spacing: 0.1em; text-transform: uppercase; color: rgba(17, 17, 17, 0.65); }
+.member-name { font-family: var(--font-cartoon); font-weight: 400; font-size: 46px; line-height: 1; color: var(--ink); }
+.member-bio { max-width: 30ch; font: 500 18px/1.5 var(--font-text); color: var(--ink); }
 .member-link { margin-top: 10px; }
 
 /* with scripting: pinned, and each card rides the rainbow from one side to the other */
@@ -1060,12 +1060,13 @@ body.menu-open .menu-scrim { opacity: 1; }
 }
 
 @media (max-width: 760px) {
-  .member { width: min(260px, 74vw); padding: 18px 16px; }
+  .member { width: min(320px, 84vw); padding: 22px 18px; }
   .avatar { width: 104px; }
-  .member-name { font-size: 28px; }
+  .member-name { font-size: 34px; }
+  .member-bio { font-size: 16px; }
   .team-word { font-size: 25vw; -webkit-text-stroke-width: 4px; }
   .team-pin { --arc-top: 30svh; }
-  .avatar { width: 92px; }
+  .avatar { width: 124px; }
   .about-band { height: 240px; }
   .about { border-radius: 28px 28px 0 0; border-top-width: 5px; }
   .services { padding: 56px 16px 64px; }
