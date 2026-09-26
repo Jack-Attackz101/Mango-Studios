@@ -27,11 +27,16 @@ if (!reduceMotion && window.Lenis) {
 
 document.querySelectorAll('a[href^="#"]').forEach((a) => {
   a.addEventListener('click', (e) => {
+    if (a.dataset.step) return; // handled by the Who we are story
     const id = a.getAttribute('href');
     const el = id.length > 1 ? document.querySelector(id) : document.body;
     if (!el) return;
     e.preventDefault();
-    if (lenis) lenis.scrollTo(el, { duration: 2.2, easing: (t) => 1 - Math.pow(1 - t, 4) });
+    // A link into a pinned pause lands where its cards are fully in view
+    const pause = el.closest('.pause');
+    const target = pause && pause._st ? pause._st.start + (pause._st.end - pause._st.start) * 0.34 : el;
+    if (lenis) lenis.scrollTo(target, { duration: 2.2, easing: (t) => 1 - Math.pow(1 - t, 4) });
+    else if (typeof target === 'number') window.scrollTo({ top: target, behavior: reduceMotion ? 'auto' : 'smooth' });
     else el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
   });
 });
@@ -164,27 +169,40 @@ function initScene() {
 
   /* ---------------- Scroll anchors ---------------- */
   const heroEl = document.querySelector('.hero');
-  const chapters = [...document.querySelectorAll('.chapter')];
-  const diveEnd = document.querySelector('.dive-end');
+  // Stops along the journey, in page order. Chapters and the dive end advance
+  // the camera to the next keyframe; pauses hold the current one while cards cover it.
+  const stops = [...document.querySelectorAll('.chapter, .pause, .dive-end')];
   let anchors = [];
   let heroH = 1;
   const computeAnchors = () => {
     const vh = window.innerHeight;
     const docTop = (el) => el.getBoundingClientRect().top + window.scrollY;
     heroH = heroEl.offsetHeight;
-    anchors = [0];
-    chapters.forEach((c) => anchors.push(docTop(c) + c.offsetHeight / 2 - vh / 2));
-    anchors.push(docTop(diveEnd) + diveEnd.offsetHeight / 2 - vh / 2);
+    anchors = [{ s: 0, k: 0 }];
+    let k = 0;
+    stops.forEach((el) => {
+      if (el.classList.contains('pause')) {
+        const st = el._st;
+        const start = st ? st.start : docTop(el);
+        const end = st ? st.end : start + el.offsetHeight;
+        anchors.push({ s: start, k }, { s: end, k });
+      } else {
+        k += 1;
+        anchors.push({ s: docTop(el) + el.offsetHeight / 2 - vh / 2, k });
+      }
+    });
   };
   ScrollTrigger.addEventListener('refresh', computeAnchors);
   computeAnchors();
 
   const pathAt = (scroll) => {
-    if (scroll <= anchors[0]) return 0;
+    if (scroll <= anchors[0].s) return anchors[0].k;
     for (let i = 1; i < anchors.length; i++) {
-      if (scroll < anchors[i]) return i - 1 + (scroll - anchors[i - 1]) / (anchors[i] - anchors[i - 1]);
+      const a = anchors[i - 1];
+      const b = anchors[i];
+      if (scroll < b.s) return a.k + (b.k - a.k) * ((scroll - a.s) / Math.max(1, b.s - a.s));
     }
-    return anchors.length - 1;
+    return anchors[anchors.length - 1].k;
   };
 
   /* ---------------- Camera state ---------------- */
@@ -310,7 +328,7 @@ function initScene() {
       lastDepth = depth;
       depthEl.textContent = String(depth).padStart(4, '0');
       depthBar.style.height = `${depthT * 100}%`;
-      hud.classList.toggle('is-on', scroll > anchors[1] - window.innerHeight && scroll < anchors[anchors.length - 1]);
+      hud.classList.toggle('is-on', scroll > anchors[1].s - window.innerHeight && scroll < anchors[anchors.length - 1].s);
     }
 
     renderer.render(scene, camera);
@@ -491,11 +509,14 @@ function initDom() {
   });
 
   initNav();
-  initTabs();
+  initPauses();
+  initWho();
 
   if (reduceMotion) {
     gsap.set('.hero-title .line > span, .reveal', { clearProps: 'all' });
     countersInstant();
+    ScrollTrigger.sort();
+    ScrollTrigger.refresh();
     return;
   }
 
@@ -562,8 +583,8 @@ function initDom() {
     });
   });
 
-  // Section headings rise line by line
-  document.querySelectorAll('.section-head > *, .dive-intro > *, .svc-col > .eyebrow, .svc-col > h2, .careers-inner h2, .contact-grid h2').forEach((el) => {
+  // Headings outside the pauses rise in
+  document.querySelectorAll('.dive-intro > *, .careers-inner h2, .contact-grid h2').forEach((el) => {
     gsap.from(el, {
       y: 60, opacity: 0, duration: 1.3, ease: 'expo.out',
       scrollTrigger: { trigger: el, start: 'top 88%' },
@@ -573,31 +594,8 @@ function initDom() {
     x: 40, opacity: 0, duration: 1.1, stagger: 0.1, ease: 'expo.out',
     scrollTrigger: { trigger: '.contact-cards', start: 'top 85%' },
   });
-  [['.cap-card', '.cap-grid'], ['.product', '.product-grid'], ['.step', '.process'], ['.svc-list li', '.svc-list']].forEach(([items, trigger]) => {
-    gsap.from(items, {
-      y: 70, opacity: 0, duration: 1.2, stagger: 0.1, ease: 'expo.out',
-      scrollTrigger: { trigger, start: 'top 85%' },
-    });
-  });
-  const run = document.getElementById('cycle-run');
-  if (run) {
-    gsap.fromTo(run, { strokeDashoffset: 742 }, {
-      strokeDashoffset: 0, ease: 'none',
-      scrollTrigger: { trigger: '.lifecycle', start: 'top 80%', end: 'bottom 40%', scrub: true },
-    });
-  }
 
-  // Counters
-  document.querySelectorAll('[data-count]').forEach((el) => {
-    const end = Number(el.dataset.count);
-    const obj = { v: el.hasAttribute('data-plain') ? 1800 : 0 };
-    gsap.to(obj, {
-      v: end, duration: 2.2, ease: 'power3.out',
-      scrollTrigger: { trigger: el, start: 'top 90%' },
-      onUpdate: () => { el.textContent = formatCount(el, obj.v); },
-    });
-  });
-
+  ScrollTrigger.sort();
   window.addEventListener('load', () => ScrollTrigger.refresh());
   if (document.fonts) document.fonts.ready.then(() => ScrollTrigger.refresh());
 }
@@ -640,45 +638,144 @@ function initNav() {
   document.querySelectorAll('.nav a').forEach((a) => a.addEventListener('click', () => { closeGroups(); setMobile(false); }));
 }
 
-/* Who we are: accessible tabs, also driven by nav links with data-tab */
-function initTabs() {
-  const tabs = [...document.querySelectorAll('[role="tab"]')];
-  const ink = document.querySelector('.tab-ink');
-  if (!tabs.length) return;
-  const moveInk = (tab) => {
-    if (!ink) return;
-    ink.style.width = `${tab.offsetWidth}px`;
-    ink.style.transform = `translateX(${tab.offsetLeft}px)`;
-  };
-  const select = (tab, focus) => {
-    tabs.forEach((t) => {
-      const on = t === tab;
-      t.setAttribute('aria-selected', String(on));
-      t.tabIndex = on ? 0 : -1;
-      const panel = document.getElementById(t.getAttribute('aria-controls'));
-      panel.hidden = !on;
-      if (on && !reduceMotion) gsap.fromTo(panel, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out' });
+/* Pauses: the journey stops, the submarine darkens, a row of cards slides over it,
+   holds (panning sideways if the row is wider than the screen), then clears. */
+function initPauses() {
+  const hudChapter = document.getElementById('hud-chapter');
+  document.querySelectorAll('.pause').forEach((pause) => {
+    const veil = pause.querySelector('.pause-veil');
+    const head = pause.querySelector('.pause-head');
+    const track = pause.querySelector('.pause-track');
+    const cards = [...track.children];
+    const counters = [...pause.querySelectorAll('[data-count]')];
+    const run = pause.querySelector('#cycle-run');
+    const overflow = () => Math.max(0, track.scrollWidth - track.clientWidth);
+
+    if (reduceMotion) {
+      pause.classList.add('is-static');
+      return;
+    }
+
+    let counted = false;
+    const tl = gsap.timeline({
+      defaults: { ease: 'power2.out' },
+      scrollTrigger: {
+        trigger: pause,
+        start: 'top top',
+        end: () => `+=${Math.round(window.innerHeight * 1.9 + overflow())}`,
+        pin: true,
+        scrub: 0.6,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onToggle: (self) => {
+          document.body.classList.toggle('in-pause', self.isActive);
+          if (!self.isActive) return;
+          hudChapter.textContent = pause.dataset.hud;
+          if (counters.length && !counted) {
+            counted = true;
+            counters.forEach((el) => {
+              const obj = { v: el.hasAttribute('data-plain') ? 1800 : 0 };
+              gsap.to(obj, { v: Number(el.dataset.count), duration: 2, ease: 'power3.out', onUpdate: () => { el.textContent = formatCount(el, obj.v); } });
+            });
+          }
+        },
+      },
     });
-    if (focus) tab.focus();
-    moveInk(tab);
-    ScrollTrigger.refresh();
-  };
-  tabs.forEach((tab, i) => {
-    tab.addEventListener('click', () => select(tab));
-    tab.addEventListener('keydown', (e) => {
-      const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-      if (d) { e.preventDefault(); select(tabs[(i + d + tabs.length) % tabs.length], true); }
-    });
+    tl.fromTo(veil, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: 'none' }, 0)
+      .fromTo(head, { y: 70, opacity: 0 }, { y: 0, opacity: 1, duration: 0.25 }, 0.08)
+      .fromTo(cards, { y: 160, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, stagger: 0.05 }, 0.12)
+      .addLabel('hold')
+      .fromTo(track, { x: 0 }, { x: () => -overflow(), duration: 1, ease: 'none' }, 'hold')
+      .to(cards, { y: -110, opacity: 0, duration: 0.28, stagger: 0.03, ease: 'power2.in' })
+      .to(head, { y: -70, opacity: 0, duration: 0.25, ease: 'power2.in' }, '<')
+      .to(veil, { opacity: 0, duration: 0.3, ease: 'none' }, '>-0.12');
+    if (run) tl.fromTo(run, { strokeDashoffset: 742 }, { strokeDashoffset: 0, duration: 0.9, ease: 'none' }, 'hold');
+    pause._st = tl.scrollTrigger;
   });
-  document.querySelectorAll('a[data-tab]').forEach((a) => {
-    a.addEventListener('click', () => {
-      const tab = document.getElementById(`tab-${a.dataset.tab}`);
-      if (tab) select(tab);
-    });
+}
+
+/* Who we are: pinned. Each panel scrolls up as you read, then the row slides left. */
+function initWho() {
+  const who = document.getElementById('who');
+  if (!who) return;
+  const win = who.querySelector('.who-window');
+  const track = who.querySelector('.who-track');
+  const panels = [...who.querySelectorAll('.who-panel')];
+  const inners = panels.map((p) => p.querySelector('.who-panel-inner'));
+  const steps = [...who.querySelectorAll('.who-steps button')];
+  const names = panels.map((p) => p.id.replace('panel-', ''));
+  let tl = null;
+  let labels = {};
+
+  const setActive = (i) => steps.forEach((b, j) => {
+    b.classList.toggle('is-active', i === j);
+    b.setAttribute('aria-current', i === j ? 'step' : 'false');
   });
-  moveInk(tabs[0]);
-  window.addEventListener('resize', () => moveInk(tabs.find((t) => t.getAttribute('aria-selected') === 'true')));
-  if (document.fonts) document.fonts.ready.then(() => moveInk(tabs.find((t) => t.getAttribute('aria-selected') === 'true')));
+
+  const goTo = (name) => {
+    const panel = document.getElementById(`panel-${name}`);
+    let y;
+    if (tl && tl.scrollTrigger) {
+      const st = tl.scrollTrigger;
+      y = st.start + (st.end - st.start) * (labels[name] / tl.duration()) + 4;
+    } else {
+      y = panel.getBoundingClientRect().top + window.scrollY - 80;
+    }
+    if (window.ambLenis) window.ambLenis.scrollTo(y, { duration: 1.8, easing: (t) => 1 - Math.pow(1 - t, 4) });
+    else window.scrollTo({ top: y, behavior: reduceMotion ? 'auto' : 'smooth' });
+  };
+  steps.forEach((b, i) => b.addEventListener('click', () => goTo(names[i])));
+  document.querySelectorAll('a[data-step]').forEach((a) => a.addEventListener('click', (e) => {
+    e.preventDefault();
+    goTo(a.dataset.step);
+  }));
+
+  if (reduceMotion) {
+    who.classList.add('is-static');
+    return;
+  }
+
+  const build = () => {
+    if (tl) {
+      tl.scrollTrigger.kill(true);
+      tl.kill();
+      gsap.set([track, ...inners], { clearProps: 'transform' });
+    }
+    const vw = win.clientWidth;
+    const dwell = window.innerHeight * 0.45;
+    tl = gsap.timeline({ defaults: { ease: 'none' } });
+    labels = {};
+    panels.forEach((p, i) => {
+      const over = Math.max(0, inners[i].scrollHeight - p.clientHeight);
+      labels[names[i]] = tl.duration();
+      tl.to(inners[i], { y: -over, duration: Math.max(over, 1) });
+      tl.to({}, { duration: dwell }); // a beat to finish reading
+      if (i < panels.length - 1) tl.to(track, { x: -(i + 1) * vw, duration: vw * 0.8, ease: 'power1.inOut' });
+    });
+    const total = tl.duration();
+    ScrollTrigger.create({
+      animation: tl,
+      trigger: who,
+      start: 'top top',
+      end: `+=${Math.round(total)}`,
+      pin: true,
+      scrub: 0.6,
+      anticipatePin: 1,
+      onUpdate: (self) => {
+        const t = self.progress * total;
+        let idx = 0;
+        names.forEach((n, i) => { if (i && t >= labels[n] - vw * 0.4) idx = i; });
+        setActive(idx);
+      },
+    });
+  };
+  build();
+
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { build(); ScrollTrigger.sort(); ScrollTrigger.refresh(); }, 250);
+  });
 }
 
 function formatCount(el, v) {
