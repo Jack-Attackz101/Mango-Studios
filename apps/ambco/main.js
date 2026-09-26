@@ -22,6 +22,7 @@ if (!reduceMotion && window.Lenis) {
   gsap.ticker.add((t) => lenis.raf(t * 1000));
   gsap.ticker.lagSmoothing(0);
   lenis.stop();
+  window.ambLenis = lenis;
 }
 
 document.querySelectorAll('a[href^="#"]').forEach((a) => {
@@ -41,12 +42,12 @@ document.querySelectorAll('a[href^="#"]').forEach((a) => {
 /*   phi:   polar angle from +Y (0 = straight down from above)         */
 /* ------------------------------------------------------------------ */
 const KEYS = [
-  { name: 'Surface',   r: 27,  phi: 1.40, theta: 0.80,  t: [0, 0.4, 0],   prop: 0.6, edges: 0 }, // hero 3/4
+  { name: 'Surface',   r: 27,  phi: 1.47, theta: 0.80,  t: [0, 0.4, 0],   prop: 0.6, edges: 0 }, // hero 3/4
   { name: 'Bow',       r: 8.5, phi: 1.36, theta: 0.42,  t: [0, 0.1, 7.6], prop: 0.6, edges: 0 },
   { name: 'Broadside', r: 31,  phi: 1.52, theta: -1.57, t: [0, 0.8, 4],   prop: 0.8, edges: 0 },
   { name: 'Sail',      r: 8.5, phi: 0.92, theta: -0.75, t: [0, 3.0, 2.0], prop: 0.6, edges: 0 },
   { name: 'Keel',      r: 11,  phi: 2.30, theta: 0.55,  t: [0, -0.6, -1], prop: 0.8, edges: 0.25 },
-  { name: 'Propulsor', r: 6.8, phi: 1.40, theta: 2.62,  t: [0, 0.0, -9.2], prop: 3.2, edges: 0 },
+  { name: 'Propulsor', r: 9.5, phi: 1.40, theta: 2.62,  t: [0, 0.0, -9.2], prop: 3.2, edges: 0 },
   { name: 'Plan',      r: 32,  phi: 0.06, theta: 1.571, t: [0, 0, -4.8],     prop: 1.0, edges: 1 },
   { name: 'Ascent',    r: 30,  phi: 1.22, theta: 2.35,  t: [0, 0.5, 0],   prop: 0.7, edges: 0.15 },
 ];
@@ -309,7 +310,7 @@ function initScene() {
       lastDepth = depth;
       depthEl.textContent = String(depth).padStart(4, '0');
       depthBar.style.height = `${depthT * 100}%`;
-      hud.classList.toggle('is-on', scroll > heroH * 0.6);
+      hud.classList.toggle('is-on', scroll > anchors[1] - window.innerHeight && scroll < anchors[anchors.length - 1]);
     }
 
     renderer.render(scene, camera);
@@ -364,9 +365,11 @@ function buildTextRing() {
   texture.colorSpace = THREE.SRGBColorSpace;
   texture.anisotropy = 8;
   texture.wrapS = THREE.RepeatWrapping;
+  const backTexture = texture.clone();
+  backTexture.repeat.x = -1; // the far wall is seen from inside: mirror it so it reads
 
   const draw = () => {
-    const phrase = 'AMERICAN METAL BEARING  ✦  PROPULSOR & THRUST BEARINGS  ✦  SINCE 1921  ✦  GARDEN GROVE, CALIFORNIA  ✦  AS9100D · ISO 9001:2015  ✦  ';
+    const phrase = 'AMERICAN METAL BEARING COMPANY  ✦  ';
     ctx.clearRect(0, 0, cw, ch);
     ctx.textBaseline = 'middle';
     let size = 64;
@@ -385,6 +388,7 @@ function buildTextRing() {
     ctx.fillRect(0, 6, cw, 2);
     ctx.fillRect(0, ch - 8, cw, 2);
     texture.needsUpdate = true;
+    backTexture.needsUpdate = true;
   };
   draw();
   if (document.fonts) {
@@ -393,7 +397,7 @@ function buildTextRing() {
 
   const geo = new THREE.CylinderGeometry(radius, radius, height, 160, 1, true);
   const front = new THREE.MeshBasicMaterial({ map: texture, transparent: true, side: THREE.FrontSide, depthWrite: false, opacity: 0 });
-  const back = new THREE.MeshBasicMaterial({ map: texture, transparent: true, side: THREE.BackSide, depthWrite: false, opacity: 0 });
+  const back = new THREE.MeshBasicMaterial({ map: backTexture, transparent: true, side: THREE.BackSide, depthWrite: false, opacity: 0 });
   const group = new THREE.Group();
   const tilt = new THREE.Group();
   tilt.rotation.x = 0.07;
@@ -404,7 +408,7 @@ function buildTextRing() {
   frontMesh.renderOrder = 3;
   group.add(backMesh, frontMesh);
   tilt.add(group);
-  tilt.position.y = 1.4;
+  tilt.position.y = 1.9;
   return { group: tilt, front, back };
 }
 
@@ -486,23 +490,8 @@ function initDom() {
     onToggle: (self) => header.classList.toggle('is-scrolled', self.isActive),
   });
 
-  // Tilting pad diagram
-  const pads = document.getElementById('pads');
-  if (pads) {
-    const n = 8;
-    let d = '';
-    for (let i = 0; i < n; i++) {
-      const a0 = (i / n) * Math.PI * 2 + 0.08;
-      const a1 = ((i + 1) / n) * Math.PI * 2 - 0.08;
-      const pt = (r, a) => `${(100 + r * Math.cos(a)).toFixed(2)} ${(100 + r * Math.sin(a)).toFixed(2)}`;
-      d += `<path d="M${pt(36, a0)} L${pt(82, a0)} A82 82 0 0 1 ${pt(82, a1)} L${pt(36, a1)} A36 36 0 0 0 ${pt(36, a0)} Z"/>`;
-    }
-    pads.innerHTML = d;
-    gsap.to(pads, {
-      rotate: 180, transformOrigin: '100px 100px', ease: 'none',
-      scrollTrigger: { trigger: pads.closest('.chapter'), start: 'top bottom', end: 'bottom top', scrub: true },
-    });
-  }
+  initNav();
+  initTabs();
 
   if (reduceMotion) {
     gsap.set('.hero-title .line > span, .reveal', { clearProps: 'all' });
@@ -513,7 +502,7 @@ function initDom() {
   // Hero entrance
   gsap.from('.hero-title .line > span', { yPercent: 110, duration: 1.6, ease: 'expo.out', stagger: 0.12, delay: 0.35 });
   gsap.from('.hero .reveal', { y: 24, opacity: 0, duration: 1.2, ease: 'expo.out', stagger: 0.1, delay: 0.8 });
-  gsap.from('.site-header', { y: -30, opacity: 0, duration: 1.2, ease: 'expo.out', delay: 0.5 });
+  gsap.from('.site-header', { y: -30, opacity: 0, duration: 1.2, ease: 'expo.out', delay: 0.5, clearProps: 'transform,opacity' });
 
   // Hero copy parallaxes out as the camera takes over
   gsap.to('.hero-copy', {
@@ -548,9 +537,11 @@ function initDom() {
       onToggle: (self) => { if (self.isActive) document.getElementById('hud-chapter').textContent = ch.dataset.chapter; },
     });
   });
+  const hudChapter = document.getElementById('hud-chapter');
   ScrollTrigger.create({
-    trigger: '.manufacturing', start: 'top center',
-    onEnter: () => { document.getElementById('hud-chapter').textContent = '07 / Ascent'; },
+    trigger: '.dive', start: 'top center', end: 'bottom center',
+    onLeave: () => { hudChapter.textContent = 'Ascent'; },
+    onLeaveBack: () => { hudChapter.textContent = 'Surface'; },
   });
 
   // Generic vertical parallax
@@ -572,7 +563,7 @@ function initDom() {
   });
 
   // Section headings rise line by line
-  document.querySelectorAll('.section h2, .section .eyebrow, .quality-copy p:last-child, .careers-inner p:not(.eyebrow), .contact-lede').forEach((el) => {
+  document.querySelectorAll('.section-head > *, .dive-intro > *, .svc-col > .eyebrow, .svc-col > h2, .careers-inner h2, .contact-grid h2').forEach((el) => {
     gsap.from(el, {
       y: 60, opacity: 0, duration: 1.3, ease: 'expo.out',
       scrollTrigger: { trigger: el, start: 'top 88%' },
@@ -582,10 +573,19 @@ function initDom() {
     x: 40, opacity: 0, duration: 1.1, stagger: 0.1, ease: 'expo.out',
     scrollTrigger: { trigger: '.contact-cards', start: 'top 85%' },
   });
-  gsap.from('.mfg-card', {
-    y: 80, opacity: 0, duration: 1.2, stagger: 0.1, ease: 'expo.out',
-    scrollTrigger: { trigger: '.mfg-grid', start: 'top 85%' },
+  [['.cap-card', '.cap-grid'], ['.product', '.product-grid'], ['.step', '.process'], ['.svc-list li', '.svc-list']].forEach(([items, trigger]) => {
+    gsap.from(items, {
+      y: 70, opacity: 0, duration: 1.2, stagger: 0.1, ease: 'expo.out',
+      scrollTrigger: { trigger, start: 'top 85%' },
+    });
   });
+  const run = document.getElementById('cycle-run');
+  if (run) {
+    gsap.fromTo(run, { strokeDashoffset: 742 }, {
+      strokeDashoffset: 0, ease: 'none',
+      scrollTrigger: { trigger: '.lifecycle', start: 'top 80%', end: 'bottom 40%', scrub: true },
+    });
+  }
 
   // Counters
   document.querySelectorAll('[data-count]').forEach((el) => {
@@ -600,6 +600,85 @@ function initDom() {
 
   window.addEventListener('load', () => ScrollTrigger.refresh());
   if (document.fonts) document.fonts.ready.then(() => ScrollTrigger.refresh());
+}
+
+/* Header: dropdown menus on desktop, full-screen menu on phones */
+function initNav() {
+  const header = document.querySelector('.site-header');
+  const groups = [...document.querySelectorAll('.nav-group')];
+  const menuBtn = document.getElementById('menu-btn');
+
+  const closeGroups = (except) => groups.forEach((g) => {
+    if (g === except) return;
+    g.classList.remove('is-open');
+    g.querySelector('.nav-top').setAttribute('aria-expanded', 'false');
+  });
+  const setMobile = (open) => {
+    header.classList.toggle('menu-open', open);
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    if (window.ambLenis) open ? window.ambLenis.stop() : window.ambLenis.start();
+  };
+
+  groups.forEach((g) => {
+    const btn = g.querySelector('.nav-top');
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = !g.classList.contains('is-open');
+      closeGroups(g);
+      g.classList.toggle('is-open', open);
+      btn.setAttribute('aria-expanded', String(open));
+    });
+    if (window.matchMedia('(hover: hover)').matches) {
+      g.addEventListener('mouseenter', () => { if (!header.classList.contains('menu-open')) { closeGroups(g); g.classList.add('is-open'); btn.setAttribute('aria-expanded', 'true'); } });
+      g.addEventListener('mouseleave', () => { if (!header.classList.contains('menu-open')) closeGroups(); });
+    }
+  });
+  menuBtn.addEventListener('click', () => setMobile(!header.classList.contains('menu-open')));
+  document.addEventListener('click', (e) => { if (!e.target.closest('.nav-group')) closeGroups(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeGroups(); setMobile(false); } });
+  document.querySelectorAll('.nav a').forEach((a) => a.addEventListener('click', () => { closeGroups(); setMobile(false); }));
+}
+
+/* Who we are: accessible tabs, also driven by nav links with data-tab */
+function initTabs() {
+  const tabs = [...document.querySelectorAll('[role="tab"]')];
+  const ink = document.querySelector('.tab-ink');
+  if (!tabs.length) return;
+  const moveInk = (tab) => {
+    if (!ink) return;
+    ink.style.width = `${tab.offsetWidth}px`;
+    ink.style.transform = `translateX(${tab.offsetLeft}px)`;
+  };
+  const select = (tab, focus) => {
+    tabs.forEach((t) => {
+      const on = t === tab;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      const panel = document.getElementById(t.getAttribute('aria-controls'));
+      panel.hidden = !on;
+      if (on && !reduceMotion) gsap.fromTo(panel, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out' });
+    });
+    if (focus) tab.focus();
+    moveInk(tab);
+    ScrollTrigger.refresh();
+  };
+  tabs.forEach((tab, i) => {
+    tab.addEventListener('click', () => select(tab));
+    tab.addEventListener('keydown', (e) => {
+      const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (d) { e.preventDefault(); select(tabs[(i + d + tabs.length) % tabs.length], true); }
+    });
+  });
+  document.querySelectorAll('a[data-tab]').forEach((a) => {
+    a.addEventListener('click', () => {
+      const tab = document.getElementById(`tab-${a.dataset.tab}`);
+      if (tab) select(tab);
+    });
+  });
+  moveInk(tabs[0]);
+  window.addEventListener('resize', () => moveInk(tabs.find((t) => t.getAttribute('aria-selected') === 'true')));
+  if (document.fonts) document.fonts.ready.then(() => moveInk(tabs.find((t) => t.getAttribute('aria-selected') === 'true')));
 }
 
 function formatCount(el, v) {
