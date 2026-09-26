@@ -204,49 +204,51 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   layout();
 })();
 
-// Fit MANGO STUDIOS to the hero's width. The size is in cqw, so one measurement holds until the layout changes.
+// Stretch MANGO and STUDIOS across the hero. Sizes are in cqw, so one measurement holds at every width.
 (function () {
   const inner = document.getElementById('hero-inner');
-  const name = inner && inner.querySelector('.hero-name');
-  if (!name) return;
+  if (!inner) return;
+  const words = [].slice.call(inner.querySelectorAll('[data-fit]'));
   function fit() {
     const w = inner.clientWidth;
     if (!w) return;
-    inner.style.setProperty('--fit', '10cqw');
-    const measured = name.getBoundingClientRect().width;
-    if (measured) inner.style.setProperty('--fit', (10 * (w * 0.9) / measured).toFixed(3) + 'cqw');
+    words.forEach(function (el) {
+      el.style.fontSize = '10cqw';
+      const measured = el.getBoundingClientRect().width;
+      if (measured) el.style.fontSize = (10 * (w * 0.96) / measured).toFixed(3) + 'cqw';
+    });
   }
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(fit);
   window.addEventListener('load', fit);
-  window.matchMedia('(max-aspect-ratio: 4/5)').addEventListener('change', fit);
 })();
 
-// Sidebar: slides in when the pointer reaches the left edge, tucks away when it leaves.
+// Menu: the hamburger opens a panel that grows out of it; Esc, a click outside or picking a link closes it.
 (function () {
-  const bar = document.getElementById('sidebar');
-  const edge = document.querySelector('.side-edge');
-  if (!bar || !edge) return;
-  const canHover = window.matchMedia('(hover: hover) and (min-width: 761px)');
-  let timer = 0;
-  function open() { clearTimeout(timer); document.body.classList.add('side-open'); }
-  function close(delay) {
-    clearTimeout(timer);
-    timer = setTimeout(function () {
-      if (!bar.contains(document.activeElement)) document.body.classList.remove('side-open');
-    }, delay);
+  const btn = document.getElementById('menu-btn');
+  const panel = document.getElementById('menu-panel');
+  if (!btn || !panel) return;
+  let hideTimer = 0;
+  panel.dataset.state = 'closed';
+  function setOpen(open) {
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    clearTimeout(hideTimer);
+    if (open) {
+      panel.hidden = false;
+      requestAnimationFrame(function () { requestAnimationFrame(function () { panel.dataset.state = 'open'; }); });
+    } else {
+      panel.dataset.state = 'closed';
+      hideTimer = setTimeout(function () { panel.hidden = true; }, 380);
+    }
   }
-  edge.addEventListener('pointerenter', function () { if (canHover.matches) open(); });
-  document.addEventListener('pointermove', function (e) {
-    if (!canHover.matches) return;
-    if (e.clientX <= 12) open();
-    else if (document.body.classList.contains('side-open') && e.clientX > bar.getBoundingClientRect().right + 48) close(200);
-  }, { passive: true });
-  bar.addEventListener('pointerenter', open);
-  bar.addEventListener('pointerleave', function () { close(260); });
-  bar.addEventListener('focusin', open);
-  bar.addEventListener('focusout', function () { close(0); });
-  bar.addEventListener('click', function (e) { if (e.target.closest('a')) close(120); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { document.activeElement.blur(); close(0); } });
+  btn.addEventListener('click', function () { setOpen(panel.dataset.state !== 'open'); });
+  panel.addEventListener('click', function (e) { if (e.target.closest('a')) setOpen(false); });
+  document.addEventListener('pointerdown', function (e) {
+    if (panel.dataset.state === 'open' && !e.target.closest('.menu')) setOpen(false);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && panel.dataset.state === 'open') { setOpen(false); btn.focus(); }
+  });
 })();
 
 // Team: while the stage is pinned, each person rises from below, holds, then slides up as the next arrives.
@@ -300,9 +302,9 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   measure();
 })();
 
-// Sidebar follows the section in view on the home page.
+// The menu marks the section in view on the home page.
 (function () {
-  const links = [].slice.call(document.querySelectorAll('.side-links a[data-section]'));
+  const links = [].slice.call(document.querySelectorAll('.menu-links a[data-section]'));
   const map = { hero: '', about: 'about', services: 'services', apps: 'software', team: 'team', manifesto: 'manifesto' };
   const targets = Object.keys(map).map(function (id) { return document.getElementById(id); }).filter(Boolean);
   if (!links.length || targets.length < 3) return;

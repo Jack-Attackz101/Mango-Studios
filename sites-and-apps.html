@@ -13,29 +13,29 @@
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
-  <div class="side-edge" aria-hidden="true"><span class="side-tab">Menu</span></div>
-  <aside class="sidebar" id="sidebar" aria-label="Site">
-    <a class="side-brand" href="index.html">Mango<br>Studios</a>
-    <nav aria-label="Main">
-      <ul class="side-links">
-        <li class="side-about"><a href="index.html#about" data-section="about">About</a></li>
-        <li class="side-services"><a href="index.html#services" aria-current="true" data-section="services">Services</a>
-          <ul class="side-sub">
+  <header class="menu">
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu-panel" aria-label="Open menu">
+      <span class="menu-lines" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
+    <nav class="menu-panel" id="menu-panel" aria-label="Main" hidden>
+      <a class="menu-brand" href="index.html">Mango Studios</a>
+      <ul class="menu-links">
+        <li><a href="index.html#about" data-section="about">About</a></li>
+        <li><a href="index.html#services" aria-current="true" data-section="services">Services</a>
+          <ul class="menu-sub">
             <li><a href="sites-and-apps.html">Custom Sites &amp; Apps</a></li>
             <li><a href="ai-agents.html">Custom AI Agents</a></li>
             <li><a href="automations.html">Custom Automations</a></li>
             <li><a href="consulting.html">AI Consulting</a></li>
           </ul>
         </li>
-        <li class="side-software"><a href="software.html" data-section="software">Software</a></li>
-        <li class="side-team"><a href="index.html#team" data-section="team">Team</a></li>
-        <li class="side-manifesto"><a href="index.html#manifesto" data-section="manifesto">Manifesto</a></li>
+        <li><a href="software.html" data-section="software">Software</a></li>
+        <li><a href="index.html#team" data-section="team">Team</a></li>
+        <li><a href="index.html#manifesto" data-section="manifesto">Manifesto</a></li>
       </ul>
+      <a class="btn menu-cta" href="mailto:hello@mangostudios.xyz?subject=Hello">Talk to us</a>
     </nav>
-    <div class="side-foot">
-      <a class="btn side-cta" href="mailto:hello@mangostudios.xyz?subject=Hello">Talk to us</a>
-    </div>
-  </aside>
+  </header>
 
   <main id="main">
     <section class="page-hero" aria-labelledby="page-title">
