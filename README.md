@@ -6,7 +6,9 @@ This repo is the home for mango studios work. The marketing site lives at the re
 
 ## site
 
-Static pages: `index.html` (home), `sites-and-apps.html`, `ai-agents.html`, `automations.html`, `consulting.html` and `software.html`, sharing `styles.css`, `main.js` and `assets/`. The menu bar and footer are repeated in each page, so change them in all six.
+Static pages: `index.html` (home), `sites-and-apps.html`, `ai-agents.html`, `automations.html`, `consulting.html`, `software.html` and `work.html`, sharing `styles.css`, `main.js` and `assets/`. The menu and footer are repeated in each page, so change them in all seven.
+
+The 3D mango at the bottom of the home page is `assets/mango.fbx`, drawn with three.js r147 from `vendor/three/` (MIT, see `vendor/three/LICENSE`). It loads only when the section scrolls near, and the flat `assets/mango.png` shows until it does.
 
 Open `index.html` locally, or from the repo root:
 

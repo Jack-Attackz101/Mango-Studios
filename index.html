@@ -23,8 +23,10 @@
         <li><a href="index.html#about" data-section="about">About</a></li>
         <li><a href="index.html#services" data-section="services">Services</a></li>
         <li><a href="software.html" data-section="software">Software</a></li>
+        <li><a href="work.html" data-section="work">Our Work</a></li>
         <li><a href="index.html#team" data-section="team">Team</a></li>
         <li><a href="index.html#manifesto" data-section="manifesto">Manifesto</a></li>
+        <li><a href="index.html#faq" data-section="faq">FAQ</a></li>
       </ul>
       <a class="btn menu-cta" href="mailto:hello@mangostudios.xyz?subject=Hello">Talk to us</a>
     </nav>
@@ -134,47 +136,11 @@
     </section>
 
     <section class="apps" id="apps" aria-labelledby="apps-title">
-      <div class="apps-copy">
-        <h2 class="apps-title display" id="apps-title">Our apps</h2>
-        <p>Alongside client work, we build our own consumer and productivity apps under the Mango Studios name. Here's what's on the bench.</p>
-        <a class="btn btn--white" href="software.html">See all our software</a>
-      </div>
-      <div class="deck" data-parallax="0.05">
-        <ul class="deck-cards" id="deck">
-          <li class="deck-card" data-pos="0">
-            <div class="deck-screen"><img src="assets/trail-hourglass.png" alt="" width="198" height="267"></div>
-            <div class="deck-body">
-              <span class="deck-kind">macOS menu bar app</span>
-              <h3>Iris</h3>
-              <p>A menu bar app that looks after your eyes while you work on a Mac.</p>
-              <span class="status">Closest to launch</span>
-            </div>
-          </li>
-          <li class="deck-card" data-pos="1" aria-hidden="true">
-            <div class="deck-screen"><img src="assets/trail-pencil.png" alt="" width="143" height="186"></div>
-            <div class="deck-body">
-              <span class="deck-kind">Learn-to-build platform</span>
-              <h3>Alpine</h3>
-              <p>A platform that teaches kids to build their own software.</p>
-              <span class="status">In development</span>
-            </div>
-          </li>
-          <li class="deck-card" data-pos="2" aria-hidden="true">
-            <div class="deck-screen"><img src="assets/trail-camera.png" alt="" width="299" height="260"></div>
-            <div class="deck-body">
-              <span class="deck-kind">Next up</span>
-              <h3>On the drawing board</h3>
-              <p>There's always another idea in the sketchbook. It gets a name when it ships.</p>
-              <span class="status">Sketching</span>
-            </div>
-          </li>
-        </ul>
-        <div class="deck-controls">
-          <button class="deck-btn" type="button" data-dir="-1" aria-label="Previous app">←</button>
-          <span class="deck-count" id="deck-count" aria-live="polite">1 / 3</span>
-          <button class="deck-btn" type="button" data-dir="1" aria-label="Next app">→</button>
-        </div>
-      </div>
+      <h2 class="apps-title" id="apps-title">Our software</h2>
+      <p class="apps-line">We build our own apps too. Right now:
+        <span class="app-cycle" id="app-cycle" aria-live="polite"><img class="app-cycle-icon" src="assets/trail-hourglass.png" alt="" width="198" height="267"><span class="app-cycle-text"><b>Iris</b>, a macOS menu bar app for eye health</span></span>
+      </p>
+      <a class="btn btn--white" href="software.html">See our software</a>
     </section>
 
     <section class="team" id="team" aria-labelledby="team-title" style="--n: 4" data-ride="62">
@@ -231,6 +197,55 @@
       </ul>
     </section>
 
+
+    <section class="faq" id="faq" aria-labelledby="faq-title">
+      <h2 class="faq-title display" id="faq-title">FAQ</h2>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>How much does a project cost?</summary>
+          <p>Custom sites and apps start at $250, AI agents at $500 and automations at $300. AI Consulting is a flat $100 per session. After one conversation you get a real quote for your project.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Who will I be working with?</summary>
+          <p>The person building your project. There are no account managers, so you talk directly to Jack, James or Hayden.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How fast can you start?</summary>
+          <p>We keep scoping short. Once we agree on the quote, work starts.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Do you work with small businesses?</summary>
+          <p>Yes. We work with single shops and full operations alike.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Do you use AI to build?</summary>
+          <p>Yes. AI agents help us write, test and research, and we review everything they make before it ships.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What happens in an AI Consulting session?</summary>
+          <p>A plain conversation about how your business runs, where AI would help and what isn't worth doing yet. You can book one on the AI Consulting page.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Where are you based?</summary>
+          <p>Toronto, Ontario.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="build" id="build" aria-labelledby="build-title">
+      <div class="sky sky--live"></div>
+      <h2 class="build-title display" id="build-title">Let's build something amazing.</h2>
+      <div class="mango3d" id="mango3d">
+        <img class="mango3d-poster" src="assets/mango.png" alt="" width="470" height="666">
+        <p class="mango3d-hint" aria-hidden="true">Drag to spin</p>
+      </div>
+      <div class="build-actions">
+        <a class="btn" href="mailto:hello@mangostudios.xyz?subject=Hello">Message us</a>
+        <a class="btn btn--white" href="work.html">Our work</a>
+        <a class="btn btn--white" href="https://www.linkedin.com/company/mango-studios1/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+
   </main>
 
   <footer class="footer">
@@ -252,6 +267,7 @@
         <h3>Studio</h3>
         <ul>
           <li><a href="software.html">Our software</a></li>
+          <li><a href="work.html">Our work</a></li>
           <li><a href="index.html#team">Team</a></li>
           <li><a href="index.html#about">About</a></li>
         </ul>
@@ -260,6 +276,7 @@
         <h3>Contact</h3>
         <ul>
           <li><a href="mailto:hello@mangostudios.xyz">hello@mangostudios.xyz</a></li>
+          <li><a href="https://www.linkedin.com/company/mango-studios1/" target="_blank" rel="noopener">LinkedIn</a></li>
           <li><a href="https://mangostudios.xyz">mangostudios.xyz</a></li>
         </ul>
       </div>
