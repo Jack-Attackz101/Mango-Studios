@@ -51,54 +51,33 @@
     <section class="about" id="about" aria-labelledby="about-title">
       <div class="about-top">
         <h2 class="about-title display" id="about-title">About us</h2>
-        <div class="about-text">
-          <p>Mango Studios is a small software studio. We build websites, apps, AI agents and automations for businesses, and we make our own apps too.</p>
-          <p>When you work with us, you work with the person building your project, from the first email to launch day. You get a straight answer on what it costs, then we get to work.</p>
-        </div>
+        <p class="about-text">Mango Studios is a small software studio. We build websites, apps, AI agents and automations for businesses, and we make our own apps too. When you work with us, you work with the person building your project, from the first email to launch day. You get a straight answer on what it costs, then we get to work.</p>
       </div>
-      <div class="about-scene">
-        <div class="sun sun--top" data-parallax="-0.06" aria-hidden="true"></div>
-        <div class="about-band">
-          <div class="sky sky--live"></div>
-          <div class="sun sun--low" data-parallax="-0.06" aria-hidden="true"></div>
-          <img class="about-mango" data-parallax="-0.04" src="assets/mango-point.png" alt="Mickey Mango, our mascot" width="722" height="716">
-        </div>
+      <div class="about-band" aria-hidden="true">
+        <div class="sky sky--live about-sky"></div>
       </div>
       <h3 class="values-title display">Our values</h3>
-      <svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
-        <defs>
-          <mask id="bite-mask"><rect width="100" height="100" fill="#fff"/><circle cx="89" cy="21" r="15" fill="#000"/></mask>
-          <clipPath id="disc-clip"><circle cx="50" cy="50" r="46"/></clipPath>
-        </defs>
-      </svg>
       <ul class="values">
-        <li class="value">
-          <span class="value-disc value-disc--yellow">
-            <svg viewBox="0 0 100 100" aria-hidden="true"><g mask="url(#bite-mask)"><circle cx="50" cy="50" r="46"/></g><circle class="bite-edge" cx="89" cy="21" r="15" clip-path="url(#disc-clip)"/></svg>
-            <img src="assets/trail-wink.png" alt="" width="302" height="313">
-          </span>
-          <span class="value-name">Talk to the builder</span>
+        <li class="value-card" data-tilt>
+          <div class="value-inner">
+            <img class="value-icon" src="assets/trail-pizza.png" alt="" width="251" height="266">
+            <h4 class="value-name">Honest pricing</h4>
+            <p class="value-text">Real prices up front. No surprise invoices.</p>
+          </div>
         </li>
-        <li class="value">
-          <span class="value-disc value-disc--blue">
-            <svg viewBox="0 0 100 100" aria-hidden="true"><g mask="url(#bite-mask)"><circle cx="50" cy="50" r="46"/></g><circle class="bite-edge" cx="89" cy="21" r="15" clip-path="url(#disc-clip)"/></svg>
-            <img src="assets/trail-pencil.png" alt="" width="143" height="186">
-          </span>
-          <span class="value-name">Honest pricing</span>
+        <li class="value-card" data-tilt>
+          <div class="value-inner">
+            <img class="value-icon" src="assets/trail-skull.png" alt="" width="253" height="263">
+            <h4 class="value-name">Real output</h4>
+            <p class="value-text">Working products, not pitch decks.</p>
+          </div>
         </li>
-        <li class="value">
-          <span class="value-disc value-disc--orange">
-            <svg viewBox="0 0 100 100" aria-hidden="true"><g mask="url(#bite-mask)"><circle cx="50" cy="50" r="46"/></g><circle class="bite-edge" cx="89" cy="21" r="15" clip-path="url(#disc-clip)"/></svg>
-            <img src="assets/icon-cursor.png" alt="" width="252" height="357">
-          </span>
-          <span class="value-name">Real output</span>
-        </li>
-        <li class="value">
-          <span class="value-disc value-disc--paper">
-            <svg viewBox="0 0 100 100" aria-hidden="true"><g mask="url(#bite-mask)"><circle cx="50" cy="50" r="46"/></g><circle class="bite-edge" cx="89" cy="21" r="15" clip-path="url(#disc-clip)"/></svg>
-            <img src="assets/trail-key.png" alt="" width="308" height="330">
-          </span>
-          <span class="value-name">Right tool, every job</span>
+        <li class="value-card" data-tilt>
+          <div class="value-inner">
+            <img class="value-icon" src="assets/trail-key.png" alt="" width="308" height="330">
+            <h4 class="value-name">Right tool, every job</h4>
+            <p class="value-text">We pick what fits your systems, not one tool for everything.</p>
+          </div>
         </li>
       </ul>
     </section>

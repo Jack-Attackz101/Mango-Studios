@@ -292,6 +292,33 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   io.observe(box);
 })();
 
+// Value cards tilt toward the pointer, as if you were holding the card at that angle.
+(function () {
+  if (reduceMotion || !window.matchMedia('(hover: hover)').matches) return;
+  const MAX = 14;
+  document.querySelectorAll('[data-tilt]').forEach(function (card) {
+    let frame = 0;
+    card.addEventListener('pointermove', function (e) {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(function () {
+        card.classList.add('is-tilting');
+        card.style.setProperty('--ry', ((x - 0.5) * 2 * MAX).toFixed(2) + 'deg');
+        card.style.setProperty('--rx', ((0.5 - y) * 2 * MAX).toFixed(2) + 'deg');
+        card.style.setProperty('--gx', (x * 100).toFixed(1) + '%');
+        card.style.setProperty('--gy', (y * 100).toFixed(1) + '%');
+      });
+    });
+    card.addEventListener('pointerleave', function () {
+      cancelAnimationFrame(frame);
+      card.classList.remove('is-tilting');
+      card.style.setProperty('--rx', '0deg');
+      card.style.setProperty('--ry', '0deg');
+    });
+  });
+})();
+
 // Stretch MANGO and STUDIOS across the hero. Sizes are in cqw, so one measurement holds at every width.
 (function () {
   const inner = document.getElementById('hero-inner');

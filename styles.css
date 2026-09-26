@@ -343,78 +343,74 @@ a { color: inherit; }
   gap: clamp(24px, 5vw, 96px);
 }
 .about-title { font-size: clamp(2.6rem, 0.8rem + 5.2vw, 6.75rem); line-height: 0.9; white-space: nowrap; color: var(--ink); }
-.about-text { display: grid; gap: 0.9em; padding-top: 0.6em; font: 500 var(--t-body)/1.6 var(--font-text); color: var(--ink); }
-.about-text p:first-child { font-weight: 700; }
+.about-text { max-width: 58ch; padding-top: 0.6em; font: 500 var(--t-body)/1.65 var(--font-text); color: var(--ink); }
 
-/* the band: a strip of sky with the sun rising out of its top edge */
-.about-scene {
-  --sun: clamp(170px, 24vw, 330px);
-  position: relative;
-  max-width: 1320px;
-  margin: calc(var(--sun) * 0.55 + clamp(24px, 3vw, 48px)) auto 0;
-}
+/* a window of drifting sky, with the clouds drawn larger than the rest of the site */
 .about-band {
   position: relative;
-  height: clamp(260px, 32vw, 460px);
+  max-width: 1320px;
+  height: clamp(260px, 30vw, 440px);
+  margin: clamp(40px, 5vw, 72px) auto 0;
   overflow: hidden;
   border: 5px solid var(--ink);
   border-radius: clamp(28px, 3vw, 44px);
 }
-.sun {
-  position: absolute;
-  left: 50%;
-  width: var(--sun);
-  aspect-ratio: 1;
-  margin-left: calc(var(--sun) / -2);
-  border: 5px solid var(--ink);
-  border-radius: 50%;
-  pointer-events: none;
+.about-sky {
+  --tile: clamp(620px, 62vw, 1000px);
+  background-size: auto var(--tile);
+  background-position: 0 42%;
+  animation: drift-about 120s linear infinite;
 }
-.sun--top {
-  z-index: 3;
-  top: calc(var(--sun) / -2);
-  background: var(--title-yellow);
-  clip-path: inset(-10px -10px 50% -10px);
-}
-/* the half inside the band sits a little off, like the sun is seen through the sky */
-.sun--low {
-  z-index: 1;
-  top: calc(var(--sun) / -2 - 5px);
-  background: var(--blob-orange);
-  transform: translateX(-9%);
-}
-.about-mango {
-  position: absolute;
-  z-index: 2;
-  left: 6%;
-  bottom: -6%;
-  width: clamp(150px, 20vw, 290px);
-  height: auto;
-  transform: scaleX(-1);
-}
+@keyframes drift-about { to { background-position-x: calc(var(--tile) * -1.7778); } }
 
 .values-title { margin: clamp(64px, 8vw, 120px) 0 clamp(28px, 3.5vw, 52px); text-align: center; font-size: clamp(2rem, 1rem + 3vw, 4rem); color: var(--ink); }
 .values {
   list-style: none;
-  max-width: 1000px;
+  max-width: 1080px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: clamp(16px, 3vw, 48px);
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 3vw, 40px);
+  perspective: 900px;
 }
-.value { display: grid; justify-items: center; gap: 16px; text-align: center; }
-.value-disc { position: relative; width: min(100%, 170px); aspect-ratio: 1; display: grid; place-items: center; }
-.value-disc svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.value-disc svg circle { stroke: var(--ink); stroke-width: 3.5; }
-.value-disc .bite-edge { fill: none; }
-.value-disc--yellow circle:not(.bite-edge) { fill: var(--title-yellow); }
-.value-disc--blue circle:not(.bite-edge) { fill: var(--card-blue); }
-.value-disc--orange circle:not(.bite-edge) { fill: var(--blob-orange); }
-.value-disc--paper circle:not(.bite-edge) { fill: #fff; }
-.value-disc img { position: relative; width: 44%; height: 44%; object-fit: contain; transition: transform 0.4s var(--ease); }
-.value:hover .value-disc img { transform: rotate(-8deg) scale(1.06); }
-.value-name { font: 650 clamp(1rem, 0.9rem + 0.4vw, 1.25rem)/1.3 var(--font-text); color: var(--ink); }
-.defs { position: absolute; }
+
+/* 3D tilt cards: the card leans toward the pointer as if you were holding it */
+.value-card { --rx: 0deg; --ry: 0deg; --gx: 50%; --gy: 50%; }
+.value-inner {
+  position: relative;
+  height: 100%;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 12px;
+  padding: clamp(26px, 3vw, 40px) 24px clamp(26px, 3vw, 36px);
+  text-align: center;
+  background: #fff;
+  border: 5px solid var(--ink);
+  border-radius: 30px;
+  box-shadow: 8px 8px 0 var(--ink);
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+  transform-style: preserve-3d;
+  transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
+}
+.value-card:nth-child(1) .value-inner { background: var(--title-yellow); }
+.value-card:nth-child(2) .value-inner { background: var(--card-blue); }
+.value-card:nth-child(3) .value-inner { background: var(--paper); }
+.value-inner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 25px;
+  background: radial-gradient(circle at var(--gx) var(--gy), rgba(255, 255, 255, 0.55), transparent 55%);
+  opacity: 0;
+  transition: opacity 0.3s var(--ease);
+  pointer-events: none;
+}
+.value-card.is-tilting .value-inner { transition: transform 0.12s linear; }
+.value-card.is-tilting .value-inner::after { opacity: 1; }
+.value-icon { width: auto; height: clamp(80px, 8vw, 112px); object-fit: contain; transform: translateZ(40px); }
+.value-name { font-family: var(--font-cartoon); font-weight: 400; font-size: clamp(28px, 2.4vw, 38px); line-height: 1.02; color: var(--ink); transform: translateZ(30px); }
+.value-text { max-width: 26ch; font: 500 15.5px/1.5 var(--font-text); color: var(--ink); transform: translateZ(20px); }
 
 /* ── SERVICES ──────────────────────────────── */
 
@@ -1074,7 +1070,7 @@ a { color: inherit; }
   .consult { grid-template-columns: auto 1fr; }
   .consult-go { display: none; }
   .about-top, .book-head, .book-grid { grid-template-columns: 1fr; }
-  .values { grid-template-columns: repeat(2, 1fr); row-gap: 36px; }
+  .values { grid-template-columns: 1fr; max-width: 420px; }
   .mini-cards { grid-template-columns: 1fr; }
   .icon-tile { width: min(70vw, 320px); }
   .page-title { font-size: min(var(--t-h1), 9vw); }
@@ -1097,8 +1093,7 @@ a { color: inherit; }
   .member-name { font-size: 28px; }
   .team-word { font-size: 30vw; -webkit-text-stroke-width: 4px; }
   .rainbow { width: 150%; height: 36%; }
-  .about-band { height: 280px; }
-  .about-mango { width: 150px; left: 4%; }
+  .about-band { height: 240px; }
   .about { border-radius: 28px 28px 0 0; border-top-width: 5px; }
   .services { padding: 56px 16px 64px; }
   .services-title { font-size: 11vw; margin-bottom: 32px; }
@@ -1122,6 +1117,8 @@ a { color: inherit; }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .about-sky { animation: none; }
+  .value-inner { transform: none; transition: none; }
   .app-cycle-icon, .app-cycle-text { transition: none; }
   .sky--live, .clouds-front, .ticker-run { animation: none; }
   .menu-panel { transition: opacity 0.2s ease; }
