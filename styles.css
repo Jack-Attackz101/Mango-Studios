@@ -667,7 +667,7 @@ body.menu-open .menu-scrim { opacity: 1; }
   z-index: 2;
   overflow: hidden;
   border-top: 6px solid var(--ink);
-  padding: clamp(88px, 10vw, 160px) 0;
+  padding: clamp(88px, 10vw, 160px) 0 clamp(48px, 5vw, 72px);
 }
 .manifesto-sky { inset: -25% 0; }
 .manifesto-title {
@@ -707,24 +707,52 @@ body.menu-open .menu-scrim { opacity: 1; }
 /* the tech stack: a spacebar-sized key opens a card of stacked pills */
 .spacebar {
   position: relative;
-  display: block;
-  width: min(680px, calc(100% - 32px));
-  min-height: 88px;
-  margin: clamp(40px, 5vw, 72px) auto 0;
-  padding: 0 32px;
-  background: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  width: min(640px, calc(100% - 32px));
+  min-height: 84px;
+  margin: clamp(56px, 7vw, 104px) auto 0;
+  padding: 12px 20px 12px 14px;
+  background: var(--title-yellow);
   border: 4px solid var(--ink);
-  border-radius: 20px;
-  box-shadow: 0 9px 0 var(--ink), inset 0 -8px 0 rgba(17, 17, 17, 0.08);
-  font-family: var(--font-cartoon);
-  font-size: clamp(28px, 2.6vw, 38px);
+  border-radius: 999px;
+  box-shadow: 0 7px 0 var(--ink);
   color: var(--ink);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  transition: transform 0.12s var(--ease), box-shadow 0.12s var(--ease), background-color 0.2s var(--ease);
+  transition: transform 0.18s var(--ease), box-shadow 0.18s var(--ease);
 }
-.spacebar:hover { background: var(--title-yellow); transform: translateY(-2px); box-shadow: 0 11px 0 var(--ink), inset 0 -8px 0 rgba(17, 17, 17, 0.08); }
-.spacebar:active { transform: translateY(7px); box-shadow: 0 2px 0 var(--ink), inset 0 -3px 0 rgba(17, 17, 17, 0.08); transition-duration: 0.05s; }
+.spacebar:hover { transform: translateY(-3px); box-shadow: 0 10px 0 var(--ink); }
+.spacebar:active { transform: translateY(5px); box-shadow: 0 2px 0 var(--ink); transition-duration: 0.05s; }
+.spacebar-icons { display: flex; flex: none; }
+.spacebar-icons img {
+  width: 44px;
+  height: 44px;
+  padding: 3px;
+  background: #fff;
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  object-fit: contain;
+}
+.spacebar-icons img + img { margin-left: -14px; }
+.spacebar-label { font: 600 clamp(22px, 2.2vw, 30px)/1 var(--font-round); letter-spacing: -0.01em; }
+.spacebar-arrow {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 48px;
+  height: 48px;
+  margin-left: auto;
+  background: var(--ink);
+  border-radius: 50%;
+  font: 700 22px/1 var(--font-text);
+  color: var(--title-yellow);
+  transition: transform 0.3s var(--ease);
+}
+.spacebar:hover .spacebar-arrow { transform: translateX(3px); }
+.spacebar-label { margin-left: auto; }
 
 .stack { margin: auto; padding: 0; border: 0; background: transparent; width: min(560px, calc(100vw - 32px)); max-height: calc(100svh - 32px); overflow: visible; color: var(--ink); }
 .stack::backdrop { background: rgba(6, 36, 58, 0.55); }
@@ -1162,6 +1190,10 @@ button.cal-day:active { transform: scale(0.94); transition-duration: 0.05s; }
   .card-title { font-size: clamp(34px, 10vw, 48px); }
   .consult { max-width: 420px; margin-top: 20px; }
   .manifesto-lines { padding: 0 16px; }
+  .spacebar-icons img { width: 36px; height: 36px; }
+  .spacebar-icons img:nth-child(n+3) { display: none; }
+  .spacebar-arrow { width: 40px; height: 40px; }
+  .spacebar { gap: 12px; }
   .manifesto-lines li { white-space: normal; text-align: center; font-size: clamp(1.75rem, 8.4vw, 2.75rem); }
   .manifesto-lines li.tape span { border-width: 4px; }
 }

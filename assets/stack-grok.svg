@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <clipPath id="sq"><rect x="2" y="2" width="96" height="96" rx="24"/></clipPath>
+    <radialGradient id="blob" cx="0.42" cy="0.34" r="0.75"><stop offset="0" stop-color="#ffffff"/><stop offset="0.6" stop-color="#e6e6e6"/><stop offset="1" stop-color="#b9b9b9"/></radialGradient>
+  </defs>
+  <g clip-path="url(#sq)">
+    <rect x="2" y="2" width="96" height="96" fill="#2e2e2e"/>
+    <ellipse cx="60" cy="78" rx="76" ry="63" fill="url(#blob)"/>
+  </g>
+  <rect x="2" y="2" width="96" height="96" rx="24" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="31" y="44" width="14" height="31" rx="7" fill="#262626" transform="rotate(30 38 59.5)"/>
+  <rect x="59" y="28" width="13" height="27" rx="6.5" fill="#262626" transform="rotate(30 65.5 41.5)"/>
+</svg>
