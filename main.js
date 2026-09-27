@@ -401,3 +401,16 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   }, { rootMargin: '-50% 0px -50% 0px' });
   targets.forEach(function (t) { spy.observe(t); });
 })();
+
+// Tech stack popup: opened from the manifesto's spacebar and the AI crew card.
+(function () {
+  const dialog = document.getElementById('stack');
+  if (!dialog || typeof dialog.showModal !== 'function') return;
+  let opener = null;
+  document.querySelectorAll('[data-stack-open]').forEach(function (btn) {
+    btn.addEventListener('click', function () { opener = btn; dialog.showModal(); });
+  });
+  dialog.querySelector('[data-stack-close]').addEventListener('click', function () { dialog.close(); });
+  dialog.addEventListener('click', function (e) { if (e.target === dialog) dialog.close(); });
+  dialog.addEventListener('close', function () { if (opener) opener.focus(); });
+})();
