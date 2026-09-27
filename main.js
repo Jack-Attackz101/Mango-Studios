@@ -441,3 +441,34 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   dialog.addEventListener('click', function (e) { if (e.target === dialog) dialog.close(); });
   dialog.addEventListener('close', function () { if (opener) opener.focus(); });
 })();
+
+// Service strip: repeat the set of services until the strip is always full, then loop by exactly one set,
+// so the items keep the same gap and never leave an empty stretch.
+(function () {
+  const run = document.querySelector('.ticker-run');
+  if (!run) return;
+  const items = [].slice.call(run.children);
+  const setSize = items.length / 2;
+  const set = items.slice(0, setSize);
+  const SPEED = 60; // px per second
+  function build() {
+    run.textContent = '';
+    set.forEach(function (el) { run.appendChild(el); });
+    const setWidth = run.scrollWidth;
+    if (!setWidth) return;
+    const need = run.parentElement.offsetWidth * 1.1 + setWidth;
+    while (run.scrollWidth < need) {
+      set.forEach(function (el) {
+        const c = el.cloneNode(true);
+        c.setAttribute('aria-hidden', 'true');
+        run.appendChild(c);
+      });
+    }
+    run.style.setProperty('--tick-shift', -setWidth + 'px');
+    run.style.setProperty('--tick-time', (setWidth / SPEED).toFixed(2) + 's');
+  }
+  let t = 0;
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(build);
+  window.addEventListener('load', build);
+  window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(build, 150); });
+})();
