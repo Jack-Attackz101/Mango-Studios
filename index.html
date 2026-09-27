@@ -1,209 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#FFF9ED">
-  <title>mango studios — apps, sites, and other ripe ideas</title>
-  <meta name="description" content="mango studios makes apps, sites, digital products, and other ventures. a small optimistic studio run by Jack Koll-Gunderson.">
-  <link rel="icon" href="assets/logo-stamp.png" type="image/png">
-  <link rel="apple-touch-icon" href="assets/logo-stamp.png">
-  <meta property="og:title" content="mango studios">
-  <meta property="og:description" content="we make apps, sites, and other ripe ideas.">
-  <meta property="og:image" content="assets/logo.png">
-  <meta property="og:type" content="website">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mango Studios</title>
+  <meta name="description" content="Mango Studios builds custom sites and apps, AI agents and automations.">
+  <link rel="icon" href="assets/logo-stamp.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,500&family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,700;1,9..144,800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,900&family=Chewy&family=Fredoka:wght@500;600&family=Inter+Tight:wght@500;600;650;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <a class="skip" href="#main">skip to content</a>
-
-  <header class="site-header" id="top">
-    <a class="brand" href="#top">
-      <img class="brand-mark" src="assets/logo.png" width="48" height="48" alt="mango studios">
-      <span class="brand-name">mango studios</span>
-    </a>
-    <nav class="nav" aria-label="primary">
-      <a href="#work">work</a>
-      <a href="#studio">studio</a>
-      <a href="#process">process</a>
-      <a class="btn btn-sm" href="mailto:jackkollgunderson@gmail.com?subject=hello%20from%20mango%20studios">say hello</a>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="menu">
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu-panel" aria-label="Open menu">
+      <span class="menu-lines" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
+    <div class="menu-scrim" id="menu-scrim" hidden></div>
+    <nav class="menu-panel" id="menu-panel" aria-label="Main" hidden>
+      <a class="menu-brand" href="index.html">Mango Studios</a>
+      <ul class="menu-links">
+        <li><a href="index.html#about" data-section="about">About</a></li>
+        <li><a href="index.html#services" data-section="services">Services</a></li>
+        <li><a href="software.html" data-section="software">Software</a></li>
+        <li><a href="work.html" data-section="work">Our Work</a></li>
+        <li><a href="index.html#team" data-section="team">Team</a></li>
+        <li><a href="index.html#manifesto" data-section="manifesto">Manifesto</a></li>
+        <li><a href="index.html#faq" data-section="faq">FAQ</a></li>
+      </ul>
+      <a class="btn menu-cta" href="mailto:hello@mangostudios.xyz?subject=Hello">Talk to us</a>
     </nav>
   </header>
 
   <main id="main">
-    <section class="hero" aria-label="intro">
-      <div class="hero-sky" data-parallax="0.12" aria-hidden="true"></div>
-      <div class="cloud-layer cloud-back" data-parallax="0.24" aria-hidden="true">
-        <span class="cloud c1"></span>
-        <span class="cloud c2"></span>
-        <span class="cloud c3"></span>
-      </div>
-      <div class="cloud-layer cloud-mid" data-parallax="0.4" aria-hidden="true">
-        <span class="cloud c4"></span>
-        <span class="cloud c5"></span>
-      </div>
-
-      <div class="hero-inner">
-        <div class="hero-copy">
-          <p class="eyebrow">mango studios</p>
-          <h1>we make apps, sites, and other ripe ideas.</h1>
-          <p class="lede">software, digital products, and whatever else can make money.</p>
-          <a class="btn" href="mailto:jackkollgunderson@gmail.com?subject=hello%20from%20mango%20studios">say hello</a>
-        </div>
-
-        <div class="hero-fruit" data-parallax="0.55" aria-hidden="true">
-          <div class="mango-bob">
-            <img class="mango-body" src="assets/mango-body.png" alt="" width="470" height="666">
-            <img class="mango-leaf" src="assets/leaf.png" alt="" width="470" height="666">
+    <div class="stage" id="stage">
+      <section class="hero" id="hero" aria-label="Mango Studios">
+        <div class="hero-inner" id="hero-inner">
+          <div class="sky sky--live" id="hero-sky"></div>
+          <div class="clouds-front" aria-hidden="true"></div>
+          <div class="hero-center" id="hero-title">
+            <h1 class="hero-title"><span class="hero-word" data-fit>Mango</span> <span class="hero-word" data-fit>Studios</span></h1>
           </div>
+          <div class="ticker" aria-hidden="true"><div class="ticker-run"><span class="tick-item"><img src="assets/icon-key.png" alt="">Custom Sites &amp; Apps</span><span class="tick-item"><img src="assets/icon-wink.png" alt="">Custom AI Agents</span><span class="tick-item"><img src="assets/icon-cursor.png" alt="">Custom Automations</span><span class="tick-item"><img src="assets/trail-mug.png" alt="">AI Consulting</span><span class="tick-item"><img src="assets/icon-key.png" alt="">Custom Sites &amp; Apps</span><span class="tick-item"><img src="assets/icon-wink.png" alt="">Custom AI Agents</span><span class="tick-item"><img src="assets/icon-cursor.png" alt="">Custom Automations</span><span class="tick-item"><img src="assets/trail-mug.png" alt="">AI Consulting</span></div></div>
+          <div class="trail" id="trail" aria-hidden="true"></div>
+          <div class="hero-shade" id="hero-shade"></div>
         </div>
-      </div>
+      </section>
+    </div>
 
-      <svg class="scallop scallop-bottom" viewBox="0 0 1440 72" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M0 24c80 32 160 32 240 0s160-32 240 0 160 32 240 0 160-32 240 0 160 32 240 0 160-32 240 0v48H0z"/>
-      </svg>
+    <section class="about" id="about" aria-labelledby="about-title">
+      <div class="about-top">
+        <h2 class="about-title display" id="about-title">About us</h2>
+        <p class="about-text">Mango Studios is a small software studio. We build websites, apps, AI agents and automations for businesses, and we make our own apps too. When you work with us, you work with the person building your project, from the first email to launch day. You get a straight answer on what it costs, then we get to work.</p>
+      </div>
+      <div class="about-band" aria-hidden="true">
+        <div class="sky sky--live about-sky"></div>
+      </div>
+      <h3 class="values-title display">Our values</h3>
+      <ul class="values">
+        <li class="value-card" data-tilt>
+          <div class="value-inner value-inner--plain">
+            <h4 class="value-name">Honest pricing</h4>
+            <p class="value-text">Real prices up front. No surprise invoices.</p>
+          </div>
+        </li>
+        <li class="value-card" data-tilt>
+          <div class="value-inner">
+            <img class="value-icon" src="assets/icon-cursor.png" alt="" width="252" height="357">
+            <h4 class="value-name">Real output</h4>
+            <p class="value-text">Working products, not pitch decks.</p>
+          </div>
+        </li>
+        <li class="value-card" data-tilt>
+          <div class="value-inner">
+            <img class="value-icon" src="assets/trail-pencil.png" alt="" width="143" height="186">
+            <h4 class="value-name">Right tool, every job</h4>
+            <p class="value-text">We pick what fits your systems, not one tool for everything.</p>
+          </div>
+        </li>
+      </ul>
     </section>
 
-    <section class="work" id="work">
-      <div class="wrap">
-        <header class="section-head">
-          <p class="eyebrow">offerings</p>
-          <h2>what we grow</h2>
-          <p>apps, sites, products, and other bets. short copy. shipped work.</p>
-        </header>
-
-        <div class="work-grid">
-          <article class="card card-mango">
-            <p class="card-kicker">01</p>
-            <h3>apps</h3>
-            <p>software you can hold in a pocket or a browser tab.</p>
-            <svg class="doodle" viewBox="0 0 160 120" fill="none" aria-hidden="true">
-              <rect class="draw" pathLength="1" x="48" y="8" width="64" height="104" rx="12" stroke="currentColor" stroke-width="3.5"/>
-              <rect class="draw" pathLength="1" x="58" y="22" width="44" height="68" rx="4" stroke="currentColor" stroke-width="3"/>
-              <circle class="draw" pathLength="1" cx="80" cy="102" r="5" stroke="currentColor" stroke-width="3"/>
-              <ellipse cx="108" cy="28" rx="10" ry="12" fill="#FFE169"/>
-              <ellipse cx="116" cy="16" rx="4" ry="5.5" transform="rotate(24 116 16)" fill="#4BA33D"/>
-            </svg>
-          </article>
-
-          <article class="card card-tangerine">
-            <p class="card-kicker">02</p>
-            <h3>sites</h3>
-            <p>pages with a point of view, not a template.</p>
-            <svg class="doodle" viewBox="0 0 160 100" fill="none" aria-hidden="true">
-              <rect class="draw" pathLength="1" x="18" y="16" width="124" height="72" rx="10" stroke="currentColor" stroke-width="3.5"/>
-              <path class="draw" pathLength="1" d="M18 36h124" stroke="currentColor" stroke-width="3"/>
-              <circle cx="36" cy="26" r="4" fill="currentColor"/>
-              <circle cx="50" cy="26" r="4" fill="currentColor"/>
-              <circle cx="64" cy="26" r="4" fill="currentColor"/>
-              <circle class="draw" pathLength="1" cx="88" cy="64" r="16" stroke="currentColor" stroke-width="3"/>
-              <path class="draw" pathLength="1" d="M88 50v14h12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-            </svg>
-          </article>
-
-          <article class="card card-leaf">
-            <p class="card-kicker">03</p>
-            <h3>products</h3>
-            <p>digital things people actually use.</p>
-            <svg class="doodle" viewBox="0 0 160 100" fill="none" aria-hidden="true">
-              <path class="draw" pathLength="1" d="M40 40h80v44H40z" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/>
-              <path class="draw" pathLength="1" d="M40 40l40-18 40 18" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/>
-              <path class="draw" pathLength="1" d="M80 22v62" stroke="currentColor" stroke-width="3"/>
-              <ellipse cx="104" cy="28" rx="8" ry="10" fill="#FFE169"/>
-            </svg>
-          </article>
-
-          <article class="card card-berry">
-            <p class="card-kicker">04</p>
-            <h3>ventures</h3>
-            <p>the rest of the orchard. if it can grow, we will try it.</p>
-            <svg class="doodle" viewBox="0 0 160 100" fill="none" aria-hidden="true">
-              <path class="draw" pathLength="1" d="M28 72c18-8 28-28 24-44 20 8 40 6 56-8-4 22-2 40 12 56" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
-              <path class="draw" pathLength="1" d="M52 28c8 4 14 14 14 22" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-              <circle cx="108" cy="20" r="7" fill="#FFE169"/>
-            </svg>
-          </article>
-        </div>
-      </div>
+    <section class="services" id="services" aria-labelledby="services-title">
+      <h2 class="services-title" id="services-title">Our Services</h2>
+      <ul class="cards">
+        <li data-parallax="0.03">
+          <a class="card" href="sites-and-apps.html">
+            <img class="card-icon" src="assets/icon-key.png" alt="" width="314" height="336">
+            <h3 class="card-title">Custom Sites<br>&amp; Apps</h3>
+          </a>
+        </li>
+        <li data-parallax="-0.02">
+          <a class="card" href="ai-agents.html">
+            <img class="card-icon" src="assets/icon-wink.png" alt="" width="306" height="318">
+            <h3 class="card-title">Custom AI<br>Agents</h3>
+          </a>
+        </li>
+        <li data-parallax="0.05">
+          <a class="card" href="automations.html">
+            <img class="card-icon" src="assets/icon-cursor.png" alt="" width="252" height="357">
+            <h3 class="card-title">Custom<br>Automations</h3>
+          </a>
+        </li>
+      </ul>
+      <a class="consult" href="consulting.html">
+        <img class="consult-icon" src="assets/trail-mug.png" alt="" width="175" height="184">
+        <span class="consult-copy">
+          <span class="consult-name">AI Consulting <span class="consult-price">$100 / session</span></span>
+          <span class="consult-text">A straight, practical consultation on how AI could actually apply to your business. No jargon, no upsell, just what's worth doing and what isn't yet.</span>
+        </span>
+        <span class="consult-go" aria-hidden="true">→</span>
+      </a>
     </section>
 
-    <section class="studio" id="studio">
-      <svg class="scallop scallop-top" viewBox="0 0 1440 72" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M0 48c80-32 160-32 240 0s160 32 240 0 160-32 240 0 160 32 240 0 160-32 240 0 160 32 240 0V0H0z"/>
-      </svg>
-
-      <div class="wrap studio-inner">
-        <p class="eyebrow">the studio</p>
-        <h2>small on purpose. optimistic by default.</h2>
-        <p class="studio-bio">Jack Koll-Gunderson runs mango studios. we make apps, sites, digital products, and other ventures. bold color, short copy, and shipping the thing.</p>
-      </div>
-
-      <div class="ticker" aria-hidden="true">
-        <div class="ticker-track">
-          <span>juicy</span><span>optimistic</span><span>graphic</span><span>tactile</span><span>friendly</span><span>handmade</span><span>sunny</span>
-          <span>juicy</span><span>optimistic</span><span>graphic</span><span>tactile</span><span>friendly</span><span>handmade</span><span>sunny</span>
-        </div>
-      </div>
+    <section class="apps" id="apps" aria-labelledby="apps-title">
+      <h2 class="apps-title" id="apps-title">Our software</h2>
+      <p class="apps-line">We build our own apps too. Klaritea is out now.</p>
+      <a class="btn btn--white" href="software.html">See our software</a>
     </section>
 
-    <section class="process" id="process">
-      <div class="wrap">
-        <header class="section-head on-bright">
-          <p class="eyebrow">how</p>
-          <h2>talk. sketch. build. ship.</h2>
-        </header>
-
-        <ol class="steps">
-          <li>
-            <span class="step-num">01</span>
-            <h3>talk</h3>
-            <p>a real conversation. not a forty-page brief.</p>
-          </li>
-          <li>
-            <span class="step-num">02</span>
-            <h3>sketch</h3>
-            <p>shape before polish. paper, pixels, either.</p>
-          </li>
-          <li>
-            <span class="step-num">03</span>
-            <h3>build</h3>
-            <p>handmade software, shipped in slices.</p>
-          </li>
-          <li>
-            <span class="step-num">04</span>
-            <h3>ship</h3>
-            <p>launch, learn, grow the next ripe thing.</p>
-          </li>
+    <section class="team" id="team" aria-labelledby="team-title" style="--n: 4" data-ride="150">
+      <div class="team-pin">
+        <div class="team-grid-bg" aria-hidden="true"></div>
+        <div class="rainbow" id="rainbow" aria-hidden="true"><span class="arc arc--ink" style="--in:0px;--w:5px"></span><span class="arc arc--orange" style="--in:5px;--w:34px"></span><span class="arc arc--ink" style="--in:39px;--w:4px"></span><span class="arc arc--yellow" style="--in:43px;--w:34px"></span><span class="arc arc--ink" style="--in:77px;--w:4px"></span><span class="arc arc--paper" style="--in:81px;--w:34px"></span><span class="arc arc--ink" style="--in:115px;--w:5px"></span></div>
+        <p class="team-word" aria-hidden="true">Team</p>
+        <div class="team-top">
+          <h2 class="team-title" id="team-title">Meet the team</h2>
+          <p class="team-count" aria-hidden="true"><span id="team-now">1</span> / 4</p>
+        </div>
+        <ol class="team-list">
+        <li class="member" data-i="0">
+          <span class="avatar"><img src="assets/team-jack.webp" alt="Jack Koll-Gunderson" width="520" height="520"></span>
+          <p class="member-role">CEO &amp; Founder</p>
+          <h3 class="member-name">Jack Koll-Gunderson</h3>
+          <p class="member-bio">Founded the studio and builds most of what it ships. Trains every new teammate himself.</p>
+          <a class="btn btn--white btn--sm member-link" href="https://www.linkedin.com/in/jack-koll-gunderson-28a6aa3a1/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+        </li>
+        <li class="member" data-i="1">
+          <span class="avatar"><img src="assets/team-james.webp" alt="James Hamilton" width="520" height="520"></span>
+          <p class="member-role">Head of Custom Agents</p>
+          <h3 class="member-name">James Hamilton</h3>
+          <p class="member-bio">Leads Custom Agents. Learned the craft one-on-one from Jack, then took over the service line.</p>
+          <a class="btn btn--white btn--sm member-link" href="https://www.linkedin.com/in/james-hamilton-3279b3410/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+        </li>
+        <li class="member" data-i="2">
+          <span class="avatar avatar--empty"></span>
+          <p class="member-role">Head of Automation</p>
+          <h3 class="member-name">Hayden Morton</h3>
+          <p class="member-bio">Leads Automations. Picks whatever fits each client's systems, from Codex to Tines.</p>
+          <a class="btn btn--white btn--sm member-link" href="https://www.linkedin.com/in/hayden-morton-71848a438/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+        </li>
+        <li class="member" data-i="3">
+          <span class="avatar avatar--ai"><img src="assets/trail-wink.png" alt="" width="302" height="313"></span>
+          <p class="member-role">Directed by the three of us</p>
+          <h3 class="member-name">The AI crew</h3>
+          <p class="member-bio">AI agents that code, test and research. We direct them and review everything they make.</p>
+          <a class="btn btn--white btn--sm member-link" href="ai-agents.html">See AI Agents <span aria-hidden="true">→</span></a>
+        </li>
         </ol>
       </div>
     </section>
 
-    <section class="close" id="hello">
-      <div class="wrap close-inner">
-        <h2>got something to grow?</h2>
-        <p>one studio. one inbox. say hello.</p>
-        <a class="btn btn-on-mango" href="mailto:jackkollgunderson@gmail.com?subject=hello%20from%20mango%20studios">say hello</a>
+    <section class="manifesto" id="manifesto" aria-labelledby="manifesto-title">
+      <div class="sky sky--live manifesto-sky" data-parallax="0.3"></div>
+      <h2 class="manifesto-title" id="manifesto-title">Our manifesto</h2>
+      <ul class="manifesto-lines">
+        <li class="" data-drift="0.1"><span>Small team, real output.</span></li>
+        <li class="tape" data-drift="-0.1"><span>Pricing, not guesswork.</span></li>
+        <li class="" data-drift="0.1"><span>Ship the real thing.</span></li>
+        <li class="tape" data-drift="-0.1"><span>We tell you what's not worth it.</span></li>
+        <li class="" data-drift="0.1"><span>Right tool, not one tool.</span></li>
+      </ul>
+    </section>
+
+
+    <section class="faq" id="faq" aria-labelledby="faq-title">
+      <h2 class="faq-title display" id="faq-title">FAQ</h2>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>How much does a project cost?</summary>
+          <p>Custom sites and apps start at $250, AI agents at $500 and automations at $300. AI Consulting is a flat $100 per session. After one conversation you get a real quote for your project.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Who will I be working with?</summary>
+          <p>The person building your project. There are no account managers, so you talk directly to Jack, James or Hayden.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How fast can you start?</summary>
+          <p>We keep scoping short. Once we agree on the quote, work starts.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Do you work with small businesses?</summary>
+          <p>Yes. We work with single shops and full operations alike.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Do you use AI to build?</summary>
+          <p>Yes. AI agents help us write, test and research, and we review everything they make before it ships.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What happens in an AI Consulting session?</summary>
+          <p>A plain conversation about how your business runs, where AI would help and what isn't worth doing yet. You can book one on the AI Consulting page.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Where are you based?</summary>
+          <p>Toronto, Ontario.</p>
+        </details>
       </div>
     </section>
+
+    <section class="build" id="build" aria-labelledby="build-title">
+      <div class="sky sky--live"></div>
+      <h2 class="build-title display" id="build-title">Let's build something amazing.</h2>
+      <div class="build-actions">
+        <a class="btn" href="mailto:hello@mangostudios.xyz?subject=Hello">Message us</a>
+        <a class="btn btn--white" href="work.html">Our work</a>
+        <a class="btn btn--white" href="https://www.linkedin.com/company/mango-studios1/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+
   </main>
 
-  <footer class="site-footer">
-    <a class="brand" href="#top">
-      <img class="brand-mark" src="assets/logo.png" width="48" height="48" alt="">
-      <span class="brand-name">mango studios</span>
-    </a>
-    <p>Jack Koll-Gunderson</p>
-    <p>
-      <a href="mailto:jackkollgunderson@gmail.com">email</a>
-      ·
-      <a href="https://github.com/Jack-Attackz101">github</a>
-    </p>
-    <p class="fine">© 2026 mango studios</p>
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="footer-mark" href="index.html">Mango Studios</a>
+        <p>Custom software, built lean.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Services</h3>
+        <ul>
+          <li><a href="sites-and-apps.html">Custom Sites &amp; Apps</a></li>
+          <li><a href="ai-agents.html">Custom AI Agents</a></li>
+          <li><a href="automations.html">Custom Automations</a></li>
+          <li><a href="consulting.html">AI Consulting</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Studio</h3>
+        <ul>
+          <li><a href="software.html">Our software</a></li>
+          <li><a href="work.html">Our work</a></li>
+          <li><a href="index.html#team">Team</a></li>
+          <li><a href="index.html#about">About</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Contact</h3>
+        <ul>
+          <li><a href="mailto:hello@mangostudios.xyz">hello@mangostudios.xyz</a></li>
+          <li><a href="https://www.linkedin.com/company/mango-studios1/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://mangostudios.xyz">mangostudios.xyz</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>© 2026 Mango Studios</span>
+    </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>

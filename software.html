@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Software · Mango Studios</title>
+  <meta name="description" content="Apps built and shipped under the Mango Studios name.">
+  <link rel="icon" href="assets/logo-stamp.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,900&family=Chewy&family=Fredoka:wght@500;600&family=Inter+Tight:wght@500;600;650;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="menu">
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu-panel" aria-label="Open menu">
+      <span class="menu-lines" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
+    <div class="menu-scrim" id="menu-scrim" hidden></div>
+    <nav class="menu-panel" id="menu-panel" aria-label="Main" hidden>
+      <a class="menu-brand" href="index.html">Mango Studios</a>
+      <ul class="menu-links">
+        <li><a href="index.html#about" data-section="about">About</a></li>
+        <li><a href="index.html#services" data-section="services">Services</a></li>
+        <li><a href="software.html" aria-current="true" data-section="software">Software</a></li>
+        <li><a href="work.html" data-section="work">Our Work</a></li>
+        <li><a href="index.html#team" data-section="team">Team</a></li>
+        <li><a href="index.html#manifesto" data-section="manifesto">Manifesto</a></li>
+        <li><a href="index.html#faq" data-section="faq">FAQ</a></li>
+      </ul>
+      <a class="btn menu-cta" href="mailto:hello@mangostudios.xyz?subject=Hello">Talk to us</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="page-hero" aria-labelledby="page-title">
+      <div class="sky sky--live page-sky" data-parallax="0.3"></div>
+      <div class="page-hero-inner">
+        <div class="page-hero-copy">
+          <h1 class="page-title display" id="page-title">Our Software</h1>
+          <p class="page-lead">On our own side, we're developing a portfolio of apps across consumer tools and productivity software, shipping under the Mango Studios name as they're finished.</p>
+          <a class="btn" href="mailto:hello@mangostudios.xyz?subject=Tell%20me%20when%20an%20app%20ships">Tell me when one ships</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="scope" aria-labelledby="shelf-title">
+      <div class="scope-head">
+        <h2 class="scope-title display" id="shelf-title">Shipped</h2>
+        <p>Apps we've built and put out in the world. More get added here as they ship.</p>
+      </div>
+      <ul class="rows rows--status">
+        <li>
+          <h3>Klaritea</h3>
+          <p>A live SaaS product. <a class="row-link" href="https://klaritea.app" target="_blank" rel="noopener">klaritea.app ↗</a></p>
+          <span class="status">Live</span>
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="footer-mark" href="index.html">Mango Studios</a>
+        <p>Custom software, built lean.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Services</h3>
+        <ul>
+          <li><a href="sites-and-apps.html">Custom Sites &amp; Apps</a></li>
+          <li><a href="ai-agents.html">Custom AI Agents</a></li>
+          <li><a href="automations.html">Custom Automations</a></li>
+          <li><a href="consulting.html">AI Consulting</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Studio</h3>
+        <ul>
+          <li><a href="software.html">Our software</a></li>
+          <li><a href="work.html">Our work</a></li>
+          <li><a href="index.html#team">Team</a></li>
+          <li><a href="index.html#about">About</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Contact</h3>
+        <ul>
+          <li><a href="mailto:hello@mangostudios.xyz">hello@mangostudios.xyz</a></li>
+          <li><a href="https://www.linkedin.com/company/mango-studios1/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://mangostudios.xyz">mangostudios.xyz</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>© 2026 Mango Studios</span>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
