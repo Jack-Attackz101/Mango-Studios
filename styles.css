@@ -100,7 +100,7 @@ img { display: block; }
   transform: rotate(-1.5deg) scaleX(1.04);
   pointer-events: none;
 }
-.ticker-run { display: flex; width: max-content; animation: tick 38s linear infinite; }
+.ticker-run { display: flex; width: max-content; animation: tick var(--tick-time, 38s) linear infinite; will-change: transform; }
 .tick-item {
   display: inline-flex;
   align-items: center;
@@ -113,7 +113,7 @@ img { display: block; }
   color: var(--ink);
 }
 .tick-item img { width: auto; height: 1.5em; }
-@keyframes tick { to { transform: translateX(-50%); } }
+@keyframes tick { to { transform: translateX(var(--tick-shift, -50%)); } }
 
 /* live skies: the base clouds drift, a lighter layer in front drifts faster */
 .sky--live { animation: drift 140s linear infinite; }
