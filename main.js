@@ -328,11 +328,16 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
     prev.disabled = monthOffset(view) <= 0;
     next.disabled = monthOffset(view) >= MONTHS_AHEAD;
     daysEl.textContent = '';
-    for (let i = 0; i < view.getDay(); i++) {
-      const blank = document.createElement('span');
-      blank.className = 'cal-blank';
-      daysEl.appendChild(blank);
+    // days from the neighbouring months fill out the first and last weeks, faded and not clickable
+    function outside(d) {
+      const el = document.createElement('span');
+      el.className = 'cal-day cal-out';
+      el.setAttribute('aria-hidden', 'true');
+      el.textContent = String(d.getDate());
+      daysEl.appendChild(el);
     }
+    const lead = view.getDay();
+    for (let i = lead; i > 0; i--) outside(new Date(view.getFullYear(), view.getMonth(), 1 - i));
     const last = new Date(view.getFullYear(), view.getMonth() + 1, 0).getDate();
     for (let day = 1; day <= last; day++) {
       const d = new Date(view.getFullYear(), view.getMonth(), day);
@@ -342,11 +347,13 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
       btn.textContent = String(day);
       const open = hoursFor(d).length > 0;
       btn.disabled = !open;
-      btn.setAttribute('aria-label', fmtDay.format(d) + (open ? ', open' : ', unavailable'));
+      btn.setAttribute('aria-label', fmtDay.format(d) + (sameDay(d, today) ? ', today' : '') + (open ? '' : ', unavailable'));
       btn.setAttribute('aria-pressed', String(sameDay(d, picked)));
       btn.addEventListener('click', function () { pickDay(d); });
       daysEl.appendChild(btn);
     }
+    const trail = (7 - (lead + last) % 7) % 7;
+    for (let i = 1; i <= trail; i++) outside(new Date(view.getFullYear(), view.getMonth() + 1, i));
   }
   function pickDay(d) {
     picked = d;
