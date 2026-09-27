@@ -22,15 +22,21 @@ if (!reduceMotion && window.Lenis) {
   gsap.ticker.add((t) => lenis.raf(t * 1000));
   gsap.ticker.lagSmoothing(0);
   lenis.stop();
+  window.ambLenis = lenis;
 }
 
 document.querySelectorAll('a[href^="#"]').forEach((a) => {
   a.addEventListener('click', (e) => {
+    if (a.dataset.step) return; // handled by the Who we are story
     const id = a.getAttribute('href');
     const el = id.length > 1 ? document.querySelector(id) : document.body;
     if (!el) return;
     e.preventDefault();
-    if (lenis) lenis.scrollTo(el, { duration: 2.2, easing: (t) => 1 - Math.pow(1 - t, 4) });
+    // A link into a pinned pause lands where its cards are fully in view
+    const pause = el.closest('.pause');
+    const target = pause && pause._st ? pause._st.start + (pause._st.end - pause._st.start) * 0.34 : el;
+    if (lenis) lenis.scrollTo(target, { duration: 2.2, easing: (t) => 1 - Math.pow(1 - t, 4) });
+    else if (typeof target === 'number') window.scrollTo({ top: target, behavior: reduceMotion ? 'auto' : 'smooth' });
     else el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
   });
 });
@@ -41,12 +47,12 @@ document.querySelectorAll('a[href^="#"]').forEach((a) => {
 /*   phi:   polar angle from +Y (0 = straight down from above)         */
 /* ------------------------------------------------------------------ */
 const KEYS = [
-  { name: 'Surface',   r: 27,  phi: 1.40, theta: 0.80,  t: [0, 0.4, 0],   prop: 0.6, edges: 0 }, // hero 3/4
+  { name: 'Surface',   r: 27,  phi: 1.47, theta: 0.80,  t: [0, 0.4, 0],   prop: 0.6, edges: 0 }, // hero 3/4
   { name: 'Bow',       r: 8.5, phi: 1.36, theta: 0.42,  t: [0, 0.1, 7.6], prop: 0.6, edges: 0 },
   { name: 'Broadside', r: 31,  phi: 1.52, theta: -1.57, t: [0, 0.8, 4],   prop: 0.8, edges: 0 },
   { name: 'Sail',      r: 8.5, phi: 0.92, theta: -0.75, t: [0, 3.0, 2.0], prop: 0.6, edges: 0 },
   { name: 'Keel',      r: 11,  phi: 2.30, theta: 0.55,  t: [0, -0.6, -1], prop: 0.8, edges: 0.25 },
-  { name: 'Propulsor', r: 6.8, phi: 1.40, theta: 2.62,  t: [0, 0.0, -9.2], prop: 3.2, edges: 0 },
+  { name: 'Propulsor', r: 9.5, phi: 1.40, theta: 2.62,  t: [0, 0.0, -9.2], prop: 3.2, edges: 0 },
   { name: 'Plan',      r: 32,  phi: 0.06, theta: 1.571, t: [0, 0, -4.8],     prop: 1.0, edges: 1 },
   { name: 'Ascent',    r: 30,  phi: 1.22, theta: 2.35,  t: [0, 0.5, 0],   prop: 0.7, edges: 0.15 },
 ];
@@ -163,27 +169,40 @@ function initScene() {
 
   /* ---------------- Scroll anchors ---------------- */
   const heroEl = document.querySelector('.hero');
-  const chapters = [...document.querySelectorAll('.chapter')];
-  const diveEnd = document.querySelector('.dive-end');
+  // Stops along the journey, in page order. Chapters and the dive end advance
+  // the camera to the next keyframe; pauses hold the current one while cards cover it.
+  const stops = [...document.querySelectorAll('.chapter, .pause, .dive-end')];
   let anchors = [];
   let heroH = 1;
   const computeAnchors = () => {
     const vh = window.innerHeight;
     const docTop = (el) => el.getBoundingClientRect().top + window.scrollY;
     heroH = heroEl.offsetHeight;
-    anchors = [0];
-    chapters.forEach((c) => anchors.push(docTop(c) + c.offsetHeight / 2 - vh / 2));
-    anchors.push(docTop(diveEnd) + diveEnd.offsetHeight / 2 - vh / 2);
+    anchors = [{ s: 0, k: 0 }];
+    let k = 0;
+    stops.forEach((el) => {
+      if (el.classList.contains('pause')) {
+        const st = el._st;
+        const start = st ? st.start : docTop(el);
+        const end = st ? st.end : start + el.offsetHeight;
+        anchors.push({ s: start, k }, { s: end, k });
+      } else {
+        k += 1;
+        anchors.push({ s: docTop(el) + el.offsetHeight / 2 - vh / 2, k });
+      }
+    });
   };
   ScrollTrigger.addEventListener('refresh', computeAnchors);
   computeAnchors();
 
   const pathAt = (scroll) => {
-    if (scroll <= anchors[0]) return 0;
+    if (scroll <= anchors[0].s) return anchors[0].k;
     for (let i = 1; i < anchors.length; i++) {
-      if (scroll < anchors[i]) return i - 1 + (scroll - anchors[i - 1]) / (anchors[i] - anchors[i - 1]);
+      const a = anchors[i - 1];
+      const b = anchors[i];
+      if (scroll < b.s) return a.k + (b.k - a.k) * ((scroll - a.s) / Math.max(1, b.s - a.s));
     }
-    return anchors.length - 1;
+    return anchors[anchors.length - 1].k;
   };
 
   /* ---------------- Camera state ---------------- */
@@ -309,7 +328,7 @@ function initScene() {
       lastDepth = depth;
       depthEl.textContent = String(depth).padStart(4, '0');
       depthBar.style.height = `${depthT * 100}%`;
-      hud.classList.toggle('is-on', scroll > heroH * 0.6);
+      hud.classList.toggle('is-on', scroll > anchors[1].s - window.innerHeight && scroll < anchors[anchors.length - 1].s);
     }
 
     renderer.render(scene, camera);
@@ -364,9 +383,11 @@ function buildTextRing() {
   texture.colorSpace = THREE.SRGBColorSpace;
   texture.anisotropy = 8;
   texture.wrapS = THREE.RepeatWrapping;
+  const backTexture = texture.clone();
+  backTexture.repeat.x = -1; // the far wall is seen from inside: mirror it so it reads
 
   const draw = () => {
-    const phrase = 'AMERICAN METAL BEARING  ✦  PROPULSOR & THRUST BEARINGS  ✦  SINCE 1921  ✦  GARDEN GROVE, CALIFORNIA  ✦  AS9100D · ISO 9001:2015  ✦  ';
+    const phrase = 'AMERICAN METAL BEARING COMPANY  ✦  ';
     ctx.clearRect(0, 0, cw, ch);
     ctx.textBaseline = 'middle';
     let size = 64;
@@ -385,6 +406,7 @@ function buildTextRing() {
     ctx.fillRect(0, 6, cw, 2);
     ctx.fillRect(0, ch - 8, cw, 2);
     texture.needsUpdate = true;
+    backTexture.needsUpdate = true;
   };
   draw();
   if (document.fonts) {
@@ -393,7 +415,7 @@ function buildTextRing() {
 
   const geo = new THREE.CylinderGeometry(radius, radius, height, 160, 1, true);
   const front = new THREE.MeshBasicMaterial({ map: texture, transparent: true, side: THREE.FrontSide, depthWrite: false, opacity: 0 });
-  const back = new THREE.MeshBasicMaterial({ map: texture, transparent: true, side: THREE.BackSide, depthWrite: false, opacity: 0 });
+  const back = new THREE.MeshBasicMaterial({ map: backTexture, transparent: true, side: THREE.BackSide, depthWrite: false, opacity: 0 });
   const group = new THREE.Group();
   const tilt = new THREE.Group();
   tilt.rotation.x = 0.07;
@@ -404,7 +426,7 @@ function buildTextRing() {
   frontMesh.renderOrder = 3;
   group.add(backMesh, frontMesh);
   tilt.add(group);
-  tilt.position.y = 1.4;
+  tilt.position.y = 1.9;
   return { group: tilt, front, back };
 }
 
@@ -486,34 +508,22 @@ function initDom() {
     onToggle: (self) => header.classList.toggle('is-scrolled', self.isActive),
   });
 
-  // Tilting pad diagram
-  const pads = document.getElementById('pads');
-  if (pads) {
-    const n = 8;
-    let d = '';
-    for (let i = 0; i < n; i++) {
-      const a0 = (i / n) * Math.PI * 2 + 0.08;
-      const a1 = ((i + 1) / n) * Math.PI * 2 - 0.08;
-      const pt = (r, a) => `${(100 + r * Math.cos(a)).toFixed(2)} ${(100 + r * Math.sin(a)).toFixed(2)}`;
-      d += `<path d="M${pt(36, a0)} L${pt(82, a0)} A82 82 0 0 1 ${pt(82, a1)} L${pt(36, a1)} A36 36 0 0 0 ${pt(36, a0)} Z"/>`;
-    }
-    pads.innerHTML = d;
-    gsap.to(pads, {
-      rotate: 180, transformOrigin: '100px 100px', ease: 'none',
-      scrollTrigger: { trigger: pads.closest('.chapter'), start: 'top bottom', end: 'bottom top', scrub: true },
-    });
-  }
+  initNav();
+  initPauses();
+  initWho();
 
   if (reduceMotion) {
     gsap.set('.hero-title .line > span, .reveal', { clearProps: 'all' });
     countersInstant();
+    ScrollTrigger.sort();
+    ScrollTrigger.refresh();
     return;
   }
 
   // Hero entrance
   gsap.from('.hero-title .line > span', { yPercent: 110, duration: 1.6, ease: 'expo.out', stagger: 0.12, delay: 0.35 });
   gsap.from('.hero .reveal', { y: 24, opacity: 0, duration: 1.2, ease: 'expo.out', stagger: 0.1, delay: 0.8 });
-  gsap.from('.site-header', { y: -30, opacity: 0, duration: 1.2, ease: 'expo.out', delay: 0.5 });
+  gsap.from('.site-header', { y: -30, opacity: 0, duration: 1.2, ease: 'expo.out', delay: 0.5, clearProps: 'transform,opacity' });
 
   // Hero copy parallaxes out as the camera takes over
   gsap.to('.hero-copy', {
@@ -548,9 +558,11 @@ function initDom() {
       onToggle: (self) => { if (self.isActive) document.getElementById('hud-chapter').textContent = ch.dataset.chapter; },
     });
   });
+  const hudChapter = document.getElementById('hud-chapter');
   ScrollTrigger.create({
-    trigger: '.manufacturing', start: 'top center',
-    onEnter: () => { document.getElementById('hud-chapter').textContent = '07 / Ascent'; },
+    trigger: '.dive', start: 'top center', end: 'bottom center',
+    onLeave: () => { hudChapter.textContent = 'Ascent'; },
+    onLeaveBack: () => { hudChapter.textContent = 'Surface'; },
   });
 
   // Generic vertical parallax
@@ -571,8 +583,8 @@ function initDom() {
     });
   });
 
-  // Section headings rise line by line
-  document.querySelectorAll('.section h2, .section .eyebrow, .quality-copy p:last-child, .careers-inner p:not(.eyebrow), .contact-lede').forEach((el) => {
+  // Headings outside the pauses rise in
+  document.querySelectorAll('.dive-intro > *, .careers-inner h2, .contact-grid h2').forEach((el) => {
     gsap.from(el, {
       y: 60, opacity: 0, duration: 1.3, ease: 'expo.out',
       scrollTrigger: { trigger: el, start: 'top 88%' },
@@ -582,24 +594,188 @@ function initDom() {
     x: 40, opacity: 0, duration: 1.1, stagger: 0.1, ease: 'expo.out',
     scrollTrigger: { trigger: '.contact-cards', start: 'top 85%' },
   });
-  gsap.from('.mfg-card', {
-    y: 80, opacity: 0, duration: 1.2, stagger: 0.1, ease: 'expo.out',
-    scrollTrigger: { trigger: '.mfg-grid', start: 'top 85%' },
-  });
 
-  // Counters
-  document.querySelectorAll('[data-count]').forEach((el) => {
-    const end = Number(el.dataset.count);
-    const obj = { v: el.hasAttribute('data-plain') ? 1800 : 0 };
-    gsap.to(obj, {
-      v: end, duration: 2.2, ease: 'power3.out',
-      scrollTrigger: { trigger: el, start: 'top 90%' },
-      onUpdate: () => { el.textContent = formatCount(el, obj.v); },
-    });
-  });
-
+  ScrollTrigger.sort();
   window.addEventListener('load', () => ScrollTrigger.refresh());
   if (document.fonts) document.fonts.ready.then(() => ScrollTrigger.refresh());
+}
+
+/* Header: dropdown menus on desktop, full-screen menu on phones */
+function initNav() {
+  const header = document.querySelector('.site-header');
+  const groups = [...document.querySelectorAll('.nav-group')];
+  const menuBtn = document.getElementById('menu-btn');
+
+  const closeGroups = (except) => groups.forEach((g) => {
+    if (g === except) return;
+    g.classList.remove('is-open');
+    g.querySelector('.nav-top').setAttribute('aria-expanded', 'false');
+  });
+  const setMobile = (open) => {
+    header.classList.toggle('menu-open', open);
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    if (window.ambLenis) open ? window.ambLenis.stop() : window.ambLenis.start();
+  };
+
+  groups.forEach((g) => {
+    const btn = g.querySelector('.nav-top');
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = !g.classList.contains('is-open');
+      closeGroups(g);
+      g.classList.toggle('is-open', open);
+      btn.setAttribute('aria-expanded', String(open));
+    });
+    if (window.matchMedia('(hover: hover)').matches) {
+      g.addEventListener('mouseenter', () => { if (!header.classList.contains('menu-open')) { closeGroups(g); g.classList.add('is-open'); btn.setAttribute('aria-expanded', 'true'); } });
+      g.addEventListener('mouseleave', () => { if (!header.classList.contains('menu-open')) closeGroups(); });
+    }
+  });
+  menuBtn.addEventListener('click', () => setMobile(!header.classList.contains('menu-open')));
+  document.addEventListener('click', (e) => { if (!e.target.closest('.nav-group')) closeGroups(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeGroups(); setMobile(false); } });
+  document.querySelectorAll('.nav a').forEach((a) => a.addEventListener('click', () => { closeGroups(); setMobile(false); }));
+}
+
+/* Pauses: the journey stops, the submarine darkens, a row of cards slides over it,
+   holds (panning sideways if the row is wider than the screen), then clears. */
+function initPauses() {
+  const hudChapter = document.getElementById('hud-chapter');
+  document.querySelectorAll('.pause').forEach((pause) => {
+    const veil = pause.querySelector('.pause-veil');
+    const head = pause.querySelector('.pause-head');
+    const track = pause.querySelector('.pause-track');
+    const cards = [...track.children];
+    const counters = [...pause.querySelectorAll('[data-count]')];
+    const run = pause.querySelector('#cycle-run');
+    const overflow = () => Math.max(0, track.scrollWidth - track.clientWidth);
+
+    if (reduceMotion) {
+      pause.classList.add('is-static');
+      return;
+    }
+
+    let counted = false;
+    const tl = gsap.timeline({
+      defaults: { ease: 'power2.out' },
+      scrollTrigger: {
+        trigger: pause,
+        start: 'top top',
+        end: () => `+=${Math.round(window.innerHeight * 1.9 + overflow())}`,
+        pin: true,
+        scrub: 0.6,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onToggle: (self) => {
+          document.body.classList.toggle('in-pause', self.isActive);
+          if (!self.isActive) return;
+          hudChapter.textContent = pause.dataset.hud;
+          if (counters.length && !counted) {
+            counted = true;
+            counters.forEach((el) => {
+              const obj = { v: el.hasAttribute('data-plain') ? 1800 : 0 };
+              gsap.to(obj, { v: Number(el.dataset.count), duration: 2, ease: 'power3.out', onUpdate: () => { el.textContent = formatCount(el, obj.v); } });
+            });
+          }
+        },
+      },
+    });
+    tl.fromTo(veil, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: 'none' }, 0)
+      .fromTo(head, { y: 70, opacity: 0 }, { y: 0, opacity: 1, duration: 0.25 }, 0.08)
+      .fromTo(cards, { y: 160, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, stagger: 0.05 }, 0.12)
+      .addLabel('hold')
+      .fromTo(track, { x: 0 }, { x: () => -overflow(), duration: 1, ease: 'none' }, 'hold')
+      .to(cards, { y: -110, opacity: 0, duration: 0.28, stagger: 0.03, ease: 'power2.in' })
+      .to(head, { y: -70, opacity: 0, duration: 0.25, ease: 'power2.in' }, '<')
+      .to(veil, { opacity: 0, duration: 0.3, ease: 'none' }, '>-0.12');
+    if (run) tl.fromTo(run, { strokeDashoffset: 742 }, { strokeDashoffset: 0, duration: 0.9, ease: 'none' }, 'hold');
+    pause._st = tl.scrollTrigger;
+  });
+}
+
+/* Who we are: pinned. Each panel scrolls up as you read, then the row slides left. */
+function initWho() {
+  const who = document.getElementById('who');
+  if (!who) return;
+  const win = who.querySelector('.who-window');
+  const track = who.querySelector('.who-track');
+  const panels = [...who.querySelectorAll('.who-panel')];
+  const inners = panels.map((p) => p.querySelector('.who-panel-inner'));
+  const steps = [...who.querySelectorAll('.who-steps button')];
+  const names = panels.map((p) => p.id.replace('panel-', ''));
+  let tl = null;
+  let labels = {};
+
+  const setActive = (i) => steps.forEach((b, j) => {
+    b.classList.toggle('is-active', i === j);
+    b.setAttribute('aria-current', i === j ? 'step' : 'false');
+  });
+
+  const goTo = (name) => {
+    const panel = document.getElementById(`panel-${name}`);
+    let y;
+    if (tl && tl.scrollTrigger) {
+      const st = tl.scrollTrigger;
+      y = st.start + (st.end - st.start) * (labels[name] / tl.duration()) + 4;
+    } else {
+      y = panel.getBoundingClientRect().top + window.scrollY - 80;
+    }
+    if (window.ambLenis) window.ambLenis.scrollTo(y, { duration: 1.8, easing: (t) => 1 - Math.pow(1 - t, 4) });
+    else window.scrollTo({ top: y, behavior: reduceMotion ? 'auto' : 'smooth' });
+  };
+  steps.forEach((b, i) => b.addEventListener('click', () => goTo(names[i])));
+  document.querySelectorAll('a[data-step]').forEach((a) => a.addEventListener('click', (e) => {
+    e.preventDefault();
+    goTo(a.dataset.step);
+  }));
+
+  if (reduceMotion) {
+    who.classList.add('is-static');
+    return;
+  }
+
+  const build = () => {
+    if (tl) {
+      tl.scrollTrigger.kill(true);
+      tl.kill();
+      gsap.set([track, ...inners], { clearProps: 'transform' });
+    }
+    const vw = win.clientWidth;
+    const dwell = window.innerHeight * 0.45;
+    tl = gsap.timeline({ defaults: { ease: 'none' } });
+    labels = {};
+    panels.forEach((p, i) => {
+      const over = Math.max(0, inners[i].scrollHeight - p.clientHeight);
+      labels[names[i]] = tl.duration();
+      tl.to(inners[i], { y: -over, duration: Math.max(over, 1) });
+      tl.to({}, { duration: dwell }); // a beat to finish reading
+      if (i < panels.length - 1) tl.to(track, { x: -(i + 1) * vw, duration: vw * 0.8, ease: 'power1.inOut' });
+    });
+    const total = tl.duration();
+    ScrollTrigger.create({
+      animation: tl,
+      trigger: who,
+      start: 'top top',
+      end: `+=${Math.round(total)}`,
+      pin: true,
+      scrub: 0.6,
+      anticipatePin: 1,
+      onUpdate: (self) => {
+        const t = self.progress * total;
+        let idx = 0;
+        names.forEach((n, i) => { if (i && t >= labels[n] - vw * 0.4) idx = i; });
+        setActive(idx);
+      },
+    });
+  };
+  build();
+
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { build(); ScrollTrigger.sort(); ScrollTrigger.refresh(); }, 250);
+  });
 }
 
 function formatCount(el, v) {
