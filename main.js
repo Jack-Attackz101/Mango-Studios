@@ -179,22 +179,42 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   });
 })();
 
-// Stretch MANGO and STUDIOS across the hero. Sizes are in cqw, so one measurement holds at every width.
+// Stretch MANGO and STUDIOS across the hero with equal space on both sides. The letter shapes sit a little
+// off-centre inside their text box, so size and centre them by the shapes themselves (canvas measureText).
 (function () {
   const inner = document.getElementById('hero-inner');
   if (!inner) return;
   const words = [].slice.call(inner.querySelectorAll('[data-fit]'));
+  const FILL = 0.9;
+  const ctx = document.createElement('canvas').getContext('2d');
   function fit() {
     const w = inner.clientWidth;
     if (!w) return;
     words.forEach(function (el) {
+      el.style.translate = '';
       el.style.fontSize = '10cqw';
-      const measured = el.getBoundingClientRect().width;
-      if (measured) el.style.fontSize = (10 * (w * 0.96) / measured).toFixed(3) + 'cqw';
+      const boxWidth = el.getBoundingClientRect().width;
+      if (!boxWidth) return;
+      const cs = getComputedStyle(el);
+      const px = parseFloat(cs.fontSize);
+      ctx.font = cs.fontWeight + ' ' + px + 'px ' + cs.fontFamily;
+      if ('fontStretch' in ctx) ctx.fontStretch = 'expanded';
+      if ('letterSpacing' in ctx) ctx.letterSpacing = cs.letterSpacing;
+      const m = ctx.measureText(el.textContent.toUpperCase());
+      const ink = m.actualBoundingBoxLeft + m.actualBoundingBoxRight;
+      // only trust the canvas if it measured the same font the page is showing
+      if (ink > 0 && Math.abs(m.width - boxWidth) / boxWidth < 0.04) {
+        el.style.fontSize = (10 * (w * FILL) / ink).toFixed(3) + 'cqw';
+        const shift = (m.width - m.actualBoundingBoxRight + m.actualBoundingBoxLeft) / 2;
+        el.style.translate = (shift / px).toFixed(4) + 'em 0';
+      } else {
+        el.style.fontSize = (10 * (w * FILL) / boxWidth).toFixed(3) + 'cqw';
+      }
     });
   }
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(fit);
   window.addEventListener('load', fit);
+  window.addEventListener('resize', function () { requestAnimationFrame(fit); });
 })();
 
 // Menu: the hamburger opens a panel that grows out of it; Esc, a click outside or picking a link closes it.
