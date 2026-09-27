@@ -154,7 +154,7 @@
           <p class="member-role">Directed by the three of us</p>
           <h3 class="member-name">The AI crew</h3>
           <p class="member-bio">AI agents that code, test and research. We direct them and review everything they make.</p>
-          <a class="btn btn--white btn--sm member-link" href="ai-agents.html">See AI Agents <span aria-hidden="true">→</span></a>
+          <button class="btn btn--white btn--sm member-link" type="button" data-stack-open>See the AI crew</button>
         </li>
         </ol>
       </div>
@@ -170,7 +170,46 @@
         <li class="tape" data-drift="-0.1"><span>We tell you what's not worth it.</span></li>
         <li class="" data-drift="0.1"><span>Right tool, not one tool.</span></li>
       </ul>
+      <button class="spacebar" type="button" data-stack-open>See our tech stack</button>
     </section>
+
+    <dialog class="stack" id="stack" aria-labelledby="stack-title">
+      <div class="stack-card">
+        <button class="stack-close" type="button" aria-label="Close" data-stack-close>×</button>
+        <h2 class="stack-title display" id="stack-title">Our tech stack</h2>
+        <p class="stack-lede">Three people and a crew of AI. These are the tools we build with, from the first idea to launch day.</p>
+        <ul class="stack-list">
+          <li class="stack-item" style="--c: #D97757; --i: 0">
+            <span class="stack-badge"><img src="assets/stack-claude.webp" alt="" width="160" height="160"></span>
+            <span class="stack-copy"><b>Claude</b><span>Thinks, writes and researches with us.</span></span>
+          </li>
+          <li class="stack-item" style="--c: #C8613F; --i: 1">
+            <span class="stack-badge"><img src="assets/stack-claude-code.webp" alt="" width="160" height="160"></span>
+            <span class="stack-copy"><b>Claude Code</b><span>Writes and reviews code alongside us.</span></span>
+          </li>
+          <li class="stack-item" style="--c: #4F6BF5; --i: 2">
+            <span class="stack-badge"><img src="assets/stack-codex.webp" alt="" width="160" height="160"></span>
+            <span class="stack-copy"><b>Codex</b><span>Runs coding jobs in parallel and builds automations.</span></span>
+          </li>
+          <li class="stack-item" style="--c: #3A3A3A; --i: 3">
+            <span class="stack-badge"><span class="stack-letter" aria-hidden="true">G</span></span>
+            <span class="stack-copy"><b>Grok bots</b><span>Handle research and the busywork around the studio.</span></span>
+          </li>
+          <li class="stack-item" style="--c: #111111; --i: 4">
+            <span class="stack-badge"><span class="stack-letter" aria-hidden="true">V</span></span>
+            <span class="stack-copy"><b>Vercel</b><span>Hosts and ships every site we launch.</span></span>
+          </li>
+          <li class="stack-item" style="--c: #5B5B5B; --i: 5">
+            <span class="stack-badge"><span class="stack-letter" aria-hidden="true">N</span></span>
+            <span class="stack-copy"><b>Notion</b><span>Holds our plans, specs and notes.</span></span>
+          </li>
+          <li class="stack-item" style="--c: #24292F; --i: 6">
+            <span class="stack-badge"><span class="stack-letter" aria-hidden="true">G</span></span>
+            <span class="stack-copy"><b>GitHub</b><span>Keeps every line of code versioned and reviewed.</span></span>
+          </li>
+        </ul>
+      </div>
+    </dialog>
 
 
     <section class="faq" id="faq" aria-labelledby="faq-title">
