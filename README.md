@@ -6,7 +6,7 @@ This repo is the home for mango studios work. The marketing site lives at the re
 
 ## site
 
-Static pages: `index.html` (home), `sites-and-apps.html`, `ai-agents.html`, `automations.html`, `consulting.html`, `software.html` and `work.html`, sharing `styles.css`, `main.js` and `assets/`. The menu and footer are repeated in each page, so change them in all seven.
+Static pages: `index.html` (home), `sites-and-apps.html`, `ai-agents.html`, `automations.html`, `consulting.html`, `software.html`, `work.html` and `ai-readiness.html`, sharing `styles.css`, `main.js` and `assets/`. The menu and footer are repeated in each page, so update the relevant copies when changing shared navigation.
 
 Open `index.html` locally, or from the repo root:
 

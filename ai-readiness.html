@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Readiness Quiz · Mango Studios</title>
+  <meta name="description" content="A quick, private AI readiness quiz for small businesses. Find a practical next step with Mango Studios.">
+  <link rel="icon" href="assets/logo-stamp.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,900&family=Chewy&family=Fredoka:wght@500;600&family=Inter+Tight:wght@500;600;650;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="ai-readiness.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="menu">
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu-panel" aria-label="Open menu">
+      <span class="menu-lines" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
+    <div class="menu-scrim" id="menu-scrim" hidden></div>
+    <nav class="menu-panel" id="menu-panel" aria-label="Main" hidden>
+      <a class="menu-brand" href="index.html">Mango Studios</a>
+      <ul class="menu-links">
+        <li><a href="index.html#about" data-section="about">About</a></li>
+        <li><a href="index.html#services" data-section="services">Services</a></li>
+        <li><a href="software.html" data-section="software">Software</a></li>
+        <li><a href="work.html" data-section="work">Our Work</a></li>
+        <li><a href="ai-readiness.html" aria-current="true" data-section="ai-readiness">AI Readiness</a></li>
+        <li><a href="index.html#team" data-section="team">Team</a></li>
+        <li><a href="index.html#manifesto" data-section="manifesto">Manifesto</a></li>
+        <li><a href="index.html#faq" data-section="faq">FAQ</a></li>
+      </ul>
+      <a class="btn menu-cta" href="mailto:hello@mangostudios.xyz?subject=Hello">Talk to us</a>
+    </nav>
+  </header>
+
+  <main id="main" class="readiness-page">
+    <div class="readiness-sky" aria-hidden="true"></div>
+    <div class="readiness-content">
+      <section class="readiness-intro" aria-labelledby="page-title">
+        <div class="intro-copy">
+          <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span> A quick quiz for small shops</p>
+          <h1 class="readiness-title display" id="page-title">Could AI give your shop a little breathing room?</h1>
+          <p class="intro-lead">Eight quick questions about the way work gets done. Get a score and one practical place to start.</p>
+        </div>
+        <aside class="stat-card" aria-label="Statistics Canada finding">
+          <p class="stat-number">25.6<span>%</span></p>
+          <p class="stat-copy">of Canadian businesses with 1–4 employees <strong>planned to use AI</strong> in the next 12 months.</p>
+          <p class="stat-detail">Planned use: 21.0% (5–19 employees) · 25.2% overall</p>
+          <p class="stat-source">Statistics Canada, Q3 2026; survey ran July 2–August 6. Plans, not measured adoption. <a href="https://www150.statcan.gc.ca/n1/pub/11-621-m/11-621-m2026013-eng.htm" target="_blank" rel="noopener">Read the source ↗</a></p>
+        </aside>
+      </section>
+
+      <section class="quiz-card" aria-labelledby="quiz-title">
+        <div class="quiz-progress-row">
+          <span class="quiz-kicker" id="step-count">Question 1 of 8</span>
+          <span class="quiz-progress-label" id="progress-label">12% complete</span>
+        </div>
+        <div class="progress-track" id="progress-track" role="progressbar" aria-label="Quiz progress" aria-valuemin="1" aria-valuemax="8" aria-valuenow="1">
+          <span class="progress-fill" id="progress-fill"></span>
+        </div>
+
+        <div class="quiz-view" id="quiz-view">
+          <p class="question-overline" id="question-overline">Let’s start with the day-to-day</p>
+          <h2 class="question-title" id="question-title" tabindex="-1"></h2>
+          <p class="question-help" id="question-help"></p>
+          <fieldset class="answer-options" id="answer-options" aria-labelledby="question-title">
+            <legend class="sr-only">Choose the answer that fits best</legend>
+          </fieldset>
+          <div class="quiz-controls">
+            <button class="btn btn--white quiz-back" id="back-button" type="button" hidden>Back</button>
+            <button class="btn quiz-next" id="next-button" type="button" disabled>Next <span aria-hidden="true">→</span></button>
+          </div>
+          <p class="privacy-note"><span aria-hidden="true">✳</span> Your answers stay in this page and are never saved or sent.</p>
+        </div>
+
+        <section class="quiz-result" id="quiz-result" aria-labelledby="result-title" hidden>
+          <p class="result-overline" id="result-level"></p>
+          <div class="result-score-row">
+            <h2 class="result-title display" id="result-title" tabindex="-1"></h2>
+            <span class="result-score" id="result-score"></span>
+          </div>
+          <p class="result-summary" id="result-summary"></p>
+          <div class="recommendation">
+            <p class="recommendation-label">A good place to start</p>
+            <h3 id="offer-title"></h3>
+            <p class="offer-price" id="offer-price"></p>
+            <p class="offer-copy" id="offer-copy"></p>
+            <div class="result-actions">
+              <a class="btn" id="result-cta" href="mailto:hello@mangostudios.xyz">Talk through your result <span aria-hidden="true">↗</span></a>
+              <a class="offer-link" id="offer-link" href="ai-agents.html">Learn about this service</a>
+            </div>
+          </div>
+          <div class="result-bottom">
+            <p>It’s a starting point, not a diagnosis. Mango can help you decide what’s worth building—and what isn’t.</p>
+            <button class="restart-button" id="restart-button" type="button">Take the quiz again</button>
+          </div>
+          <p class="privacy-note"><span aria-hidden="true">✳</span> Your answers stay in this page and are never saved or sent.</p>
+        </section>
+        <p class="sr-only" id="quiz-announcement" aria-live="polite" aria-atomic="true"></p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer readiness-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="footer-mark" href="index.html">Mango Studios</a>
+        <p>Custom software, built lean.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Services</h3>
+        <ul>
+          <li><a href="sites-and-apps.html">Custom Sites &amp; Apps</a></li>
+          <li><a href="ai-agents.html">Custom AI Agents</a></li>
+          <li><a href="automations.html">Custom Automations</a></li>
+          <li><a href="consulting.html">AI Consulting</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Studio</h3>
+        <ul>
+          <li><a href="software.html">Our software</a></li>
+          <li><a href="work.html">Our work</a></li>
+          <li><a href="index.html#team">Team</a></li>
+          <li><a href="index.html#about">About</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Contact</h3>
+        <ul>
+          <li><a href="mailto:hello@mangostudios.xyz">hello@mangostudios.xyz</a></li>
+          <li><a href="https://www.linkedin.com/company/mango-studios1/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://mangostudios.xyz">mangostudios.xyz</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-base"><span>© 2026 Mango Studios</span></div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      const questions = [
+        {
+          prompt: 'How do customers book or place an order?',
+          help: 'Think about the steps between “I’m interested” and a confirmed booking or sale.',
+          choices: [
+            { label: 'A main system handles it end to end', score: 0 },
+            { label: 'Requests come in through a few places', score: 1 },
+            { label: 'Mostly calls, messages, or paper', score: 2 },
+          ],
+          category: 'automation',
+        },
+        {
+          prompt: 'Can a first-time visitor take the next step on your website?',
+          help: 'For example, book, order, ask for a quote, or get in touch.',
+          choices: [
+            { label: 'Yes, the next step is clear', score: 0 },
+            { label: 'Mostly, but it could be easier', score: 1 },
+            { label: 'Not really, or I don’t have a site', score: 2 },
+          ],
+          category: 'sites',
+        },
+        {
+          prompt: 'How often do you answer the same customer questions?',
+          help: 'Hours, prices, availability, policies, and “how does this work?” all count.',
+          choices: [
+            { label: 'Once in a while', score: 0 },
+            { label: 'A few times most weeks', score: 1 },
+            { label: 'Every day — sometimes more than once', score: 2 },
+          ],
+          category: 'agents',
+        },
+        {
+          prompt: 'How do you ask customers for reviews?',
+          help: 'Include responding to reviews, too.',
+          choices: [
+            { label: 'We have a regular process', score: 0 },
+            { label: 'We remember sometimes', score: 1 },
+            { label: 'There isn’t a process yet', score: 2 },
+          ],
+          category: 'automation',
+        },
+        {
+          prompt: 'How much time goes to admin and follow-ups each week?',
+          help: 'Count scheduling, reminders, copying details, and checking in with customers.',
+          choices: [
+            { label: 'Less than an hour', score: 0 },
+            { label: 'About 1–3 hours', score: 1 },
+            { label: 'Four hours or more', score: 2 },
+          ],
+          category: 'automation',
+        },
+        {
+          prompt: 'What tools do you use to run the shop?',
+          help: 'Think booking, payments, accounting, inventory, and customer messages.',
+          choices: [
+            { label: 'A few connected systems', score: 0 },
+            { label: 'A mix of apps that don’t quite connect', score: 1 },
+            { label: 'Mostly spreadsheets, paper, or memory', score: 2 },
+          ],
+          category: 'automation',
+        },
+        {
+          prompt: 'How easy is it for a new customer to find the right info online?',
+          help: 'Hours, location, services, and how to reach you.',
+          choices: [
+            { label: 'It’s all up to date and easy to find', score: 0 },
+            { label: 'Some details are missing or hard to spot', score: 1 },
+            { label: 'People usually need to ask us directly', score: 2 },
+          ],
+          category: 'sites',
+        },
+        {
+          prompt: 'Where are you with AI so far?',
+          help: 'There’s no “right” answer. This just helps point to a useful next step.',
+          choices: [
+            { label: 'We’ve tried a few things that work', score: 0 },
+            { label: 'Curious, but unsure what fits', score: 1 },
+            { label: 'Haven’t tried it and would like guidance', score: 2 },
+          ],
+          category: 'consulting',
+        },
+      ];
+
+      const offers = {
+        sites: {
+          title: 'Custom Sites & Apps',
+          price: 'Starts at $250',
+          copy: 'A site or app designed, built, and launched around the next step your customers need. Final price depends on size.',
+          href: 'sites-and-apps.html',
+          cta: 'Ask about a website or app',
+          contact: 'mailto:hello@mangostudios.xyz?subject=Custom%20Sites%20%26%20Apps%20quote',
+        },
+        agents: {
+          title: 'Custom AI Agents',
+          price: 'Starts at $500',
+          copy: 'An agent for a specific job, such as answering customer questions from your own information and passing tricky ones to a person.',
+          href: 'ai-agents.html',
+          cta: 'Ask about a custom AI agent',
+          contact: 'mailto:hello@mangostudios.xyz?subject=Custom%20AI%20Agents%20quote',
+        },
+        automation: {
+          title: 'Custom Automations',
+          price: 'Starts at $300',
+          copy: 'Connect the tools you already use and automate repetitive workflows, IT tasks, or daily operations. Final price depends on the tasks.',
+          href: 'automations.html',
+          cta: 'Ask about an automation',
+          contact: 'mailto:hello@mangostudios.xyz?subject=Custom%20Automations%20quote',
+        },
+        consulting: {
+          title: 'AI Consulting',
+          price: '$100 per session',
+          copy: 'A practical conversation about where AI could help your business, what to skip, and a useful next step—with no pressure to build.',
+          href: 'consulting.html#book',
+          cta: 'Book an AI Consulting session',
+          contact: 'consulting.html#book',
+        },
+      };
+
+      const levelFor = function (score) {
+        if (score <= 4) return { label: 'Level 1 · Solid foundations', title: 'Keep it simple' };
+        if (score <= 10) return { label: 'Level 2 · A few clear gaps', title: 'Look for quick wins' };
+        return { label: 'Level 3 · Plenty to untangle', title: 'Make room to simplify' };
+      };
+
+      const stepCount = document.getElementById('step-count');
+      const progressLabel = document.getElementById('progress-label');
+      const progressTrack = document.getElementById('progress-track');
+      const progressFill = document.getElementById('progress-fill');
+      const questionOverline = document.getElementById('question-overline');
+      const questionTitle = document.getElementById('question-title');
+      const questionHelp = document.getElementById('question-help');
+      const answerOptions = document.getElementById('answer-options');
+      const quizView = document.getElementById('quiz-view');
+      const quizResult = document.getElementById('quiz-result');
+      const backButton = document.getElementById('back-button');
+      const nextButton = document.getElementById('next-button');
+      const announcement = document.getElementById('quiz-announcement');
+      const answers = new Array(questions.length).fill(null);
+      let current = 0;
+
+      function renderQuestion(moveFocus) {
+        const question = questions[current];
+        const percent = Math.round(((current + 1) / questions.length) * 100);
+        stepCount.textContent = 'Question ' + (current + 1) + ' of ' + questions.length;
+        progressLabel.textContent = percent + '% complete';
+        progressTrack.setAttribute('aria-valuenow', String(current + 1));
+        progressFill.style.width = percent + '%';
+        questionOverline.textContent = current < 2 ? 'Let’s start with the day-to-day' : current < 5 ? 'A little about your workflow' : 'One last bit of context';
+        questionTitle.textContent = question.prompt;
+        questionHelp.textContent = question.help;
+        backButton.hidden = current === 0;
+        nextButton.disabled = answers[current] === null;
+        nextButton.innerHTML = current === questions.length - 1 ? 'See my result <span aria-hidden="true">→</span>' : 'Next <span aria-hidden="true">→</span>';
+        answerOptions.replaceChildren(answerOptions.querySelector('legend'));
+
+        question.choices.forEach(function (choice, index) {
+          const label = document.createElement('label');
+          label.className = 'answer-option';
+          const input = document.createElement('input');
+          input.type = 'radio';
+          input.name = 'answer-' + current;
+          input.value = String(index);
+          input.checked = answers[current] === index;
+          input.addEventListener('change', function () {
+            answers[current] = index;
+            nextButton.disabled = false;
+            answerOptions.querySelectorAll('.answer-option').forEach(function (item) {
+              item.classList.toggle('is-selected', item.querySelector('input').checked);
+            });
+            announcement.textContent = 'Answer selected: ' + choice.label;
+          });
+          const mark = document.createElement('span');
+          mark.className = 'answer-mark';
+          mark.setAttribute('aria-hidden', 'true');
+          const text = document.createElement('span');
+          text.className = 'answer-text';
+          text.textContent = choice.label;
+          label.classList.toggle('is-selected', input.checked);
+          label.append(input, mark, text);
+          answerOptions.appendChild(label);
+        });
+        if (moveFocus) questionTitle.focus();
+      }
+
+      function getRecommendation() {
+        const totals = { automation: 0, agents: 0, sites: 0, consulting: 0 };
+        const counts = { automation: 0, agents: 0, sites: 0, consulting: 0 };
+        let score = 0;
+        questions.forEach(function (question, index) {
+          const choiceIndex = answers[index];
+          const points = question.choices[choiceIndex].score;
+          score += points;
+          totals[question.category] += points;
+          counts[question.category] += 1;
+        });
+        const need = Object.keys(totals).map(function (key) {
+          return [key, counts[key] ? totals[key] / (counts[key] * 2) : 0];
+        }).sort(function (a, b) { return b[1] - a[1]; });
+        const level = levelFor(score);
+        const offerKey = score <= 4 && need[0][1] < 0.5 ? 'consulting' : need[0][0];
+        return { score: score, level: level, offer: offers[offerKey], key: offerKey };
+      }
+
+      function showResult() {
+        const result = getRecommendation();
+        const summaries = {
+          sites: 'Your answers point to the customer path: make it easier for people to find the right information and take the next step.',
+          agents: 'You’re fielding the same questions regularly. A focused agent could take on one repeatable support job.',
+          automation: 'The clearest opportunity is the work between your tools: reviews, handoffs, follow-ups, and admin.',
+          consulting: 'A short, practical conversation can help you choose what’s worth trying and what can wait.',
+        };
+        document.getElementById('result-level').textContent = result.level.label;
+        document.getElementById('result-title').textContent = result.level.title;
+        document.getElementById('result-score').textContent = result.score + ' / 16';
+        document.getElementById('result-summary').textContent = summaries[result.key];
+        document.getElementById('offer-title').textContent = result.offer.title;
+        document.getElementById('offer-price').textContent = result.offer.price;
+        document.getElementById('offer-copy').textContent = result.offer.copy;
+        const cta = document.getElementById('result-cta');
+        cta.href = result.offer.contact;
+        cta.innerHTML = result.offer.cta + ' <span aria-hidden="true">↗</span>';
+        document.getElementById('offer-link').href = result.offer.href;
+        document.getElementById('offer-link').textContent = 'Explore ' + result.offer.title + ' →';
+        quizView.hidden = true;
+        quizResult.hidden = false;
+        stepCount.textContent = 'Your result';
+        progressLabel.textContent = 'All done';
+        progressTrack.hidden = true;
+        announcement.textContent = 'Quiz complete. ' + result.level.title + '. Recommended service: ' + result.offer.title + ', ' + result.offer.price + '.';
+        document.getElementById('result-title').focus();
+      }
+
+      nextButton.addEventListener('click', function () {
+        if (answers[current] === null) return;
+        if (current === questions.length - 1) { showResult(); return; }
+        current += 1;
+        renderQuestion(true);
+      });
+      backButton.addEventListener('click', function () {
+        if (current === 0) return;
+        current -= 1;
+        renderQuestion(true);
+      });
+      document.getElementById('restart-button').addEventListener('click', function () {
+        answers.fill(null);
+        current = 0;
+        quizResult.hidden = true;
+        quizView.hidden = false;
+        progressTrack.hidden = false;
+        renderQuestion(true);
+        announcement.textContent = 'Quiz restarted.';
+      });
+
+      renderQuestion(false);
+    })();
+  </script>
+</body>
+</html>
