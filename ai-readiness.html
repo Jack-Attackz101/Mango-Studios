@@ -36,71 +36,51 @@
   </header>
 
   <main id="main" class="readiness-page">
-    <div class="readiness-sky" aria-hidden="true"></div>
+    <div class="sky sky--live" aria-hidden="true"></div>
+    <div class="clouds-front" aria-hidden="true"></div>
+    <div class="sky-stickers" aria-hidden="true">
+      <img class="sky-sticker" style="--x: 27%; --y: 70%; --r: -9deg;  --s: 72px; --d: 0s;"    src="assets/trail-key.png" alt="">
+      <img class="sky-sticker" style="--x: 48%; --y: 58%; --r: 11deg;  --s: 68px; --d: -2.4s;" src="assets/trail-wink.png" alt="">
+      <img class="sky-sticker" style="--x: 80%; --y: 62%; --r: -14deg; --s: 80px; --d: -4.1s;" src="assets/trail-hourglass.png" alt="">
+      <img class="sky-sticker" style="--x: 62%; --y: 72%; --r: 7deg;   --s: 64px; --d: -1.2s;" src="assets/trail-pencil.png" alt="">
+    </div>
     <div class="readiness-content">
-      <section class="readiness-intro" aria-labelledby="page-title">
-        <div class="intro-copy">
-          <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span> A quick quiz for small shops</p>
+      <div class="readiness-grid">
+        <div class="readiness-rail">
           <h1 class="readiness-title display" id="page-title">Could AI give your shop a little breathing room?</h1>
           <p class="intro-lead">Eight quick questions about the way work gets done. Get a score and one practical place to start.</p>
         </div>
-        <aside class="stat-card" aria-label="Statistics Canada finding">
-          <p class="stat-number">25.6<span>%</span></p>
-          <p class="stat-copy">of Canadian businesses with 1–4 employees <strong>planned to use AI</strong> in the next 12 months.</p>
-          <p class="stat-detail">Planned use: 21.0% (5–19 employees) · 25.2% overall</p>
-          <p class="stat-source">Statistics Canada, Q3 2026; survey ran July 2–August 6. Plans, not measured adoption. <a href="https://www150.statcan.gc.ca/n1/pub/11-621-m/11-621-m2026013-eng.htm" target="_blank" rel="noopener">Read the source ↗</a></p>
-        </aside>
-      </section>
 
-      <section class="quiz-card" aria-labelledby="quiz-title">
-        <div class="quiz-progress-row">
-          <span class="quiz-kicker" id="step-count">Question 1 of 8</span>
-          <span class="quiz-progress-label" id="progress-label">12% complete</span>
-        </div>
-        <div class="progress-track" id="progress-track" role="progressbar" aria-label="Quiz progress" aria-valuemin="1" aria-valuemax="8" aria-valuenow="1">
-          <span class="progress-fill" id="progress-fill"></span>
+        <div class="readiness-aside">
+          <aside class="stat-card" aria-label="Statistics Canada finding">
+            <p class="stat-number">25.6<span>%</span></p>
+            <p class="stat-copy">of Canadian businesses with 1–4 employees <strong>planned to use AI</strong> in the next 12 months.</p>
+            <p class="stat-detail">Planned use: 21.0% (5–19 employees) · 25.2% overall</p>
+            <p class="stat-source">Statistics Canada, Q3 2026; survey ran July 2–August 6. Plans, not measured adoption. <a href="https://www150.statcan.gc.ca/n1/pub/11-621-m/11-621-m2026013-eng.htm" target="_blank" rel="noopener">Read the source ↗</a></p>
+          </aside>
+          <p class="rail-note"><span aria-hidden="true">✳</span> Your answers stay in this page. Nothing is saved or sent.</p>
+          <img class="rail-mango" src="assets/mango-point.png" alt="" aria-hidden="true" width="724" height="717">
         </div>
 
-        <div class="quiz-view" id="quiz-view">
-          <p class="question-overline" id="question-overline">Let’s start with the day-to-day</p>
-          <h2 class="question-title" id="question-title" tabindex="-1"></h2>
-          <p class="question-help" id="question-help"></p>
-          <fieldset class="answer-options" id="answer-options" aria-labelledby="question-title">
-            <legend class="sr-only">Choose the answer that fits best</legend>
-          </fieldset>
-          <div class="quiz-controls">
-            <button class="btn btn--white quiz-back" id="back-button" type="button" hidden>Back</button>
-            <button class="btn quiz-next" id="next-button" type="button" disabled>Next <span aria-hidden="true">→</span></button>
+        <section class="quiz-card" aria-labelledby="page-title">
+          <div class="quiz-head">
+            <span class="quiz-kicker" id="step-count">Question 1 of 8</span>
+            <span class="quiz-timing" id="quiz-timing">About 60 seconds</span>
           </div>
-          <p class="privacy-note"><span aria-hidden="true">✳</span> Your answers stay in this page and are never saved or sent.</p>
-        </div>
+          <div class="progress-track" id="progress-track" role="progressbar" aria-label="Quiz progress" aria-valuemin="1" aria-valuemax="8" aria-valuenow="1"></div>
 
-        <section class="quiz-result" id="quiz-result" aria-labelledby="result-title" hidden>
-          <p class="result-overline" id="result-level"></p>
-          <div class="result-score-row">
-            <h2 class="result-title display" id="result-title" tabindex="-1"></h2>
-            <span class="result-score" id="result-score"></span>
+          <div class="quiz-body" id="quiz-body"></div>
+
+          <div class="quiz-controls" id="quiz-controls">
+            <button class="quiz-back" id="back-button" type="button" hidden><span aria-hidden="true">←</span> Back</button>
+            <p class="quiz-hint" id="quiz-hint">Pick one — or press <kbd>A</kbd> <kbd>B</kbd> <kbd>C</kbd></p>
           </div>
-          <p class="result-summary" id="result-summary"></p>
-          <div class="recommendation">
-            <p class="recommendation-label">A good place to start</p>
-            <h3 id="offer-title"></h3>
-            <p class="offer-price" id="offer-price"></p>
-            <p class="offer-copy" id="offer-copy"></p>
-            <div class="result-actions">
-              <a class="btn" id="result-cta" href="mailto:hello@mangostudios.xyz">Talk through your result <span aria-hidden="true">↗</span></a>
-              <a class="offer-link" id="offer-link" href="ai-agents.html">Learn about this service</a>
-            </div>
-          </div>
-          <div class="result-bottom">
-            <p>It’s a starting point, not a diagnosis. Mango can help you decide what’s worth building—and what isn’t.</p>
-            <button class="restart-button" id="restart-button" type="button">Take the quiz again</button>
-          </div>
-          <p class="privacy-note"><span aria-hidden="true">✳</span> Your answers stay in this page and are never saved or sent.</p>
+          <p class="sr-only" id="quiz-announcement" aria-live="polite" aria-atomic="true"></p>
         </section>
-        <p class="sr-only" id="quiz-announcement" aria-live="polite" aria-atomic="true"></p>
-      </section>
+      </div>
     </div>
+    <div class="ticker readiness-ticker" aria-hidden="true"><div class="ticker-run"><span class="tick-item"><img src="assets/icon-key.png" alt="">Custom Sites &amp; Apps</span><span class="tick-item"><img src="assets/icon-wink.png" alt="">Custom AI Agents</span><span class="tick-item"><img src="assets/icon-cursor.png" alt="">Custom Automations</span><span class="tick-item"><img src="assets/trail-mug.png" alt="">AI Consulting</span><span class="tick-item"><img src="assets/icon-key.png" alt="">Custom Sites &amp; Apps</span><span class="tick-item"><img src="assets/icon-wink.png" alt="">Custom AI Agents</span><span class="tick-item"><img src="assets/icon-cursor.png" alt="">Custom Automations</span><span class="tick-item"><img src="assets/trail-mug.png" alt="">AI Consulting</span></div></div>
+    <div class="sky-hem" aria-hidden="true"></div>
   </main>
 
   <footer class="footer readiness-footer">
@@ -143,6 +123,8 @@
   <script>
     (function () {
       'use strict';
+
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       const questions = [
         {
@@ -255,77 +237,210 @@
         consulting: {
           title: 'AI Consulting',
           price: '$100 per session',
-          copy: 'A practical conversation about where AI could help your business, what to skip, and a useful next step—with no pressure to build.',
+          copy: 'A practical conversation about where AI could help your business, what to skip, and a useful next step — with no pressure to build.',
           href: 'consulting.html#book',
           cta: 'Book an AI Consulting session',
           contact: 'consulting.html#book',
         },
       };
 
-      const levelFor = function (score) {
-        if (score <= 4) return { label: 'Level 1 · Solid foundations', title: 'Keep it simple' };
-        if (score <= 10) return { label: 'Level 2 · A few clear gaps', title: 'Look for quick wins' };
-        return { label: 'Level 3 · Plenty to untangle', title: 'Make room to simplify' };
+      const summaries = {
+        sites: 'Your answers point to the customer path: make it easier for people to find the right information and take the next step.',
+        agents: 'You’re fielding the same questions regularly. A focused agent could take on one repeatable support job.',
+        automation: 'The clearest opportunity is the work between your tools: reviews, handoffs, follow-ups, and admin.',
+        consulting: 'A short, practical conversation can help you choose what’s worth trying and what can wait.',
       };
 
+      const KEYS = ['A', 'B', 'C'];
+      const MAX = questions.length * 2;
+      const OVERLINES = ['The day-to-day', 'Your workflow', 'A bit more context'];
+
+      const card = document.querySelector('.quiz-card');
+      const body = document.getElementById('quiz-body');
+      const track = document.getElementById('progress-track');
       const stepCount = document.getElementById('step-count');
-      const progressLabel = document.getElementById('progress-label');
-      const progressTrack = document.getElementById('progress-track');
-      const progressFill = document.getElementById('progress-fill');
-      const questionOverline = document.getElementById('question-overline');
-      const questionTitle = document.getElementById('question-title');
-      const questionHelp = document.getElementById('question-help');
-      const answerOptions = document.getElementById('answer-options');
-      const quizView = document.getElementById('quiz-view');
-      const quizResult = document.getElementById('quiz-result');
+      const timing = document.getElementById('quiz-timing');
+      const controls = document.getElementById('quiz-controls');
       const backButton = document.getElementById('back-button');
-      const nextButton = document.getElementById('next-button');
+      const hint = document.getElementById('quiz-hint');
       const announcement = document.getElementById('quiz-announcement');
+
       const answers = new Array(questions.length).fill(null);
       let current = 0;
+      let done = false;
+      let busy = false;
 
-      function renderQuestion(moveFocus) {
+      /* ── progress pips ─────────────────────── */
+
+      const pips = questions.map(function () {
+        const pip = document.createElement('span');
+        pip.className = 'pip';
+        track.appendChild(pip);
+        return pip;
+      });
+
+      function paintPips() {
+        pips.forEach(function (pip, i) {
+          pip.classList.toggle('is-done', done || i < current || answers[i] !== null);
+          pip.classList.toggle('is-now', !done && i === current);
+        });
+      }
+
+      /* ── swapping panels with an animated card height ─ */
+
+      let swapIn = 0;
+      let swapSettle = 0;
+
+      function swap(build, dir) {
+        window.clearTimeout(swapIn);
+        window.clearTimeout(swapSettle);
+        const old = body.firstElementChild;
+        const next = build();
+        if (!old || reduce) {
+          body.replaceChildren(next);
+          busy = false;
+          return;
+        }
+        /* lock the card at its current (possibly mid-animation) height so it morphs, never jumps */
+        busy = true;
+        body.style.height = body.getBoundingClientRect().height + 'px';
+        body.classList.add('is-measuring');
+        old.style.setProperty('--exit', (dir < 0 ? 26 : -26) + 'px');
+        next.style.setProperty('--enter', (dir < 0 ? -26 : 26) + 'px');
+        old.classList.add('is-out');
+        swapIn = window.setTimeout(function () {
+          next.classList.add('is-in');
+          body.replaceChildren(next);
+          body.style.height = next.offsetHeight + 'px';
+          requestAnimationFrame(function () { next.classList.remove('is-in'); });
+          /* the panel is live as soon as it lands: the height keeps easing, but input is accepted again */
+          busy = false;
+          swapSettle = window.setTimeout(function () {
+            body.style.height = '';
+            body.classList.remove('is-measuring');
+          }, 380);
+        }, 190);
+      }
+
+      /* ── a question panel ──────────────────── */
+
+      function buildQuestion() {
         const question = questions[current];
-        const percent = Math.round(((current + 1) / questions.length) * 100);
-        stepCount.textContent = 'Question ' + (current + 1) + ' of ' + questions.length;
-        progressLabel.textContent = percent + '% complete';
-        progressTrack.setAttribute('aria-valuenow', String(current + 1));
-        progressFill.style.width = percent + '%';
-        questionOverline.textContent = current < 2 ? 'Let’s start with the day-to-day' : current < 5 ? 'A little about your workflow' : 'One last bit of context';
-        questionTitle.textContent = question.prompt;
-        questionHelp.textContent = question.help;
-        backButton.hidden = current === 0;
-        nextButton.disabled = answers[current] === null;
-        nextButton.innerHTML = current === questions.length - 1 ? 'See my result <span aria-hidden="true">→</span>' : 'Next <span aria-hidden="true">→</span>';
-        answerOptions.replaceChildren(answerOptions.querySelector('legend'));
+        const slide = document.createElement('div');
+        slide.className = 'quiz-slide';
+
+        const overline = document.createElement('p');
+        overline.className = 'question-overline';
+        overline.textContent = OVERLINES[current < 2 ? 0 : current < 5 ? 1 : 2];
+
+        const title = document.createElement('h2');
+        title.className = 'question-title';
+        title.id = 'question-title';
+        title.tabIndex = -1;
+        title.textContent = question.prompt;
+
+        const help = document.createElement('p');
+        help.className = 'question-help';
+        help.textContent = question.help;
+
+        const options = document.createElement('fieldset');
+        options.className = 'answer-options';
+        options.setAttribute('aria-labelledby', 'question-title');
+        const legend = document.createElement('legend');
+        legend.className = 'sr-only';
+        legend.textContent = 'Choose the answer that fits best';
+        options.appendChild(legend);
 
         question.choices.forEach(function (choice, index) {
           const label = document.createElement('label');
           label.className = 'answer-option';
+          label.style.setProperty('--i', String(index));
+
           const input = document.createElement('input');
           input.type = 'radio';
           input.name = 'answer-' + current;
           input.value = String(index);
           input.checked = answers[current] === index;
-          input.addEventListener('change', function () {
-            answers[current] = index;
-            nextButton.disabled = false;
-            answerOptions.querySelectorAll('.answer-option').forEach(function (item) {
-              item.classList.toggle('is-selected', item.querySelector('input').checked);
-            });
-            announcement.textContent = 'Answer selected: ' + choice.label;
-          });
-          const mark = document.createElement('span');
-          mark.className = 'answer-mark';
-          mark.setAttribute('aria-hidden', 'true');
+
+          const key = document.createElement('span');
+          key.className = 'answer-key';
+          key.setAttribute('aria-hidden', 'true');
+          key.textContent = KEYS[index];
+
           const text = document.createElement('span');
           text.className = 'answer-text';
           text.textContent = choice.label;
+
           label.classList.toggle('is-selected', input.checked);
-          label.append(input, mark, text);
-          answerOptions.appendChild(label);
+          label.append(input, key, text);
+          label.addEventListener('click', function () { pick(index); });
+          options.appendChild(label);
         });
-        if (moveFocus) questionTitle.focus();
+
+        slide.append(overline, title, help, options);
+        return slide;
+      }
+
+      function showQuestion(dir, moveFocus) {
+        done = false;
+        clearConfetti();
+        stepCount.textContent = 'Question ' + (current + 1) + ' of ' + questions.length;
+        timing.hidden = false;
+        track.hidden = false;
+        track.setAttribute('aria-valuenow', String(current + 1));
+        controls.hidden = false;
+        backButton.hidden = current === 0;
+        hint.hidden = false;
+        paintPips();
+        swap(buildQuestion, dir);
+        if (moveFocus) {
+          window.setTimeout(function () {
+            const title = document.getElementById('question-title');
+            if (title) title.focus({ preventScroll: true });
+          }, reduce ? 0 : 210);
+        }
+      }
+
+      /* ── answering ─────────────────────────── */
+
+      let advanceTimer = 0;
+
+      function pick(index) {
+        if (busy || done) return;
+        const slide = body.firstElementChild;
+        if (!slide) return;
+        /* a second pick before the hand-off replaces the first rather than queueing another jump */
+        window.clearTimeout(advanceTimer);
+        answers[current] = index;
+        const opts = slide.querySelectorAll('.answer-option');
+        opts.forEach(function (opt, i) {
+          opt.classList.toggle('is-selected', i === index);
+          opt.querySelector('input').checked = i === index;
+        });
+        announcement.textContent = 'Selected: ' + questions[current].choices[index].label;
+        paintPips();
+        advanceTimer = window.setTimeout(advance, reduce ? 0 : 270);
+      }
+
+      function advance() {
+        if (current === questions.length - 1) { showResult(); return; }
+        current += 1;
+        showQuestion(1, true);
+      }
+
+      backButton.addEventListener('click', function () {
+        if (busy || current === 0) return;
+        window.clearTimeout(advanceTimer);
+        current -= 1;
+        showQuestion(-1, true);
+      });
+
+      /* ── result ────────────────────────────── */
+
+      function levelFor(score) {
+        if (score <= 4) return { label: 'Level 1 · Solid foundations', title: 'Keep it simple' };
+        if (score <= 10) return { label: 'Level 2 · A few clear gaps', title: 'Look for quick wins' };
+        return { label: 'Level 3 · Plenty to untangle', title: 'Make room to simplify' };
       }
 
       function getRecommendation() {
@@ -333,8 +448,7 @@
         const counts = { automation: 0, agents: 0, sites: 0, consulting: 0 };
         let score = 0;
         questions.forEach(function (question, index) {
-          const choiceIndex = answers[index];
-          const points = question.choices[choiceIndex].score;
+          const points = question.choices[answers[index]].score;
           score += points;
           totals[question.category] += points;
           counts[question.category] += 1;
@@ -342,62 +456,174 @@
         const need = Object.keys(totals).map(function (key) {
           return [key, counts[key] ? totals[key] / (counts[key] * 2) : 0];
         }).sort(function (a, b) { return b[1] - a[1]; });
-        const level = levelFor(score);
-        const offerKey = score <= 4 && need[0][1] < 0.5 ? 'consulting' : need[0][0];
-        return { score: score, level: level, offer: offers[offerKey], key: offerKey };
+        const key = score <= 4 && need[0][1] < 0.5 ? 'consulting' : need[0][0];
+        return { score: score, ready: Math.round((1 - score / MAX) * 100), level: levelFor(score), offer: offers[key], key: key };
+      }
+
+      function el(tag, className, text) {
+        const node = document.createElement(tag);
+        if (className) node.className = className;
+        if (text != null) node.textContent = text;
+        return node;
+      }
+
+      function buildResult(result) {
+        const slide = el('div', 'quiz-result');
+        let order = 0;
+        function step(node) { node.style.setProperty('--i', String(order++)); return node; }
+
+        const meter = el('div', 'result-meter');
+        const dial = el('div', 'meter-dial');
+        dial.innerHTML = '<svg viewBox="0 0 100 100" aria-hidden="true">' +
+          '<circle class="meter-track" cx="50" cy="50" r="40"></circle>' +
+          '<circle class="meter-value" cx="50" cy="50" r="40"></circle></svg>';
+        const num = el('div', 'meter-num');
+        const numValue = el('span', null, '0%');
+        num.append(numValue, el('small', null, 'ready'));
+        dial.appendChild(num);
+        const meterCopy = el('div');
+        meterCopy.append(el('p', 'result-overline', result.level.label));
+        meterCopy.append(el('h2', 'result-title display', result.level.title));
+        const titleNode = meterCopy.querySelector('.result-title');
+        titleNode.id = 'result-title';
+        titleNode.tabIndex = -1;
+        meter.append(dial, meterCopy);
+        slide.append(step(meter));
+
+        slide.append(step(el('p', 'result-summary', summaries[result.key])));
+
+        const rec = el('div', 'recommendation');
+        rec.append(el('p', 'recommendation-label', 'A good place to start'));
+        rec.append(el('h3', null, result.offer.title));
+        rec.append(el('p', 'offer-price', result.offer.price));
+        rec.append(el('p', 'offer-copy', result.offer.copy));
+        const actions = el('div', 'result-actions');
+        const cta = el('a', 'btn');
+        cta.href = result.offer.contact;
+        cta.innerHTML = result.offer.cta + ' <span aria-hidden="true">↗</span>';
+        const more = el('a', 'offer-link', 'Explore ' + result.offer.title + ' →');
+        more.href = result.offer.href;
+        actions.append(cta, more);
+        rec.append(actions);
+        slide.append(step(rec));
+
+        const bottom = el('div', 'result-bottom');
+        bottom.append(el('p', null, 'It’s a starting point, not a diagnosis. Mango can help you decide what’s worth building — and what isn’t.'));
+        const restart = el('button', 'restart-button');
+        restart.type = 'button';
+        restart.innerHTML = '<span aria-hidden="true">↺</span> Start over';
+        restart.addEventListener('click', restartQuiz);
+        bottom.append(restart);
+        slide.append(step(bottom));
+
+        window.setTimeout(function () { runMeter(slide, result, numValue); }, reduce ? 0 : 280);
+        return slide;
+      }
+
+      /* a few stickers rain onto the card when the result lands */
+      const CONFETTI = [
+        { src: 'assets/trail-camera.png', x: '-4%', y: '-9%',  r: '-14deg', s: '58px' },
+        { src: 'assets/trail-pizza.png',  x: '87%', y: '-11%', r: '12deg',  s: '60px' },
+        { src: 'assets/trail-mug.png',    x: '95%', y: '36%',  r: '-7deg',  s: '52px' },
+      ];
+
+      function clearConfetti() {
+        const old = card.querySelector('.result-confetti');
+        if (old) old.remove();
+      }
+
+      function confetti() {
+        clearConfetti();
+        const wrap = el('div', 'result-confetti');
+        wrap.setAttribute('aria-hidden', 'true');
+        CONFETTI.forEach(function (item, i) {
+          const img = document.createElement('img');
+          img.src = item.src;
+          img.alt = '';
+          img.style.setProperty('--x', item.x);
+          img.style.setProperty('--y', item.y);
+          img.style.setProperty('--r', item.r);
+          img.style.setProperty('--s', item.s);
+          img.style.setProperty('--i', String(i));
+          wrap.appendChild(img);
+        });
+        card.appendChild(wrap);
+      }
+
+      function runMeter(slide, result, numValue) {
+        const ring = slide.querySelector('.meter-value');
+        const C = 2 * Math.PI * 40;
+        ring.style.strokeDasharray = C + ' ' + C;
+        ring.style.strokeDashoffset = C;
+        if (reduce) {
+          ring.style.transition = 'none';
+          ring.style.strokeDashoffset = C * (1 - result.ready / 100);
+          numValue.textContent = result.ready + '%';
+          return;
+        }
+        requestAnimationFrame(function () {
+          ring.style.strokeDashoffset = C * (1 - result.ready / 100);
+        });
+        const start = performance.now();
+        (function tick(now) {
+          const t = Math.min((now - start) / 1000, 1);
+          const eased = 1 - Math.pow(1 - t, 3);
+          numValue.textContent = Math.round(result.ready * eased) + '%';
+          if (t < 1) requestAnimationFrame(tick);
+        })(start);
       }
 
       function showResult() {
         const result = getRecommendation();
-        const summaries = {
-          sites: 'Your answers point to the customer path: make it easier for people to find the right information and take the next step.',
-          agents: 'You’re fielding the same questions regularly. A focused agent could take on one repeatable support job.',
-          automation: 'The clearest opportunity is the work between your tools: reviews, handoffs, follow-ups, and admin.',
-          consulting: 'A short, practical conversation can help you choose what’s worth trying and what can wait.',
-        };
-        document.getElementById('result-level').textContent = result.level.label;
-        document.getElementById('result-title').textContent = result.level.title;
-        document.getElementById('result-score').textContent = result.score + ' / 16';
-        document.getElementById('result-summary').textContent = summaries[result.key];
-        document.getElementById('offer-title').textContent = result.offer.title;
-        document.getElementById('offer-price').textContent = result.offer.price;
-        document.getElementById('offer-copy').textContent = result.offer.copy;
-        const cta = document.getElementById('result-cta');
-        cta.href = result.offer.contact;
-        cta.innerHTML = result.offer.cta + ' <span aria-hidden="true">↗</span>';
-        document.getElementById('offer-link').href = result.offer.href;
-        document.getElementById('offer-link').textContent = 'Explore ' + result.offer.title + ' →';
-        quizView.hidden = true;
-        quizResult.hidden = false;
+        done = true;
         stepCount.textContent = 'Your result';
-        progressLabel.textContent = 'All done';
-        progressTrack.hidden = true;
-        announcement.textContent = 'Quiz complete. ' + result.level.title + '. Recommended service: ' + result.offer.title + ', ' + result.offer.price + '.';
-        document.getElementById('result-title').focus();
+        timing.textContent = result.score + ' / ' + MAX + ' friction points';
+        track.setAttribute('aria-valuenow', String(questions.length));
+        controls.hidden = true;
+        paintPips();
+        swap(function () { return buildResult(result); }, 1);
+        if (!reduce) confetti();
+        announcement.textContent = 'Quiz complete. ' + result.ready + ' percent ready. ' + result.level.title +
+          '. Recommended service: ' + result.offer.title + ', ' + result.offer.price + '.';
+        window.setTimeout(function () {
+          const title = document.getElementById('result-title');
+          if (title) title.focus({ preventScroll: true });
+        }, reduce ? 0 : 230);
       }
 
-      nextButton.addEventListener('click', function () {
-        if (answers[current] === null) return;
-        if (current === questions.length - 1) { showResult(); return; }
-        current += 1;
-        renderQuestion(true);
-      });
-      backButton.addEventListener('click', function () {
-        if (current === 0) return;
-        current -= 1;
-        renderQuestion(true);
-      });
-      document.getElementById('restart-button').addEventListener('click', function () {
+      function restartQuiz() {
         answers.fill(null);
         current = 0;
-        quizResult.hidden = true;
-        quizView.hidden = false;
-        progressTrack.hidden = false;
-        renderQuestion(true);
+        timing.textContent = 'About 60 seconds';
+        showQuestion(-1, true);
         announcement.textContent = 'Quiz restarted.';
+      }
+
+      /* ── keyboard ──────────────────────────── */
+
+      document.addEventListener('keydown', function (event) {
+        if (done || busy || event.metaKey || event.ctrlKey || event.altKey) return;
+        const tag = (event.target.tagName || '').toLowerCase();
+        if (tag === 'input' && event.target.type !== 'radio') return;
+        if (tag === 'textarea' || tag === 'select') return;
+        const key = event.key.toLowerCase();
+        const letter = KEYS.map(function (k) { return k.toLowerCase(); }).indexOf(key);
+        const digit = ['1', '2', '3'].indexOf(key);
+        const index = letter > -1 ? letter : digit;
+        if (index > -1 && index < questions[current].choices.length) {
+          event.preventDefault();
+          pick(index);
+          return;
+        }
+        if ((key === 'backspace' || event.key === 'ArrowLeft') && current > 0) {
+          event.preventDefault();
+          window.clearTimeout(advanceTimer);
+          current -= 1;
+          showQuestion(-1, true);
+        }
       });
 
-      renderQuestion(false);
+      showQuestion(0, false);
     })();
   </script>
 </body>
