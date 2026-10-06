@@ -38,6 +38,12 @@
   <main id="main" class="readiness-page">
     <div class="sky sky--live" aria-hidden="true"></div>
     <div class="clouds-front" aria-hidden="true"></div>
+    <div class="sky-stickers" aria-hidden="true">
+      <img class="sky-sticker" style="--x: 27%; --y: 70%; --r: -9deg;  --s: 72px; --d: 0s;"    src="assets/trail-key.png" alt="">
+      <img class="sky-sticker" style="--x: 48%; --y: 58%; --r: 11deg;  --s: 68px; --d: -2.4s;" src="assets/trail-wink.png" alt="">
+      <img class="sky-sticker" style="--x: 80%; --y: 62%; --r: -14deg; --s: 80px; --d: -4.1s;" src="assets/trail-hourglass.png" alt="">
+      <img class="sky-sticker" style="--x: 62%; --y: 72%; --r: 7deg;   --s: 64px; --d: -1.2s;" src="assets/trail-pencil.png" alt="">
+    </div>
     <div class="readiness-content">
       <div class="readiness-grid">
         <div class="readiness-rail">
@@ -53,6 +59,7 @@
             <p class="stat-source">Statistics Canada, Q3 2026; survey ran July 2–August 6. Plans, not measured adoption. <a href="https://www150.statcan.gc.ca/n1/pub/11-621-m/11-621-m2026013-eng.htm" target="_blank" rel="noopener">Read the source ↗</a></p>
           </aside>
           <p class="rail-note"><span aria-hidden="true">✳</span> Your answers stay in this page. Nothing is saved or sent.</p>
+          <img class="rail-mango" src="assets/mango-point.png" alt="" aria-hidden="true" width="724" height="717">
         </div>
 
         <section class="quiz-card" aria-labelledby="page-title">
@@ -72,6 +79,8 @@
         </section>
       </div>
     </div>
+    <div class="ticker readiness-ticker" aria-hidden="true"><div class="ticker-run"><span class="tick-item"><img src="assets/icon-key.png" alt="">Custom Sites &amp; Apps</span><span class="tick-item"><img src="assets/icon-wink.png" alt="">Custom AI Agents</span><span class="tick-item"><img src="assets/icon-cursor.png" alt="">Custom Automations</span><span class="tick-item"><img src="assets/trail-mug.png" alt="">AI Consulting</span><span class="tick-item"><img src="assets/icon-key.png" alt="">Custom Sites &amp; Apps</span><span class="tick-item"><img src="assets/icon-wink.png" alt="">Custom AI Agents</span><span class="tick-item"><img src="assets/icon-cursor.png" alt="">Custom Automations</span><span class="tick-item"><img src="assets/trail-mug.png" alt="">AI Consulting</span></div></div>
+    <div class="sky-hem" aria-hidden="true"></div>
   </main>
 
   <footer class="footer readiness-footer">
@@ -246,6 +255,7 @@
       const MAX = questions.length * 2;
       const OVERLINES = ['The day-to-day', 'Your workflow', 'A bit more context'];
 
+      const card = document.querySelector('.quiz-card');
       const body = document.getElementById('quiz-body');
       const track = document.getElementById('progress-track');
       const stepCount = document.getElementById('step-count');
@@ -373,6 +383,7 @@
 
       function showQuestion(dir, moveFocus) {
         done = false;
+        clearConfetti();
         stepCount.textContent = 'Question ' + (current + 1) + ' of ' + questions.length;
         timing.hidden = false;
         track.hidden = false;
@@ -509,6 +520,36 @@
         return slide;
       }
 
+      /* a few stickers rain onto the card when the result lands */
+      const CONFETTI = [
+        { src: 'assets/trail-camera.png', x: '-4%', y: '-9%',  r: '-14deg', s: '58px' },
+        { src: 'assets/trail-pizza.png',  x: '87%', y: '-11%', r: '12deg',  s: '60px' },
+        { src: 'assets/trail-mug.png',    x: '95%', y: '36%',  r: '-7deg',  s: '52px' },
+      ];
+
+      function clearConfetti() {
+        const old = card.querySelector('.result-confetti');
+        if (old) old.remove();
+      }
+
+      function confetti() {
+        clearConfetti();
+        const wrap = el('div', 'result-confetti');
+        wrap.setAttribute('aria-hidden', 'true');
+        CONFETTI.forEach(function (item, i) {
+          const img = document.createElement('img');
+          img.src = item.src;
+          img.alt = '';
+          img.style.setProperty('--x', item.x);
+          img.style.setProperty('--y', item.y);
+          img.style.setProperty('--r', item.r);
+          img.style.setProperty('--s', item.s);
+          img.style.setProperty('--i', String(i));
+          wrap.appendChild(img);
+        });
+        card.appendChild(wrap);
+      }
+
       function runMeter(slide, result, numValue) {
         const ring = slide.querySelector('.meter-value');
         const C = 2 * Math.PI * 40;
@@ -541,6 +582,7 @@
         controls.hidden = true;
         paintPips();
         swap(function () { return buildResult(result); }, 1);
+        if (!reduce) confetti();
         announcement.textContent = 'Quiz complete. ' + result.ready + ' percent ready. ' + result.level.title +
           '. Recommended service: ' + result.offer.title + ', ' + result.offer.price + '.';
         window.setTimeout(function () {
