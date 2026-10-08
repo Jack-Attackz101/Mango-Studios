@@ -106,6 +106,196 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   else window.addEventListener('load', function () { setTimeout(intro, 400); });
 })();
 
+// About: the paragraph rides a drum that turns as the runway scrolls past.
+// Lines sit on a cylinder; whichever swings to the front lights up. The title
+// slides across with a trail of itself. Off entirely under reduced motion, and
+// off until measured, so the lines stay a readable paragraph if this never runs.
+(function () {
+  const reel = document.getElementById('about-reel');
+  const wheel = document.getElementById('about-wheel');
+  const drum = document.getElementById('about-drum');
+  const stage = reel && reel.querySelector('.about-stage');
+  if (!reel || !wheel || !drum || !stage || reduceMotion) return;
+
+  const source = reel.parentElement.querySelector('.about-plain');
+  const sliders = [].slice.call(stage.querySelectorAll('.about-title, .about-ghost'));
+  const words = source ? source.textContent.trim().split(/\s+/) : [];
+  if (!words.length) return;
+
+  const RAD = Math.PI / 180;
+  // A fixed angle between lines, rather than 360/count, so the same few lines
+  // face you whether the drum carries ten long lines or twenty short ones.
+  const STEP = 32;
+  const EDGE = 95;
+  let slats = [];
+  let SPAN = 320;
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  let slatH = 104;
+  let travel = 0;
+  let top = 0;
+  let runway = 1;
+  let ticking = false;
+
+  function pageTop(el) {
+    let y = 0;
+    for (let n = el; n; n = n.offsetParent) y += n.offsetTop;
+    return y;
+  }
+
+  // Break the paragraph into lines short enough that each one, stretched across
+  // the stage, lands at a readable size. Narrow screens get shorter lines, so the
+  // type stays big instead of shrinking to fit a long line into a phone.
+  function split(boxWidth) {
+    const per = Math.max(17, Math.round(boxWidth / 46));
+    const lines = [];
+    let line = '';
+    words.forEach(function (w) {
+      const next = line ? line + ' ' + w : w;
+      if (line && next.length > per) { lines.push(line); line = w; } else { line = next; }
+    });
+    if (line) lines.push(line);
+    return lines;
+  }
+
+  function build(boxWidth) {
+    const lines = split(boxWidth);
+    if (lines.length < 3) return false;
+    if (slats.length === lines.length && slats[0].textContent === lines[0]) return true;
+    drum.replaceChildren();
+    slats = lines.map(function (text, i) {
+      const el = document.createElement('p');
+      el.className = 'about-slat';
+      el.style.setProperty('--i', String(i));
+      el.textContent = text;
+      drum.appendChild(el);
+      return el;
+    });
+    SPAN = (slats.length - 1) * STEP;
+    return true;
+  }
+
+  // Set each line's size from the width of its own letters, so every line
+  // spans the stage however many characters it has.
+  function fit() {
+    const box = wheel.clientWidth;
+    if (!box) return false;
+    const target = box * 0.97;
+    const probe = 100;
+    let ok = false;
+    slats.forEach(function (el) {
+      const cs = getComputedStyle(el);
+      ctx.font = cs.fontStyle + ' ' + cs.fontWeight + ' ' + probe + 'px ' + cs.fontFamily;
+      const m = ctx.measureText(el.textContent);
+      const ink = (m.actualBoundingBoxLeft || 0) + (m.actualBoundingBoxRight || m.width);
+      if (ink > 0) {
+        el.style.setProperty('--fit', (probe * target / ink).toFixed(2) + 'px');
+        ok = true;
+      }
+    });
+    return ok;
+  }
+
+  function measure() {
+    reel.dataset.wheel = 'off';
+    if (!build(wheel.clientWidth || window.innerWidth) || !fit()) return;
+    // the tallest line decides the drum's slat height, so none of them clip
+    slatH = slats.reduce(function (h, el) { return Math.max(h, el.offsetHeight); }, 0);
+    const widest = slats.reduce(function (w, el) { return Math.max(w, el.offsetWidth); }, 0);
+    reel.dataset.wheel = 'on';
+    const radius = (slatH / 2) / Math.tan(STEP / 2 * RAD);
+    wheel.style.setProperty('--slat-h', slatH + 'px');
+    wheel.style.setProperty('--radius', radius.toFixed(1) + 'px');
+    wheel.style.setProperty('--persp', Math.round(radius * 5.2) + 'px');
+    slats.forEach(function (el) { el.style.setProperty('--r', radius.toFixed(1) + 'px'); });
+    travel = Math.max(0, stage.clientWidth - sliders[0].offsetWidth - 24);
+    // every line gets a similar amount of scroll, with a ceiling so a phone's
+    // many short lines don't turn the section into an endless runway
+    reel.style.height = (1 + Math.min(slats.length * 0.26, 2.8)) * 100 + 'vh';
+    top = pageTop(reel);
+    runway = Math.max(1, reel.offsetHeight - window.innerHeight);
+    render();
+  }
+
+  function render() {
+    ticking = false;
+    const p = Math.min(1, Math.max(0, (window.scrollY - top) / runway));
+    // Dwell on each line, then click to the next, so one line is lit at a time
+    // instead of two sitting half-faced between detents.
+    const idx = p * (slats.length - 1);
+    const base = Math.floor(idx);
+    let f = idx - base;
+    f = f <= 0.32 ? 0 : f >= 0.78 ? 1 : (f - 0.32) / 0.46;
+    f = f * f * (3 - 2 * f);
+    const turn = (base + f) * STEP;
+    slats.forEach(function (el, i) {
+      // no wrap-around: the strip is bent into an arc, so a line never swings
+      // back up to collide with one on the far side of the drum. Scrolling down
+      // rolls the next line up from the bottom, the way reading runs.
+      const a = turn - i * STEP;
+      const off = Math.abs(a) >= EDGE;
+      const lit = off ? 0 : Math.max(0, Math.cos(a * RAD));
+      el.style.setProperty('--a', a.toFixed(2) + 'deg');
+      el.style.setProperty('--lit', off ? '0' : (0.1 + 0.9 * Math.pow(lit, 1.7)).toFixed(3));
+      el.style.setProperty('--glow', (Math.pow(lit, 9) * 0.92).toFixed(3));
+    });
+    const slide = (p * travel).toFixed(1) + 'px';
+    sliders.forEach(function (el) { el.style.setProperty('--slide', slide); });
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(render); }
+  }, { passive: true });
+
+  let t = 0;
+  window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(measure, 150); });
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(measure);
+  window.addEventListener('load', measure);
+})();
+
+// "Your agent could be…": the phrase swaps on a timer. Without this the markup
+// already shows the whole list, so the section reads fine if it never runs.
+(function () {
+  const slot = document.getElementById('could-slot');
+  if (!slot || reduceMotion) return;
+
+  const phrases = [
+    'a support agent', 'a trading agent', 'a companion', 'an onboarding guide',
+    'a booking agent', 'a research assistant', 'a triage bot', 'a follow-up agent',
+  ];
+  let i = 0;
+  let timer = 0;
+
+  function show(text) {
+    const next = document.createElement('span');
+    next.className = 'could-word is-in';
+    next.textContent = text;
+    const prev = slot.firstElementChild;
+    slot.appendChild(next);
+    requestAnimationFrame(function () {
+      next.classList.remove('is-in');
+      next.classList.add('is-live');
+      if (prev) {
+        prev.classList.remove('is-live');
+        prev.classList.add('is-out');
+        window.setTimeout(function () { prev.remove(); }, 500);
+      }
+    });
+  }
+
+  function step() { i = (i + 1) % phrases.length; show(phrases[i]); }
+
+  show(phrases[0]);
+
+  // only burn frames while the section is actually on screen
+  const io = new IntersectionObserver(function (entries) {
+    const visible = entries[0].isIntersecting;
+    window.clearInterval(timer);
+    if (visible) timer = window.setInterval(step, 2300);
+  }, { threshold: 0.2 });
+  io.observe(slot);
+})();
+
 // Parallax: data-parallax moves an element vertically, data-drift horizontally, against scroll.
 // Positions come from layout offsets (cached), so the movement never feeds back into the measurement.
 (function () {

@@ -340,37 +340,127 @@ body.menu-open .menu-scrim { opacity: 1; }
   background: var(--paper);
   border-top: 6px solid var(--ink);
   border-radius: 44px 44px 0 0;
-  overflow: hidden;
+  overflow: clip;
   padding: clamp(80px, 8vw, 128px) var(--gutter) clamp(64px, 7vw, 112px);
 }
 
-.about-top {
-  max-width: 1180px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(20px, 2.4vw, 32px);
-}
-.about-title { font-size: clamp(2.4rem, 1rem + 3.4vw, 5rem); line-height: 0.9; white-space: nowrap; color: var(--ink); }
-.about-text { max-width: 44ch; font: 500 clamp(1.15rem, 0.95rem + 0.6vw, 1.6rem)/1.45 var(--font-round); letter-spacing: -0.005em; color: var(--ink); text-wrap: pretty; }
+/* ── ABOUT: the paragraph rides a rotating drum ──
+   The lines sit on a cylinder. Scrolling the runway turns it, and whichever
+   line swings to the front lights up. Without JS the drum never engages and
+   the lines stack as an ordinary paragraph. */
 
-/* a window of drifting sky, with the clouds drawn larger than the rest of the site */
-.about-band {
+.about-reel {
   position: relative;
-  max-width: 1180px;
-  height: clamp(220px, 24vw, 340px);
-  margin: clamp(40px, 5vw, 72px) auto 0;
-  overflow: hidden;
-  border: 5px solid var(--ink);
-  border-radius: clamp(28px, 3vw, 44px);
+  /* the drum runs edge to edge, so it breaks out of the section gutter */
+  margin-inline: calc(var(--gutter) * -1);
+  margin-top: clamp(24px, 3vw, 48px);
 }
-.about-sky {
-  --tile: clamp(620px, 62vw, 1000px);
-  background-size: auto var(--tile);
-  background-position: 0 42%;
-  animation: drift-about 120s linear infinite;
+
+
+.about-stage { position: relative; display: grid; align-content: center; gap: clamp(26px, 4vh, 58px); }
+/* the drum takes the middle of the stage; the title rides along the top of it */
+.about-reel[data-wheel="on"] .about-head { position: absolute; left: 0; right: 0; top: clamp(56px, 11vh, 130px); }
+.about-reel[data-wheel="on"] .about-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: clip;
 }
-@keyframes drift-about { to { background-position-x: calc(var(--tile) * -1.7778); } }
+
+/* the title slides across with a motion trail of itself */
+.about-title,
+.about-ghost {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  padding-inline: clamp(14px, 2vw, 30px);
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  font-weight: 900;
+  font-size: clamp(1.9rem, 1rem + 2.2vw, 3.4rem);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--ink);
+}
+.about-head { position: relative; }
+.about-reel[data-wheel="on"] .about-title,
+.about-reel[data-wheel="on"] .about-ghost { translate: var(--slide, 0px) 0; }
+.about-reel[data-wheel="on"] .about-title { position: relative; z-index: 1; }
+
+.about-ghost {
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* each ghost lags a little further behind the real title */
+  translate: calc(var(--slide, 0px) - var(--g) * 9%) 0;
+  opacity: calc(0.38 - var(--g) * 0.075);
+  pointer-events: none;
+}
+.about-reel[data-wheel="off"] .about-ghost { display: none; }
+
+/* the drum. The inner layer is pushed back by exactly the drum's radius, so the
+   line facing you lands at z = 0 and renders at its true width instead of being
+   magnified past the edges of the page by the perspective. */
+.about-wheel { position: relative; }
+.about-drum { display: grid; gap: 2px; }
+.about-reel[data-wheel="on"] .about-wheel {
+  height: var(--slat-h, 104px);
+  perspective: var(--persp, 1150px);
+}
+.about-reel[data-wheel="on"] .about-drum {
+  display: block;
+  height: 100%;
+  transform: translateZ(calc(var(--radius, 200px) * -1));
+  transform-style: preserve-3d;
+}
+
+.about-slat {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding-inline: clamp(12px, 1.6vw, 26px);
+  font-family: var(--font-round);
+  font-weight: 600;
+  font-size: var(--fit, clamp(1.4rem, 5.2vw, 4.2rem));
+  line-height: 1;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  color: var(--ink);
+}
+.about-reel[data-wheel="on"] .about-slat {
+  position: absolute;
+  inset: 0;
+  height: var(--slat-h, 104px);
+  opacity: var(--lit, 1);
+  transform: rotateX(var(--a, 0deg)) translateZ(var(--r, 200px));
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
+/* the mango-yellow glow that rides whichever line is facing you */
+.about-slat::before {
+  position: absolute;
+  z-index: -1;
+  inset: 4% clamp(6px, 1vw, 18px);
+  border-radius: 999px;
+  background: var(--title-yellow);
+  content: "";
+  opacity: 0;
+}
+.about-reel[data-wheel="on"] .about-slat::before { opacity: var(--glow, 0); }
+
+/* the plain paragraph is the fallback when the drum is off */
+.about-reel[data-wheel="on"] + .about-plain {
+  max-width: 44ch;
+  margin-top: clamp(20px, 2.4vw, 32px);
+  font: 500 clamp(1.15rem, 0.95rem + 0.6vw, 1.6rem)/1.45 var(--font-round);
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  text-wrap: pretty;
+}
 
 .values-title { margin: clamp(64px, 8vw, 120px) 0 clamp(28px, 3.5vw, 52px); text-align: center; font-size: clamp(2rem, 1rem + 3vw, 4rem); color: var(--ink); }
 .values {
@@ -629,28 +719,15 @@ body.menu-open .menu-scrim { opacity: 1; }
   display: grid;
   justify-items: center;
   gap: 10px;
-  padding: 32px 30px 30px;
+  padding: clamp(34px, 4vw, 52px) 30px clamp(30px, 3.4vw, 42px);
   text-align: center;
   background: var(--paper);
   border: 5px solid var(--ink);
   border-radius: 30px;
   box-shadow: 8px 8px 0 var(--ink);
 }
-.avatar {
-  width: 180px;
-  aspect-ratio: 1;
-  margin-bottom: 8px;
-  border: 5px solid var(--ink);
-  border-radius: 50%;
-  overflow: hidden;
-  background: var(--card-blue);
-}
-.avatar img { width: 100%; height: 100%; object-fit: cover; }
-.avatar--empty { background: #ECE8DC; }
-.avatar--ai { display: grid; place-items: center; background: var(--title-yellow); }
-.avatar--ai img { width: 62%; height: auto; }
 .member-role { font: 800 13px/1.3 var(--font-text); letter-spacing: 0.1em; text-transform: uppercase; color: rgba(17, 17, 17, 0.65); }
-.member-name { font-family: var(--font-cartoon); font-weight: 400; font-size: 46px; line-height: 1; color: var(--ink); }
+.member-name { margin-top: 6px; font-family: var(--font-cartoon); font-weight: 400; font-size: clamp(44px, 4.4vw, 62px); line-height: 0.98; color: var(--ink); text-wrap: balance; }
 .member-bio { max-width: 30ch; font: 500 18px/1.5 var(--font-text); color: var(--ink); }
 .member-link { margin-top: 10px; }
 
@@ -659,6 +736,95 @@ body.menu-open .menu-scrim { opacity: 1; }
 .team.is-scrolly .team-pin { position: sticky; top: 0; height: 100svh; }
 .team.is-scrolly .team-list { position: absolute; inset: 0; max-width: none; margin: 0; display: block; }
 .team.is-scrolly .member { position: absolute; left: 0; top: 0; will-change: transform, opacity; }
+
+/* ── "YOUR AGENT COULD BE…": one big line that keeps swapping ──
+   The phrase is painted with a mango-to-sky gradient that slides across it, so
+   it shifts and glows without leaving the brand's four colours. */
+
+.could {
+  position: relative;
+  z-index: 2;
+  overflow: clip;
+  border-block: 6px solid var(--ink);
+  background: var(--ink);
+  padding: clamp(96px, 13vw, 200px) var(--gutter);
+}
+.could-glow {
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 50%;
+  width: min(1100px, 120%);
+  aspect-ratio: 2 / 1;
+  translate: -50% -50%;
+  background:
+    radial-gradient(ellipse 48% 62% at 34% 50%, rgba(255, 196, 60, 0.5), transparent 68%),
+    radial-gradient(ellipse 46% 58% at 70% 48%, rgba(46, 163, 223, 0.46), transparent 68%);
+  filter: blur(42px);
+  mix-blend-mode: screen;
+  animation: could-breathe 9s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes could-breathe {
+  0%, 100% { opacity: 0.75; scale: 1; }
+  50% { opacity: 1; scale: 1.08; }
+}
+
+.could-inner { position: relative; z-index: 1; max-width: 1180px; margin-inline: auto; text-align: center; }
+.could-title {
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  font-weight: 900;
+  font-size: clamp(1.35rem, 0.8rem + 2.1vw, 2.9rem);
+  line-height: 1;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: rgba(255, 253, 246, 0.72);
+}
+
+.could-slot {
+  position: relative;
+  height: 1.08em;
+  margin: clamp(10px, 1.4vw, 20px) 0 clamp(18px, 2.2vw, 32px);
+  font-family: var(--font-cartoon);
+  font-size: clamp(2.6rem, 0.9rem + 8.2vw, 9rem);
+  line-height: 1.08;
+  filter: drop-shadow(0 0 40px rgba(255, 222, 95, 0.45));
+}
+.could-word {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  white-space: nowrap;
+  background: linear-gradient(100deg, var(--title-yellow) 2%, var(--blob-orange) 20%, var(--services-blue) 42%, var(--sky-blue) 58%, var(--services-blue) 72%, var(--title-yellow) 94%);
+  background-size: 260% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: could-shift 7s linear infinite;
+}
+@keyframes could-shift { to { background-position: 260% 0; } }
+.could-word.is-out { opacity: 0; transform: translateY(-62%); transition: opacity 0.34s var(--ease), transform 0.44s var(--ease); }
+.could-word.is-in { opacity: 0; transform: translateY(62%); }
+.could-word.is-live { opacity: 1; transform: none; transition: opacity 0.34s var(--ease), transform 0.44s var(--ease); }
+
+/* the full list is what shows when the swap never runs */
+.could-list {
+  max-width: 34ch;
+  margin: clamp(10px, 1.4vw, 20px) auto clamp(18px, 2.2vw, 32px);
+  font-family: var(--font-cartoon);
+  font-size: clamp(1.6rem, 1rem + 2.8vw, 3.4rem);
+  line-height: 1.12;
+  color: var(--title-yellow);
+}
+.could-slot:not(:empty) + .could-list { display: none; }
+
+.could-note { max-width: 46ch; margin: 0 auto clamp(22px, 2.6vw, 34px); font: 500 var(--t-body)/1.5 var(--font-text); color: rgba(255, 253, 246, 0.72); }
+
+@media (prefers-reduced-motion: reduce) {
+  .could-glow, .could-word { animation: none; }
+}
 
 /* ── MANIFESTO: big lines that drift as you scroll ─ */
 
@@ -1154,7 +1320,7 @@ button.cal-day:active { transform: scale(0.94); transition-duration: 0.05s; }
   .page-hero-inner, .scope-head, .price-inner { grid-template-columns: 1fr; }
   .consult { grid-template-columns: auto 1fr; }
   .consult-go { display: none; }
-  .about-top, .book-head, .book-grid { grid-template-columns: 1fr; }
+  .book-head, .book-grid { grid-template-columns: 1fr; }
   .values { grid-template-columns: 1fr; max-width: 420px; }
   .mini-cards { grid-template-columns: 1fr; }
   .icon-tile { width: min(70vw, 320px); }
@@ -1174,13 +1340,10 @@ button.cal-day:active { transform: scale(0.94); transition-duration: 0.05s; }
 
 @media (max-width: 760px) {
   .member { width: min(320px, 84vw); padding: 22px 18px; }
-  .avatar { width: 104px; }
   .member-name { font-size: 34px; }
   .member-bio { font-size: 16px; }
   .team-word { font-size: 25vw; -webkit-text-stroke-width: 4px; }
   .team-pin { --arc-top: 30svh; }
-  .avatar { width: 124px; }
-  .about-band { height: 240px; }
   .about { border-radius: 28px 28px 0 0; border-top-width: 5px; }
   .services { padding: 56px 16px 64px; }
   .services-title { font-size: 11vw; margin-bottom: 32px; }
@@ -1209,9 +1372,10 @@ button.cal-day:active { transform: scale(0.94); transition-duration: 0.05s; }
 
 @media (prefers-reduced-motion: reduce) {
   .stack[open] .stack-card, .stack[open] .stack-item { animation: none; }
-  .about-sky { animation: none; }
   .value-inner { transform: none; transition: none; }
   .sky--live, .clouds-front, .ticker-run { animation: none; }
+  /* no drum: the paragraph is just a paragraph */
+  .about-reel { display: none; }
   .menu-panel { transition: opacity 0.2s ease; }
   .menu-panel[data-state="closed"] { transform: none; opacity: 0; }
   .menu-lines i, .menu-links > li > a { transition: none; }
