@@ -106,33 +106,27 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   else window.addEventListener('load', function () { setTimeout(intro, 400); });
 })();
 
-// About: the paragraph rides a drum that turns as the runway scrolls past.
-// Lines sit on a cylinder; whichever swings to the front lights up. The title
-// slides across with a trail of itself. Off entirely under reduced motion, and
-// off until measured, so the lines stay a readable paragraph if this never runs.
+// About: a huge ABOUT US stretched edge to edge, and under it the paragraph on
+// a wheel. The line facing you is plain black; the lines after it curve away
+// below, each a step smaller and fainter. Off under reduced motion, and off
+// until measured, so the lines stay a readable paragraph if this never runs.
 (function () {
   const reel = document.getElementById('about-reel');
   const wheel = document.getElementById('about-wheel');
   const drum = document.getElementById('about-drum');
   const stage = reel && reel.querySelector('.about-stage');
-  if (!reel || !wheel || !drum || !stage || reduceMotion) return;
+  const title = document.getElementById('about-title');
+  if (!reel || !wheel || !drum || !stage || !title || reduceMotion) return;
 
   const source = reel.parentElement.querySelector('.about-plain');
-  const sliders = [].slice.call(stage.querySelectorAll('.about-title, .about-ghost'));
   const words = source ? source.textContent.trim().split(/\s+/) : [];
   if (!words.length) return;
 
-  const RAD = Math.PI / 180;
-  // A fixed angle between lines, rather than 360/count, so the same few lines
-  // face you whether the drum carries ten long lines or twenty short ones.
-  const STEP = 32;
-  const EDGE = 95;
-  let slats = [];
-  let SPAN = 320;
+  const TILT = 19;   // degrees between one line and the next
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
-  let slatH = 104;
-  let travel = 0;
+  let lines = [];
+  let step = 60;
   let top = 0;
   let runway = 1;
   let ticking = false;
@@ -143,75 +137,78 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
     return y;
   }
 
-  // Break the paragraph into lines short enough that each one, stretched across
-  // the stage, lands at a readable size. Narrow screens get shorter lines, so the
-  // type stays big instead of shrinking to fit a long line into a phone.
+  // the width of a string's letters at a given font, in px
+  function inkWidth(text, cs, size) {
+    ctx.font = cs.fontStyle + ' ' + cs.fontWeight + ' ' + size + 'px ' + cs.fontFamily;
+    const m = ctx.measureText(text);
+    return (m.actualBoundingBoxLeft || 0) + (m.actualBoundingBoxRight || m.width);
+  }
+
   function split(boxWidth) {
-    const per = Math.max(17, Math.round(boxWidth / 46));
-    const lines = [];
+    const per = Math.max(18, Math.round(boxWidth / 42));
+    const out = [];
     let line = '';
     words.forEach(function (w) {
       const next = line ? line + ' ' + w : w;
-      if (line && next.length > per) { lines.push(line); line = w; } else { line = next; }
+      if (line && next.length > per) { out.push(line); line = w; } else { line = next; }
     });
-    if (line) lines.push(line);
-    return lines;
+    if (line) out.push(line);
+    return out;
   }
 
   function build(boxWidth) {
-    const lines = split(boxWidth);
-    if (lines.length < 3) return false;
-    if (slats.length === lines.length && slats[0].textContent === lines[0]) return true;
+    const text = split(boxWidth);
+    if (text.length < 3) return false;
+    if (lines.length === text.length && lines[0].textContent === text[0]) return true;
     drum.replaceChildren();
-    slats = lines.map(function (text, i) {
+    lines = text.map(function (t) {
       const el = document.createElement('p');
-      el.className = 'about-slat';
-      el.style.setProperty('--i', String(i));
-      el.textContent = text;
+      el.className = 'about-line';
+      el.textContent = t;
       drum.appendChild(el);
       return el;
     });
-    SPAN = (slats.length - 1) * STEP;
     return true;
   }
 
-  // Set each line's size from the width of its own letters, so every line
-  // spans the stage however many characters it has.
-  function fit() {
-    const box = wheel.clientWidth;
-    if (!box) return false;
-    const target = box * 0.97;
-    const probe = 100;
-    let ok = false;
-    slats.forEach(function (el) {
-      const cs = getComputedStyle(el);
-      ctx.font = cs.fontStyle + ' ' + cs.fontWeight + ' ' + probe + 'px ' + cs.fontFamily;
-      const m = ctx.measureText(el.textContent);
-      const ink = (m.actualBoundingBoxLeft || 0) + (m.actualBoundingBoxRight || m.width);
-      if (ink > 0) {
-        el.style.setProperty('--fit', (probe * target / ink).toFixed(2) + 'px');
-        ok = true;
-      }
-    });
-    return ok;
+  // Measured off the live element, not a canvas: canvas ignores font-stretch,
+  // and this title is set at 125% width, so a canvas measure runs ~20% narrow
+  // and the title ends up overflowing the page.
+  function fitTitle(box) {
+    const ink = title.querySelector('.about-title-ink');
+    if (!ink) return;
+    title.style.setProperty('--fit-title', '100px');
+    const w = ink.getBoundingClientRect().width;
+    if (w <= 0) return;
+    // edge to edge, capped so it can never crowd out the wheel below it
+    const size = Math.min(100 * (box * 0.96) / w, window.innerHeight * 0.3);
+    title.style.setProperty('--fit-title', size.toFixed(1) + 'px');
+  }
+
+  // One size for every line, taken from the longest, so they read as one
+  // paragraph rather than each being stretched to a different scale.
+  function fitLines(box) {
+    if (!lines.length) return false;
+    const cs = getComputedStyle(lines[0]);
+    let widest = 0;
+    lines.forEach(function (el) { widest = Math.max(widest, inkWidth(el.textContent, cs, 100)); });
+    if (widest <= 0) return false;
+    const size = Math.min(100 * (box * 0.94) / widest, window.innerHeight * 0.088);
+    lines.forEach(function (el) { el.style.setProperty('--fit', size.toFixed(2) + 'px'); });
+    return true;
   }
 
   function measure() {
     reel.dataset.wheel = 'off';
-    if (!build(wheel.clientWidth || window.innerWidth) || !fit()) return;
-    // the tallest line decides the drum's slat height, so none of them clip
-    slatH = slats.reduce(function (h, el) { return Math.max(h, el.offsetHeight); }, 0);
-    const widest = slats.reduce(function (w, el) { return Math.max(w, el.offsetWidth); }, 0);
+    const box = wheel.clientWidth || window.innerWidth;
+    if (!build(box) || !fitLines(box)) return;
+    step = lines[0].offsetHeight * 1.3;
     reel.dataset.wheel = 'on';
-    const radius = (slatH / 2) / Math.tan(STEP / 2 * RAD);
-    wheel.style.setProperty('--slat-h', slatH + 'px');
-    wheel.style.setProperty('--radius', radius.toFixed(1) + 'px');
-    wheel.style.setProperty('--persp', Math.round(radius * 5.2) + 'px');
-    slats.forEach(function (el) { el.style.setProperty('--r', radius.toFixed(1) + 'px'); });
-    travel = Math.max(0, stage.clientWidth - sliders[0].offsetWidth - 24);
-    // every line gets a similar amount of scroll, with a ceiling so a phone's
+    fitTitle(stage.clientWidth || box);
+    wheel.style.setProperty('--persp', Math.round(step * 13) + 'px');
+    // each line gets its own stretch of scroll, with a ceiling so a phone's
     // many short lines don't turn the section into an endless runway
-    reel.style.height = (1 + Math.min(slats.length * 0.26, 2.8)) * 100 + 'vh';
+    reel.style.height = (1 + Math.min(lines.length * 0.42, 3.2)) * 100 + 'vh';
     top = pageTop(reel);
     runway = Math.max(1, reel.offsetHeight - window.innerHeight);
     render();
@@ -220,27 +217,20 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   function render() {
     ticking = false;
     const p = Math.min(1, Math.max(0, (window.scrollY - top) / runway));
-    // Dwell on each line, then click to the next, so one line is lit at a time
-    // instead of two sitting half-faced between detents.
-    const idx = p * (slats.length - 1);
-    const base = Math.floor(idx);
-    let f = idx - base;
-    f = f <= 0.32 ? 0 : f >= 0.78 ? 1 : (f - 0.32) / 0.46;
-    f = f * f * (3 - 2 * f);
-    const turn = (base + f) * STEP;
-    slats.forEach(function (el, i) {
-      // no wrap-around: the strip is bent into an arc, so a line never swings
-      // back up to collide with one on the far side of the drum. Scrolling down
-      // rolls the next line up from the bottom, the way reading runs.
-      const a = turn - i * STEP;
-      const off = Math.abs(a) >= EDGE;
-      const lit = off ? 0 : Math.max(0, Math.cos(a * RAD));
-      el.style.setProperty('--a', a.toFixed(2) + 'deg');
-      el.style.setProperty('--lit', off ? '0' : (0.1 + 0.9 * Math.pow(lit, 1.7)).toFixed(3));
-      el.style.setProperty('--glow', (Math.pow(lit, 9) * 0.92).toFixed(3));
+    const head = p * (lines.length - 1);
+    lines.forEach(function (el, i) {
+      const d = i - head;
+      // ahead of the line facing you: stacked below, tipping away, each step
+      // smaller and fainter. Behind it: tips up over the top and dissolves.
+      const o = d < 0 ? Math.max(0, 1 + d * 1.5) : Math.pow(0.42, d);
+      const sc = d <= 0 ? 1 : Math.max(0.58, 1 - 0.1 * d);
+      const ty = d >= 0 ? d * step : d * step * 1.25;
+      const rx = Math.max(-72, Math.min(72, -d * TILT));
+      el.style.setProperty('--o', o.toFixed(3));
+      el.style.setProperty('--sc', sc.toFixed(3));
+      el.style.setProperty('--ty', ty.toFixed(1) + 'px');
+      el.style.setProperty('--rx', rx.toFixed(1) + 'deg');
     });
-    const slide = (p * travel).toFixed(1) + 'px';
-    sliders.forEach(function (el) { el.style.setProperty('--slide', slide); });
   }
 
   window.addEventListener('scroll', function () {
@@ -505,7 +495,6 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   const OPEN_HOURS = [9, 10, 11, 12, 13, 14, 15, 16];
   const MONTHS_AHEAD = 3;
   const TZ = 'America/Toronto';
-  const EMAIL = 'hello@mangostudios.xyz';
 
   const monthEl = document.getElementById('cal-month');
   const daysEl = document.getElementById('cal-days');
@@ -587,13 +576,161 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
     [].forEach.call(slotList.children, function (b) { b.setAttribute('aria-pressed', String(b.textContent === hourLabel(h))); });
     const when = fmtDay.format(picked) + ' at ' + hourLabel(h) + ' ET';
     choice.textContent = when;
-    go.href = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent('AI Consulting session') +
-      '&body=' + encodeURIComponent("Hi Mango Studios,\n\nI'd like to book an AI Consulting session on " + when + ' (Toronto time).\n\n');
+    // hand the chosen slot to the booking form; the booking happens on the site
+    const slotField = document.getElementById('bf-slot');
+    const slotLabel = document.getElementById('bf-when');
+    if (slotField) slotField.value = when + ' (Toronto time)';
+    if (slotLabel) slotLabel.textContent = when;
     sum.hidden = false;
   }
   prev.addEventListener('click', function () { view = new Date(view.getFullYear(), view.getMonth() - 1, 1); renderMonth(); });
   next.addEventListener('click', function () { view = new Date(view.getFullYear(), view.getMonth() + 1, 1); renderMonth(); });
   renderMonth();
+})();
+
+// Booking and project forms. Both post to /api/send, which is the only place the
+// Resend key exists; the page never sees it. Nothing is reported as sent unless
+// the request actually succeeded.
+(function () {
+  const dialogs = [].slice.call(document.querySelectorAll('.formbox'));
+  if (!dialogs.length || typeof HTMLDialogElement !== 'function') return;
+
+  let opener = null;
+
+  function open(dialog, trigger) {
+    if (!dialog || typeof dialog.showModal !== 'function') return;
+    opener = trigger || null;
+    dialog.showModal();
+    const first = dialog.querySelector('select, input:not([type="hidden"]), textarea');
+    if (first) first.focus({ preventScroll: true });
+  }
+
+  document.querySelectorAll('[data-project-open]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const dialog = document.getElementById('project-form');
+      const type = btn.getAttribute('data-project-type');
+      const select = document.getElementById('pf-type');
+      if (type && select) {
+        [].forEach.call(select.options, function (o) { if (o.text === type) select.value = o.value; });
+      }
+      open(dialog, btn);
+    });
+  });
+
+  const bookGo = document.getElementById('book-go');
+  if (bookGo) {
+    bookGo.addEventListener('click', function () {
+      open(document.getElementById('booking-form'), bookGo);
+    });
+  }
+
+  dialogs.forEach(function (dialog) {
+    dialog.querySelectorAll('[data-form-close]').forEach(function (btn) {
+      btn.addEventListener('click', function () { dialog.close(); });
+    });
+    // clicking the backdrop closes it
+    dialog.addEventListener('click', function (event) {
+      if (event.target === dialog) dialog.close();
+    });
+    dialog.addEventListener('close', function () {
+      if (opener && document.contains(opener)) opener.focus({ preventScroll: true });
+      opener = null;
+    });
+
+    const form = dialog.querySelector('form[data-form]');
+    if (!form) return;
+    const status = form.querySelector('.formbox-status');
+    const send = form.querySelector('.formbox-send');
+    let sending = false;
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      if (sending) return;
+      if (!form.reportValidity()) return;
+
+      // every control on the form, in order, blank ones included
+      const fields = [].slice.call(form.elements)
+        .filter(function (el) { return el.name && el.type !== 'submit' && el.type !== 'button'; })
+        .map(function (el) { return { label: el.name, value: el.value }; });
+
+      sending = true;
+      send.disabled = true;
+      const label = send.innerHTML;
+      send.textContent = 'Sending\u2026';
+      status.textContent = '';
+      status.className = 'formbox-status';
+
+      fetch('/api/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ form: form.dataset.form, fields: fields }),
+      }).then(function (res) {
+        return res.json().catch(function () { return {}; }).then(function (data) {
+          if (!res.ok || !data.ok) {
+            const err = new Error(data.error || 'That did not send.');
+            err.fallback = !!data.fallback;
+            throw err;
+          }
+        });
+      }).then(function () {
+        form.classList.add('is-sent');
+        status.className = 'formbox-status is-good';
+        status.textContent = 'Sent. We\u2019ll be in touch by email.';
+        send.textContent = 'Sent';
+      }).catch(function (err) {
+        status.className = 'formbox-status is-bad';
+        status.textContent = err.message || 'That did not send. Please try again.';
+        if (err.fallback) {
+          // nothing is set up to receive this yet, so point them somewhere that works
+          const link = document.createElement('a');
+          link.href = 'https://www.linkedin.com/company/mango-studios1/';
+          link.target = '_blank';
+          link.rel = 'noopener';
+          link.textContent = ' Reach us on LinkedIn \u2197';
+          status.appendChild(link);
+        }
+        send.innerHTML = label;
+        send.disabled = false;
+        sending = false;
+      });
+    });
+  });
+})();
+
+// After two minutes on the site, offer the readiness quiz once. Dismissing it,
+// or taking the quiz, retires it for good. Storage can throw or come back empty
+// in a private window, so a failure here just means they may see it again.
+(function () {
+  const nudge = document.getElementById('nudge');
+  if (!nudge) return;
+
+  const KEY = 'ms-nudge-seen';
+  const DELAY = 120000;
+
+  function seen() {
+    try { return localStorage.getItem(KEY) === '1'; } catch (err) { return false; }
+  }
+  function remember() {
+    try { localStorage.setItem(KEY, '1'); } catch (err) { /* nothing to do */ }
+  }
+
+  if (seen()) return;
+
+  const timer = window.setTimeout(function () { nudge.hidden = false; }, DELAY);
+
+  function dismiss() {
+    window.clearTimeout(timer);
+    remember();
+    if (nudge.hidden) return;
+    nudge.classList.add('is-going');
+    window.setTimeout(function () { nudge.hidden = true; }, reduceMotion ? 0 : 300);
+  }
+
+  document.getElementById('nudge-x').addEventListener('click', dismiss);
+  nudge.querySelector('.nudge-go').addEventListener('click', remember);
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && !nudge.hidden) dismiss();
+  });
 })();
 
 // The menu marks the section in view on the home page.

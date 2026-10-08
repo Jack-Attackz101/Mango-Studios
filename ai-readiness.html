@@ -31,55 +31,55 @@
         <li><a href="index.html#manifesto" data-section="manifesto">Manifesto</a></li>
         <li><a href="index.html#faq" data-section="faq">FAQ</a></li>
       </ul>
-      <a class="btn menu-cta" href="mailto:hello@mangostudios.xyz?subject=Hello">Talk to us</a>
+      <button class="btn menu-cta" type="button" data-project-open>Talk to us</button>
     </nav>
   </header>
 
-  <main id="main" class="readiness-page">
+  <main id="main" class="rq">
     <div class="sky sky--live" aria-hidden="true"></div>
     <div class="clouds-front" aria-hidden="true"></div>
     <div class="sky-stickers" aria-hidden="true">
-      <img class="sky-sticker" style="--x: 26%; --y: 58%; --r: -9deg;  --s: 72px; --d: 0s;"    src="assets/trail-key.png" alt="">
-      <img class="sky-sticker" style="--x: 47%; --y: 47%; --r: 11deg;  --s: 68px; --d: -2.4s;" src="assets/trail-wink.png" alt="">
-      <img class="sky-sticker" style="--x: 80%; --y: 53%; --r: -14deg; --s: 80px; --d: -4.1s;" src="assets/trail-hourglass.png" alt="">
-      <img class="sky-sticker" style="--x: 62%; --y: 62%; --r: 7deg;   --s: 64px; --d: -1.2s;" src="assets/trail-pencil.png" alt="">
+      <img class="sky-sticker" style="--x: 7%;  --y: 22%; --r: -9deg;  --s: 78px; --d: 0s;"    src="assets/trail-key.png" alt="">
+      <img class="sky-sticker" style="--x: 88%; --y: 17%; --r: 11deg;  --s: 72px; --d: -2.4s;" src="assets/trail-wink.png" alt="">
+      <img class="sky-sticker" style="--x: 12%; --y: 74%; --r: -14deg; --s: 84px; --d: -4.1s;" src="assets/trail-hourglass.png" alt="">
+      <img class="sky-sticker" style="--x: 85%; --y: 70%; --r: 7deg;   --s: 68px; --d: -1.2s;" src="assets/trail-pencil.png" alt="">
     </div>
-    <div class="readiness-content">
-      <div class="readiness-grid">
-        <div class="readiness-rail">
-          <h1 class="readiness-title display" id="page-title">Could AI give your shop a little breathing room?</h1>
-          <p class="intro-lead">Eight quick questions about the way work gets done. Get a score and one practical place to start.</p>
-        </div>
 
-        <div class="readiness-aside">
-          <aside class="stat-card" aria-label="Statistics Canada finding">
-            <p class="stat-number">25.6<span>%</span></p>
-            <p class="stat-copy">of Canadian businesses with 1–4 employees <strong>planned to use AI</strong> in the next 12 months.</p>
-            <p class="stat-detail">Planned use: 21.0% (5–19 employees) · 25.2% overall</p>
-            <p class="stat-source">Statistics Canada, Q3 2026; survey ran July 2–August 6. Plans, not measured adoption. <a href="https://www150.statcan.gc.ca/n1/pub/11-621-m/11-621-m2026013-eng.htm" target="_blank" rel="noopener">Read the source ↗</a></p>
-          </aside>
-          <p class="rail-note"><span aria-hidden="true">✳</span> Your answers stay in this page. Nothing is saved or sent.</p>
-        </div>
+    <!-- 1. the invitation -->
+    <section class="rq-panel rq-intro" id="rq-intro" aria-labelledby="page-title">
+      <div class="rq-inner">
+        <h1 class="rq-title display" id="page-title">Could AI give your shop a little breathing room?</h1>
+        <p class="rq-lead">Eight quick questions about the way work gets done. You get a score and one practical place to start.</p>
 
-        <section class="quiz-card" aria-labelledby="page-title">
-          <div class="quiz-head">
-            <span class="quiz-kicker" id="step-count">Question 1 of 8</span>
-            <span class="quiz-timing" id="quiz-timing">About 60 seconds</span>
-          </div>
-          <div class="progress-track" id="progress-track" role="progressbar" aria-label="Quiz progress" aria-valuemin="1" aria-valuemax="8" aria-valuenow="1"></div>
+        <aside class="fact" aria-label="Statistics Canada finding">
+          <p class="fact-number"><span data-count="25.6" data-dp="1">0.0</span><span class="fact-pct">%</span></p>
+          <p class="fact-copy">of Canadian businesses with 1&ndash;4 employees <strong>planned to use AI</strong> in the next 12 months.</p>
+          <p class="fact-source">Statistics Canada, Q3 2026 &middot; <span data-count="25.2" data-dp="1">0.0</span>% across all business sizes. <a href="https://www150.statcan.gc.ca/n1/pub/11-621-m/11-621-m2026013-eng.htm" target="_blank" rel="noopener">Source &#8599;</a></p>
+        </aside>
 
-          <div class="quiz-body" id="quiz-body"></div>
-
-          <div class="quiz-controls" id="quiz-controls">
-            <button class="quiz-back" id="back-button" type="button" hidden><span aria-hidden="true">←</span> Back</button>
-            <p class="quiz-hint" id="quiz-hint">Pick one — or press <kbd>A</kbd> <kbd>B</kbd> <kbd>C</kbd></p>
-          </div>
-          <p class="sr-only" id="quiz-announcement" aria-live="polite" aria-atomic="true"></p>
-        </section>
+        <button class="btn rq-start" id="rq-start" type="button">Start the quiz <span aria-hidden="true">&rarr;</span></button>
+        <p class="rq-micro">8 questions &middot; about 60 seconds &middot; nothing is saved or sent</p>
       </div>
-    </div>
-    <div class="ticker readiness-ticker" aria-hidden="true"><div class="ticker-run"><span class="tick-item"><img src="assets/icon-key.png" alt="">Custom Sites &amp; Apps</span><span class="tick-item"><img src="assets/icon-wink.png" alt="">Custom AI Agents</span><span class="tick-item"><img src="assets/icon-cursor.png" alt="">Custom Automations</span><span class="tick-item"><img src="assets/trail-mug.png" alt="">AI Consulting</span><span class="tick-item"><img src="assets/icon-key.png" alt="">Custom Sites &amp; Apps</span><span class="tick-item"><img src="assets/icon-wink.png" alt="">Custom AI Agents</span><span class="tick-item"><img src="assets/icon-cursor.png" alt="">Custom Automations</span><span class="tick-item"><img src="assets/trail-mug.png" alt="">AI Consulting</span></div></div>
-    <div class="sky-hem" aria-hidden="true"></div>
+    </section>
+
+    <!-- 2 + 3. the quiz, and the result it turns into -->
+    <section class="rq-panel rq-stage" id="rq-stage" aria-label="AI readiness quiz" hidden>
+      <div class="quiz-card">
+        <div class="quiz-head">
+          <span class="quiz-kicker" id="step-count">Question 1 of 8</span>
+          <button class="quiz-quit" id="quiz-quit" type="button">Start over</button>
+        </div>
+        <div class="progress-track" id="progress-track" role="progressbar" aria-label="Quiz progress" aria-valuemin="1" aria-valuemax="8" aria-valuenow="1"></div>
+        <div class="quiz-body" id="quiz-body"></div>
+        <div class="quiz-controls" id="quiz-controls">
+          <button class="quiz-back" id="back-button" type="button" hidden><span aria-hidden="true">&larr;</span> Back</button>
+          <p class="quiz-hint" id="quiz-hint">Pick one &mdash; or press <kbd>A</kbd> <kbd>B</kbd> <kbd>C</kbd></p>
+        </div>
+      </div>
+      <p class="sr-only" id="quiz-announcement" aria-live="polite" aria-atomic="true"></p>
+    </section>
+
+    <div class="ticker rq-ticker" aria-hidden="true"><div class="ticker-run"><span class="tick-item"><img src="assets/icon-key.png" alt="">Custom Sites &amp; Apps</span><span class="tick-item"><img src="assets/icon-wink.png" alt="">Custom AI Agents</span><span class="tick-item"><img src="assets/icon-cursor.png" alt="">Custom Automations</span><span class="tick-item"><img src="assets/trail-mug.png" alt="">AI Consulting</span><span class="tick-item"><img src="assets/icon-key.png" alt="">Custom Sites &amp; Apps</span><span class="tick-item"><img src="assets/icon-wink.png" alt="">Custom AI Agents</span><span class="tick-item"><img src="assets/icon-cursor.png" alt="">Custom Automations</span><span class="tick-item"><img src="assets/trail-mug.png" alt="">AI Consulting</span></div></div>
   </main>
 
   <footer class="footer readiness-footer">
@@ -109,7 +109,6 @@
       <div class="footer-col">
         <h3>Contact</h3>
         <ul>
-          <li><a href="mailto:hello@mangostudios.xyz">hello@mangostudios.xyz</a></li>
           <li><a href="https://www.linkedin.com/company/mango-studios1/" target="_blank" rel="noopener">LinkedIn</a></li>
           <li><a href="https://mangostudios.xyz">mangostudios.xyz</a></li>
         </ul>
@@ -117,6 +116,71 @@
     </div>
     <div class="footer-base"><span>© 2026 Mango Studios</span></div>
   </footer>
+
+  <dialog class="formbox" id="project-form" aria-labelledby="project-form-title">
+    <form class="formbox-card" id="project-form-form" data-form="Start a project" novalidate>
+      <div class="formbox-top">
+        <div>
+          <p class="formbox-brand"><img src="assets/logo-stamp.png" alt="" width="46" height="46"> Mango Studios</p>
+          <h2 class="formbox-title" id="project-form-title">Start a project</h2>
+        </div>
+        <button class="formbox-x" type="button" data-form-close aria-label="Close">&times;</button>
+      </div>
+      <p class="formbox-lead">Tell us what you want built. You get a real price back, not a discovery call.</p>
+
+      <div class="formbox-fields">
+        <p class="field">
+          <label for="pf-type">What do you need</label>
+          <select id="pf-type" name="What do you need" required>
+            <option>Custom Sites & Apps</option>
+            <option>Custom AI Agents</option>
+            <option>Custom Automations</option>
+            <option>AI Consulting</option>
+          </select>
+        </p>
+        <p class="field">
+          <label for="pf-name">Your name</label>
+          <input id="pf-name" name="Your name" type="text" autocomplete="name" required>
+        </p>
+        <p class="field">
+          <label for="pf-email">Email</label>
+          <input id="pf-email" name="Email" type="email" autocomplete="email" required>
+        </p>
+        <p class="field">
+          <label for="pf-biz">Business</label>
+          <input id="pf-biz" name="Business" type="text" autocomplete="organization">
+        </p>
+        <p class="field">
+          <label for="pf-budget">Budget</label>
+          <select id="pf-budget" name="Budget" required>
+            <option>Not sure yet</option>
+            <option>Under $500</option>
+            <option>$500 - $1,500</option>
+            <option>$1,500 - $5,000</option>
+            <option>Over $5,000</option>
+          </select>
+        </p>
+        <p class="field">
+          <label for="pf-when">Timeline</label>
+          <select id="pf-when" name="Timeline" required>
+            <option>Not sure yet</option>
+            <option>As soon as possible</option>
+            <option>In the next month</option>
+            <option>In the next few months</option>
+          </select>
+        </p>
+        <p class="field">
+          <label for="pf-detail">What are you trying to build</label>
+          <textarea id="pf-detail" name="What are you trying to build" rows="4" type="text"></textarea>
+        </p>
+      </div>
+      <div class="formbox-actions">
+        <button class="btn formbox-send" type="submit">Send it <span aria-hidden="true">&rarr;</span></button>
+        <p class="formbox-status" id="project-form-status" role="status" aria-live="polite"></p>
+      </div>
+      <p class="formbox-fine">Goes straight to Mango Studios. We reply from here, not a bot.</p>
+    </form>
+  </dialog>
 
   <script src="main.js"></script>
   <script>
@@ -215,7 +279,7 @@
           copy: 'A site or app designed, built, and launched around the next step your customers need. Final price depends on size.',
           href: 'sites-and-apps.html',
           cta: 'Ask about a website or app',
-          contact: 'mailto:hello@mangostudios.xyz?subject=Custom%20Sites%20%26%20Apps%20quote',
+          type: 'Custom Sites &amp; Apps',
         },
         agents: {
           title: 'Custom AI Agents',
@@ -223,7 +287,7 @@
           copy: 'An agent for a specific job, such as answering customer questions from your own information and passing tricky ones to a person.',
           href: 'ai-agents.html',
           cta: 'Ask about a custom AI agent',
-          contact: 'mailto:hello@mangostudios.xyz?subject=Custom%20AI%20Agents%20quote',
+          type: 'Custom AI Agents',
         },
         automation: {
           title: 'Custom Automations',
@@ -231,7 +295,7 @@
           copy: 'Connect the tools you already use and automate repetitive workflows, IT tasks, or daily operations. Final price depends on the tasks.',
           href: 'automations.html',
           cta: 'Ask about an automation',
-          contact: 'mailto:hello@mangostudios.xyz?subject=Custom%20Automations%20quote',
+          type: 'Custom Automations',
         },
         consulting: {
           title: 'AI Consulting',
@@ -239,7 +303,7 @@
           copy: 'A practical conversation about where AI could help your business, what to skip, and a useful next step — with no pressure to build.',
           href: 'consulting.html#book',
           cta: 'Book an AI Consulting session',
-          contact: 'consulting.html#book',
+          href2: 'consulting.html#book',
         },
       };
 
@@ -257,8 +321,65 @@
       const card = document.querySelector('.quiz-card');
       const body = document.getElementById('quiz-body');
       const track = document.getElementById('progress-track');
+      /* ── the three beats ───────────────────── */
+
+      const intro = document.getElementById('rq-intro');
+      const stageEl = document.getElementById('rq-stage');
+      const startBtn = document.getElementById('rq-start');
+
+      function swapPanel(from, to, after) {
+        if (reduce) {
+          from.hidden = true;
+          to.hidden = false;
+          if (after) after();
+          return;
+        }
+        from.classList.add('is-leaving');
+        window.setTimeout(function () {
+          from.classList.remove('is-leaving');
+          from.hidden = true;
+          to.hidden = false;
+          to.classList.add('is-entering');
+          window.setTimeout(function () { to.classList.remove('is-entering'); }, 540);
+          if (after) after();
+        }, 300);
+      }
+
+      startBtn.addEventListener('click', function () {
+        swapPanel(intro, stageEl, function () {
+          stageEl.scrollIntoView({ block: 'start', behavior: reduce ? 'auto' : 'smooth' });
+          showQuestion(0, true);
+        });
+      });
+
+      /* Dial the fact's numbers up the first time they come into view. */
+      (function () {
+        const nums = [].slice.call(document.querySelectorAll('[data-count]'));
+        if (!nums.length) return;
+        if (reduce || !('IntersectionObserver' in window)) {
+          nums.forEach(function (el) { el.textContent = (+el.dataset.count).toFixed(+el.dataset.dp || 0); });
+          return;
+        }
+        const io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            io.unobserve(entry.target);
+            const el = entry.target;
+            const to = +el.dataset.count;
+            const dp = +el.dataset.dp || 0;
+            const start = performance.now() + 260;
+            (function tick(now) {
+              const t = Math.min(Math.max((now - start) / 1100, 0), 1);
+              el.textContent = (to * (1 - Math.pow(1 - t, 3))).toFixed(dp);
+              if (t < 1) requestAnimationFrame(tick);
+            })(performance.now());
+          });
+        }, { threshold: 0.55 });
+        nums.forEach(function (el) { io.observe(el); });
+      })();
+
       const stepCount = document.getElementById('step-count');
-      const timing = document.getElementById('quiz-timing');
+      const quit = document.getElementById('quiz-quit');
       const controls = document.getElementById('quiz-controls');
       const backButton = document.getElementById('back-button');
       const hint = document.getElementById('quiz-hint');
@@ -271,12 +392,16 @@
 
       /* ── progress pips ─────────────────────── */
 
-      const pips = questions.map(function () {
-        const pip = document.createElement('span');
-        pip.className = 'pip';
-        track.appendChild(pip);
-        return pip;
-      });
+      let pips = [];
+      function renderPips() {
+        pips = questions.map(function () {
+          const pip = document.createElement('span');
+          pip.className = 'pip';
+          track.appendChild(pip);
+          return pip;
+        });
+        paintPips();
+      }
 
       function paintPips() {
         pips.forEach(function (pip, i) {
@@ -370,7 +495,7 @@
           text.className = 'answer-text';
           text.textContent = choice.label;
 
-          label.classList.toggle('is-selected', input.checked);
+          label.classList.toggle('is-picked', input.checked);
           label.append(input, key, text);
           label.addEventListener('click', function () { pick(index); });
           options.appendChild(label);
@@ -384,7 +509,7 @@
         done = false;
         clearConfetti();
         stepCount.textContent = 'Question ' + (current + 1) + ' of ' + questions.length;
-        timing.hidden = false;
+        quit.hidden = current === 0 && answers.every(function (a) { return a === null; });
         track.hidden = false;
         track.setAttribute('aria-valuenow', String(current + 1));
         controls.hidden = false;
@@ -413,8 +538,13 @@
         answers[current] = index;
         const opts = slide.querySelectorAll('.answer-option');
         opts.forEach(function (opt, i) {
-          opt.classList.toggle('is-selected', i === index);
-          opt.querySelector('input').checked = i === index;
+          const mine = i === index;
+          opt.classList.remove('is-picked', 'is-dimmed');
+          // reflow so the pop replays when you change your mind on the same row
+          void opt.offsetWidth;
+          opt.classList.toggle('is-picked', mine);
+          opt.classList.toggle('is-dimmed', !mine);
+          opt.querySelector('input').checked = mine;
         });
         announcement.textContent = 'Selected: ' + questions[current].choices[index].label;
         paintPips();
@@ -576,7 +706,7 @@
         const result = getRecommendation();
         done = true;
         stepCount.textContent = 'Your result';
-        timing.textContent = result.score + ' / ' + MAX + ' friction points';
+        quit.hidden = true;
         track.setAttribute('aria-valuenow', String(questions.length));
         controls.hidden = true;
         paintPips();
@@ -593,15 +723,24 @@
       function restartQuiz() {
         answers.fill(null);
         current = 0;
-        timing.textContent = 'About 60 seconds';
         showQuestion(-1, true);
         announcement.textContent = 'Quiz restarted.';
       }
 
+      quit.addEventListener('click', function () {
+        answers.fill(null);
+        current = 0;
+        done = false;
+        clearConfetti();
+        swapPanel(stageEl, intro, function () {
+          intro.scrollIntoView({ block: 'start', behavior: reduce ? 'auto' : 'smooth' });
+        });
+      });
+
       /* ── keyboard ──────────────────────────── */
 
       document.addEventListener('keydown', function (event) {
-        if (done || busy || event.metaKey || event.ctrlKey || event.altKey) return;
+        if (done || busy || stageEl.hidden || event.metaKey || event.ctrlKey || event.altKey) return;
         const tag = (event.target.tagName || '').toLowerCase();
         if (tag === 'input' && event.target.type !== 'radio') return;
         if (tag === 'textarea' || tag === 'select') return;
@@ -622,7 +761,7 @@
         }
       });
 
-      showQuestion(0, false);
+      renderPips();
     })();
   </script>
 </body>
