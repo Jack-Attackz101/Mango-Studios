@@ -53,13 +53,7 @@
     <section class="about" id="about" aria-labelledby="about-title">
       <div class="about-reel" id="about-reel" data-wheel="off">
         <div class="about-stage">
-          <div class="about-head">
-          <h2 class="about-title display" id="about-title">About us</h2>
-          <span class="about-ghost" style="--g: 4" aria-hidden="true">About us</span>
-          <span class="about-ghost" style="--g: 3" aria-hidden="true">About us</span>
-          <span class="about-ghost" style="--g: 2" aria-hidden="true">About us</span>
-          <span class="about-ghost" style="--g: 1" aria-hidden="true">About us</span>
-          </div>
+          <h2 class="about-title display" id="about-title"><span class="about-title-ink">About us</span></h2>
           <div class="about-wheel" id="about-wheel"><div class="about-drum" id="about-drum"></div></div>
         </div>
       </div>
@@ -120,9 +114,8 @@
     </section>
 
     <section class="apps" id="apps" aria-labelledby="apps-title">
-      <h2 class="apps-title" id="apps-title">Our software</h2>
-      <p class="apps-line">We build our own apps too. Klaritea is out now.</p>
-      <a class="btn btn--white" href="software.html">See our software</a>
+      <h2 class="apps-title display" id="apps-title">We build our own apps too</h2>
+      <a class="btn btn--white" href="software.html">See our software <span aria-hidden="true">&rarr;</span></a>
     </section>
 
     <section class="team" id="team" aria-labelledby="team-title" style="--n: 4" data-ride="150">
@@ -163,6 +156,20 @@
       </div>
     </section>
 
+    <section class="quizband" aria-labelledby="quizband-title">
+      <div class="sky sky--live" aria-hidden="true"></div>
+      <div class="clouds-front" aria-hidden="true"></div>
+      <img class="quizband-sticker" src="assets/trail-hourglass.png" alt="" aria-hidden="true" width="120" height="150">
+      <img class="quizband-sticker quizband-sticker--b" src="assets/trail-wink.png" alt="" aria-hidden="true" width="120" height="120">
+      <div class="quizband-card">
+        <div class="quizband-copy">
+          <h2 class="quizband-title" id="quizband-title">Not sure what you need?</h2>
+          <p class="quizband-text">Eight questions about the way work gets done. You get a score and one practical place to start.</p>
+          <a class="btn quizband-go" href="ai-readiness.html">Take the AI readiness quiz <span aria-hidden="true">&rarr;</span></a>
+        </div>
+        <p class="quizband-stat"><span class="quizband-num">25.6%</span><span class="quizband-cap">of Canadian shops with 1&ndash;4 staff planned to use AI this year</span></p>
+      </div>
+    </section>
     <section class="manifesto" id="manifesto" aria-labelledby="manifesto-title">
       <div class="sky sky--live manifesto-sky" data-parallax="0.3"></div>
       <h2 class="manifesto-title" id="manifesto-title">Our manifesto</h2>
@@ -362,6 +369,14 @@
       <p class="formbox-fine">Goes straight to Mango Studios. We reply from here, not a bot.</p>
     </form>
   </dialog>
+
+  <aside class="nudge" id="nudge" hidden aria-live="polite">
+    <button class="nudge-x" type="button" id="nudge-x" aria-label="Dismiss">&times;</button>
+    <img class="nudge-mango" src="assets/mango-point.png" alt="" aria-hidden="true" width="724" height="717">
+    <p class="nudge-title">Not sure which service is right for you?</p>
+    <p class="nudge-text">Take the AI readiness quiz. Eight questions, about a minute.</p>
+    <a class="btn btn--sm nudge-go" href="ai-readiness.html">Take the quiz <span aria-hidden="true">&rarr;</span></a>
+  </aside>
 
   <script src="main.js"></script>
 </body>

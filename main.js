@@ -106,27 +106,27 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   else window.addEventListener('load', function () { setTimeout(intro, 400); });
 })();
 
-// About: the paragraph reads like a teleprompter. The current line is black and
-// centred, the lines after it sit below a little smaller and fainter, and
-// scrolling greys the top one out and brings the next up. Off under reduced
-// motion, and off until measured, so the lines stay a readable paragraph.
+// About: a huge ABOUT US stretched edge to edge, and under it the paragraph on
+// a wheel. The line facing you is plain black; the lines after it curve away
+// below, each a step smaller and fainter. Off under reduced motion, and off
+// until measured, so the lines stay a readable paragraph if this never runs.
 (function () {
   const reel = document.getElementById('about-reel');
   const wheel = document.getElementById('about-wheel');
   const drum = document.getElementById('about-drum');
   const stage = reel && reel.querySelector('.about-stage');
-  if (!reel || !wheel || !drum || !stage || reduceMotion) return;
+  const title = document.getElementById('about-title');
+  if (!reel || !wheel || !drum || !stage || !title || reduceMotion) return;
 
   const source = reel.parentElement.querySelector('.about-plain');
-  const sliders = [].slice.call(stage.querySelectorAll('.about-title, .about-ghost'));
   const words = source ? source.textContent.trim().split(/\s+/) : [];
   if (!words.length) return;
 
+  const TILT = 19;   // degrees between one line and the next
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
   let lines = [];
   let step = 60;
-  let travel = 0;
   let top = 0;
   let runway = 1;
   let ticking = false;
@@ -135,6 +135,13 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
     let y = 0;
     for (let n = el; n; n = n.offsetParent) y += n.offsetTop;
     return y;
+  }
+
+  // the width of a string's letters at a given font, in px
+  function inkWidth(text, cs, size) {
+    ctx.font = cs.fontStyle + ' ' + cs.fontWeight + ' ' + size + 'px ' + cs.fontFamily;
+    const m = ctx.measureText(text);
+    return (m.actualBoundingBoxLeft || 0) + (m.actualBoundingBoxRight || m.width);
   }
 
   function split(boxWidth) {
@@ -164,31 +171,43 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
     return true;
   }
 
-  // One size for every line, taken from the longest, so the lines read as one
+  // Measured off the live element, not a canvas: canvas ignores font-stretch,
+  // and this title is set at 125% width, so a canvas measure runs ~20% narrow
+  // and the title ends up overflowing the page.
+  function fitTitle(box) {
+    const ink = title.querySelector('.about-title-ink');
+    if (!ink) return;
+    title.style.setProperty('--fit-title', '100px');
+    const w = ink.getBoundingClientRect().width;
+    if (w <= 0) return;
+    // edge to edge, capped so it can never crowd out the wheel below it
+    const size = Math.min(100 * (box * 0.96) / w, window.innerHeight * 0.3);
+    title.style.setProperty('--fit-title', size.toFixed(1) + 'px');
+  }
+
+  // One size for every line, taken from the longest, so they read as one
   // paragraph rather than each being stretched to a different scale.
-  function fit() {
-    const box = wheel.clientWidth;
-    if (!box || !lines.length) return false;
-    const probe = 100;
+  function fitLines(box) {
+    if (!lines.length) return false;
     const cs = getComputedStyle(lines[0]);
-    ctx.font = cs.fontStyle + ' ' + cs.fontWeight + ' ' + probe + 'px ' + cs.fontFamily;
     let widest = 0;
-    lines.forEach(function (el) {
-      const m = ctx.measureText(el.textContent);
-      widest = Math.max(widest, (m.actualBoundingBoxLeft || 0) + (m.actualBoundingBoxRight || m.width));
-    });
+    lines.forEach(function (el) { widest = Math.max(widest, inkWidth(el.textContent, cs, 100)); });
     if (widest <= 0) return false;
-    const size = Math.min(probe * (box * 0.94) / widest, window.innerHeight * 0.1);
+    const size = Math.min(100 * (box * 0.94) / widest, window.innerHeight * 0.088);
     lines.forEach(function (el) { el.style.setProperty('--fit', size.toFixed(2) + 'px'); });
     return true;
   }
 
   function measure() {
     reel.dataset.wheel = 'off';
-    if (!build(wheel.clientWidth || window.innerWidth) || !fit()) return;
-    step = lines[0].offsetHeight * 1.34;
+    const box = wheel.clientWidth || window.innerWidth;
+    if (!build(box) || !fitLines(box)) return;
+    step = lines[0].offsetHeight * 1.3;
     reel.dataset.wheel = 'on';
-    travel = Math.max(0, stage.clientWidth - sliders[0].offsetWidth - 24);
+    fitTitle(stage.clientWidth || box);
+    wheel.style.setProperty('--persp', Math.round(step * 13) + 'px');
+    // each line gets its own stretch of scroll, with a ceiling so a phone's
+    // many short lines don't turn the section into an endless runway
     reel.style.height = (1 + Math.min(lines.length * 0.42, 3.2)) * 100 + 'vh';
     top = pageTop(reel);
     runway = Math.max(1, reel.offsetHeight - window.innerHeight);
@@ -201,17 +220,17 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
     const head = p * (lines.length - 1);
     lines.forEach(function (el, i) {
       const d = i - head;
-      // behind the current line: drifts up and dissolves. Ahead of it: stacked
-      // below, each step smaller and fainter.
+      // ahead of the line facing you: stacked below, tipping away, each step
+      // smaller and fainter. Behind it: tips up over the top and dissolves.
       const o = d < 0 ? Math.max(0, 1 + d * 1.5) : Math.pow(0.42, d);
-      const sc = d <= 0 ? 1 : Math.max(0.58, 1 - 0.11 * d);
+      const sc = d <= 0 ? 1 : Math.max(0.58, 1 - 0.1 * d);
       const ty = d >= 0 ? d * step : d * step * 1.25;
+      const rx = Math.max(-72, Math.min(72, -d * TILT));
       el.style.setProperty('--o', o.toFixed(3));
       el.style.setProperty('--sc', sc.toFixed(3));
       el.style.setProperty('--ty', ty.toFixed(1) + 'px');
+      el.style.setProperty('--rx', rx.toFixed(1) + 'deg');
     });
-    const slide = (p * travel).toFixed(1) + 'px';
-    sliders.forEach(function (el) { el.style.setProperty('--slide', slide); });
   }
 
   window.addEventListener('scroll', function () {
@@ -647,7 +666,11 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
         body: JSON.stringify({ form: form.dataset.form, fields: fields }),
       }).then(function (res) {
         return res.json().catch(function () { return {}; }).then(function (data) {
-          if (!res.ok || !data.ok) throw new Error(data.error || 'That did not send.');
+          if (!res.ok || !data.ok) {
+            const err = new Error(data.error || 'That did not send.');
+            err.fallback = !!data.fallback;
+            throw err;
+          }
         });
       }).then(function () {
         form.classList.add('is-sent');
@@ -657,11 +680,56 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
       }).catch(function (err) {
         status.className = 'formbox-status is-bad';
         status.textContent = err.message || 'That did not send. Please try again.';
+        if (err.fallback) {
+          // nothing is set up to receive this yet, so point them somewhere that works
+          const link = document.createElement('a');
+          link.href = 'https://www.linkedin.com/company/mango-studios1/';
+          link.target = '_blank';
+          link.rel = 'noopener';
+          link.textContent = ' Reach us on LinkedIn \u2197';
+          status.appendChild(link);
+        }
         send.innerHTML = label;
         send.disabled = false;
         sending = false;
       });
     });
+  });
+})();
+
+// After two minutes on the site, offer the readiness quiz once. Dismissing it,
+// or taking the quiz, retires it for good. Storage can throw or come back empty
+// in a private window, so a failure here just means they may see it again.
+(function () {
+  const nudge = document.getElementById('nudge');
+  if (!nudge) return;
+
+  const KEY = 'ms-nudge-seen';
+  const DELAY = 120000;
+
+  function seen() {
+    try { return localStorage.getItem(KEY) === '1'; } catch (err) { return false; }
+  }
+  function remember() {
+    try { localStorage.setItem(KEY, '1'); } catch (err) { /* nothing to do */ }
+  }
+
+  if (seen()) return;
+
+  const timer = window.setTimeout(function () { nudge.hidden = false; }, DELAY);
+
+  function dismiss() {
+    window.clearTimeout(timer);
+    remember();
+    if (nudge.hidden) return;
+    nudge.classList.add('is-going');
+    window.setTimeout(function () { nudge.hidden = true; }, reduceMotion ? 0 : 300);
+  }
+
+  document.getElementById('nudge-x').addEventListener('click', dismiss);
+  nudge.querySelector('.nudge-go').addEventListener('click', remember);
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && !nudge.hidden) dismiss();
   });
 })();
 

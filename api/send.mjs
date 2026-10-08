@@ -22,7 +22,11 @@ export default async function handler(req, res) {
 
   const key = process.env.RESEND_API_KEY;
   if (!key) {
-    return res.status(500).json({ error: 'Email is not set up yet. Please try again later.' });
+    // No key configured yet: say so plainly and give them a way through that works.
+    return res.status(503).json({
+      error: 'We cannot take messages here just yet.',
+      fallback: true,
+    });
   }
 
   let body = req.body;
