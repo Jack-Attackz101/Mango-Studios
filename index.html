@@ -42,6 +42,7 @@
           <div class="clouds-front" aria-hidden="true"></div>
           <div class="hero-center" id="hero-title">
             <h1 class="hero-title"><span class="hero-word" data-fit>Mango</span> <span class="hero-word" data-fit>Studios</span></h1>
+            <button class="btn hero-cta" type="button" data-project-open>Work with us <span aria-hidden="true">&rarr;</span></button>
           </div>
           <div class="ticker" aria-hidden="true"><div class="ticker-run"><span class="tick-item"><img src="assets/icon-key.png" alt="">Custom Sites &amp; Apps</span><span class="tick-item"><img src="assets/icon-wink.png" alt="">Custom AI Agents</span><span class="tick-item"><img src="assets/icon-cursor.png" alt="">Custom Automations</span><span class="tick-item"><img src="assets/trail-mug.png" alt="">AI Consulting</span><span class="tick-item"><img src="assets/icon-key.png" alt="">Custom Sites &amp; Apps</span><span class="tick-item"><img src="assets/icon-wink.png" alt="">Custom AI Agents</span><span class="tick-item"><img src="assets/icon-cursor.png" alt="">Custom Automations</span><span class="tick-item"><img src="assets/trail-mug.png" alt="">AI Consulting</span></div></div>
           <div class="trail" id="trail" aria-hidden="true"></div>
@@ -305,78 +306,155 @@
     </div>
   </footer>
 
-  <dialog class="formbox" id="project-form" aria-labelledby="project-form-title">
-    <form class="formbox-card" id="project-form-form" data-form="Start a project" novalidate>
-      <div class="formbox-top">
-        <div>
-          <p class="formbox-brand"><img src="assets/logo-stamp.png" alt="" width="46" height="46"> Mango Studios</p>
-          <h2 class="formbox-title" id="project-form-title">Start a project</h2>
-        </div>
-        <button class="formbox-x" type="button" data-form-close aria-label="Close">&times;</button>
-      </div>
-      <p class="formbox-lead">Tell us what you want built. You get a real price back, not a discovery call.</p>
-
-      <div class="formbox-fields">
-        <p class="field">
-          <label for="pf-type">What do you need</label>
-          <select id="pf-type" name="What do you need" required>
-            <option>Custom Sites & Apps</option>
-            <option>Custom AI Agents</option>
-            <option>Custom Automations</option>
-            <option>AI Consulting</option>
-          </select>
-        </p>
-        <p class="field">
-          <label for="pf-name">Your name</label>
-          <input id="pf-name" name="Your name" type="text" autocomplete="name" required>
-        </p>
-        <p class="field">
-          <label for="pf-email">Email</label>
-          <input id="pf-email" name="Email" type="email" autocomplete="email" required>
-        </p>
-        <p class="field">
-          <label for="pf-biz">Business</label>
-          <input id="pf-biz" name="Business" type="text" autocomplete="organization">
-        </p>
-        <p class="field">
-          <label for="pf-budget">Budget</label>
-          <select id="pf-budget" name="Budget" required>
-            <option>Not sure yet</option>
-            <option>Under $500</option>
-            <option>$500 - $1,500</option>
-            <option>$1,500 - $5,000</option>
-            <option>Over $5,000</option>
-          </select>
-        </p>
-        <p class="field">
-          <label for="pf-when">Timeline</label>
-          <select id="pf-when" name="Timeline" required>
-            <option>Not sure yet</option>
-            <option>As soon as possible</option>
-            <option>In the next month</option>
-            <option>In the next few months</option>
-          </select>
-        </p>
-        <p class="field">
-          <label for="pf-detail">What are you trying to build</label>
-          <textarea id="pf-detail" name="What are you trying to build" rows="4" type="text"></textarea>
-        </p>
-      </div>
-      <div class="formbox-actions">
-        <button class="btn formbox-send" type="submit">Send it <span aria-hidden="true">&rarr;</span></button>
-        <p class="formbox-status" id="project-form-status" role="status" aria-live="polite"></p>
-      </div>
-      <p class="formbox-fine">Goes straight to Mango Studios. We reply from here, not a bot.</p>
-    </form>
-  </dialog>
 
   <aside class="nudge" id="nudge" hidden aria-live="polite">
     <button class="nudge-x" type="button" id="nudge-x" aria-label="Dismiss">&times;</button>
-    <img class="nudge-mango" src="assets/mango-point.png" alt="" aria-hidden="true" width="724" height="717">
     <p class="nudge-title">Not sure which service is right for you?</p>
     <p class="nudge-text">Take the AI readiness quiz. Eight questions, about a minute.</p>
     <a class="btn btn--sm nudge-go" href="ai-readiness.html">Take the quiz <span aria-hidden="true">&rarr;</span></a>
   </aside>
+
+  <dialog class="flow" id="startflow" aria-labelledby="flow-title">
+    <div class="flow-bar">
+      <p class="flow-brand"><img src="assets/logo-stamp.png" alt="" width="46" height="46"> Mango Studios</p>
+      <button class="flow-x" type="button" data-flow-close aria-label="Close">&times;</button>
+    </div>
+
+    <section class="flow-step" data-step="pick">
+      <h2 class="flow-title" id="flow-title">What do you need?</h2>
+      <p class="flow-sub">Pick one. You get a real price back, not a discovery call.</p>
+      <ul class="cards flow-cards">
+        <li><button class="card" type="button" data-pick="Custom Sites &amp; Apps"><img class="card-icon" src="assets/icon-key.png" alt="" width="314" height="336"><span class="card-title">Custom Sites<br>&amp; Apps</span></button></li>
+        <li><button class="card" type="button" data-pick="Custom AI Agents"><img class="card-icon" src="assets/icon-wink.png" alt="" width="306" height="318"><span class="card-title">Custom AI<br>Agents</span></button></li>
+        <li><button class="card" type="button" data-pick="Custom Automations"><img class="card-icon" src="assets/icon-cursor.png" alt="" width="252" height="357"><span class="card-title">Custom<br>Automations</span></button></li>
+      </ul>
+      <button class="consult flow-consult" type="button" data-pick="AI Consulting">
+        <img class="consult-icon" src="assets/trail-mug.png" alt="" width="175" height="184">
+        <span class="consult-copy">
+          <span class="consult-name">AI Consulting <span class="consult-price">$100 / session</span></span>
+          <span class="consult-text">Book an hour. A straight, practical read on where AI fits your business and what is not worth it yet.</span>
+        </span>
+        <span class="consult-go" aria-hidden="true">&rarr;</span>
+      </button>
+    </section>
+
+    <section class="flow-step" data-step="project" hidden>
+      <button class="flow-back" type="button" data-flow-back><span aria-hidden="true">&larr;</span> Back</button>
+      <form class="flow-form" id="project-form-form" data-form="Start a project" novalidate>
+        <h2 class="flow-title flow-title--sm">Start a project</h2>
+        <p class="flow-sub">Tell us what you want built. We reply by email with a real price.</p>
+        <div class="formbox-fields">
+          <p class="field">
+            <label for="pf-type">What do you need</label>
+            <select id="pf-type" name="What do you need" required>
+              <option>Custom Sites &amp; Apps</option>
+              <option>Custom AI Agents</option>
+              <option>Custom Automations</option>
+              <option>AI Consulting</option>
+            </select>
+          </p>
+          <p class="field">
+            <label for="pf-name">Your name</label>
+            <input id="pf-name" name="Your name" type="text" autocomplete="name" required>
+          </p>
+          <p class="field">
+            <label for="pf-email">Email</label>
+            <input id="pf-email" name="Email" type="email" autocomplete="email" required>
+          </p>
+          <p class="field">
+            <label for="pf-biz">Business</label>
+            <input id="pf-biz" name="Business" type="text" autocomplete="organization">
+          </p>
+          <p class="field">
+            <label for="pf-budget">Budget</label>
+            <select id="pf-budget" name="Budget" required>
+              <option>Not sure yet</option>
+              <option>Under $500</option>
+              <option>$500 - $1,500</option>
+              <option>$1,500 - $5,000</option>
+              <option>Over $5,000</option>
+            </select>
+          </p>
+          <p class="field">
+            <label for="pf-when">Timeline</label>
+            <select id="pf-when" name="Timeline" required>
+              <option>Not sure yet</option>
+              <option>As soon as possible</option>
+              <option>In the next month</option>
+              <option>In the next few months</option>
+            </select>
+          </p>
+          <p class="field">
+            <label for="pf-detail">What are you trying to build</label>
+            <textarea id="pf-detail" name="What are you trying to build" rows="4"></textarea>
+          </p>
+        </div>
+        <div class="formbox-actions">
+          <button class="btn formbox-send" type="submit">Send it <span aria-hidden="true">&rarr;</span></button>
+          <p class="formbox-status" role="status" aria-live="polite"></p>
+        </div>
+        <p class="formbox-fine">Goes straight to Mango Studios. We reply from here, not a bot.</p>
+      </form>
+    </section>
+
+    <section class="flow-step" data-step="book" hidden>
+      <button class="flow-back" type="button" data-flow-back><span aria-hidden="true">&larr;</span> Back</button>
+      <form class="flow-form" id="booking-form-form" data-form="Book a call for AI consulting" novalidate>
+        <h2 class="flow-title flow-title--sm">Book an AI Consulting call</h2>
+        <p class="flow-sub">One hour, $100. Pick a time, tell us how to reach you, and we confirm by email.</p>
+        <div class="book-grid flow-cal" data-calendar>
+        <div class="cal">
+          <div class="cal-top">
+            <button class="cal-nav" type="button" data-step="-1" aria-label="Previous month"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <h3 class="cal-month" aria-live="polite">Month</h3>
+            <button class="cal-nav" type="button" data-step="1" aria-label="Next month"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+          <div class="cal-week" aria-hidden="true"><span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span></div>
+          <div class="cal-days" role="grid"></div>
+        </div>
+        <div class="slots">
+          <h3 class="slots-title">Pick a day first</h3>
+          <div class="slot-list" role="group"></div>
+          <div class="book-sum" hidden>
+            <p class="book-choice"></p>
+          </div>
+        </div>
+        </div>
+        <p class="formbox-slot">
+          <span class="formbox-slot-label">Your session</span>
+          <span class="formbox-slot-when" id="bf-when">Pick a day and time above</span>
+          <input type="hidden" id="bf-slot" name="Session">
+        </p>
+        <div class="formbox-fields">
+          <p class="field">
+            <label for="bf-name">Your name</label>
+            <input id="bf-name" name="Your name" type="text" autocomplete="name" required>
+          </p>
+          <p class="field">
+            <label for="bf-email">Email</label>
+            <input id="bf-email" name="Email" type="email" autocomplete="email" required>
+          </p>
+          <p class="field">
+            <label for="bf-biz">Business</label>
+            <input id="bf-biz" name="Business" type="text" autocomplete="organization">
+          </p>
+          <p class="field">
+            <label for="bf-phone">Phone</label>
+            <input id="bf-phone" name="Phone" type="tel" autocomplete="tel">
+          </p>
+          <p class="field">
+            <label for="bf-topic">What do you want to cover</label>
+            <textarea id="bf-topic" name="What do you want to cover" rows="4"></textarea>
+          </p>
+        </div>
+        <div class="formbox-actions">
+          <button class="btn formbox-send" type="submit">Book it <span aria-hidden="true">&rarr;</span></button>
+          <p class="formbox-status" role="status" aria-live="polite"></p>
+        </div>
+        <p class="formbox-fine">Goes straight to Mango Studios. We reply from here, not a bot.</p>
+      </form>
+    </section>
+  </dialog>
 
   <script src="main.js"></script>
 </body>

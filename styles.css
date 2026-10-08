@@ -1362,58 +1362,6 @@ button.cal-day:active { transform: scale(0.94); transition-duration: 0.05s; }
    studio's own paper-and-ink card, so it reads as Mango Studios rather than a
    bolted-on tool. */
 
-.formbox {
-  width: min(620px, calc(100% - 28px));
-  max-height: calc(100svh - 40px);
-  margin: auto;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  overflow: visible;
-}
-.formbox::backdrop { background: rgba(6, 36, 58, 0.55); backdrop-filter: blur(3px); }
-
-.formbox-card {
-  max-height: calc(100svh - 48px);
-  padding: clamp(22px, 3vw, 34px);
-  overflow-y: auto;
-  border: 5px solid var(--ink);
-  border-radius: 30px;
-  background: var(--paper);
-  box-shadow: 9px 10px 0 var(--ink);
-}
-.formbox[open] .formbox-card { animation: formbox-in 0.4s var(--ease); }
-@keyframes formbox-in { from { opacity: 0; transform: translateY(18px) scale(0.97); } }
-
-.formbox-top { display: flex; align-items: start; justify-content: space-between; gap: 16px; }
-.formbox-brand {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  font: 800 12.5px/1 var(--font-text);
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  color: #6b5a2c;
-}
-.formbox-brand img { width: 23px; height: auto; }
-.formbox-title { margin-top: 10px; font: 400 clamp(28px, 3.4vw, 40px)/1 var(--font-cartoon); color: var(--ink); }
-.formbox-x {
-  flex: 0 0 38px;
-  width: 38px;
-  height: 38px;
-  border: 2.5px solid var(--ink);
-  border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 3px 0 var(--ink);
-  font: 700 20px/1 var(--font-text);
-  color: var(--ink);
-  cursor: pointer;
-  transition: transform 0.16s var(--ease), box-shadow 0.16s var(--ease);
-}
-.formbox-x:hover { transform: translateY(-2px); box-shadow: 0 5px 0 var(--ink); }
-.formbox-x:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--ink); transition-duration: 0.06s; }
-.formbox-lead { margin-top: 10px; font: 500 15px/1.5 var(--font-text); color: #5c5648; }
-
 .formbox-slot {
   display: grid;
   gap: 4px;
@@ -1464,19 +1412,14 @@ button.cal-day:active { transform: scale(0.94); transition-duration: 0.05s; }
 .formbox-status.is-good { color: #1d6b3f; }
 .formbox-status.is-bad { color: #b03520; }
 .formbox-fine { margin-top: 14px; font: 500 12px/1.45 var(--font-text); color: #76705f; }
-.formbox-card.is-sent .formbox-fields,
-.formbox-card.is-sent .formbox-lead { opacity: 0.5; pointer-events: none; }
+.flow-form.is-sent .formbox-fields,
+.flow-form.is-sent .flow-cal { opacity: 0.5; pointer-events: none; }
 
 @media (max-width: 520px) {
-  .formbox-card { padding: 20px 17px; border-width: 3px; border-radius: 24px; box-shadow: 6px 7px 0 var(--ink); }
-  .formbox-title { font-size: 27px; }
   .formbox-fields { gap: 12px; }
   .field input, .field select, .field textarea { min-height: 48px; border-width: 2.5px; font-size: 16px; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .formbox[open] .formbox-card { animation: none; }
-}
 
 /* ── QUIZ BAND: the readiness quiz, under the team ── */
 
@@ -1577,16 +1520,6 @@ button.cal-day:active { transform: scale(0.94); transition-duration: 0.05s; }
 @keyframes nudge-in { from { opacity: 0; transform: translateY(26px) scale(0.95); } }
 @keyframes nudge-out { to { opacity: 0; transform: translateY(18px) scale(0.96); } }
 
-.nudge-mango {
-  position: absolute;
-  right: 12px;
-  bottom: 100%;
-  width: 96px;
-  height: auto;
-  margin-bottom: -14px;
-  scale: -1 1;
-  pointer-events: none;
-}
 .nudge-x {
   position: absolute;
   right: 12px;
@@ -1608,10 +1541,165 @@ button.cal-day:active { transform: scale(0.94); transition-duration: 0.05s; }
 
 @media (max-width: 520px) {
   .nudge { width: calc(100vw - 20px); right: 10px; bottom: 10px; padding: 17px 18px 19px; border-width: 3px; border-radius: 22px; }
-  .nudge-mango { width: 76px; }
   .nudge-title { font-size: 21px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .quizband-sticker, .nudge, .nudge.is-going { animation: none; }
+}
+
+/* ── START FLOW ─────────────────────────────
+   One full-screen takeover: pick what you need, then either tell us about the
+   project or book the consulting call. No new page, so it opens from the hero
+   and from every Start a project button on the site. */
+
+.flow {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: var(--services-blue);
+  color: var(--ink);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.flow::backdrop { background: var(--ink); }
+.flow[open] { animation: flow-in 0.42s var(--ease); }
+@keyframes flow-in { from { opacity: 0; transform: scale(0.985); } }
+
+.flow-bar {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: clamp(14px, 2vw, 22px) var(--gutter);
+  border-bottom: 4px solid var(--ink);
+  background: var(--paper);
+}
+.flow-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font: 800 12.5px/1 var(--font-text);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.flow-brand img { width: 26px; height: auto; }
+.flow-x {
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 3px 0 var(--ink);
+  font: 700 22px/1 var(--font-text);
+  color: var(--ink);
+  cursor: pointer;
+  transition: transform 0.16s var(--ease), box-shadow 0.16s var(--ease);
+}
+.flow-x:hover { transform: translateY(-2px); box-shadow: 0 5px 0 var(--ink); }
+.flow-x:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--ink); transition-duration: 0.06s; }
+
+.flow-step {
+  width: min(1080px, 100%);
+  margin-inline: auto;
+  padding: clamp(28px, 5vh, 64px) var(--gutter) clamp(44px, 7vh, 88px);
+}
+.flow-step.is-entering { animation: flow-step-in 0.44s var(--ease) both; }
+@keyframes flow-step-in { from { opacity: 0; transform: translateY(20px); } }
+
+.flow-title {
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  font-weight: 900;
+  font-size: clamp(2rem, 1rem + 3.4vw, 4rem);
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--ink);
+}
+.flow-title--sm { font-size: clamp(1.7rem, 1rem + 2.2vw, 2.8rem); text-align: left; }
+.flow-sub { margin-top: 12px; font: 600 var(--t-body)/1.5 var(--font-text); text-align: center; color: #0b2e42; }
+.flow-title--sm + .flow-sub { text-align: left; max-width: 52ch; }
+
+.flow-cards { margin-top: clamp(24px, 4vh, 44px); }
+.flow-cards .card {
+  width: 100%;
+  cursor: pointer;
+  font: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+.flow-cards .card:active { transform: translateY(2px) rotate(-1.2deg); transition-duration: 0.08s; }
+.flow-consult {
+  width: 100%;
+  margin-top: clamp(16px, 2.4vw, 28px);
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+
+.flow-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  padding: 10px 16px;
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  background: var(--paper);
+  box-shadow: 0 3px 0 var(--ink);
+  font: 700 14px/1 var(--font-text);
+  color: var(--ink);
+  cursor: pointer;
+  transition: transform 0.16s var(--ease), box-shadow 0.16s var(--ease);
+}
+.flow-back:hover { transform: translateY(-2px); box-shadow: 0 5px 0 var(--ink); }
+.flow-back:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--ink); transition-duration: 0.06s; }
+
+.flow-form {
+  padding: clamp(22px, 3vw, 38px);
+  border: 5px solid var(--ink);
+  border-radius: 32px;
+  background: var(--paper);
+  box-shadow: 9px 10px 0 var(--ink);
+}
+.flow-cal { margin-top: clamp(20px, 2.6vw, 30px); }
+.flow-cal .book-sum { display: none; }
+.flow-form .formbox-slot { margin-top: clamp(18px, 2.4vw, 26px); }
+
+.hero-cta {
+  pointer-events: auto;
+  min-height: clamp(54px, 5.4svh, 68px);
+  padding-inline: clamp(26px, 3vw, 40px);
+  border-width: clamp(3px, 0.32vw, 5px);
+  box-shadow: 0 6px 0 var(--ink);
+  font-size: clamp(16px, 1.3vw, 20px);
+}
+.hero-cta:hover { box-shadow: 0 9px 0 var(--ink); }
+.hero-cta:active { box-shadow: 0 2px 0 var(--ink); }
+
+@media (max-width: 760px) {
+  .flow-cards { grid-template-columns: repeat(2, 1fr); }
+  .flow-cards > li:last-child { grid-column: 1 / -1; }
+  .flow-cards .card { aspect-ratio: 1.25; }
+  .flow-cards .card-icon { height: 52%; }
+}
+@media (max-width: 520px) {
+  .flow-form { padding: 20px 17px; border-width: 3px; border-radius: 24px; box-shadow: 6px 7px 0 var(--ink); }
+  .flow-cards { grid-template-columns: 1fr; }
+  .flow-cards .card { aspect-ratio: 2.1; flex-direction: row; justify-content: flex-start; gap: 16px; padding: 14px 18px; }
+  .flow-cards .card-icon { height: 76%; }
+  .flow-cards .card-title { font-size: 26px; text-align: left; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flow[open], .flow-step.is-entering { animation: none; }
 }

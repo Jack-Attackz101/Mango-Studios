@@ -488,157 +488,197 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
 
 // Booking: pick a day, then a time, then send the request by email. Times are Toronto time.
 (function () {
-  const root = document.getElementById('booking');
-  if (!root) return;
-  // Fully open for now: every day of the week, hourly from 9 AM to 4 PM.
-  const OPEN_WEEKDAYS = [0, 1, 2, 3, 4, 5, 6];
-  const OPEN_HOURS = [9, 10, 11, 12, 13, 14, 15, 16];
-  const MONTHS_AHEAD = 3;
-  const TZ = 'America/Toronto';
+  const roots = [].slice.call(document.querySelectorAll('[data-calendar]'));
+  if (!roots.length) return;
 
-  const monthEl = document.getElementById('cal-month');
-  const daysEl = document.getElementById('cal-days');
-  const slotTitle = document.getElementById('slots-title');
-  const slotList = document.getElementById('slot-list');
-  const sum = document.getElementById('book-sum');
-  const choice = document.getElementById('book-choice');
-  const go = document.getElementById('book-go');
-  const prev = root.querySelector('[data-step="-1"]');
-  const next = root.querySelector('[data-step="1"]');
+  roots.forEach(function mount(root) {
+    // Fully open for now: every day of the week, hourly from 9 AM to 4 PM.
+    const OPEN_WEEKDAYS = [0, 1, 2, 3, 4, 5, 6];
+    const OPEN_HOURS = [9, 10, 11, 12, 13, 14, 15, 16];
+    const MONTHS_AHEAD = 3;
+    const TZ = 'America/Toronto';
 
-  const todayParts = new Intl.DateTimeFormat('en-CA', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date()).split('-').map(Number);
-  const today = new Date(todayParts[0], todayParts[1] - 1, todayParts[2]);
-  const nowHour = Number(new Intl.DateTimeFormat('en-US', { timeZone: TZ, hour: 'numeric', hourCycle: 'h23' }).format(new Date()));
-  let view = new Date(today.getFullYear(), today.getMonth(), 1);
-  let picked = null, pickedHour = null;
+    const monthEl = root.querySelector('.cal-month');
+    const daysEl = root.querySelector('.cal-days');
+    const slotTitle = root.querySelector('.slots-title');
+    const slotList = root.querySelector('.slot-list');
+    const sum = root.querySelector('.book-sum');
+    const choice = root.querySelector('.book-choice');
+    const prev = root.querySelector('[data-step="-1"]');
+    const next = root.querySelector('[data-step="1"]');
 
-  const fmtMonth = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' });
-  const fmtDay = new Intl.DateTimeFormat('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
-  function sameDay(a, b) { return a && b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate(); }
-  function hourLabel(h) { return (h % 12 || 12) + ':00 ' + (h < 12 ? 'AM' : 'PM'); }
-  function hoursFor(d) {
-    if (OPEN_WEEKDAYS.indexOf(d.getDay()) < 0 || d < today) return [];
-    return OPEN_HOURS.filter(function (h) { return !sameDay(d, today) || h > nowHour; });
-  }
-  function monthOffset(d) { return (d.getFullYear() - today.getFullYear()) * 12 + d.getMonth() - today.getMonth(); }
+    const todayParts = new Intl.DateTimeFormat('en-CA', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date()).split('-').map(Number);
+    const today = new Date(todayParts[0], todayParts[1] - 1, todayParts[2]);
+    const nowHour = Number(new Intl.DateTimeFormat('en-US', { timeZone: TZ, hour: 'numeric', hourCycle: 'h23' }).format(new Date()));
+    let view = new Date(today.getFullYear(), today.getMonth(), 1);
+    let picked = null, pickedHour = null;
 
-  function renderMonth() {
-    monthEl.textContent = fmtMonth.format(view);
-    prev.disabled = monthOffset(view) <= 0;
-    next.disabled = monthOffset(view) >= MONTHS_AHEAD;
-    daysEl.textContent = '';
-    // days from the neighbouring months fill out the first and last weeks, faded and not clickable
-    function outside(d) {
-      const el = document.createElement('span');
-      el.className = 'cal-day cal-out';
-      el.setAttribute('aria-hidden', 'true');
-      el.textContent = String(d.getDate());
-      daysEl.appendChild(el);
+    const fmtMonth = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' });
+    const fmtDay = new Intl.DateTimeFormat('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+    function sameDay(a, b) { return a && b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate(); }
+    function hourLabel(h) { return (h % 12 || 12) + ':00 ' + (h < 12 ? 'AM' : 'PM'); }
+    function hoursFor(d) {
+      if (OPEN_WEEKDAYS.indexOf(d.getDay()) < 0 || d < today) return [];
+      return OPEN_HOURS.filter(function (h) { return !sameDay(d, today) || h > nowHour; });
     }
-    const lead = view.getDay();
-    for (let i = lead; i > 0; i--) outside(new Date(view.getFullYear(), view.getMonth(), 1 - i));
-    const last = new Date(view.getFullYear(), view.getMonth() + 1, 0).getDate();
-    for (let day = 1; day <= last; day++) {
-      const d = new Date(view.getFullYear(), view.getMonth(), day);
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'cal-day' + (sameDay(d, today) ? ' is-today' : '');
-      btn.textContent = String(day);
-      const open = hoursFor(d).length > 0;
-      btn.disabled = !open;
-      btn.setAttribute('aria-label', fmtDay.format(d) + (sameDay(d, today) ? ', today' : '') + (open ? '' : ', unavailable'));
-      btn.setAttribute('aria-pressed', String(sameDay(d, picked)));
-      btn.addEventListener('click', function () { pickDay(d); });
-      daysEl.appendChild(btn);
+    function monthOffset(d) { return (d.getFullYear() - today.getFullYear()) * 12 + d.getMonth() - today.getMonth(); }
+
+    function renderMonth() {
+      monthEl.textContent = fmtMonth.format(view);
+      prev.disabled = monthOffset(view) <= 0;
+      next.disabled = monthOffset(view) >= MONTHS_AHEAD;
+      daysEl.textContent = '';
+      // days from the neighbouring months fill out the first and last weeks, faded and not clickable
+      function outside(d) {
+        const el = document.createElement('span');
+        el.className = 'cal-day cal-out';
+        el.setAttribute('aria-hidden', 'true');
+        el.textContent = String(d.getDate());
+        daysEl.appendChild(el);
+      }
+      const lead = view.getDay();
+      for (let i = lead; i > 0; i--) outside(new Date(view.getFullYear(), view.getMonth(), 1 - i));
+      const last = new Date(view.getFullYear(), view.getMonth() + 1, 0).getDate();
+      for (let day = 1; day <= last; day++) {
+        const d = new Date(view.getFullYear(), view.getMonth(), day);
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'cal-day' + (sameDay(d, today) ? ' is-today' : '');
+        btn.textContent = String(day);
+        const open = hoursFor(d).length > 0;
+        btn.disabled = !open;
+        btn.setAttribute('aria-label', fmtDay.format(d) + (sameDay(d, today) ? ', today' : '') + (open ? '' : ', unavailable'));
+        btn.setAttribute('aria-pressed', String(sameDay(d, picked)));
+        btn.addEventListener('click', function () { pickDay(d); });
+        daysEl.appendChild(btn);
+      }
+      const trail = (7 - (lead + last) % 7) % 7;
+      for (let i = 1; i <= trail; i++) outside(new Date(view.getFullYear(), view.getMonth() + 1, i));
     }
-    const trail = (7 - (lead + last) % 7) % 7;
-    for (let i = 1; i <= trail; i++) outside(new Date(view.getFullYear(), view.getMonth() + 1, i));
-  }
-  function pickDay(d) {
-    picked = d;
-    pickedHour = null;
+    function pickDay(d) {
+      picked = d;
+      pickedHour = null;
+      renderMonth();
+      slotTitle.textContent = fmtDay.format(d);
+      slotList.textContent = '';
+      hoursFor(d).forEach(function (h) {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'slot';
+        b.textContent = hourLabel(h);
+        b.setAttribute('aria-pressed', 'false');
+        b.addEventListener('click', function () { pickHour(h); });
+        slotList.appendChild(b);
+      });
+      sum.hidden = true;
+    }
+    function pickHour(h) {
+      pickedHour = h;
+      [].forEach.call(slotList.children, function (b) { b.setAttribute('aria-pressed', String(b.textContent === hourLabel(h))); });
+      const when = fmtDay.format(picked) + ' at ' + hourLabel(h) + ' ET';
+      choice.textContent = when;
+      // hand the chosen slot to the booking form; the booking happens on the site
+      // hand the chosen slot to whatever is listening; the booking happens on the site
+      root.dispatchEvent(new CustomEvent('slotpick', { bubbles: true, detail: { when: when } }));
+      sum.hidden = false;
+    }
+    prev.addEventListener('click', function () { view = new Date(view.getFullYear(), view.getMonth() - 1, 1); renderMonth(); });
+    next.addEventListener('click', function () { view = new Date(view.getFullYear(), view.getMonth() + 1, 1); renderMonth(); });
     renderMonth();
-    slotTitle.textContent = fmtDay.format(d);
-    slotList.textContent = '';
-    hoursFor(d).forEach(function (h) {
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'slot';
-      b.textContent = hourLabel(h);
-      b.setAttribute('aria-pressed', 'false');
-      b.addEventListener('click', function () { pickHour(h); });
-      slotList.appendChild(b);
-    });
-    sum.hidden = true;
-  }
-  function pickHour(h) {
-    pickedHour = h;
-    [].forEach.call(slotList.children, function (b) { b.setAttribute('aria-pressed', String(b.textContent === hourLabel(h))); });
-    const when = fmtDay.format(picked) + ' at ' + hourLabel(h) + ' ET';
-    choice.textContent = when;
-    // hand the chosen slot to the booking form; the booking happens on the site
-    const slotField = document.getElementById('bf-slot');
-    const slotLabel = document.getElementById('bf-when');
-    if (slotField) slotField.value = when + ' (Toronto time)';
-    if (slotLabel) slotLabel.textContent = when;
-    sum.hidden = false;
-  }
-  prev.addEventListener('click', function () { view = new Date(view.getFullYear(), view.getMonth() - 1, 1); renderMonth(); });
-  next.addEventListener('click', function () { view = new Date(view.getFullYear(), view.getMonth() + 1, 1); renderMonth(); });
-  renderMonth();
+  });
 })();
 
-// Booking and project forms. Both post to /api/send, which is the only place the
-// Resend key exists; the page never sees it. Nothing is reported as sent unless
-// the request actually succeeded.
+// The start flow: one full-screen takeover. Pick what you need, then either
+// describe the project or book the consulting call. Both forms post to
+// /api/send, which is the only place the Resend key exists; the page never sees
+// it, and nothing is reported as sent unless the request actually succeeded.
 (function () {
-  const dialogs = [].slice.call(document.querySelectorAll('.formbox'));
-  if (!dialogs.length || typeof HTMLDialogElement !== 'function') return;
+  const flow = document.getElementById('startflow');
+  if (!flow || typeof flow.showModal !== 'function') return;
 
+  const steps = {};
+  [].forEach.call(flow.querySelectorAll('.flow-step'), function (el) { steps[el.dataset.step] = el; });
   let opener = null;
+  let history = [];
 
-  function open(dialog, trigger) {
-    if (!dialog || typeof dialog.showModal !== 'function') return;
-    opener = trigger || null;
-    dialog.showModal();
-    const first = dialog.querySelector('select, input:not([type="hidden"]), textarea');
-    if (first) first.focus({ preventScroll: true });
+  function show(name) {
+    Object.keys(steps).forEach(function (key) { steps[key].hidden = key !== name; });
+    const el = steps[name];
+    if (!el) return;
+    if (!reduceMotion) {
+      el.classList.remove('is-entering');
+      void el.offsetWidth;
+      el.classList.add('is-entering');
+    }
+    flow.scrollTop = 0;
+    const focusable = el.querySelector('.flow-back, .card, select, input:not([type="hidden"]), textarea');
+    if (focusable) focusable.focus({ preventScroll: true });
   }
 
-  document.querySelectorAll('[data-project-open]').forEach(function (btn) {
+  function go(name) { history.push(name); show(name); }
+
+  function openFlow(start, trigger) {
+    opener = trigger || null;
+    history = [];
+    if (!flow.open) flow.showModal();
+    go(start);
+  }
+
+  function pick(type) {
+    if (type === 'AI Consulting') { go('book'); return; }
+    const select = document.getElementById('pf-type');
+    if (select) {
+      [].forEach.call(select.options, function (o) { if (o.text === type) select.value = o.value; });
+    }
+    go('project');
+  }
+
+  flow.querySelectorAll('[data-pick]').forEach(function (btn) {
+    btn.addEventListener('click', function () { pick(btn.getAttribute('data-pick')); });
+  });
+
+  flow.querySelectorAll('[data-flow-back]').forEach(function (btn) {
     btn.addEventListener('click', function () {
-      const dialog = document.getElementById('project-form');
-      const type = btn.getAttribute('data-project-type');
-      const select = document.getElementById('pf-type');
-      if (type && select) {
-        [].forEach.call(select.options, function (o) { if (o.text === type) select.value = o.value; });
-      }
-      open(dialog, btn);
+      history.pop();
+      show(history[history.length - 1] || 'pick');
+      if (!history.length) history = ['pick'];
     });
   });
 
-  const bookGo = document.getElementById('book-go');
-  if (bookGo) {
-    bookGo.addEventListener('click', function () {
-      open(document.getElementById('booking-form'), bookGo);
+  flow.querySelectorAll('[data-flow-close]').forEach(function (btn) {
+    btn.addEventListener('click', function () { flow.close(); });
+  });
+  flow.addEventListener('close', function () {
+    if (opener && document.contains(opener)) opener.focus({ preventScroll: true });
+    opener = null;
+  });
+
+  // every Start a project / Get a quote / Work with us button on the site
+  document.querySelectorAll('[data-project-open]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const type = btn.getAttribute('data-project-type');
+      openFlow('pick', btn);
+      if (type) pick(type);
     });
+  });
+
+  // the consulting page's own calendar opens the flow straight at the booking
+  // step with the chosen time already filled in
+  const pageBook = document.querySelector('#booking .book-go');
+  if (pageBook) {
+    pageBook.addEventListener('click', function () { openFlow('book', pageBook); });
   }
 
-  dialogs.forEach(function (dialog) {
-    dialog.querySelectorAll('[data-form-close]').forEach(function (btn) {
-      btn.addEventListener('click', function () { dialog.close(); });
-    });
-    // clicking the backdrop closes it
-    dialog.addEventListener('click', function (event) {
-      if (event.target === dialog) dialog.close();
-    });
-    dialog.addEventListener('close', function () {
-      if (opener && document.contains(opener)) opener.focus({ preventScroll: true });
-      opener = null;
-    });
+  // any calendar, on the page or inside the flow, reports its pick here
+  const slotField = document.getElementById('bf-slot');
+  const slotLabel = document.getElementById('bf-when');
+  document.addEventListener('slotpick', function (event) {
+    if (!slotField) return;
+    slotField.value = event.detail.when + ' (Toronto time)';
+    if (slotLabel) slotLabel.textContent = event.detail.when;
+  });
 
-    const form = dialog.querySelector('form[data-form]');
-    if (!form) return;
+  flow.querySelectorAll('form[data-form]').forEach(function (form) {
     const status = form.querySelector('.formbox-status');
     const send = form.querySelector('.formbox-send');
     let sending = false;
@@ -647,6 +687,11 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
       event.preventDefault();
       if (sending) return;
       if (!form.reportValidity()) return;
+      if (slotField && form.contains(slotField) && !slotField.value) {
+        status.className = 'formbox-status is-bad';
+        status.textContent = 'Pick a day and a time first.';
+        return;
+      }
 
       // every control on the form, in order, blank ones included
       const fields = [].slice.call(form.elements)
