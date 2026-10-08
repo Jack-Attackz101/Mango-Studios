@@ -30,7 +30,7 @@
         <li><a href="index.html#manifesto" data-section="manifesto">Manifesto</a></li>
         <li><a href="index.html#faq" data-section="faq">FAQ</a></li>
       </ul>
-      <a class="btn menu-cta" href="mailto:hello@mangostudios.xyz?subject=Hello">Talk to us</a>
+      <button class="btn menu-cta" type="button" data-project-open>Talk to us</button>
     </nav>
   </header>
 
@@ -253,7 +253,7 @@
       <div class="sky sky--live"></div>
       <h2 class="build-title display" id="build-title">Let's build something amazing.</h2>
       <div class="build-actions">
-        <a class="btn" href="mailto:hello@mangostudios.xyz?subject=Hello">Message us</a>
+        <button class="btn" type="button" data-project-open>Start a project</button>
         <a class="btn btn--white" href="work.html">Our work</a>
         <a class="btn btn--white" href="https://www.linkedin.com/company/mango-studios1/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
       </div>
@@ -288,7 +288,6 @@
       <div class="footer-col">
         <h3>Contact</h3>
         <ul>
-          <li><a href="mailto:hello@mangostudios.xyz">hello@mangostudios.xyz</a></li>
           <li><a href="https://www.linkedin.com/company/mango-studios1/" target="_blank" rel="noopener">LinkedIn</a></li>
           <li><a href="https://mangostudios.xyz">mangostudios.xyz</a></li>
         </ul>
@@ -298,6 +297,71 @@
       <span>© 2026 Mango Studios</span>
     </div>
   </footer>
+
+  <dialog class="formbox" id="project-form" aria-labelledby="project-form-title">
+    <form class="formbox-card" id="project-form-form" data-form="Start a project" novalidate>
+      <div class="formbox-top">
+        <div>
+          <p class="formbox-brand"><img src="assets/logo-stamp.png" alt="" width="46" height="46"> Mango Studios</p>
+          <h2 class="formbox-title" id="project-form-title">Start a project</h2>
+        </div>
+        <button class="formbox-x" type="button" data-form-close aria-label="Close">&times;</button>
+      </div>
+      <p class="formbox-lead">Tell us what you want built. You get a real price back, not a discovery call.</p>
+
+      <div class="formbox-fields">
+        <p class="field">
+          <label for="pf-type">What do you need</label>
+          <select id="pf-type" name="What do you need" required>
+            <option>Custom Sites & Apps</option>
+            <option>Custom AI Agents</option>
+            <option>Custom Automations</option>
+            <option>AI Consulting</option>
+          </select>
+        </p>
+        <p class="field">
+          <label for="pf-name">Your name</label>
+          <input id="pf-name" name="Your name" type="text" autocomplete="name" required>
+        </p>
+        <p class="field">
+          <label for="pf-email">Email</label>
+          <input id="pf-email" name="Email" type="email" autocomplete="email" required>
+        </p>
+        <p class="field">
+          <label for="pf-biz">Business</label>
+          <input id="pf-biz" name="Business" type="text" autocomplete="organization">
+        </p>
+        <p class="field">
+          <label for="pf-budget">Budget</label>
+          <select id="pf-budget" name="Budget" required>
+            <option>Not sure yet</option>
+            <option>Under $500</option>
+            <option>$500 - $1,500</option>
+            <option>$1,500 - $5,000</option>
+            <option>Over $5,000</option>
+          </select>
+        </p>
+        <p class="field">
+          <label for="pf-when">Timeline</label>
+          <select id="pf-when" name="Timeline" required>
+            <option>Not sure yet</option>
+            <option>As soon as possible</option>
+            <option>In the next month</option>
+            <option>In the next few months</option>
+          </select>
+        </p>
+        <p class="field">
+          <label for="pf-detail">What are you trying to build</label>
+          <textarea id="pf-detail" name="What are you trying to build" rows="4" type="text"></textarea>
+        </p>
+      </div>
+      <div class="formbox-actions">
+        <button class="btn formbox-send" type="submit">Send it <span aria-hidden="true">&rarr;</span></button>
+        <p class="formbox-status" id="project-form-status" role="status" aria-live="polite"></p>
+      </div>
+      <p class="formbox-fine">Goes straight to Mango Studios. We reply from here, not a bot.</p>
+    </form>
+  </dialog>
 
   <script src="main.js"></script>
 </body>

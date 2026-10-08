@@ -106,10 +106,10 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   else window.addEventListener('load', function () { setTimeout(intro, 400); });
 })();
 
-// About: the paragraph rides a drum that turns as the runway scrolls past.
-// Lines sit on a cylinder; whichever swings to the front lights up. The title
-// slides across with a trail of itself. Off entirely under reduced motion, and
-// off until measured, so the lines stay a readable paragraph if this never runs.
+// About: the paragraph reads like a teleprompter. The current line is black and
+// centred, the lines after it sit below a little smaller and fainter, and
+// scrolling greys the top one out and brings the next up. Off under reduced
+// motion, and off until measured, so the lines stay a readable paragraph.
 (function () {
   const reel = document.getElementById('about-reel');
   const wheel = document.getElementById('about-wheel');
@@ -122,16 +122,10 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   const words = source ? source.textContent.trim().split(/\s+/) : [];
   if (!words.length) return;
 
-  const RAD = Math.PI / 180;
-  // A fixed angle between lines, rather than 360/count, so the same few lines
-  // face you whether the drum carries ten long lines or twenty short ones.
-  const STEP = 32;
-  const EDGE = 95;
-  let slats = [];
-  let SPAN = 320;
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
-  let slatH = 104;
+  let lines = [];
+  let step = 60;
   let travel = 0;
   let top = 0;
   let runway = 1;
@@ -143,75 +137,59 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
     return y;
   }
 
-  // Break the paragraph into lines short enough that each one, stretched across
-  // the stage, lands at a readable size. Narrow screens get shorter lines, so the
-  // type stays big instead of shrinking to fit a long line into a phone.
   function split(boxWidth) {
-    const per = Math.max(17, Math.round(boxWidth / 46));
-    const lines = [];
+    const per = Math.max(18, Math.round(boxWidth / 42));
+    const out = [];
     let line = '';
     words.forEach(function (w) {
       const next = line ? line + ' ' + w : w;
-      if (line && next.length > per) { lines.push(line); line = w; } else { line = next; }
+      if (line && next.length > per) { out.push(line); line = w; } else { line = next; }
     });
-    if (line) lines.push(line);
-    return lines;
+    if (line) out.push(line);
+    return out;
   }
 
   function build(boxWidth) {
-    const lines = split(boxWidth);
-    if (lines.length < 3) return false;
-    if (slats.length === lines.length && slats[0].textContent === lines[0]) return true;
+    const text = split(boxWidth);
+    if (text.length < 3) return false;
+    if (lines.length === text.length && lines[0].textContent === text[0]) return true;
     drum.replaceChildren();
-    slats = lines.map(function (text, i) {
+    lines = text.map(function (t) {
       const el = document.createElement('p');
-      el.className = 'about-slat';
-      el.style.setProperty('--i', String(i));
-      el.textContent = text;
+      el.className = 'about-line';
+      el.textContent = t;
       drum.appendChild(el);
       return el;
     });
-    SPAN = (slats.length - 1) * STEP;
     return true;
   }
 
-  // Set each line's size from the width of its own letters, so every line
-  // spans the stage however many characters it has.
+  // One size for every line, taken from the longest, so the lines read as one
+  // paragraph rather than each being stretched to a different scale.
   function fit() {
     const box = wheel.clientWidth;
-    if (!box) return false;
-    const target = box * 0.97;
+    if (!box || !lines.length) return false;
     const probe = 100;
-    let ok = false;
-    slats.forEach(function (el) {
-      const cs = getComputedStyle(el);
-      ctx.font = cs.fontStyle + ' ' + cs.fontWeight + ' ' + probe + 'px ' + cs.fontFamily;
+    const cs = getComputedStyle(lines[0]);
+    ctx.font = cs.fontStyle + ' ' + cs.fontWeight + ' ' + probe + 'px ' + cs.fontFamily;
+    let widest = 0;
+    lines.forEach(function (el) {
       const m = ctx.measureText(el.textContent);
-      const ink = (m.actualBoundingBoxLeft || 0) + (m.actualBoundingBoxRight || m.width);
-      if (ink > 0) {
-        el.style.setProperty('--fit', (probe * target / ink).toFixed(2) + 'px');
-        ok = true;
-      }
+      widest = Math.max(widest, (m.actualBoundingBoxLeft || 0) + (m.actualBoundingBoxRight || m.width));
     });
-    return ok;
+    if (widest <= 0) return false;
+    const size = Math.min(probe * (box * 0.94) / widest, window.innerHeight * 0.1);
+    lines.forEach(function (el) { el.style.setProperty('--fit', size.toFixed(2) + 'px'); });
+    return true;
   }
 
   function measure() {
     reel.dataset.wheel = 'off';
     if (!build(wheel.clientWidth || window.innerWidth) || !fit()) return;
-    // the tallest line decides the drum's slat height, so none of them clip
-    slatH = slats.reduce(function (h, el) { return Math.max(h, el.offsetHeight); }, 0);
-    const widest = slats.reduce(function (w, el) { return Math.max(w, el.offsetWidth); }, 0);
+    step = lines[0].offsetHeight * 1.34;
     reel.dataset.wheel = 'on';
-    const radius = (slatH / 2) / Math.tan(STEP / 2 * RAD);
-    wheel.style.setProperty('--slat-h', slatH + 'px');
-    wheel.style.setProperty('--radius', radius.toFixed(1) + 'px');
-    wheel.style.setProperty('--persp', Math.round(radius * 5.2) + 'px');
-    slats.forEach(function (el) { el.style.setProperty('--r', radius.toFixed(1) + 'px'); });
     travel = Math.max(0, stage.clientWidth - sliders[0].offsetWidth - 24);
-    // every line gets a similar amount of scroll, with a ceiling so a phone's
-    // many short lines don't turn the section into an endless runway
-    reel.style.height = (1 + Math.min(slats.length * 0.26, 2.8)) * 100 + 'vh';
+    reel.style.height = (1 + Math.min(lines.length * 0.42, 3.2)) * 100 + 'vh';
     top = pageTop(reel);
     runway = Math.max(1, reel.offsetHeight - window.innerHeight);
     render();
@@ -220,24 +198,17 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   function render() {
     ticking = false;
     const p = Math.min(1, Math.max(0, (window.scrollY - top) / runway));
-    // Dwell on each line, then click to the next, so one line is lit at a time
-    // instead of two sitting half-faced between detents.
-    const idx = p * (slats.length - 1);
-    const base = Math.floor(idx);
-    let f = idx - base;
-    f = f <= 0.32 ? 0 : f >= 0.78 ? 1 : (f - 0.32) / 0.46;
-    f = f * f * (3 - 2 * f);
-    const turn = (base + f) * STEP;
-    slats.forEach(function (el, i) {
-      // no wrap-around: the strip is bent into an arc, so a line never swings
-      // back up to collide with one on the far side of the drum. Scrolling down
-      // rolls the next line up from the bottom, the way reading runs.
-      const a = turn - i * STEP;
-      const off = Math.abs(a) >= EDGE;
-      const lit = off ? 0 : Math.max(0, Math.cos(a * RAD));
-      el.style.setProperty('--a', a.toFixed(2) + 'deg');
-      el.style.setProperty('--lit', off ? '0' : (0.1 + 0.9 * Math.pow(lit, 1.7)).toFixed(3));
-      el.style.setProperty('--glow', (Math.pow(lit, 9) * 0.92).toFixed(3));
+    const head = p * (lines.length - 1);
+    lines.forEach(function (el, i) {
+      const d = i - head;
+      // behind the current line: drifts up and dissolves. Ahead of it: stacked
+      // below, each step smaller and fainter.
+      const o = d < 0 ? Math.max(0, 1 + d * 1.5) : Math.pow(0.42, d);
+      const sc = d <= 0 ? 1 : Math.max(0.58, 1 - 0.11 * d);
+      const ty = d >= 0 ? d * step : d * step * 1.25;
+      el.style.setProperty('--o', o.toFixed(3));
+      el.style.setProperty('--sc', sc.toFixed(3));
+      el.style.setProperty('--ty', ty.toFixed(1) + 'px');
     });
     const slide = (p * travel).toFixed(1) + 'px';
     sliders.forEach(function (el) { el.style.setProperty('--slide', slide); });
@@ -505,7 +476,6 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   const OPEN_HOURS = [9, 10, 11, 12, 13, 14, 15, 16];
   const MONTHS_AHEAD = 3;
   const TZ = 'America/Toronto';
-  const EMAIL = 'hello@mangostudios.xyz';
 
   const monthEl = document.getElementById('cal-month');
   const daysEl = document.getElementById('cal-days');
@@ -587,13 +557,112 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
     [].forEach.call(slotList.children, function (b) { b.setAttribute('aria-pressed', String(b.textContent === hourLabel(h))); });
     const when = fmtDay.format(picked) + ' at ' + hourLabel(h) + ' ET';
     choice.textContent = when;
-    go.href = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent('AI Consulting session') +
-      '&body=' + encodeURIComponent("Hi Mango Studios,\n\nI'd like to book an AI Consulting session on " + when + ' (Toronto time).\n\n');
+    // hand the chosen slot to the booking form; the booking happens on the site
+    const slotField = document.getElementById('bf-slot');
+    const slotLabel = document.getElementById('bf-when');
+    if (slotField) slotField.value = when + ' (Toronto time)';
+    if (slotLabel) slotLabel.textContent = when;
     sum.hidden = false;
   }
   prev.addEventListener('click', function () { view = new Date(view.getFullYear(), view.getMonth() - 1, 1); renderMonth(); });
   next.addEventListener('click', function () { view = new Date(view.getFullYear(), view.getMonth() + 1, 1); renderMonth(); });
   renderMonth();
+})();
+
+// Booking and project forms. Both post to /api/send, which is the only place the
+// Resend key exists; the page never sees it. Nothing is reported as sent unless
+// the request actually succeeded.
+(function () {
+  const dialogs = [].slice.call(document.querySelectorAll('.formbox'));
+  if (!dialogs.length || typeof HTMLDialogElement !== 'function') return;
+
+  let opener = null;
+
+  function open(dialog, trigger) {
+    if (!dialog || typeof dialog.showModal !== 'function') return;
+    opener = trigger || null;
+    dialog.showModal();
+    const first = dialog.querySelector('select, input:not([type="hidden"]), textarea');
+    if (first) first.focus({ preventScroll: true });
+  }
+
+  document.querySelectorAll('[data-project-open]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const dialog = document.getElementById('project-form');
+      const type = btn.getAttribute('data-project-type');
+      const select = document.getElementById('pf-type');
+      if (type && select) {
+        [].forEach.call(select.options, function (o) { if (o.text === type) select.value = o.value; });
+      }
+      open(dialog, btn);
+    });
+  });
+
+  const bookGo = document.getElementById('book-go');
+  if (bookGo) {
+    bookGo.addEventListener('click', function () {
+      open(document.getElementById('booking-form'), bookGo);
+    });
+  }
+
+  dialogs.forEach(function (dialog) {
+    dialog.querySelectorAll('[data-form-close]').forEach(function (btn) {
+      btn.addEventListener('click', function () { dialog.close(); });
+    });
+    // clicking the backdrop closes it
+    dialog.addEventListener('click', function (event) {
+      if (event.target === dialog) dialog.close();
+    });
+    dialog.addEventListener('close', function () {
+      if (opener && document.contains(opener)) opener.focus({ preventScroll: true });
+      opener = null;
+    });
+
+    const form = dialog.querySelector('form[data-form]');
+    if (!form) return;
+    const status = form.querySelector('.formbox-status');
+    const send = form.querySelector('.formbox-send');
+    let sending = false;
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      if (sending) return;
+      if (!form.reportValidity()) return;
+
+      // every control on the form, in order, blank ones included
+      const fields = [].slice.call(form.elements)
+        .filter(function (el) { return el.name && el.type !== 'submit' && el.type !== 'button'; })
+        .map(function (el) { return { label: el.name, value: el.value }; });
+
+      sending = true;
+      send.disabled = true;
+      const label = send.innerHTML;
+      send.textContent = 'Sending\u2026';
+      status.textContent = '';
+      status.className = 'formbox-status';
+
+      fetch('/api/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ form: form.dataset.form, fields: fields }),
+      }).then(function (res) {
+        return res.json().catch(function () { return {}; }).then(function (data) {
+          if (!res.ok || !data.ok) throw new Error(data.error || 'That did not send.');
+        });
+      }).then(function () {
+        form.classList.add('is-sent');
+        status.className = 'formbox-status is-good';
+        status.textContent = 'Sent. We\u2019ll be in touch by email.';
+        send.textContent = 'Sent';
+      }).catch(function (err) {
+        status.className = 'formbox-status is-bad';
+        status.textContent = err.message || 'That did not send. Please try again.';
+        send.innerHTML = label;
+        send.disabled = false;
+        sending = false;
+      });
+    });
+  });
 })();
 
 // The menu marks the section in view on the home page.

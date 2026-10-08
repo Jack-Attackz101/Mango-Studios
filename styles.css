@@ -344,22 +344,18 @@ body.menu-open .menu-scrim { opacity: 1; }
   padding: clamp(80px, 8vw, 128px) var(--gutter) clamp(64px, 7vw, 112px);
 }
 
-/* ── ABOUT: the paragraph rides a rotating drum ──
-   The lines sit on a cylinder. Scrolling the runway turns it, and whichever
-   line swings to the front lights up. Without JS the drum never engages and
-   the lines stack as an ordinary paragraph. */
+/* ── ABOUT: the paragraph reads like a teleprompter ──
+   The current line is black and centred. The lines after it sit below, each a
+   little smaller and fainter. Scrolling greys the top line out and brings the
+   next one up. Without JS the lines stay an ordinary paragraph. */
 
 .about-reel {
   position: relative;
-  /* the drum runs edge to edge, so it breaks out of the section gutter */
   margin-inline: calc(var(--gutter) * -1);
   margin-top: clamp(24px, 3vw, 48px);
 }
 
-
 .about-stage { position: relative; display: grid; align-content: center; gap: clamp(26px, 4vh, 58px); }
-/* the drum takes the middle of the stage; the title rides along the top of it */
-.about-reel[data-wheel="on"] .about-head { position: absolute; left: 0; right: 0; top: clamp(56px, 11vh, 130px); }
 .about-reel[data-wheel="on"] .about-stage {
   position: sticky;
   top: 0;
@@ -367,8 +363,9 @@ body.menu-open .menu-scrim { opacity: 1; }
   height: 100svh;
   overflow: clip;
 }
+.about-reel[data-wheel="on"] .about-head { position: absolute; left: 0; right: 0; top: clamp(50px, 9vh, 104px); }
 
-/* the title slides across with a motion trail of itself */
+/* the title slides across with a smear of itself behind */
 .about-title,
 .about-ghost {
   display: block;
@@ -385,75 +382,45 @@ body.menu-open .menu-scrim { opacity: 1; }
   white-space: nowrap;
   color: var(--ink);
 }
-.about-head { position: relative; }
 .about-reel[data-wheel="on"] .about-title,
 .about-reel[data-wheel="on"] .about-ghost { translate: var(--slide, 0px) 0; }
 .about-reel[data-wheel="on"] .about-title { position: relative; z-index: 1; }
-
+.about-head { position: relative; }
 .about-ghost {
   position: absolute;
   top: 0;
   left: 0;
-  /* each ghost lags a little further behind the real title */
   translate: calc(var(--slide, 0px) - var(--g) * 9%) 0;
   opacity: calc(0.38 - var(--g) * 0.075);
   pointer-events: none;
 }
 .about-reel[data-wheel="off"] .about-ghost { display: none; }
 
-/* the drum. The inner layer is pushed back by exactly the drum's radius, so the
-   line facing you lands at z = 0 and renders at its true width instead of being
-   magnified past the edges of the page by the perspective. */
 .about-wheel { position: relative; }
 .about-drum { display: grid; gap: 2px; }
-.about-reel[data-wheel="on"] .about-wheel {
-  height: var(--slat-h, 104px);
-  perspective: var(--persp, 1150px);
-}
-.about-reel[data-wheel="on"] .about-drum {
-  display: block;
-  height: 100%;
-  transform: translateZ(calc(var(--radius, 200px) * -1));
-  transform-style: preserve-3d;
-}
+.about-reel[data-wheel="on"] .about-drum { place-content: center; }
 
-.about-slat {
-  position: relative;
-  display: grid;
-  place-items: center;
+.about-line {
   padding-inline: clamp(12px, 1.6vw, 26px);
   font-family: var(--font-round);
   font-weight: 600;
-  font-size: var(--fit, clamp(1.4rem, 5.2vw, 4.2rem));
-  line-height: 1;
+  font-size: var(--fit, clamp(1.3rem, 4vw, 3rem));
+  line-height: 1.12;
   letter-spacing: -0.02em;
-  white-space: nowrap;
+  text-align: center;
+  text-wrap: balance;
   color: var(--ink);
 }
-.about-reel[data-wheel="on"] .about-slat {
-  position: absolute;
-  inset: 0;
-  height: var(--slat-h, 104px);
-  opacity: var(--lit, 1);
-  transform: rotateX(var(--a, 0deg)) translateZ(var(--r, 200px));
-  backface-visibility: hidden;
+.about-reel[data-wheel="on"] .about-line {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+  opacity: var(--o, 1);
+  transform: translateY(var(--ty, 0px)) scale(var(--sc, 1));
   will-change: transform, opacity;
 }
 
-/* the mango-yellow glow that rides whichever line is facing you */
-.about-slat::before {
-  position: absolute;
-  z-index: -1;
-  inset: 4% clamp(6px, 1vw, 18px);
-  border-radius: 999px;
-  background: var(--title-yellow);
-  content: "";
-  opacity: 0;
-}
-.about-reel[data-wheel="on"] .about-slat::before { opacity: var(--glow, 0); }
-
-/* the plain paragraph is the fallback when the drum is off */
-.about-reel[data-wheel="on"] + .about-plain {
+.about-reel[data-wheel="on"] + .about-plain { display: none; }
+.about-plain {
   max-width: 44ch;
   margin-top: clamp(20px, 2.4vw, 32px);
   font: 500 clamp(1.15rem, 0.95rem + 0.6vw, 1.6rem)/1.45 var(--font-round);
@@ -1382,4 +1349,125 @@ button.cal-day:active { transform: scale(0.94); transition-duration: 0.05s; }
   .trail img { animation-name: sticker-still; animation-timing-function: ease-out; }
   .card, .card:hover, .card:active, .btn, .btn:hover, .btn:active, .mini-card, .mini-card:hover { transition: none; transform: none; }
   .card:hover .card-icon { animation: none; }
+}
+
+/* ── BOOKING + PROJECT FORMS ────────────────
+   Both live in a dialog so the booking happens on the site. The card is the
+   studio's own paper-and-ink card, so it reads as Mango Studios rather than a
+   bolted-on tool. */
+
+.formbox {
+  width: min(620px, calc(100% - 28px));
+  max-height: calc(100svh - 40px);
+  margin: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+}
+.formbox::backdrop { background: rgba(6, 36, 58, 0.55); backdrop-filter: blur(3px); }
+
+.formbox-card {
+  max-height: calc(100svh - 48px);
+  padding: clamp(22px, 3vw, 34px);
+  overflow-y: auto;
+  border: 5px solid var(--ink);
+  border-radius: 30px;
+  background: var(--paper);
+  box-shadow: 9px 10px 0 var(--ink);
+}
+.formbox[open] .formbox-card { animation: formbox-in 0.4s var(--ease); }
+@keyframes formbox-in { from { opacity: 0; transform: translateY(18px) scale(0.97); } }
+
+.formbox-top { display: flex; align-items: start; justify-content: space-between; gap: 16px; }
+.formbox-brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font: 800 12.5px/1 var(--font-text);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #6b5a2c;
+}
+.formbox-brand img { width: 23px; height: auto; }
+.formbox-title { margin-top: 10px; font: 400 clamp(28px, 3.4vw, 40px)/1 var(--font-cartoon); color: var(--ink); }
+.formbox-x {
+  flex: 0 0 38px;
+  width: 38px;
+  height: 38px;
+  border: 2.5px solid var(--ink);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 3px 0 var(--ink);
+  font: 700 20px/1 var(--font-text);
+  color: var(--ink);
+  cursor: pointer;
+  transition: transform 0.16s var(--ease), box-shadow 0.16s var(--ease);
+}
+.formbox-x:hover { transform: translateY(-2px); box-shadow: 0 5px 0 var(--ink); }
+.formbox-x:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--ink); transition-duration: 0.06s; }
+.formbox-lead { margin-top: 10px; font: 500 15px/1.5 var(--font-text); color: #5c5648; }
+
+.formbox-slot {
+  display: grid;
+  gap: 4px;
+  margin-top: 16px;
+  padding: 14px 18px;
+  border: 3px solid var(--ink);
+  border-radius: 18px;
+  background: var(--title-yellow);
+}
+.formbox-slot-label { font: 800 11px/1 var(--font-text); letter-spacing: 0.1em; text-transform: uppercase; color: #6b5a2c; }
+.formbox-slot-when { font: 700 17px/1.25 var(--font-text); color: var(--ink); }
+
+.formbox-fields { display: grid; gap: 14px; margin-top: 20px; }
+.field { display: grid; gap: 7px; }
+.field label { font: 700 13px/1 var(--font-text); letter-spacing: 0.02em; color: var(--ink); }
+.field-hint { font: 500 12px/1.4 var(--font-text); color: #6f6959; }
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  min-height: 52px;
+  padding: 13px 15px;
+  border: 3px solid var(--ink);
+  border-radius: 15px;
+  background: #fff;
+  font: 500 16px/1.4 var(--font-text);
+  color: var(--ink);
+  -webkit-appearance: none;
+  appearance: none;
+}
+.field textarea { min-height: 104px; resize: vertical; }
+.field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6' fill='none' stroke='%23111' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 13px center;
+  background-size: 20px;
+  padding-right: 42px;
+}
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible { outline: 3px solid var(--blob-orange); outline-offset: 2px; }
+.field input:user-invalid,
+.field textarea:user-invalid { border-color: #c2412a; }
+
+.formbox-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; margin-top: 22px; }
+.formbox-send:disabled { opacity: 0.6; cursor: progress; transform: none; box-shadow: 0 4px 0 var(--ink); }
+.formbox-status { font: 700 14px/1.4 var(--font-text); }
+.formbox-status.is-good { color: #1d6b3f; }
+.formbox-status.is-bad { color: #b03520; }
+.formbox-fine { margin-top: 14px; font: 500 12px/1.45 var(--font-text); color: #76705f; }
+.formbox-card.is-sent .formbox-fields,
+.formbox-card.is-sent .formbox-lead { opacity: 0.5; pointer-events: none; }
+
+@media (max-width: 520px) {
+  .formbox-card { padding: 20px 17px; border-width: 3px; border-radius: 24px; box-shadow: 6px 7px 0 var(--ink); }
+  .formbox-title { font-size: 27px; }
+  .formbox-fields { gap: 12px; }
+  .field input, .field select, .field textarea { min-height: 48px; border-width: 2.5px; font-size: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .formbox[open] .formbox-card { animation: none; }
 }
