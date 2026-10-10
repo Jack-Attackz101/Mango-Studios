@@ -242,17 +242,18 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
     const head = p * (lines.length - 1);
     lines.forEach(function (el, i) {
       const d = i - head;
-      const far = Math.abs(d);
-      // The wheel is symmetric: a line leaving over the top greys, shrinks and
-      // fades at the same pace a line arriving from below sharpens, so nothing
-      // ever drops out between one frame and the next.
+      // Below the line facing you, each step down is smaller, fainter and more
+      // tipped. Above it, a line greys to the same look as the first line
+      // below and holds there, readable, all the way up to the title; only as
+      // it reaches the title does it fade out.
+      const far = d < 0 ? Math.min(-d, 1) : d;
       let o = Math.pow(0.42, far);
       const sc = Math.max(0.58, 1 - 0.1 * far);
       const ty = d * step;
-      const rx = Math.max(-72, Math.min(72, -d * TILT));
-      // on the way out, ease to nothing over the last line's height before the
-      // title, so the giant ABOUT US never has text running through it
-      if (d < 0) o *= Math.min(1, Math.max(0, (room + ty) / (step * 0.9)));
+      const rx = Math.max(-72, Math.min(72, d < 0 ? far * TILT : -d * TILT));
+      // ease to nothing over the last line's height before the title, so the
+      // giant ABOUT US never has text running through it
+      if (d < 0) o *= Math.min(1, Math.max(0, (room + ty) / (step * 0.5)));
       el.style.setProperty('--o', o.toFixed(3));
       el.style.setProperty('--sc', sc.toFixed(3));
       el.style.setProperty('--ty', ty.toFixed(1) + 'px');
