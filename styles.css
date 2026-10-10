@@ -1290,6 +1290,7 @@ button.cal-day:active { transform: scale(0.94); transition-duration: 0.05s; }
 .cal-day.is-today::after { content: ""; position: absolute; bottom: 13%; width: 5px; height: 5px; border-radius: 50%; background: var(--ink); }
 .slots { display: grid; gap: 16px; }
 .slots-title { font-family: var(--font-cartoon); font-weight: 400; font-size: clamp(26px, 2vw, 34px); line-height: 1.05; color: var(--ink); }
+.slots-zone { margin-top: -8px; font: 600 13px/1.3 var(--font-text); color: #6f6959; }
 .slot-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
 .slot {
   min-height: 46px;
