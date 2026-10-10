@@ -219,6 +219,7 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
 
   function measure() {
     reel.dataset.wheel = 'off';
+    reel.style.marginBottom = '';
     const box = wheel.clientWidth || window.innerWidth;
     if (!build(box) || !fitLines(box)) return;
     step = lines[0].offsetHeight * 1.3;
@@ -231,6 +232,15 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
     // how far a line can rise above the facing position before it would run
     // into the bottom of the title
     room = drum.getBoundingClientRect().top - title.getBoundingClientRect().bottom;
+    // When the paragraph ends, the last line sits mid-stage with the stage's
+    // empty lower half still under it. Pull what follows up by exactly that much,
+    // so Our values starts its usual distance below the last line instead of a
+    // screen-half further down. Nothing is ever drawn there once the last line
+    // is facing you, so the overlap is empty.
+    reel.style.marginBottom = '0px';
+    const sr = stage.getBoundingClientRect();
+    const empty = sr.bottom - (drum.getBoundingClientRect().top + lines[0].offsetHeight);
+    reel.style.marginBottom = -Math.max(0, Math.round(empty)) + 'px';
     top = pageTop(reel);
     runway = Math.max(1, reel.offsetHeight - window.innerHeight);
     render();

@@ -380,6 +380,9 @@ body.menu-open .menu-scrim { opacity: 1; }
 
 .about-stage { position: relative; display: grid; align-content: center; gap: clamp(20px, 3vh, 44px); }
 .about-reel[data-wheel="on"] .about-stage {
+  /* the stage overlaps the top of Our values once it scrolls off; it holds
+     nothing clickable, so let the cards underneath keep their pointer */
+  pointer-events: none;
   position: sticky;
   top: 0;
   height: 100vh;
