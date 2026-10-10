@@ -524,18 +524,87 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   measure();
 })();
 
-// Booking: pick a day, then a time, then send the request by email. Times are Toronto time.
+// Booking calendar. The hours are set in Toronto; every slot is built as an
+// exact moment from those hours and then shown to the visitor in their own time
+// zone, on their own calendar date. The request that reaches us carries both
+// the Toronto time and theirs.
 (function () {
   const roots = [].slice.call(document.querySelectorAll('[data-calendar]'));
   if (!roots.length) return;
 
-  roots.forEach(function mount(root) {
-    // Fully open for now: every day of the week, hourly from 9 AM to 4 PM.
-    const OPEN_WEEKDAYS = [0, 1, 2, 3, 4, 5, 6];
-    const OPEN_HOURS = [9, 10, 11, 12, 13, 14, 15, 16];
-    const MONTHS_AHEAD = 3;
-    const TZ = 'America/Toronto';
+  const HOME = 'America/Toronto';
+  // Toronto hours a session can start at, by weekday (0 is Sunday). Sessions
+  // are an hour long, so 7 PM is the last start and every call ends by the
+  // 8 PM hard stop.
+  const WEEKEND = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
+  const WEEKDAY = [16, 17, 18, 19];
+  const START_HOURS = { 0: WEEKEND, 1: WEEKDAY, 2: WEEKDAY, 3: WEEKDAY, 4: [], 5: WEEKDAY, 6: WEEKEND };
+  const NOTICE = 60 * 60 * 1000;   // nothing that starts within the hour
+  const DAYS_AHEAD = 92;
 
+  const homeParts = new Intl.DateTimeFormat('en-US', {
+    timeZone: HOME, hourCycle: 'h23',
+    year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit',
+  });
+  function partsAt(t) {
+    const out = {};
+    homeParts.formatToParts(new Date(t)).forEach(function (p) { out[p.type] = +p.value; });
+    return out;
+  }
+  // how far Toronto's wall clock is from UTC at a given moment, in ms
+  function offsetAt(t) {
+    const p = partsAt(t);
+    return Date.UTC(p.year, p.month - 1, p.day, p.hour % 24, p.minute, p.second) - t;
+  }
+  // the exact moment of a Toronto wall-clock time, daylight saving included
+  function homeTime(y, m, d, h) {
+    const guess = Date.UTC(y, m, d, h);
+    let t = guess - offsetAt(guess);
+    const again = guess - offsetAt(t);
+    if (again !== t) t = again;
+    return t;
+  }
+
+  // every open slot from now on, as exact moments
+  const now = Date.now();
+  const start = partsAt(now);
+  const slots = [];
+  for (let i = 0; i < DAYS_AHEAD; i++) {
+    const day = new Date(Date.UTC(start.year, start.month - 1, start.day + i));
+    START_HOURS[day.getUTCDay()].forEach(function (h) {
+      const t = homeTime(day.getUTCFullYear(), day.getUTCMonth(), day.getUTCDate(), h);
+      if (t > now + NOTICE) slots.push(t);
+    });
+  }
+
+  // grouped by the visitor's own calendar date
+  function key(d) { return d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate(); }
+  const byDay = {};
+  slots.forEach(function (t) {
+    const k = key(new Date(t));
+    (byDay[k] = byDay[k] || []).push(t);
+  });
+
+  const zone = (function () {
+    try { return Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (err) { return ''; }
+  })();
+  const zoneShort = (function () {
+    const part = new Intl.DateTimeFormat('en-US', { timeZoneName: 'short' }).formatToParts(new Date())
+      .find(function (p) { return p.type === 'timeZoneName'; });
+    return part ? part.value : '';
+  })();
+  // Toronto itself, or anywhere that keeps the same clock all year
+  const sameClock = zone === HOME || slots.every(function (t) { return offsetAt(t) === -new Date(t).getTimezoneOffset() * 60000; });
+
+  const fmtMonth = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' });
+  const fmtDay = new Intl.DateTimeFormat('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+  const fmtTime = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit' });
+  const fmtHome = new Intl.DateTimeFormat('en-US', { timeZone: HOME, weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+
+  const localToday = new Date(); localToday.setHours(0, 0, 0, 0);
+  const lastSlot = slots.length ? new Date(slots[slots.length - 1]) : localToday;
+
+  roots.forEach(function mount(root) {
     const monthEl = root.querySelector('.cal-month');
     const daysEl = root.querySelector('.cal-days');
     const slotTitle = root.querySelector('.slots-title');
@@ -545,26 +614,28 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
     const prev = root.querySelector('[data-step="-1"]');
     const next = root.querySelector('[data-step="1"]');
 
-    const todayParts = new Intl.DateTimeFormat('en-CA', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date()).split('-').map(Number);
-    const today = new Date(todayParts[0], todayParts[1] - 1, todayParts[2]);
-    const nowHour = Number(new Intl.DateTimeFormat('en-US', { timeZone: TZ, hour: 'numeric', hourCycle: 'h23' }).format(new Date()));
-    let view = new Date(today.getFullYear(), today.getMonth(), 1);
-    let picked = null, pickedHour = null;
-
-    const fmtMonth = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' });
-    const fmtDay = new Intl.DateTimeFormat('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
-    function sameDay(a, b) { return a && b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate(); }
-    function hourLabel(h) { return (h % 12 || 12) + ':00 ' + (h < 12 ? 'AM' : 'PM'); }
-    function hoursFor(d) {
-      if (OPEN_WEEKDAYS.indexOf(d.getDay()) < 0 || d < today) return [];
-      return OPEN_HOURS.filter(function (h) { return !sameDay(d, today) || h > nowHour; });
+    // say which clock the times are on, right under the day they belong to
+    let note = root.querySelector('.slots-zone');
+    if (!note) {
+      note = document.createElement('p');
+      note.className = 'slots-zone';
+      slotTitle.insertAdjacentElement('afterend', note);
     }
-    function monthOffset(d) { return (d.getFullYear() - today.getFullYear()) * 12 + d.getMonth() - today.getMonth(); }
+    note.textContent = sameClock
+      ? 'Toronto time (' + zoneShort + ')'
+      : 'Shown in your time zone (' + zoneShort + ')';
+
+    let view = new Date(localToday.getFullYear(), localToday.getMonth(), 1);
+    let picked = null;
+
+    function sameDay(a, b) { return a && b && key(a) === key(b); }
+    function slotsFor(d) { return byDay[key(d)] || []; }
+    function monthIndex(d) { return d.getFullYear() * 12 + d.getMonth(); }
 
     function renderMonth() {
       monthEl.textContent = fmtMonth.format(view);
-      prev.disabled = monthOffset(view) <= 0;
-      next.disabled = monthOffset(view) >= MONTHS_AHEAD;
+      prev.disabled = monthIndex(view) <= monthIndex(localToday);
+      next.disabled = monthIndex(view) >= monthIndex(lastSlot);
       daysEl.textContent = '';
       // days from the neighbouring months fill out the first and last weeks, faded and not clickable
       function outside(d) {
@@ -581,11 +652,12 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
         const d = new Date(view.getFullYear(), view.getMonth(), day);
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = 'cal-day' + (sameDay(d, today) ? ' is-today' : '');
+        const today = sameDay(d, localToday);
+        btn.className = 'cal-day' + (today ? ' is-today' : '');
         btn.textContent = String(day);
-        const open = hoursFor(d).length > 0;
+        const open = slotsFor(d).length > 0;
         btn.disabled = !open;
-        btn.setAttribute('aria-label', fmtDay.format(d) + (sameDay(d, today) ? ', today' : '') + (open ? '' : ', unavailable'));
+        btn.setAttribute('aria-label', fmtDay.format(d) + (today ? ', today' : '') + (open ? '' : ', unavailable'));
         btn.setAttribute('aria-pressed', String(sameDay(d, picked)));
         btn.addEventListener('click', function () { pickDay(d); });
         daysEl.appendChild(btn);
@@ -593,43 +665,46 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
       const trail = (7 - (lead + last) % 7) % 7;
       for (let i = 1; i <= trail; i++) outside(new Date(view.getFullYear(), view.getMonth() + 1, i));
     }
+
     function pickDay(d) {
       picked = d;
-      pickedHour = null;
       renderMonth();
       slotTitle.textContent = fmtDay.format(d);
       slotList.textContent = '';
-      hoursFor(d).forEach(function (h) {
+      slotsFor(d).forEach(function (t) {
         const b = document.createElement('button');
         b.type = 'button';
         b.className = 'slot';
-        b.textContent = hourLabel(h);
+        b.textContent = fmtTime.format(new Date(t));
+        b.dataset.t = String(t);
         b.setAttribute('aria-pressed', 'false');
-        b.addEventListener('click', function () { pickHour(h); });
+        b.addEventListener('click', function () { pickSlot(t); });
         slotList.appendChild(b);
       });
       sum.hidden = true;
     }
-    function pickHour(h) {
-      pickedHour = h;
-      [].forEach.call(slotList.children, function (b) { b.setAttribute('aria-pressed', String(b.textContent === hourLabel(h))); });
-      const when = fmtDay.format(picked) + ' at ' + hourLabel(h) + ' ET';
+
+    function pickSlot(t) {
+      [].forEach.call(slotList.children, function (b) { b.setAttribute('aria-pressed', String(+b.dataset.t === t)); });
+      const at = new Date(t);
+      const when = fmtDay.format(at) + ' at ' + fmtTime.format(at) + ' ' + zoneShort;
+      // what reaches us: always Toronto time, plus theirs when it differs
+      const home = fmtHome.format(at).replace(/, (\d)/, ' at $1') + ' Toronto time';
+      const value = sameClock ? home : home + ' (their time: ' + when + (zone ? ', ' + zone : '') + ')';
       choice.textContent = when;
-      // hand the chosen slot to the booking form; the booking happens on the site
       // hand the chosen slot to whatever is listening; the booking happens on the site
-      root.dispatchEvent(new CustomEvent('slotpick', { bubbles: true, detail: { when: when } }));
+      root.dispatchEvent(new CustomEvent('slotpick', { bubbles: true, detail: { when: when, value: value } }));
       sum.hidden = false;
     }
+
     prev.addEventListener('click', function () { view = new Date(view.getFullYear(), view.getMonth() - 1, 1); renderMonth(); });
     next.addEventListener('click', function () { view = new Date(view.getFullYear(), view.getMonth() + 1, 1); renderMonth(); });
 
     // Open on the next day that has a free time, so the times are showing from
     // the start instead of an empty panel asking you to pick a day.
-    let first = new Date(today);
-    for (let i = 0; i < 62 && !hoursFor(first).length; i++) {
-      first = new Date(first.getFullYear(), first.getMonth(), first.getDate() + 1);
-    }
-    if (hoursFor(first).length) {
+    if (slots.length) {
+      const first = new Date(slots[0]);
+      first.setHours(0, 0, 0, 0);
       view = new Date(first.getFullYear(), first.getMonth(), 1);
       pickDay(first);
     } else {
@@ -725,7 +800,7 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   const slotLabel = document.getElementById('bf-when');
   document.addEventListener('slotpick', function (event) {
     if (!slotField) return;
-    slotField.value = event.detail.when + ' (Toronto time)';
+    slotField.value = event.detail.value;
     if (slotLabel) slotLabel.textContent = event.detail.when;
   });
 
@@ -813,7 +888,8 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
         }
         const first = get('Your name').trim().split(/\s+/)[0];
         const hi = 'Thanks' + (first ? ', ' + first : '') + '. ';
-        const when = get('Session').replace(/ \(Toronto time\)$/, '');
+        // tell them the time on their own clock, the one they picked it in
+        const when = get('Session') && slotLabel ? slotLabel.textContent : '';
         done.querySelector('.flow-done-text').textContent = when
           ? hi + 'We’ll confirm ' + when + ' by email to ' + get('Email') + '.'
           : hi + 'We’ll reply to ' + get('Email') + ' with a real price, usually within a day.';
