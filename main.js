@@ -66,7 +66,24 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
     while (layer.childElementCount > MAX_LIVE) layer.firstElementChild.remove();
   }
 
+  // The Work with us button is a quiet zone: no sticker lands on or around it,
+  // from the pointer or the opening sweep, and the trail picks up fresh from
+  // wherever it leaves rather than drawing a line of stickers back across it.
+  const cta = area.querySelector('.hero-cta');
+  function nearButton(x, y) {
+    if (!cta) return false;
+    const a = area.getBoundingClientRect();
+    const r = cta.getBoundingClientRect();
+    const scale = a.width / area.offsetWidth || 1;
+    // half a sticker of clearance, matching --trail-size: clamp(64px, 7.5vw, 124px)
+    const pad = Math.max(64, Math.min(window.innerWidth * 0.075, 124)) * 0.62;
+    const left = (r.left - a.left) / scale, top = (r.top - a.top) / scale;
+    const right = (r.right - a.left) / scale, bottom = (r.bottom - a.top) / scale;
+    return x > left - pad && x < right + pad && y > top - pad && y < bottom + pad;
+  }
+
   function trailTo(x, y) {
+    if (nearButton(x, y)) { last = null; return; }
     if (!last) { spawn(x, y); last = { x: x, y: y }; return; }
     const gap = spacing();
     const dx = x - last.x, dy = y - last.y;
@@ -74,7 +91,8 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
     if (dist < gap) return;
     const steps = Math.min(4, Math.floor(dist / gap));
     for (let i = 1; i <= steps; i++) {
-      spawn(last.x + (dx * i) / steps, last.y + (dy * i) / steps);
+      const px = last.x + (dx * i) / steps, py = last.y + (dy * i) / steps;
+      if (!nearButton(px, py)) spawn(px, py);
     }
     last = { x: x, y: y };
   }
@@ -127,6 +145,7 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   const ctx = canvas.getContext('2d');
   let lines = [];
   let step = 60;
+  let room = 400;
   let top = 0;
   let runway = 1;
   let ticking = false;
@@ -209,6 +228,9 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
     // each line gets its own stretch of scroll, with a ceiling so a phone's
     // many short lines don't turn the section into an endless runway
     reel.style.height = (1 + Math.min(lines.length * 0.42, 3.2)) * 100 + 'vh';
+    // how far a line can rise above the facing position before it would run
+    // into the bottom of the title
+    room = drum.getBoundingClientRect().top - title.getBoundingClientRect().bottom;
     top = pageTop(reel);
     runway = Math.max(1, reel.offsetHeight - window.innerHeight);
     render();
@@ -220,12 +242,17 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
     const head = p * (lines.length - 1);
     lines.forEach(function (el, i) {
       const d = i - head;
-      // ahead of the line facing you: stacked below, tipping away, each step
-      // smaller and fainter. Behind it: tips up over the top and dissolves.
-      const o = d < 0 ? Math.max(0, 1 + d * 1.5) : Math.pow(0.42, d);
-      const sc = d <= 0 ? 1 : Math.max(0.58, 1 - 0.1 * d);
-      const ty = d >= 0 ? d * step : d * step * 1.25;
+      const far = Math.abs(d);
+      // The wheel is symmetric: a line leaving over the top greys, shrinks and
+      // fades at the same pace a line arriving from below sharpens, so nothing
+      // ever drops out between one frame and the next.
+      let o = Math.pow(0.42, far);
+      const sc = Math.max(0.58, 1 - 0.1 * far);
+      const ty = d * step;
       const rx = Math.max(-72, Math.min(72, -d * TILT));
+      // on the way out, ease to nothing over the last line's height before the
+      // title, so the giant ABOUT US never has text running through it
+      if (d < 0) o *= Math.min(1, Math.max(0, (room + ty) / (step * 0.9)));
       el.style.setProperty('--o', o.toFixed(3));
       el.style.setProperty('--sc', sc.toFixed(3));
       el.style.setProperty('--ty', ty.toFixed(1) + 'px');
@@ -584,7 +611,19 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
     }
     prev.addEventListener('click', function () { view = new Date(view.getFullYear(), view.getMonth() - 1, 1); renderMonth(); });
     next.addEventListener('click', function () { view = new Date(view.getFullYear(), view.getMonth() + 1, 1); renderMonth(); });
-    renderMonth();
+
+    // Open on the next day that has a free time, so the times are showing from
+    // the start instead of an empty panel asking you to pick a day.
+    let first = new Date(today);
+    for (let i = 0; i < 62 && !hoursFor(first).length; i++) {
+      first = new Date(first.getFullYear(), first.getMonth(), first.getDate() + 1);
+    }
+    if (hoursFor(first).length) {
+      view = new Date(first.getFullYear(), first.getMonth(), 1);
+      pickDay(first);
+    } else {
+      renderMonth();
+    }
   });
 })();
 
@@ -595,6 +634,8 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
 (function () {
   const flow = document.getElementById('startflow');
   if (!flow || typeof flow.showModal !== 'function') return;
+
+  const LINKEDIN_ICON = '<svg class="i i--fill" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>';
 
   const steps = {};
   [].forEach.call(flow.querySelectorAll('.flow-step'), function (el) { steps[el.dataset.step] = el; });
@@ -626,10 +667,7 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
 
   function pick(type) {
     if (type === 'AI Consulting') { go('book'); return; }
-    const select = document.getElementById('pf-type');
-    if (select) {
-      [].forEach.call(select.options, function (o) { if (o.text === type) select.value = o.value; });
-    }
+    flow.querySelectorAll('input[name="What do you need"]').forEach(function (r) { r.checked = r.value === type; });
     go('project');
   }
 
@@ -651,6 +689,8 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   flow.addEventListener('close', function () {
     if (opener && document.contains(opener)) opener.focus({ preventScroll: true });
     opener = null;
+    // a finished form starts fresh next time
+    flow.querySelectorAll('form.is-sent').forEach(function (form) { form._reset(); });
   });
 
   // every Start a project / Get a quote / Work with us button on the site
@@ -679,29 +719,67 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
   });
 
   flow.querySelectorAll('form[data-form]').forEach(function (form) {
+    const body = form.querySelector('.flow-form-body');
+    const done = form.querySelector('.flow-done');
     const status = form.querySelector('.formbox-status');
     const send = form.querySelector('.formbox-send');
+    const label = send.innerHTML;
     let sending = false;
+
+    form._reset = function () {
+      form.reset();
+      form.classList.remove('is-sent', 'was-validated');
+      body.hidden = false;
+      done.hidden = true;
+      send.innerHTML = label;
+      send.disabled = false;
+      status.textContent = '';
+      status.className = 'formbox-status';
+      sending = false;
+    };
+
+    // every control in form order, blank ones included; a group of chips
+    // counts once, as whichever one is picked
+    function collect() {
+      const seen = {};
+      const fields = [];
+      [].forEach.call(form.elements, function (el) {
+        if (!el.name || el.type === 'submit' || el.type === 'button') return;
+        if (el.type === 'radio') {
+          if (seen[el.name]) return;
+          seen[el.name] = true;
+          const on = [].find.call(form.elements, function (x) { return x.name === el.name && x.checked; });
+          fields.push({ label: el.name, value: on ? on.value : '' });
+          return;
+        }
+        fields.push({ label: el.name, value: el.value });
+      });
+      return fields;
+    }
 
     form.addEventListener('submit', function (event) {
       event.preventDefault();
       if (sending) return;
-      if (!form.reportValidity()) return;
+
+      // our own message under each field, not the browser's tooltip
+      if (!form.checkValidity()) {
+        form.classList.add('was-validated');
+        const first = form.querySelector('input:invalid, textarea:invalid');
+        if (first) first.focus();
+        return;
+      }
       if (slotField && form.contains(slotField) && !slotField.value) {
         status.className = 'formbox-status is-bad';
         status.textContent = 'Pick a day and a time first.';
+        const cal = form.querySelector('[data-calendar]');
+        if (cal) cal.scrollIntoView({ block: 'center', behavior: reduceMotion ? 'auto' : 'smooth' });
         return;
       }
 
-      // every control on the form, in order, blank ones included
-      const fields = [].slice.call(form.elements)
-        .filter(function (el) { return el.name && el.type !== 'submit' && el.type !== 'button'; })
-        .map(function (el) { return { label: el.name, value: el.value }; });
-
+      const fields = collect();
       sending = true;
       send.disabled = true;
-      const label = send.innerHTML;
-      send.textContent = 'Sending\u2026';
+      send.textContent = 'Sending…';
       status.textContent = '';
       status.className = 'formbox-status';
 
@@ -718,10 +796,21 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
           }
         });
       }).then(function () {
+        function get(name) {
+          const f = fields.find(function (x) { return x.label === name; });
+          return f ? f.value : '';
+        }
+        const first = get('Your name').trim().split(/\s+/)[0];
+        const hi = 'Thanks' + (first ? ', ' + first : '') + '. ';
+        const when = get('Session').replace(/ \(Toronto time\)$/, '');
+        done.querySelector('.flow-done-text').textContent = when
+          ? hi + 'We’ll confirm ' + when + ' by email to ' + get('Email') + '.'
+          : hi + 'We’ll reply to ' + get('Email') + ' with a real price, usually within a day.';
         form.classList.add('is-sent');
-        status.className = 'formbox-status is-good';
-        status.textContent = 'Sent. We\u2019ll be in touch by email.';
-        send.textContent = 'Sent';
+        body.hidden = true;
+        done.hidden = false;
+        flow.scrollTop = 0;
+        done.querySelector('.flow-done-title').focus({ preventScroll: true });
       }).catch(function (err) {
         status.className = 'formbox-status is-bad';
         status.textContent = err.message || 'That did not send. Please try again.';
@@ -731,7 +820,7 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
           link.href = 'https://www.linkedin.com/company/mango-studios1/';
           link.target = '_blank';
           link.rel = 'noopener';
-          link.textContent = ' Reach us on LinkedIn \u2197';
+          link.innerHTML = LINKEDIN_ICON + 'Reach us on LinkedIn';
           status.appendChild(link);
         }
         send.innerHTML = label;

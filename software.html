@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Our Software · Mango Studios</title>
   <meta name="description" content="Apps built and shipped under the Mango Studios name.">
-  <link rel="icon" href="assets/logo-stamp.png">
+  <link rel="icon" href="assets/logo-badge.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,900&family=Chewy&family=Fredoka:wght@500;600&family=Inter+Tight:wght@500;600;650;700;800&display=swap" rel="stylesheet">
@@ -58,7 +58,7 @@
             <span class="work-kind">SaaS product</span>
             <h3>Klaritea</h3>
             <p>A live SaaS product, built and shipped by Mango Studios.</p>
-            <div class="work-foot"><span class="status">Live</span><a class="btn btn--white btn--sm" href="https://klaritea.app" target="_blank" rel="noopener">Visit <span aria-hidden="true">↗</span></a></div>
+            <div class="work-foot"><span class="status">Live</span><a class="btn btn--white btn--sm" href="https://klaritea.app" target="_blank" rel="noopener">Visit <svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>
           </div>
         </li>
       </ul>
@@ -93,8 +93,7 @@
       <div class="footer-col">
         <h3>Contact</h3>
         <ul>
-          <li><a href="https://www.linkedin.com/company/mango-studios1/" target="_blank" rel="noopener">LinkedIn</a></li>
-          <li><a href="https://mangostudios.xyz">mangostudios.xyz</a></li>
+          <li><a href="https://www.linkedin.com/company/mango-studios1/" target="_blank" rel="noopener"><svg class="i i--fill" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>LinkedIn</a></li>
         </ul>
       </div>
     </div>
@@ -105,16 +104,16 @@
 
 
   <aside class="nudge" id="nudge" hidden aria-live="polite">
-    <button class="nudge-x" type="button" id="nudge-x" aria-label="Dismiss">&times;</button>
+    <button class="nudge-x" type="button" id="nudge-x" aria-label="Dismiss"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
     <p class="nudge-title">Not sure which service is right for you?</p>
     <p class="nudge-text">Take the AI readiness quiz. Eight questions, about a minute.</p>
-    <a class="btn btn--sm nudge-go" href="ai-readiness.html">Take the quiz <span aria-hidden="true">&rarr;</span></a>
+    <a class="btn btn--sm nudge-go" href="ai-readiness.html">Take the quiz <svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
   </aside>
 
   <dialog class="flow" id="startflow" aria-labelledby="flow-title">
     <div class="flow-bar">
-      <p class="flow-brand"><img src="assets/logo-stamp.png" alt="" width="46" height="46"> Mango Studios</p>
-      <button class="flow-x" type="button" data-flow-close aria-label="Close">&times;</button>
+      <p class="flow-brand"><img src="assets/logo-badge.png" alt="" width="256" height="256"><span>Mango Studios</span></p>
+      <button class="flow-x" type="button" data-flow-close aria-label="Close"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
     </div>
 
     <section class="flow-step" data-step="pick">
@@ -131,124 +130,144 @@
           <span class="consult-name">AI Consulting <span class="consult-price">$100 / session</span></span>
           <span class="consult-text">Book an hour. A straight, practical read on where AI fits your business and what is not worth it yet.</span>
         </span>
-        <span class="consult-go" aria-hidden="true">&rarr;</span>
+        <span class="consult-go" aria-hidden="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </button>
     </section>
 
     <section class="flow-step" data-step="project" hidden>
-      <button class="flow-back" type="button" data-flow-back><span aria-hidden="true">&larr;</span> Back</button>
+      <button class="flow-back" type="button" data-flow-back><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Back</button>
       <form class="flow-form" id="project-form-form" data-form="Start a project" novalidate>
-        <h2 class="flow-title flow-title--sm">Start a project</h2>
-        <p class="flow-sub">Tell us what you want built. We reply by email with a real price.</p>
-        <div class="formbox-fields">
-          <p class="field">
-            <label for="pf-type">What do you need</label>
-            <select id="pf-type" name="What do you need" required>
-              <option>Custom Sites &amp; Apps</option>
-              <option>Custom AI Agents</option>
-              <option>Custom Automations</option>
-              <option>AI Consulting</option>
-            </select>
-          </p>
+        <div class="flow-form-body">
+          <h2 class="flow-title flow-title--sm">Start a project</h2>
+          <p class="flow-sub">Tell us what you want built. We reply by email with a real price.</p>
+          <div class="formbox-fields">
+          <fieldset class="field field--full chips">
+            <legend>What do you need?</legend>
+            <div class="chip-row">
+              <label class="chip"><input type="radio" name="What do you need" value="Custom Sites &amp; Apps" checked><span>Custom Sites &amp; Apps</span></label>
+              <label class="chip"><input type="radio" name="What do you need" value="Custom AI Agents"><span>Custom AI Agents</span></label>
+              <label class="chip"><input type="radio" name="What do you need" value="Custom Automations"><span>Custom Automations</span></label>
+              <label class="chip"><input type="radio" name="What do you need" value="AI Consulting"><span>AI Consulting</span></label>
+            </div>
+          </fieldset>
           <p class="field">
             <label for="pf-name">Your name</label>
             <input id="pf-name" name="Your name" type="text" autocomplete="name" required>
+            <span class="field-error">We need a name to reply to.</span>
           </p>
           <p class="field">
             <label for="pf-email">Email</label>
-            <input id="pf-email" name="Email" type="email" autocomplete="email" required>
+            <input id="pf-email" name="Email" type="email" autocomplete="email" placeholder="you@business.com" required>
+            <span class="field-error">That email doesn’t look right.</span>
           </p>
-          <p class="field">
-            <label for="pf-biz">Business</label>
+          <p class="field field--full">
+            <label for="pf-biz">Business <span class="field-opt">optional</span></label>
             <input id="pf-biz" name="Business" type="text" autocomplete="organization">
           </p>
-          <p class="field">
-            <label for="pf-budget">Budget</label>
-            <select id="pf-budget" name="Budget" required>
-              <option>Not sure yet</option>
-              <option>Under $500</option>
-              <option>$500 - $1,500</option>
-              <option>$1,500 - $5,000</option>
-              <option>Over $5,000</option>
-            </select>
+          <fieldset class="field field--full chips">
+            <legend>Budget</legend>
+            <div class="chip-row">
+              <label class="chip"><input type="radio" name="Budget" value="Not sure yet" checked><span>Not sure yet</span></label>
+              <label class="chip"><input type="radio" name="Budget" value="Under $500"><span>Under $500</span></label>
+              <label class="chip"><input type="radio" name="Budget" value="$500 – 1,500"><span>$500 – 1,500</span></label>
+              <label class="chip"><input type="radio" name="Budget" value="$1,500 – 5,000"><span>$1,500 – 5,000</span></label>
+              <label class="chip"><input type="radio" name="Budget" value="$5,000+"><span>$5,000+</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="field field--full chips">
+            <legend>Timeline</legend>
+            <div class="chip-row">
+              <label class="chip"><input type="radio" name="Timeline" value="Not sure yet" checked><span>Not sure yet</span></label>
+              <label class="chip"><input type="radio" name="Timeline" value="As soon as possible"><span>As soon as possible</span></label>
+              <label class="chip"><input type="radio" name="Timeline" value="This month"><span>This month</span></label>
+              <label class="chip"><input type="radio" name="Timeline" value="Next few months"><span>Next few months</span></label>
+            </div>
+          </fieldset>
+          <p class="field field--full">
+            <label for="pf-detail">What are you trying to build? <span class="field-opt">optional</span></label>
+            <textarea id="pf-detail" name="What are you trying to build" rows="4" placeholder="A few sentences is plenty."></textarea>
           </p>
-          <p class="field">
-            <label for="pf-when">Timeline</label>
-            <select id="pf-when" name="Timeline" required>
-              <option>Not sure yet</option>
-              <option>As soon as possible</option>
-              <option>In the next month</option>
-              <option>In the next few months</option>
-            </select>
-          </p>
-          <p class="field">
-            <label for="pf-detail">What are you trying to build</label>
-            <textarea id="pf-detail" name="What are you trying to build" rows="4"></textarea>
-          </p>
+          </div>
+          <div class="formbox-actions">
+            <button class="btn formbox-send" type="submit">Send it <svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+            <p class="formbox-status" role="status" aria-live="polite"></p>
+          </div>
+          <p class="formbox-fine">Goes straight to Mango Studios. A person reads it and replies.</p>
         </div>
-        <div class="formbox-actions">
-          <button class="btn formbox-send" type="submit">Send it <span aria-hidden="true">&rarr;</span></button>
-          <p class="formbox-status" role="status" aria-live="polite"></p>
+        <div class="flow-done" hidden>
+          <span class="flow-done-mark"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+          <h2 class="flow-done-title" tabindex="-1">Sent.</h2>
+          <p class="flow-done-text"></p>
+          <button class="btn flow-done-close" type="button" data-flow-close>Back to the site</button>
         </div>
-        <p class="formbox-fine">Goes straight to Mango Studios. We reply from here, not a bot.</p>
       </form>
     </section>
 
     <section class="flow-step" data-step="book" hidden>
-      <button class="flow-back" type="button" data-flow-back><span aria-hidden="true">&larr;</span> Back</button>
+      <button class="flow-back" type="button" data-flow-back><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Back</button>
       <form class="flow-form" id="booking-form-form" data-form="Book a call for AI consulting" novalidate>
-        <h2 class="flow-title flow-title--sm">Book an AI Consulting call</h2>
-        <p class="flow-sub">One hour, $100. Pick a time, tell us how to reach you, and we confirm by email.</p>
-        <div class="book-grid flow-cal" data-calendar>
-        <div class="cal">
-          <div class="cal-top">
-            <button class="cal-nav" type="button" data-step="-1" aria-label="Previous month"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-            <h3 class="cal-month" aria-live="polite">Month</h3>
-            <button class="cal-nav" type="button" data-step="1" aria-label="Next month"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="flow-form-body">
+          <h2 class="flow-title flow-title--sm">Book an AI Consulting call</h2>
+          <p class="flow-sub">One hour, $100. Pick a time, tell us how to reach you, and we confirm by email.</p>
+          <div class="book-grid flow-cal" data-calendar>
+          <div class="cal">
+            <div class="cal-top">
+              <button class="cal-nav" type="button" data-step="-1" aria-label="Previous month"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <h3 class="cal-month" aria-live="polite">Month</h3>
+              <button class="cal-nav" type="button" data-step="1" aria-label="Next month"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+            <div class="cal-week" aria-hidden="true"><span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span></div>
+            <div class="cal-days" role="grid"></div>
           </div>
-          <div class="cal-week" aria-hidden="true"><span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span></div>
-          <div class="cal-days" role="grid"></div>
-        </div>
-        <div class="slots">
-          <h3 class="slots-title">Pick a day first</h3>
-          <div class="slot-list" role="group"></div>
-          <div class="book-sum" hidden>
-            <p class="book-choice"></p>
+          <div class="slots">
+            <h3 class="slots-title">Pick a day first</h3>
+            <div class="slot-list" role="group"></div>
+            <div class="book-sum" hidden>
+              <p class="book-choice"></p>
+            </div>
           </div>
-        </div>
-        </div>
-        <p class="formbox-slot">
-          <span class="formbox-slot-label">Your session</span>
-          <span class="formbox-slot-when" id="bf-when">Pick a day and time above</span>
-          <input type="hidden" id="bf-slot" name="Session">
-        </p>
-        <div class="formbox-fields">
+          </div>
+          <p class="formbox-slot">
+            <span class="formbox-slot-label">Your session</span>
+            <span class="formbox-slot-when" id="bf-when">Pick a day and time above</span>
+            <input type="hidden" id="bf-slot" name="Session">
+          </p>
+          <div class="formbox-fields">
           <p class="field">
             <label for="bf-name">Your name</label>
             <input id="bf-name" name="Your name" type="text" autocomplete="name" required>
+            <span class="field-error">We need a name to reply to.</span>
           </p>
           <p class="field">
             <label for="bf-email">Email</label>
-            <input id="bf-email" name="Email" type="email" autocomplete="email" required>
+            <input id="bf-email" name="Email" type="email" autocomplete="email" placeholder="you@business.com" required>
+            <span class="field-error">That email doesn’t look right.</span>
           </p>
           <p class="field">
-            <label for="bf-biz">Business</label>
+            <label for="bf-biz">Business <span class="field-opt">optional</span></label>
             <input id="bf-biz" name="Business" type="text" autocomplete="organization">
           </p>
           <p class="field">
-            <label for="bf-phone">Phone</label>
+            <label for="bf-phone">Phone <span class="field-opt">optional</span></label>
             <input id="bf-phone" name="Phone" type="tel" autocomplete="tel">
           </p>
-          <p class="field">
-            <label for="bf-topic">What do you want to cover</label>
-            <textarea id="bf-topic" name="What do you want to cover" rows="4"></textarea>
+          <p class="field field--full">
+            <label for="bf-topic">What do you want to cover? <span class="field-opt">optional</span></label>
+            <textarea id="bf-topic" name="What do you want to cover" rows="4" placeholder="Anything you want us to look at before the call."></textarea>
           </p>
+          </div>
+          <div class="formbox-actions">
+            <button class="btn formbox-send" type="submit">Book it <svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+            <p class="formbox-status" role="status" aria-live="polite"></p>
+          </div>
+          <p class="formbox-fine">Goes straight to Mango Studios. A person reads it and replies.</p>
         </div>
-        <div class="formbox-actions">
-          <button class="btn formbox-send" type="submit">Book it <span aria-hidden="true">&rarr;</span></button>
-          <p class="formbox-status" role="status" aria-live="polite"></p>
+        <div class="flow-done" hidden>
+          <span class="flow-done-mark"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+          <h2 class="flow-done-title" tabindex="-1">Request sent.</h2>
+          <p class="flow-done-text"></p>
+          <button class="btn flow-done-close" type="button" data-flow-close>Back to the site</button>
         </div>
-        <p class="formbox-fine">Goes straight to Mango Studios. We reply from here, not a bot.</p>
       </form>
     </section>
   </dialog>

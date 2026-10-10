@@ -26,6 +26,10 @@ html { -webkit-font-smoothing: antialiased; }
 body { background: var(--services-blue); color: var(--ink); font-family: var(--font-text); overflow-x: clip; }
 img { display: block; }
 [hidden] { display: none !important; }
+/* no single word left alone on the last line of a paragraph, and headings
+   that break into even lines rather than one long and one short */
+p, li, dd { text-wrap: pretty; }
+h1, h2, h3, h4 { text-wrap: balance; }
 
 .sky {
   position: absolute;
@@ -223,10 +227,28 @@ a { color: inherit; }
   -webkit-tap-highlight-color: transparent;
   transition: transform 0.18s var(--ease), box-shadow 0.18s var(--ease);
 }
-.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 0 var(--ink); }
+.btn { gap: 0.5em; }
 .btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--ink); transition-duration: 0.06s; }
 .btn--white { background: #fff; }
 .btn--sm { min-height: 42px; padding: 0 18px; font-size: 14.5px; border-width: 2.5px; box-shadow: 0 3px 0 var(--ink); }
+
+/* ── ICONS ─────────────────────────────────
+   Every arrow, close and logo on the site is a drawn SVG, not a typed glyph.
+   A glyph sits on the text baseline, so inside a pill or a circle it reads
+   low and off to one side; a drawn icon centres on its own box. */
+.i {
+  display: block;
+  flex: none;
+  width: 1.15em;
+  height: 1.15em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.i--fill { fill: currentColor; stroke: none; width: 1.05em; height: 1.05em; }
+.btn .i, a .i, button .i { transition: transform 0.25s var(--ease); }
 
 /* ── MENU: a hamburger in the top-left corner, the menu grows out of it ─ */
 
@@ -525,8 +547,6 @@ body.menu-open .menu-scrim { opacity: 1; }
   transition: transform 0.45s var(--ease);
 }
 
-.card:hover { transform: translateY(-8px) rotate(-1.2deg); }
-.card:hover .card-icon { animation: wiggle 0.5s ease-in-out; }
 
 @keyframes wiggle {
   0%, 100% { transform: rotate(0); }
@@ -572,7 +592,6 @@ body.menu-open .menu-scrim { opacity: 1; }
   -webkit-tap-highlight-color: transparent;
   transition: transform 0.4s var(--ease);
 }
-.consult:hover { transform: translateY(-4px); }
 .consult:active { transform: translateY(-1px) scale(0.99); transition-duration: 0.08s; }
 .consult:focus-visible { outline: 4px solid #fff; outline-offset: 5px; }
 .consult-icon { width: clamp(56px, 4.5vw, 76px); height: auto; transform: rotate(-6deg); }
@@ -596,10 +615,9 @@ body.menu-open .menu-scrim { opacity: 1; }
   border: 3px solid var(--ink);
   border-radius: 50%;
   background: var(--title-yellow);
-  font: 700 24px/1 var(--font-text);
+  font-size: 24px;
   transition: transform 0.4s var(--ease);
 }
-.consult:hover .consult-go { transform: translateX(4px); }
 
 /* ── OUR SOFTWARE: one line that cycles through our apps ─ */
 
@@ -701,7 +719,7 @@ body.menu-open .menu-scrim { opacity: 1; }
 }
 .member-role { font: 800 13px/1.3 var(--font-text); letter-spacing: 0.1em; text-transform: uppercase; color: rgba(17, 17, 17, 0.65); }
 .member-name { margin-top: 6px; font-family: var(--font-cartoon); font-weight: 400; font-size: clamp(44px, 4.4vw, 62px); line-height: 0.98; color: var(--ink); text-wrap: balance; }
-.member-bio { max-width: 30ch; font: 500 18px/1.5 var(--font-text); color: var(--ink); }
+.member-bio { text-wrap: balance; max-width: 30ch; font: 500 18px/1.5 var(--font-text); color: var(--ink); }
 .member-link { margin-top: 10px; }
 
 /* with scripting: pinned, and each card rides the rainbow from one side to the other */
@@ -886,7 +904,7 @@ body.menu-open .menu-scrim { opacity: 1; }
   margin-left: auto;
   background: var(--ink);
   border-radius: 50%;
-  font: 700 22px/1 var(--font-text);
+  font-size: 22px;
   color: var(--title-yellow);
   transition: transform 0.3s var(--ease);
 }
@@ -915,8 +933,11 @@ body.menu-open .menu-scrim { opacity: 1; }
   height: 44px;
   border: 3px solid var(--ink);
   border-radius: 50%;
+  display: grid;
+  place-items: center;
   background: var(--title-yellow);
-  font: 700 26px/1 var(--font-text);
+  padding: 0;
+  font-size: 20px;
   color: var(--ink);
   cursor: pointer;
 }
@@ -1072,7 +1093,7 @@ body.menu-open .menu-scrim { opacity: 1; }
   color: rgba(255, 255, 255, 0.5);
 }
 .footer-col ul { list-style: none; display: grid; gap: 10px; }
-.footer-col a { font: 500 15px/1.4 var(--font-text); color: rgba(255, 255, 255, 0.88); text-decoration: none; transition: color 0.2s var(--ease); }
+.footer-col a { display: inline-flex; align-items: center; gap: 8px; font: 500 15px/1.4 var(--font-text); color: rgba(255, 255, 255, 0.88); text-decoration: none; transition: color 0.2s var(--ease); }
 .footer-col a:hover { color: var(--title-yellow); }
 .footer-base {
   max-width: 1180px;
@@ -1199,7 +1220,6 @@ body.menu-open .menu-scrim { opacity: 1; }
   -webkit-tap-highlight-color: transparent;
   transition: transform 0.35s var(--ease);
 }
-.mini-card:hover { transform: translateY(-4px); }
 .mini-card:active { transform: translateY(-1px) scale(0.985); transition-duration: 0.08s; }
 .mini-card img { flex: none; width: 60px; height: 60px; object-fit: contain; }
 .mini-name { font-family: var(--font-cartoon); font-size: clamp(24px, 1.9vw, 30px); line-height: 1; }
@@ -1270,6 +1290,7 @@ button.cal-day:active { transform: scale(0.94); transition-duration: 0.05s; }
 .slot-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
 .slot {
   min-height: 46px;
+  white-space: nowrap;
   border: 2.5px solid var(--ink);
   border-radius: 999px;
   background: #fff;
@@ -1374,9 +1395,17 @@ button.cal-day:active { transform: scale(0.94); transition-duration: 0.05s; }
 .formbox-slot-label { font: 800 11px/1 var(--font-text); letter-spacing: 0.1em; text-transform: uppercase; color: #6b5a2c; }
 .formbox-slot-when { font: 700 17px/1.25 var(--font-text); color: var(--ink); }
 
-.formbox-fields { display: grid; gap: 14px; margin-top: 20px; }
-.field { display: grid; gap: 7px; }
-.field label { font: 700 13px/1 var(--font-text); letter-spacing: 0.02em; color: var(--ink); }
+.formbox-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 16px;
+  margin-top: 24px;
+}
+.field--full { grid-column: 1 / -1; }
+.field { display: grid; gap: 8px; align-content: start; min-width: 0; margin: 0; padding: 0; border: 0; }
+.field label, .field legend { padding: 0; font: 700 14px/1.2 var(--font-text); color: var(--ink); }
+.field legend { margin-bottom: 8px; }
+.field-opt { margin-left: 4px; font-weight: 500; color: #8a8372; }
 .field-hint { font: 500 12px/1.4 var(--font-text); color: #6f6959; }
 .field input,
 .field select,
@@ -1392,7 +1421,11 @@ button.cal-day:active { transform: scale(0.94); transition-duration: 0.05s; }
   -webkit-appearance: none;
   appearance: none;
 }
-.field textarea { min-height: 104px; resize: vertical; }
+/* the box grows with what they type, so there's no resize grip in the corner */
+.field textarea { min-height: 116px; max-height: 320px; resize: none; field-sizing: content; }
+.field input::placeholder, .field textarea::placeholder { color: #aaa392; opacity: 1; }
+.field input, .field textarea { transition: border-color 0.18s var(--ease), box-shadow 0.18s var(--ease); }
+.field input:hover, .field textarea:hover { box-shadow: 0 3px 0 rgba(17, 17, 17, 0.14); }
 .field select {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6' fill='none' stroke='%23111' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -1403,17 +1436,55 @@ button.cal-day:active { transform: scale(0.94); transition-duration: 0.05s; }
 .field input:focus-visible,
 .field select:focus-visible,
 .field textarea:focus-visible { outline: 3px solid var(--blob-orange); outline-offset: 2px; }
+/* our own error under the field, shown once they've left it wrong or tried to send */
+.field-error { display: none; font: 600 13px/1.3 var(--font-text); color: #b03520; }
 .field input:user-invalid,
-.field textarea:user-invalid { border-color: #c2412a; }
+.was-validated .field input:invalid { border-color: #c2412a; background: #fff7f5; }
+.field input:user-invalid ~ .field-error,
+.was-validated .field input:invalid ~ .field-error { display: block; }
+
+/* chips: the choices are buttons you can see, not a menu you have to open */
+.chip-row { display: flex; flex-wrap: wrap; gap: 9px; }
+.chip { position: relative; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.chip input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.chip span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 17px;
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 3px 0 var(--ink);
+  font: 600 14.5px/1 var(--font-text);
+  color: var(--ink);
+  white-space: nowrap;
+  transition: transform 0.16s var(--ease), box-shadow 0.16s var(--ease), background-color 0.18s var(--ease);
+}
+.chip input:active + span { transform: translateY(2px); box-shadow: 0 1px 0 var(--ink); transition-duration: 0.06s; }
+.chip input:checked + span { background: var(--title-yellow); }
+.chip input:focus-visible + span { outline: 3px solid var(--blob-orange); outline-offset: 2px; }
+/* the four services sit two by two at even widths, so none ends up alone on a line */
+.formbox-fields > .chips:first-child .chip-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.formbox-fields > .chips:first-child .chip span { width: 100%; justify-content: center; }
+/* once it's sent there is nothing to go back to */
+.flow-step:has(.flow-form.is-sent) .flow-back { visibility: hidden; }
 
 .formbox-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; margin-top: 22px; }
 .formbox-send:disabled { opacity: 0.6; cursor: progress; transform: none; box-shadow: 0 4px 0 var(--ink); }
 .formbox-status { font: 700 14px/1.4 var(--font-text); }
+.formbox-status:empty { display: none; }
+.formbox-status a { display: inline-flex; align-items: center; gap: 6px; margin-left: 6px; color: inherit; text-underline-offset: 3px; }
 .formbox-status.is-good { color: #1d6b3f; }
-.formbox-status.is-bad { color: #b03520; }
+.formbox-status.is-bad {
+  padding: 10px 14px;
+  border: 2.5px solid #c2412a;
+  border-radius: 14px;
+  background: #fff3f0;
+  color: #9a2d1a;
+}
 .formbox-fine { margin-top: 14px; font: 500 12px/1.45 var(--font-text); color: #76705f; }
-.flow-form.is-sent .formbox-fields,
-.flow-form.is-sent .flow-cal { opacity: 0.5; pointer-events: none; }
+
 
 @media (max-width: 520px) {
   .formbox-fields { gap: 12px; }
@@ -1528,14 +1599,17 @@ button.cal-day:active { transform: scale(0.94); transition-duration: 0.05s; }
   height: 30px;
   border: 2.5px solid var(--ink);
   border-radius: 50%;
+  display: grid;
+  place-items: center;
+  padding: 0;
   background: #fff;
-  font: 700 16px/1 var(--font-text);
+  font-size: 15px;
   color: var(--ink);
   cursor: pointer;
   transition: transform 0.16s var(--ease);
 }
 .nudge-x:hover { transform: scale(1.08); }
-.nudge-title { max-width: 16ch; padding-right: 34px; font: 400 23px/1.05 var(--font-cartoon); color: var(--ink); }
+.nudge-title { max-width: 21ch; padding-right: 34px; font: 400 23px/1.05 var(--font-cartoon); color: var(--ink); }
 .nudge-text { margin-top: 9px; font: 500 14px/1.45 var(--font-text); color: #5c5648; }
 .nudge-go { margin-top: 15px; }
 
@@ -1582,16 +1656,26 @@ button.cal-day:active { transform: scale(0.94); transition-duration: 0.05s; }
   border-bottom: 4px solid var(--ink);
   background: var(--paper);
 }
+/* the same wordmark as the footer, in ink, beside the round mango badge */
 .flow-brand {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font: 800 12.5px/1 var(--font-text);
-  letter-spacing: 0.1em;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-stretch: 125%;
+  font-weight: 900;
+  font-size: clamp(16px, 1.5vw, 20px);
+  line-height: 1;
+  letter-spacing: -0.01em;
   text-transform: uppercase;
   color: var(--ink);
 }
-.flow-brand img { width: 26px; height: auto; }
+.flow-brand img {
+  width: clamp(36px, 3.2vw, 44px);
+  height: auto;
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+}
 .flow-x {
   flex: 0 0 42px;
   width: 42px;
@@ -1600,7 +1684,10 @@ button.cal-day:active { transform: scale(0.94); transition-duration: 0.05s; }
   border-radius: 50%;
   background: #fff;
   box-shadow: 0 3px 0 var(--ink);
-  font: 700 22px/1 var(--font-text);
+  display: grid;
+  place-items: center;
+  padding: 0;
+  font-size: 19px;
   color: var(--ink);
   cursor: pointer;
   transition: transform 0.16s var(--ease), box-shadow 0.16s var(--ease);
@@ -1647,6 +1734,8 @@ button.cal-day:active { transform: scale(0.94); transition-duration: 0.05s; }
   cursor: pointer;
 }
 
+.flow-step[data-step="project"],
+.flow-step[data-step="book"] { width: min(828px, 100%); }
 .flow-back {
   display: inline-flex;
   align-items: center;
@@ -1666,15 +1755,50 @@ button.cal-day:active { transform: scale(0.94); transition-duration: 0.05s; }
 .flow-back:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--ink); transition-duration: 0.06s; }
 
 .flow-form {
-  padding: clamp(22px, 3vw, 38px);
+  width: min(780px, 100%);
+  padding: clamp(22px, 3vw, 40px);
   border: 5px solid var(--ink);
   border-radius: 32px;
   background: var(--paper);
   box-shadow: 9px 10px 0 var(--ink);
 }
-.flow-cal { margin-top: clamp(20px, 2.6vw, 30px); }
+/* in the flow the calendar sits inside the form's card, so it stacks, drops to
+   a lighter border, and keeps its days short instead of square */
+.flow-cal {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  margin-top: clamp(20px, 2.6vw, 30px);
+}
+.flow-cal .cal,
+.flow-cal .slots { border-width: 3px; border-radius: 22px; background: #fff; padding: clamp(14px, 2vw, 22px); }
+.flow-cal .cal-top { margin-bottom: 12px; }
+.flow-cal .cal-day { aspect-ratio: auto; height: clamp(40px, 5.4vw, 50px); }
+.flow-cal .slots { gap: 12px; }
+.flow-cal .slots-title { font-size: clamp(22px, 2vw, 27px); }
+.flow-cal .slot-list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .flow-cal .book-sum { display: none; }
 .flow-form .formbox-slot { margin-top: clamp(18px, 2.4vw, 26px); }
+
+/* the finished state: a clear yes, and a way back to the site */
+.flow-done { display: grid; justify-items: center; gap: 14px; padding: clamp(18px, 4vw, 44px) 0 clamp(8px, 2vw, 16px); text-align: center; }
+.flow-done-mark {
+  display: grid;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  border: 4px solid var(--ink);
+  border-radius: 50%;
+  background: var(--title-yellow);
+  box-shadow: 0 5px 0 var(--ink);
+  font-size: 40px;
+  animation: done-pop 0.6s var(--ease) both;
+}
+.flow-done-mark .i { stroke-width: 3; }
+@keyframes done-pop { 0% { transform: scale(0.4); opacity: 0; } 60% { transform: scale(1.08); opacity: 1; } 100% { transform: none; } }
+.flow-done-title { font: 400 clamp(36px, 4vw, 52px)/1 var(--font-cartoon); color: var(--ink); }
+.flow-done-title:focus { outline: none; }
+.flow-done-text { max-width: 40ch; font: 500 var(--t-body)/1.5 var(--font-text); color: #4f4a3e; }
+.flow-done-close { margin-top: 8px; }
 
 .hero-cta {
   pointer-events: auto;
@@ -1693,13 +1817,37 @@ button.cal-day:active { transform: scale(0.94); transition-duration: 0.05s; }
   .flow-cards .card { aspect-ratio: 1.25; }
   .flow-cards .card-icon { height: 52%; }
 }
+@media (max-width: 620px) {
+  .formbox-fields { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .flow-cal .slot-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 @media (max-width: 520px) {
+  .chip span { min-height: 42px; padding: 0 14px; font-size: 14px; border-width: 2.5px; }
   .flow-form { padding: 20px 17px; border-width: 3px; border-radius: 24px; box-shadow: 6px 7px 0 var(--ink); }
   .flow-cards { grid-template-columns: 1fr; }
-  .flow-cards .card { aspect-ratio: 2.1; flex-direction: row; justify-content: flex-start; gap: 16px; padding: 14px 18px; }
-  .flow-cards .card-icon { height: 76%; }
+  .flow-cards .card { aspect-ratio: 3; flex-direction: row; justify-content: flex-start; gap: 16px; padding: 10px 18px; }
+  .flow-cards .card-icon { height: 74%; }
+  .flow-step[data-step="pick"] { padding-top: 22px; }
   .flow-cards .card-title { font-size: 26px; text-align: left; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .flow[open], .flow-step.is-entering { animation: none; }
+  .flow[open], .flow-step.is-entering, .flow-done-mark { animation: none; }
+  .chip span { transition: none; }
 }
+
+/* Lifts, tilts and wiggles only where there's a real pointer. On a touch
+   screen :hover sticks to whatever was last tapped, which leaves a card
+   sitting crooked under your thumb. */
+@media (hover: hover) {
+  .card:hover { transform: translateY(-8px) rotate(-1.2deg); }
+  .card:hover .card-icon { animation: wiggle 0.5s ease-in-out; }
+  .consult:hover { transform: translateY(-4px); }
+  .consult:hover .consult-go { transform: translateX(4px); }
+  .mini-card:hover { transform: translateY(-4px); }
+  .chip:hover span { transform: translateY(-2px); box-shadow: 0 5px 0 var(--ink); }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 0 var(--ink); }
+  .btn:hover .i:not(.i--fill) { transform: translateX(2px); }
+  .flow-back:hover .i, .quiz-back:hover .i { transform: translateX(-2px); }
+}
+/* the press has to win over the hover it happens during */
+.btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--ink); transition-duration: 0.06s; }
