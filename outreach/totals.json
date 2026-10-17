@@ -1,0 +1,74 @@
+{
+ "days": [
+  {
+   "date": "2026-10-11",
+   "new": 3,
+   "followup": 0,
+   "replies": 0,
+   "posts": 0,
+   "sites": 1,
+   "automations": 2,
+   "agents": 0
+  },
+  {
+   "date": "2026-10-12",
+   "new": 10,
+   "followup": 0,
+   "replies": 1,
+   "posts": 0,
+   "sites": 3,
+   "automations": 7,
+   "agents": 0
+  },
+  {
+   "date": "2026-10-13",
+   "new": 10,
+   "followup": 0,
+   "replies": 0,
+   "posts": 0,
+   "sites": 0,
+   "automations": 10,
+   "agents": 0
+  },
+  {
+   "date": "2026-10-14",
+   "new": 5,
+   "followup": 5,
+   "replies": 0,
+   "posts": 0,
+   "sites": 4,
+   "automations": 5,
+   "agents": 1
+  },
+  {
+   "date": "2026-10-15",
+   "new": 3,
+   "followup": 7,
+   "replies": 0,
+   "posts": 0,
+   "sites": 2,
+   "automations": 8,
+   "agents": 0
+  },
+  {
+   "date": "2026-10-16",
+   "new": 0,
+   "followup": 10,
+   "replies": 0,
+   "posts": 2,
+   "sites": 0,
+   "automations": 10,
+   "agents": 0
+  },
+  {
+   "date": "2026-10-17",
+   "new": 0,
+   "followup": 0,
+   "replies": 0,
+   "posts": 2,
+   "sites": 0,
+   "automations": 0,
+   "agents": 0
+  }
+ ]
+}
