@@ -6,53 +6,469 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Outreach | Mango Studios</title>
 <link rel="icon" href="/assets/logo-badge.png">
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
-body{margin:0;font-family:"Inter Tight",system-ui,sans-serif;background:#fff8ec;color:#2b1d0e}
-main{max-width:1000px;margin:0 auto;padding:32px 20px}
-h1{margin:0 0 4px;font-size:32px}.sub{color:#7a6650;margin:0 0 24px}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:24px}
-.stat,.card{background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.stat b{display:block;font-size:30px;color:#f28c00}.stat span{font-size:13px;color:#7a6650}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
-.card h2{font-size:16px;margin:0 0 12px}canvas{width:100%;height:220px}
-.legend{font-size:12px;color:#7a6650;margin-top:8px}.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin:0 4px 0 10px}
+:root { --ink: #111; --yellow: #FFDE5F; --orange: #F9B435; --paper: #fff8ec; --muted: #7a6650; --line: #f0e6d4; }
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; font-family: "Inter Tight", system-ui, sans-serif; background: var(--paper); color: #2b1d0e; }
+main { max-width: 1100px; margin: 0 auto; padding: 32px 20px 64px; }
+h1 { margin: 0 0 4px; font-size: 32px; font-weight: 800; letter-spacing: -0.03em; }
+h2 { margin: 28px 0 12px; font-size: 20px; font-weight: 800; }
+.sub, .kicker { color: var(--muted); }
+.sub { margin: 0 0 24px; }
+.kicker { margin: 0 0 6px; font: 800 12px/1 "Inter Tight", sans-serif; letter-spacing: 0.12em; text-transform: uppercase; }
+.gate { max-width: 440px; margin: 10vh auto; background: #fff; border: 3px solid var(--ink); border-radius: 24px; padding: 28px 26px 26px; box-shadow: 0 4px 0 var(--ink); }
+.mark { width: 72px; height: auto; margin-bottom: 14px; }
+.field { display: grid; gap: 8px; margin: 0 0 16px; }
+.field label, .search label { font: 700 14px/1.2 "Inter Tight", sans-serif; color: var(--ink); }
+.field input, .search input {
+  width: 100%; min-height: 52px; padding: 13px 15px;
+  border: 3px solid var(--ink); border-radius: 15px; background: #fff;
+  font: 500 16px/1.4 "Inter Tight", sans-serif; color: var(--ink);
+}
+.field input:focus-visible, .search input:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 26px;
+  border: 3px solid var(--ink); border-radius: 999px; background: var(--yellow); box-shadow: 0 4px 0 var(--ink);
+  font: 700 16px/1 "Inter Tight", sans-serif; color: var(--ink); cursor: pointer;
+}
+.btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--ink); }
+.btn:disabled { opacity: 0.6; cursor: progress; transform: none; }
+.btn-white { background: #fff; }
+.btn-small { min-height: 42px; padding: 0 16px; font-size: 14px; box-shadow: 0 3px 0 var(--ink); }
+.err {
+  margin: 14px 0 0; padding: 10px 14px; border: 2.5px solid #c2412a; border-radius: 14px;
+  background: #fff3f0; color: #9a3412; font: 700 14px/1.4 "Inter Tight", sans-serif;
+}
+.err:empty { display: none; }
+.top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.stat, .card, .table-wrap { background: #fff; border-radius: 16px; box-shadow: 0 2px 8px rgba(0, 0, 0, .06); }
+.stat { padding: 16px; }
+.stat b { display: block; font-size: 30px; color: #f28c00; }
+.stat span { font-size: 13px; color: var(--muted); }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.card { padding: 16px; }
+.card h2 { font-size: 16px; margin: 0 0 12px; }
+canvas { width: 100%; height: 220px; }
+.legend { font-size: 12px; color: var(--muted); margin-top: 8px; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin: 0 4px 0 10px; }
+.search { margin: 0 0 12px; max-width: 420px; }
+.table-wrap { overflow: auto; margin: 0 0 8px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 12px; color: var(--muted); font-weight: 700; white-space: nowrap; }
+tr:last-child td { border-bottom: 0; }
+td a { color: #9a4d00; font-weight: 700; }
+.muted { color: var(--muted); font-size: 12px; margin-top: 2px; }
+.reply { min-width: 160px; max-width: 320px; white-space: pre-wrap; word-break: break-word; }
+.empty { margin: 0; padding: 14px 16px; color: var(--muted); }
+.count { font-weight: 600; color: var(--muted); font-size: 14px; }
 </style>
 </head>
 <body>
 <main>
-<h1>Outreach dashboard</h1>
-<p class="sub">Daily totals only. Updated <span id="upd"></span>.</p>
-<div class="stats" id="stats"></div>
-<div class="grid">
-<div class="card"><h2>Emails per day (new vs follow-up)</h2><canvas id="c1"></canvas><div class="legend" id="l1"></div></div>
-<div class="card"><h2>Replies per day</h2><canvas id="c2"></canvas></div>
-<div class="card"><h2>LinkedIn posts per day</h2><canvas id="c3"></canvas></div>
-<div class="card"><h2>Emails by service line</h2><canvas id="c4"></canvas><div class="legend" id="l4"></div></div>
-</div>
+<section id="gate">
+  <img class="mark" src="/assets/logo-badge.png" alt="">
+  <p class="kicker">Mango Studios</p>
+  <h1>Outreach</h1>
+  <p class="sub">Enter the password to see the outreach log.</p>
+  <form id="gate-form" method="post" action="/api/outreach">
+    <div class="field">
+      <label for="pw">Password</label>
+      <input id="pw" name="password" type="password" autocomplete="current-password" required aria-describedby="gate-error">
+    </div>
+    <button class="btn" id="unlock" type="submit">Unlock</button>
+    <p class="err" id="gate-error" role="alert"></p>
+  </form>
+  <noscript><p class="err">This dashboard needs JavaScript to check the password.</p></noscript>
+</section>
+
+<section id="dash" hidden>
+  <div class="top">
+    <div>
+      <h1>Outreach dashboard</h1>
+      <p class="sub">Updated <span id="upd"></span>.</p>
+    </div>
+    <button class="btn btn-white btn-small" id="lock" type="button">Lock</button>
+  </div>
+  <div class="stats" id="stats"></div>
+  <div class="grid">
+    <div class="card"><h2>Emails per day (new vs follow-up)</h2><canvas id="c1"></canvas><div class="legend" id="l1"></div></div>
+    <div class="card"><h2>Replies per day</h2><canvas id="c2"></canvas></div>
+    <div class="card"><h2>LinkedIn posts per day</h2><canvas id="c3"></canvas></div>
+    <div class="card"><h2>Emails by service line</h2><canvas id="c4"></canvas><div class="legend" id="l4"></div></div>
+  </div>
+  <h2>Emails <span class="count" id="email-count"></span></h2>
+  <div class="search">
+    <label for="q">Search emails</label>
+    <input id="q" type="search" placeholder="Company, email, line, status, reply" autocomplete="off">
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th><th>Company</th><th>Contact email</th><th>Line</th><th>Type</th><th>Status</th><th>Reply</th>
+        </tr>
+      </thead>
+      <tbody id="email-rows"></tbody>
+    </table>
+    <p class="empty" id="email-empty" hidden>No emails match that search.</p>
+  </div>
+  <h2>LinkedIn posts <span class="count" id="post-count"></span></h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Date</th><th>Post</th><th>Link</th></tr></thead>
+      <tbody id="post-rows"></tbody>
+    </table>
+    <p class="empty" id="post-empty" hidden>No posts in this export.</p>
+  </div>
+  <div id="dm-block">
+    <h2>Direct messages <span class="count" id="dm-count"></span></h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Date</th><th>Company</th><th>Contact</th><th>Status</th><th>Message</th><th>Link</th></tr></thead>
+        <tbody id="dm-rows"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
 </main>
 <script>
-const C=['#f28c00','#4a9d5b','#3b6fd8'];
-function bars(id,labels,series,colors){
-  const cv=document.getElementById(id),dpr=devicePixelRatio||1,W=cv.clientWidth,H=cv.clientHeight;
-  cv.width=W*dpr;cv.height=H*dpr;const x=cv.getContext('2d');x.scale(dpr,dpr);
-  const tot=labels.map((_,i)=>series.reduce((s,a)=>s+a[i],0)),max=Math.max(1,...tot);
-  const pad=24,bw=(W-pad)/labels.length;x.font='11px Inter Tight, sans-serif';x.fillStyle='#7a6650';
-  x.fillText(max,0,12);x.fillText(0,0,H-pad);
-  labels.forEach((l,i)=>{let y=H-pad;series.forEach((s,k)=>{const h=s[i]/max*(H-pad-16);x.fillStyle=colors[k];x.fillRect(pad+i*bw+bw*.15,y-h,bw*.7,h);y-=h});
-    x.fillStyle='#2b1d0e';if(tot[i])x.fillText(tot[i],pad+i*bw+bw*.42,y-3);
-    x.fillStyle='#7a6650';x.fillText(l.slice(5),pad+i*bw+bw*.2,H-8)});
+const KEY = 'outreach-password';
+const C = ['#f28c00', '#4a9d5b', '#3b6fd8'];
+const LINE_LABEL = { sites: 'Sites & Apps', automations: 'Automations', agents: 'Agents' };
+const gate = document.getElementById('gate');
+const form = document.getElementById('gate-form');
+const pw = document.getElementById('pw');
+const unlockBtn = document.getElementById('unlock');
+const gateError = document.getElementById('gate-error');
+const dash = document.getElementById('dash');
+let pending = false;
+let chart = null;
+let emailRows = [];
+
+function storageGet() {
+  try { return sessionStorage.getItem(KEY) || ''; } catch (err) { return ''; }
 }
-function legend(id,names){document.getElementById(id).innerHTML=names.map((n,i)=>`<i style="background:${C[i]}"></i>${n}`).join('')}
-fetch('/outreach/totals.json',{cache:'no-store'}).then(r=>r.json()).then(({days})=>{
-  const L=days.map(d=>d.date),g=k=>days.map(d=>d[k]),sum=k=>g(k).reduce((a,b)=>a+b,0);
-  document.getElementById('upd').textContent=L[L.length-1]||'never';
-  document.getElementById('stats').innerHTML=[['New emails',sum('new')],['Follow-ups',sum('followup')],['Replies',sum('replies')],['LinkedIn posts',sum('posts')]]
-    .map(([n,v])=>`<div class="stat"><b>${v}</b><span>${n}</span></div>`).join('');
-  bars('c1',L,[g('new'),g('followup')],C);legend('l1',['New','Follow-up']);
-  bars('c2',L,[g('replies')],[C[2]]);bars('c3',L,[g('posts')],[C[1]]);
-  bars('c4',L,[g('sites'),g('automations'),g('agents')],C);legend('l4',['Sites & Apps','Automations','Agents']);
+function storageSet(value) {
+  try {
+    if (value) sessionStorage.setItem(KEY, value);
+    else sessionStorage.removeItem(KEY);
+  } catch (err) {}
+}
+function showError(message) {
+  gateError.textContent = message;
+  pw.setAttribute('aria-invalid', message ? 'true' : 'false');
+}
+function setBusy(busy) {
+  unlockBtn.disabled = busy;
+  pw.disabled = busy;
+  unlockBtn.textContent = busy ? 'Checking…' : 'Unlock';
+}
+function dayOf(row) {
+  const match = /^(\d{4}-\d{2}-\d{2})/.exec(String(row && row.date || '').trim());
+  return match ? match[1] : '';
+}
+function isFollow(row) {
+  return String(row && row.type || '').toLowerCase().replace(/[\s_]/g, '-').startsWith('follow');
+}
+function isReply(row) {
+  return String(row && row.status || '').toLowerCase().startsWith('replied');
+}
+function lineKey(line) {
+  const value = String(line || '');
+  return Object.prototype.hasOwnProperty.call(LINE_LABEL, value) ? value : '';
+}
+function lineLabel(line) {
+  return LINE_LABEL[line] || String(line || '');
+}
+function typeLabel(type) {
+  const value = String(type || '');
+  if (value === 'follow-up') return 'Follow-up';
+  if (value === 'new') return 'New';
+  return value;
+}
+function safeUrl(url) {
+  const value = String(url || '').trim();
+  if (!/^https?:\/\//i.test(value)) return '';
+  try {
+    const parsed = new URL(value);
+    if (parsed.protocol === 'http:' || parsed.protocol === 'https:') return parsed.href;
+  } catch (err) {}
+  return '';
+}
+function cell(text, className) {
+  const td = document.createElement('td');
+  if (className) td.className = className;
+  td.textContent = text || '';
+  return td;
+}
+function linkCell(url) {
+  const td = document.createElement('td');
+  const href = safeUrl(url);
+  if (!href) {
+    td.textContent = '—';
+    return td;
+  }
+  const a = document.createElement('a');
+  a.href = href;
+  a.target = '_blank';
+  a.rel = 'noopener noreferrer';
+  a.textContent = 'Open';
+  td.append(a);
+  return td;
+}
+function dateCell(row) {
+  const td = document.createElement('td');
+  td.textContent = row.date || '';
+  if (row.time) {
+    const sub = document.createElement('div');
+    sub.className = 'muted';
+    sub.textContent = row.time;
+    td.append(sub);
+  }
+  return td;
+}
+function companyCell(row) {
+  const td = document.createElement('td');
+  const href = safeUrl(row.url);
+  if (href && row.company) {
+    const a = document.createElement('a');
+    a.href = href;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.textContent = row.company;
+    td.append(a);
+  } else {
+    td.textContent = row.company || '';
+  }
+  if (row.name) {
+    const sub = document.createElement('div');
+    sub.className = 'muted';
+    sub.textContent = row.name;
+    td.append(sub);
+  }
+  return td;
+}
+function bars(id, labels, series, colors) {
+  const cv = document.getElementById(id);
+  const dpr = devicePixelRatio || 1;
+  const W = cv.clientWidth;
+  const H = cv.clientHeight;
+  if (!labels.length || !W || !H) return;
+  cv.width = W * dpr;
+  cv.height = H * dpr;
+  const x = cv.getContext('2d');
+  x.scale(dpr, dpr);
+  const tot = labels.map((_, i) => series.reduce((sum, row) => sum + row[i], 0));
+  const max = Math.max(1, ...tot);
+  const pad = 28;
+  const bw = (W - pad) / labels.length;
+  x.font = '11px Inter Tight, sans-serif';
+  x.fillStyle = '#7a6650';
+  x.fillText(max, 0, 12);
+  x.fillText(0, 0, H - pad);
+  labels.forEach((label, i) => {
+    let y = H - pad;
+    series.forEach((row, k) => {
+      const h = row[i] / max * (H - pad - 16);
+      x.fillStyle = colors[k];
+      x.fillRect(pad + i * bw + bw * 0.15, y - h, bw * 0.7, h);
+      y -= h;
+    });
+    x.fillStyle = '#2b1d0e';
+    if (tot[i]) x.fillText(tot[i], pad + i * bw + bw * 0.42, y - 3);
+    x.fillStyle = '#7a6650';
+    x.fillText(label.length >= 10 ? label.slice(5) : label, pad + i * bw + bw * 0.12, H - 8);
+  });
+}
+function legend(id, names) {
+  const node = document.getElementById(id);
+  node.textContent = '';
+  names.forEach((name, i) => {
+    const swatch = document.createElement('i');
+    swatch.style.background = C[i];
+    node.append(swatch, document.createTextNode(name));
+  });
+}
+function model(emails, posts) {
+  const dates = new Set();
+  emails.forEach((row) => { const day = dayOf(row); if (day) dates.add(day); });
+  posts.forEach((row) => { const day = dayOf(row); if (day) dates.add(day); });
+  const labels = [...dates].sort();
+  const at = Object.fromEntries(labels.map((day) => [day, { new: 0, followup: 0, replies: 0, posts: 0, sites: 0, automations: 0, agents: 0 }]));
+  emails.forEach((row) => {
+    const bucket = at[dayOf(row)];
+    if (!bucket) return;
+    bucket[isFollow(row) ? 'followup' : 'new'] += 1;
+    if (isReply(row)) bucket.replies += 1;
+    const key = lineKey(row.line);
+    if (key) bucket[key] += 1;
+  });
+  posts.forEach((row) => {
+    const bucket = at[dayOf(row)];
+    if (bucket) bucket.posts += 1;
+  });
+  const col = (key) => labels.map((day) => at[day][key]);
+  return { labels, col };
+}
+function draw(state) {
+  if (!state) return;
+  bars('c1', state.labels, [state.col('new'), state.col('followup')], C);
+  legend('l1', ['New', 'Follow-up']);
+  bars('c2', state.labels, [state.col('replies')], [C[2]]);
+  bars('c3', state.labels, [state.col('posts')], [C[1]]);
+  bars('c4', state.labels, [state.col('sites'), state.col('automations'), state.col('agents')], C);
+  legend('l4', ['Sites & Apps', 'Automations', 'Agents']);
+}
+function fillStats(emails, posts) {
+  const cards = [
+    ['New emails', emails.filter((row) => !isFollow(row)).length],
+    ['Follow-ups', emails.filter(isFollow).length],
+    ['Replies', emails.filter(isReply).length],
+    ['LinkedIn posts', posts.length],
+  ];
+  const stats = document.getElementById('stats');
+  stats.textContent = '';
+  cards.forEach(([name, value]) => {
+    const card = document.createElement('div');
+    card.className = 'stat';
+    const num = document.createElement('b');
+    num.textContent = String(value);
+    const label = document.createElement('span');
+    label.textContent = name;
+    card.append(num, label);
+    stats.append(card);
+  });
+}
+function paintEmails() {
+  const query = document.getElementById('q').value.trim().toLowerCase();
+  const body = document.getElementById('email-rows');
+  body.textContent = '';
+  let shown = 0;
+  emailRows.forEach((row) => {
+    const hay = [row.date, row.time, row.company, row.name, row.email, lineLabel(row.line), typeLabel(row.type), row.status, row.reply]
+      .join(' ').toLowerCase();
+    if (query && !hay.includes(query)) return;
+    shown += 1;
+    const tr = document.createElement('tr');
+    tr.append(
+      dateCell(row),
+      companyCell(row),
+      cell(row.email),
+      cell(lineLabel(row.line)),
+      cell(typeLabel(row.type)),
+      cell(row.status),
+      cell(row.reply, 'reply')
+    );
+    body.append(tr);
+  });
+  document.getElementById('email-empty').hidden = shown !== 0;
+  document.getElementById('email-count').textContent = shown === emailRows.length ? '(' + emailRows.length + ')' : '(' + shown + ' of ' + emailRows.length + ')';
+}
+function fillPosts(posts) {
+  const body = document.getElementById('post-rows');
+  body.textContent = '';
+  posts.forEach((row) => {
+    const tr = document.createElement('tr');
+    tr.append(dateCell(row), cell(row.text, 'reply'), linkCell(row.url));
+    body.append(tr);
+  });
+  document.getElementById('post-empty').hidden = posts.length !== 0;
+  document.getElementById('post-count').textContent = '(' + posts.length + ')';
+}
+function fillDms(dms) {
+  const block = document.getElementById('dm-block');
+  block.hidden = dms.length === 0;
+  const body = document.getElementById('dm-rows');
+  body.textContent = '';
+  dms.forEach((row) => {
+    const tr = document.createElement('tr');
+    const contact = [row.name, row.email].filter(Boolean).join(' · ');
+    tr.append(dateCell(row), cell(row.company), cell(contact), cell(row.status), cell(row.message, 'reply'), linkCell(row.url));
+    body.append(tr);
+  });
+  document.getElementById('dm-count').textContent = '(' + dms.length + ')';
+}
+function render(data) {
+  const asRows = (value) => (Array.isArray(value) ? value : []).filter((row) => row && typeof row === 'object');
+  const emails = asRows(data.emails).reverse();
+  const posts = asRows(data.posts).reverse();
+  const dms = asRows(data.dms).reverse();
+  emailRows = emails;
+  document.getElementById('upd').textContent = data.updated || '—';
+  document.getElementById('q').value = '';
+  fillStats(emails, posts);
+  fillPosts(posts);
+  fillDms(dms);
+  paintEmails();
+  chart = model(emails, posts);
+  gate.hidden = true;
+  dash.hidden = false;
+  pw.value = '';
+  requestAnimationFrame(() => draw(chart));
+}
+async function unlock(password) {
+  if (pending) return;
+  pending = true;
+  setBusy(true);
+  showError('');
+  try {
+    const res = await fetch('/api/outreach', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      cache: 'no-store',
+      body: JSON.stringify({ password }),
+    });
+    if (res.status === 401) {
+      storageSet('');
+      showError('Wrong password.');
+      pw.focus();
+      return;
+    }
+    if (!res.ok) {
+      showError('Could not open the dashboard. Try again.');
+      return;
+    }
+    const data = await res.json();
+    if (!data || typeof data !== 'object' || Array.isArray(data)) {
+      showError('Outreach data is not available right now.');
+      return;
+    }
+    render(data);
+    storageSet(password);
+  } catch (err) {
+    showError('Could not reach the dashboard. Try again.');
+  } finally {
+    pending = false;
+    setBusy(false);
+  }
+}
+function lock() {
+  storageSet('');
+  chart = null;
+  emailRows = [];
+  dash.hidden = true;
+  gate.hidden = false;
+  pw.value = '';
+  showError('');
+  document.getElementById('stats').textContent = '';
+  document.getElementById('email-rows').textContent = '';
+  document.getElementById('post-rows').textContent = '';
+  document.getElementById('dm-rows').textContent = '';
+  pw.focus();
+}
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  unlock(pw.value);
 });
+document.getElementById('q').addEventListener('input', paintEmails);
+document.getElementById('lock').addEventListener('click', lock);
+window.addEventListener('resize', () => { if (chart && !dash.hidden) draw(chart); });
+const stored = storageGet();
+if (stored) unlock(stored);
 </script>
 </body>
 </html>
