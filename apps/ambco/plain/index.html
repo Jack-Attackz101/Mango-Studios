@@ -3,22 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#000000">
   <title>American Metal Bearing Company</title>
   <meta name="description" content="American Metal Bearing (AMB) has engineered and manufactured bearing propulsion systems for the U.S. Navy for more than 85 years. Line shaft, thrust, stave and partial arc bearings. Garden Grove, California. Since 1921.">
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="plain.css">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
 
+  <!-- Header: Anduril-style, black, centered nav -->
   <header class="hdr" id="hdr">
-    <a class="hdr-logo" href="#top" aria-label="American Metal Bearing Company, home">
-      <img src="../assets/logo.svg" width="80" height="23" alt="AMB">
-    </a>
+    <a class="hdr-logo" href="#top" aria-label="American Metal Bearing Company, home"><img src="img/amb-logo.webp" width="84" height="32" alt="AMB"></a>
     <nav class="hdr-nav" id="hdr-nav" aria-label="Primary">
       <a href="#products">Products</a>
       <a href="#capabilities">Capabilities</a>
@@ -26,288 +25,352 @@
       <a href="#company">Company</a>
       <a href="#careers">Careers</a>
     </nav>
-    <a class="hdr-cta" href="#contact">Contact <span aria-hidden="true">→</span></a>
+    <a class="hdr-cta" href="#contact">Contact</a>
     <button class="hdr-menu" id="hdr-menu" type="button" aria-expanded="false" aria-controls="hdr-nav" aria-label="Open menu"><span></span><span></span></button>
   </header>
 
   <main id="main">
 
     <!-- HERO -->
-    <section class="hero" id="top">
-      <div class="hero-media">
-        <img src="img/sub-hero.jpg" alt="Submarine underway, rendered in deep water" data-zoom>
-      </div>
-      <div class="hero-shade" aria-hidden="true"></div>
-      <div class="hero-copy wrap">
-        <p class="label"><span class="dot"></span>American Metal Bearing Company · Est. 1921</p>
-        <h1 class="hero-title" data-lines>Bearing propulsion systems for the U.S.&nbsp;Navy.</h1>
-        <div class="hero-row">
-          <p class="hero-sub">Engineered, cast, machined and tested in Garden Grove, California. On the shafts of submarines and surface combatants for more than 85 years.</p>
-          <div class="hero-actions">
-            <a class="btn btn-light" href="#products">View product lines</a>
-            <a class="btn btn-line" href="#contact">Talk to engineering</a>
+    <section class="hero dark" id="top">
+      <div class="hero-card">
+        <img src="img/sub-surface.webp" alt="A U.S. Navy submarine on the surface under way" fetchpriority="high">
+        <div class="hero-shade" aria-hidden="true"></div>
+        <div class="hero-copy">
+          <p class="eyebrow">American Metal Bearing Company · Est. 1921</p>
+          <h1>Bearing propulsion systems for the U.S.&nbsp;Navy.</h1>
+          <div class="hero-row">
+            <p>The primary supplier of bearing propulsion systems to the U.S. Navy for more than 85 years. Engineered, cast, machined and tested in Garden Grove, California.</p>
+            <div class="hero-actions">
+              <a class="btn btn-white" href="#products">View products</a>
+              <a class="btn btn-ghost" href="#contact">Contact engineering</a>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="hero-meta wrap mono" aria-hidden="true">
-        <span>33.78° N · 117.99° W</span>
-        <span>Scroll</span>
       </div>
     </section>
 
     <!-- MISSION -->
-    <section class="mission wrap" id="mission">
-      <p class="label">01 — Mission</p>
-      <p class="mission-text" data-words>For more than 85 years, American Metal Bearing has been the primary supplier of bearing propulsion systems to the U.S. Navy. We specialize in hydrodynamic bearing design for marine, industrial and specialized applications, and we carry every project from concept to final part under one roof.</p>
-      <dl class="figures">
-        <div><dt class="mono">Founded</dt><dd data-count="1921" data-plain>1921</dd></div>
-        <div><dt class="mono">Navy supplier</dt><dd data-count="85" data-suffix="+">85+</dd><span>years</span></div>
-        <div><dt class="mono">Facility</dt><dd data-count="50000">50,000</dd><span>ft²</span></div>
-        <div><dt class="mono">Thrust capacity</dt><dd data-count="30000" data-suffix="+">30,000+</dd><span>lb</span></div>
-      </dl>
+    <section class="mission dark" id="mission">
+      <p class="eyebrow">Our mission</p>
+      <p class="mission-text" data-words>American Metal Bearing designs, develops, manufactures and sells a complete range of bearing propulsion systems and associated hardware. We specialize in hydrodynamic bearing design for marine, industrial and specialized applications, and we carry each project from concept to final part under one roof.</p>
     </section>
 
-    <!-- PRODUCTS -->
-    <section class="products" id="products">
-      <div class="wrap sec-head">
-        <p class="label">02 — Product lines</p>
-        <h2 data-lines>Three product lines. One shaft line.</h2>
-        <p class="sec-sub">AMB designs, develops, manufactures and sells a complete range of bearing propulsion systems and associated hardware.</p>
-      </div>
-      <div class="wrap product-grid">
-        <a class="tile" href="#p-propulsor">
-          <div class="frame"><img src="img/bearing-propulsor.jpg" alt="Water-lubricated stave bearing" loading="lazy" data-parallax></div>
-          <div class="tile-meta">
-            <span class="mono">P-01 · Water lubricated</span>
-            <h3>Propulsor bearings</h3>
-            <span class="tile-arrow" aria-hidden="true">→</span>
-          </div>
+    <!-- PRODUCTS: Anduril mosaic -->
+    <section class="mosaic-sec dark" id="products" aria-labelledby="products-h">
+      <header class="mosaic-head">
+        <h2 id="products-h">Products</h2>
+        <p>Propulsor, line shaft and thrust bearings, and sealing systems.</p>
+      </header>
+      <div class="mosaic">
+        <a class="tile tile--tall tile--cad" href="#p-lineshaft">
+          <img src="img/prod-lineshaft.webp" alt="Line shaft bearing, cutaway model" loading="lazy">
+          <span class="tile-label">Line shaft bearings</span>
+          <span class="tile-go" aria-hidden="true">↗</span>
         </a>
-        <a class="tile" href="#p-lineshaft">
-          <div class="frame"><img src="img/bearing-lineshaft.jpg" alt="Oil-lubricated line shaft bearing" loading="lazy" data-parallax></div>
-          <div class="tile-meta">
-            <span class="mono">P-02 · Oil lubricated</span>
-            <h3>Line shaft bearings</h3>
-            <span class="tile-arrow" aria-hidden="true">→</span>
-          </div>
+        <a class="tile tile--wide" href="#p-propulsor">
+          <img src="img/stave-strut.webp" alt="Technician inside a bronze stave strut bearing" loading="lazy">
+          <span class="tile-label">Propulsor bearings</span>
+          <span class="tile-go" aria-hidden="true">↗</span>
         </a>
-        <a class="tile" href="#p-thrust">
-          <div class="frame"><img src="img/bearing-thrust.jpg" alt="Tilting pad thrust bearing" loading="lazy" data-parallax></div>
-          <div class="tile-meta">
-            <span class="mono">P-03 · Tilting pad</span>
-            <h3>Thrust bearings</h3>
-            <span class="tile-arrow" aria-hidden="true">→</span>
-          </div>
+        <a class="tile tile--cad" href="#p-thrust">
+          <img src="img/prod-thrust.webp" alt="Tilting pad thrust bearing housing" loading="lazy">
+          <span class="tile-label">Thrust bearings</span>
+          <span class="tile-go" aria-hidden="true">↗</span>
+        </a>
+        <a class="tile" href="#p-seals">
+          <img src="img/prod-seals.webp" alt="Divers at a propulsion seal on a submarine" loading="lazy">
+          <span class="tile-label">Sealing systems</span>
+          <span class="tile-go" aria-hidden="true">↗</span>
         </a>
       </div>
-
-      <article class="pdetail wrap" id="p-propulsor">
-        <div class="frame frame--light"><img src="img/bearing-propulsor-light.jpg" alt="Stave bearing, flange end" loading="lazy" data-parallax></div>
-        <div class="pdetail-body">
-          <span class="mono">P-01 · Stave &amp; partial arc</span>
-          <h3>Propulsor bearings</h3>
-          <p>Water-lubricated bearings manufactured in stave and partial arc systems for conventional and nuclear-powered submarines, naval surface vessels and other industrial equipment.</p>
-          <ul class="ticks">
-            <li>Dual-hardness, low-friction nitrile rubber staves approved by the U.S. Navy</li>
-            <li>Grooves between staves channel seawater through the bearing and carry away sand and abrasives</li>
-            <li>Partial arc (round bore) bearings held to exacting tolerances</li>
-          </ul>
-          <dl class="spec">
-            <div><dt>Lubricant</dt><dd>Seawater</dd></div>
-            <div><dt>Systems</dt><dd>Stave · Partial arc</dd></div>
-            <div><dt>Platforms</dt><dd>Submarines · Surface ships</dd></div>
-          </dl>
-          <a class="link" href="https://www.ambco.net/bearing-propulsion-systems" target="_blank" rel="noopener">Full specifications ↗</a>
-        </div>
-      </article>
-
-      <article class="pdetail pdetail--flip wrap" id="p-lineshaft">
-        <div class="frame"><img src="img/bearing-lineshaft.jpg" alt="Line shaft bearing pedestal with shaft" loading="lazy" data-parallax></div>
-        <div class="pdetail-body">
-          <span class="mono">P-02 · Since 1921</span>
-          <h3>Line shaft bearings</h3>
-          <p>AMB began engineering and producing oil-lubricated bearings in 1921 and is the premier engineering manufacturer of line shaft bearings to the U.S. Navy and its allies.</p>
-          <ul class="ticks">
-            <li>Found on almost every large U.S. Navy surface combatant</li>
-            <li>Babbitted bearings centrifugally cast in house</li>
-            <li>Tested to NAVSEA and ABS approved procedures with in-house NDT</li>
-          </ul>
-          <dl class="spec">
-            <div><dt>Lubricant</dt><dd>Oil</dd></div>
-            <div><dt>Liner</dt><dd>Cast babbitt</dd></div>
-            <div><dt>Customers</dt><dd>U.S. Navy &amp; allies</dd></div>
-          </dl>
-          <a class="link" href="https://www.ambco.net/lineshaft-bearings" target="_blank" rel="noopener">Full specifications ↗</a>
-        </div>
-      </article>
-
-      <article class="pdetail wrap" id="p-thrust">
-        <div class="frame frame--light"><img src="img/bearing-thrust-light.jpg" alt="Tilting pad thrust bearing, pad face" loading="lazy" data-parallax></div>
-        <div class="pdetail-body">
-          <span class="mono">P-03 · Self-lubricating</span>
-          <h3>Thrust bearings</h3>
-          <p>Tilting pad thrust bearings for propulsion shafting and industrial equipment, whether the need is small or over 30,000 pounds.</p>
-          <ul class="ticks">
-            <li>No lube oil pumping system or jacking pumps required</li>
-            <li>Self-lubricating in every operating condition, including jacking speeds</li>
-            <li>Self-aligning, load-leveling design allows shaft deflection while minimizing wear</li>
-          </ul>
-          <dl class="spec">
-            <div><dt>Capacity</dt><dd>30,000+ lb</dd></div>
-            <div><dt>Type</dt><dd>Tilting pad</dd></div>
-            <div><dt>Oil pumps</dt><dd>None required</dd></div>
-          </dl>
-          <a class="link" href="https://www.ambco.net/thrust-bearings" target="_blank" rel="noopener">Full specifications ↗</a>
-        </div>
-      </article>
     </section>
 
-    <!-- CAPABILITIES -->
-    <section class="caps" id="capabilities">
-      <div class="wrap sec-head">
-        <p class="label">03 — Capabilities</p>
-        <h2 data-lines>From first model to final part.</h2>
-      </div>
-      <div class="wrap caps-grid">
-        <article class="cap">
-          <div class="frame frame--tall"><img src="img/sub-propulsor.jpg" alt="Propulsor and stern planes" loading="lazy" data-parallax></div>
-          <span class="mono">C-01</span>
-          <h3>Advanced manufacturing</h3>
-          <p>One-of-a-kind designs to large-scale continuous production. Multi-axis CNC machining and in-house centrifugal babbitt casting, a core skill since 1921.</p>
-        </article>
-        <article class="cap">
-          <div class="frame frame--tall"><img src="img/sub-plan.jpg" alt="Submarine in plan view with structural lines" loading="lazy" data-parallax></div>
-          <span class="mono">C-02</span>
-          <h3>Applied research &amp; prototyping</h3>
-          <p>New propulsor concepts developed with Department of Defense research offices, then built and proven with full or partial scale testing.</p>
-        </article>
-        <article class="cap">
-          <div class="frame frame--tall"><img src="img/sub-keel.jpg" alt="Submarine hull from below" loading="lazy" data-parallax></div>
-          <span class="mono">C-03</span>
-          <h3>Structural analysis &amp; simulation</h3>
-          <p>Advanced modeling and finite element analysis for structural, kinematic, mechanical and thermodynamic problems, before anyone invests in a prototype.</p>
-        </article>
+    <!-- CAPABILITIES: Anduril mosaic -->
+    <section class="mosaic-sec dark" id="capabilities" aria-labelledby="cap-h">
+      <header class="mosaic-head">
+        <h2 id="cap-h">Capabilities</h2>
+        <p>From first model to final part.</p>
+      </header>
+      <div class="mosaic mosaic--b">
+        <a class="tile tile--hero" href="#manufacturing">
+          <img src="img/shop-cnc.webp" alt="Large multi-axis CNC machine in the AMB shop" loading="lazy">
+          <span class="tile-label">Advanced manufacturing</span>
+          <span class="tile-sub">One-of-a-kind designs to large-scale continuous production</span>
+          <span class="tile-go" aria-hidden="true">↗</span>
+        </a>
+        <a class="tile" href="#services">
+          <img src="img/research.webp" alt="Engineer inspecting a large propulsion bearing" loading="lazy">
+          <span class="tile-label">Applied research &amp; prototyping</span>
+          <span class="tile-go" aria-hidden="true">↗</span>
+        </a>
+        <a class="tile tile--light" href="#services">
+          <img src="img/fea.webp" alt="Finite element analysis plot of a bearing housing" loading="lazy">
+          <span class="tile-label">Structural analysis &amp; simulation</span>
+          <span class="tile-go" aria-hidden="true">↗</span>
+        </a>
+        <a class="tile" href="#lifecycle">
+          <img src="img/propellers-drydock.webp" alt="Ship propellers and struts in dry dock" loading="lazy">
+          <span class="tile-label">Life cycle management</span>
+          <span class="tile-go" aria-hidden="true">↗</span>
+        </a>
       </div>
     </section>
 
-    <!-- LEGACY: sticky media, scrolling years -->
-    <section class="legacy" id="legacy">
-      <div class="wrap sec-head">
-        <p class="label">04 — Legacy</p>
-        <h2 data-lines>A century in national security.</h2>
-      </div>
-      <div class="wrap legacy-grid">
-        <div class="legacy-media" aria-hidden="true">
-          <div class="frame legacy-frame">
-            <img src="img/sub-bow.jpg" alt="" class="is-on" data-step="0">
-            <img src="img/sub-broadside.jpg" alt="" data-step="1">
-            <img src="img/sub-sail.jpg" alt="" data-step="2">
-            <img src="img/sub-keel.jpg" alt="" data-step="3">
-            <img src="img/sub-propulsor.jpg" alt="" data-step="4">
-            <img src="img/sub-plan.jpg" alt="" data-step="5">
+    <!-- TRUSTED BY (Human Delta-style framed light section) -->
+    <section class="hd" id="fleet">
+      <div class="hd-rails" aria-hidden="true"></div>
+      <div class="hd-frame">
+        <div class="hd-hero">
+          <canvas class="halftone" id="halftone" aria-hidden="true"></canvas>
+          <div class="hd-hero-copy">
+            <h2 class="serif">The quiet force beneath the fleet.</h2>
+            <p>AMB bearings turn the shafts of submarines, cruisers, destroyers, amphibious ships and carriers, in navies around the world.</p>
+            <a class="btn btn-navy" href="#p-lineshaft">See the product lines</a>
           </div>
-          <span class="mono legacy-cap" id="legacy-cap">Fig. 1921</span>
-        </div>
-        <ol class="years">
-          <li data-step="0" data-cap="Fig. 1921"><span class="yr">1921</span><div><h3>Los Angeles</h3><p>Mr. Wyllis founds American Metal Bearing at 3rd Street and Central Avenue, making specialty bearings for the earliest Indy cars.</p></div></li>
-          <li data-step="1" data-cap="Fig. 1940s"><span class="yr">1940s</span><div><h3>The Second World War</h3><p>AMB becomes the preeminent supplier of propeller shaft bearings to the navies of the world, a role it has held since.</p></div></li>
-          <li data-step="2" data-cap="Fig. 1950s"><span class="yr">1950s+</span><div><h3>The post-war fleet</h3><p>Frigates, destroyers, amphibious transport docks and nuclear submarines all run AMB components in their propulsion systems.</p></div></li>
-          <li data-step="3" data-cap="Fig. 1973"><span class="yr">1973</span><div><h3>Garden Grove</h3><p>In April 1973 the company moves from downtown Los Angeles to its 50,000 ft² facility at 7191 Acacia Avenue.</p></div></li>
-          <li data-step="4" data-cap="Fig. 85 years"><span class="yr">85 yrs</span><div><h3>Primary Navy supplier</h3><p>Propulsion bearings for nearly every large surface combatant in the U.S. Navy, plus ice breakers, research vessels and submarines.</p></div></li>
-          <li data-step="5" data-cap="Fig. Today"><span class="yr">Today</span><div><h3>The next century</h3><p>Research with Department of Defense offices on new propulsor concepts, under an AS9100D and ISO 9001:2015 quality system.</p></div></li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- COMPANY (light) -->
-    <section class="company" id="company">
-      <div class="wrap sec-head">
-        <p class="label">05 — Company</p>
-        <h2 data-lines>Who we are.</h2>
-      </div>
-      <div class="wrap company-grid">
-        <article id="story">
-          <span class="mono">Our story</span>
-          <p class="lead">A small Los Angeles bearing shop in 1921. The primary supplier of bearing propulsion systems to the U.S. Navy today.</p>
-          <p>Through the twentieth century the company pioneered advances in journal bearing design. Since the Second World War it has engineered critical propulsion components for the marine and naval industries. In 1973 it moved to Garden Grove, California, where it remains.</p>
-        </article>
-        <article id="values">
-          <span class="mono">Our values</span>
-          <ul class="values">
-            <li><strong>Integrity</strong><span>Lasting trust, built by consistently delivering on our promises.</span></li>
-            <li><strong>Innovation</strong><span>Forward-thinking solutions, from bearing liners to propulsor concepts.</span></li>
-            <li><strong>Teamwork</strong><span>Engineering, machining and quality working as one.</span></li>
-          </ul>
-        </article>
-        <article id="quality">
-          <span class="mono">Our quality</span>
-          <div class="certs">
-            <div><strong>AS9100</strong><span>Rev D</span></div>
-            <div><strong>ISO 9001</strong><span>2015</span></div>
+          <div class="trusted">
+            <span class="trusted-label">On the shafts of</span>
+            <ul>
+              <li class="serif">Ohio class</li>
+              <li class="serif">Virginia class</li>
+              <li class="serif">Los Angeles class</li>
+              <li class="serif">DDG-51 class</li>
+              <li class="serif">CG-47 class</li>
+              <li class="serif">LHA &amp; LHD</li>
+            </ul>
           </div>
-          <p>NAVSEA and ABS approved welding and NDT procedures, designed for critical and shock-qualified equipment.</p>
+        </div>
+        <dl class="figures">
+          <div><dt>Founded in Los Angeles</dt><dd class="serif" data-count="1921" data-plain>1921</dd></div>
+          <div><dt>Years as primary U.S. Navy supplier</dt><dd class="serif" data-count="85" data-suffix="+">85+</dd></div>
+          <div><dt>Square foot Garden Grove facility</dt><dd class="serif" data-count="50000">50,000</dd></div>
+          <div><dt>Pounds, largest thrust bearings</dt><dd class="serif" data-count="30000" data-suffix="+">30,000+</dd></div>
+        </dl>
+
+        <!-- Product detail rows -->
+        <article class="row" id="p-lineshaft">
+          <div class="cell cell-text">
+            <p class="kicker">P-01 · Oil lubricated</p>
+            <h3 class="serif">Line shaft bearings</h3>
+            <p>AMB began engineering and producing oil-lubricated bearings in 1921 and is the premier engineering manufacturer of line shaft bearings to the U.S. Navy and its allies throughout the world.</p>
+            <ul class="ticks">
+              <li>Found on almost every large U.S. Navy surface combatant</li>
+              <li>Babbitted bearings centrifugally cast in house</li>
+              <li>Tested to NAVSEA and ABS approved procedures with in-house NDT</li>
+            </ul>
+            <a class="more" href="https://www.ambco.net/lineshaft-bearings" target="_blank" rel="noopener">Full specifications <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="cell cell-media"><div class="card card-cad"><img src="img/prod-lineshaft.webp" alt="Line shaft bearing model" loading="lazy"></div></div>
+        </article>
+        <article class="row row--flip" id="p-propulsor">
+          <div class="cell cell-media"><div class="card"><img src="img/stave-strut.webp" alt="Stave strut bearing with a technician inside" loading="lazy"></div></div>
+          <div class="cell cell-text">
+            <p class="kicker">P-02 · Water lubricated</p>
+            <h3 class="serif">Propulsor bearings</h3>
+            <p>Water-lubricated bearings manufactured in stave and partial arc systems for conventional and nuclear-powered submarines, naval surface vessels and industrial equipment.</p>
+            <ul class="ticks">
+              <li>Dual-hardness, low-friction nitrile rubber staves approved by the U.S. Navy</li>
+              <li>Grooves between the staves carry seawater through, lubricating the bearing and flushing out sand and abrasives</li>
+              <li>Partial arc (round bore) bearings held to exacting tolerances</li>
+            </ul>
+            <a class="more" href="https://www.ambco.net/water-lubricated-bearings" target="_blank" rel="noopener">Full specifications <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+        <article class="row" id="p-thrust">
+          <div class="cell cell-text">
+            <p class="kicker">P-03 · Tilting pad</p>
+            <h3 class="serif">Thrust bearings</h3>
+            <p>AMB can produce a tilting pad thrust bearing whether it is small or over 30,000 pounds, designed and built for propulsion shafting and industrial equipment.</p>
+            <ul class="ticks">
+              <li>No lube oil pumping system or jacking pumps required</li>
+              <li>Self-lubricating in every operating condition, including jacking speeds</li>
+              <li>Self-aligning, load-leveling design allows shaft deflection while minimizing wear</li>
+            </ul>
+            <a class="more" href="https://www.ambco.net/thrust-bearings" target="_blank" rel="noopener">Full specifications <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="cell cell-media"><div class="card card-cad"><img src="img/prod-thrust.webp" alt="Tilting pad thrust bearing model" loading="lazy"></div></div>
+        </article>
+        <article class="row row--flip" id="p-seals">
+          <div class="cell cell-media"><div class="card"><img src="img/prod-seals.webp" alt="Advanced seal delivery system on a submarine" loading="lazy"></div></div>
+          <div class="cell cell-text">
+            <p class="kicker">P-04 · Sealing systems</p>
+            <h3 class="serif">Keeping the ocean where it belongs</h3>
+            <p>Where a rotating shaft passes through a pressure hull there is no margin for error. AMB sealing systems are engineered alongside the bearings so the whole stern assembly works as one.</p>
+            <ul class="ticks">
+              <li>Designed together with the bearing system</li>
+              <li>Built for full-depth service on submarines</li>
+            </ul>
+            <a class="more" href="https://www.ambco.net/bearing-propulsion-systems" target="_blank" rel="noopener">Bearing propulsion systems <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+
+        <!-- Manufacturing 2x2, like Human Delta's Connect / Audit / Evaluate / Remediate -->
+        <div class="band" id="manufacturing">
+          <h2 class="serif">Cast, machined and tested under one roof.</h2>
+          <p>A proud American manufacturer since 1921. Modern multi-axis CNC machine tools meet a century of babbitt know-how.</p>
+        </div>
+        <div class="grid2">
+          <article class="cell">
+            <h3 class="serif">Cast</h3>
+            <p>Casting babbitt has been a core competency since 1921. Bearings and thrust pads are centrifugally cast in house.</p>
+            <div class="card"><img src="img/shop-babbitt.webp" alt="AMB babbitt casting room" loading="lazy"></div>
+          </article>
+          <article class="cell">
+            <h3 class="serif">Machine</h3>
+            <p>High-tolerance components with complex specifications, from one-off designs to continuous production runs.</p>
+            <div class="card"><img src="img/shop-machining.webp" alt="Line shaft bearing housing being machined" loading="lazy"></div>
+          </article>
+          <article class="cell">
+            <h3 class="serif">Weld</h3>
+            <p>NAVSEA and ABS approved welding procedures, designed for critical and shock-qualified equipment.</p>
+            <div class="card"><img src="img/welder.webp" alt="Welder at work" loading="lazy"></div>
+          </article>
+          <article class="cell">
+            <h3 class="serif">Test</h3>
+            <p>In-house NDT, plus shock and performance testing, so parts perform in harsh operating conditions.</p>
+            <div class="card"><img src="img/shock-test.webp" alt="Underwater shock test beside a navy ship" loading="lazy"></div>
+          </article>
+        </div>
+
+        <!-- Services + life cycle -->
+        <div class="band" id="services">
+          <h2 class="serif">Engineering, and support for the life of the vessel.</h2>
+          <p>AMB provides manufacturing, engineering services and life cycle management for high-tolerance, precision components.</p>
+        </div>
+        <div class="grid3">
+          <article class="cell">
+            <p class="kicker">Engineering services</p>
+            <h3 class="serif">Design &amp; analysis</h3>
+            <p>In-house teams support each project from concept to final product, with finite element analysis for structural, kinematic, mechanical and thermodynamic problems.</p>
+          </article>
+          <article class="cell">
+            <p class="kicker">Applied research</p>
+            <h3 class="serif">Prototype &amp; prove</h3>
+            <p>New propulsor concepts developed with Department of Defense research offices, then tested at full or partial scale in house.</p>
+          </article>
+          <article class="cell" id="lifecycle">
+            <p class="kicker">Life cycle management</p>
+            <h3 class="serif">Sustain</h3>
+            <p>Support for the systems AMB builds, from first delivery through years of fleet service.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEGACY: Anduril news-style color panels -->
+    <section class="legacy" id="legacy" aria-labelledby="legacy-h">
+      <div class="panel panel--beige">
+        <div class="panel-text">
+          <p class="eyebrow">Our legacy</p>
+          <h2 id="legacy-h">In 1921, a small Los Angeles shop began making bearings for Indy cars.</h2>
+          <p>Mr. Wyllis founded American Metal Bearing at 3rd Street and Central Avenue. Casting babbitt was a core skill from day one, and the company pioneered advances in journal bearing design through the twentieth century.</p>
+          <a class="read" href="#story">Read more <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="panel-img"><img src="img/history-1921.webp" alt="Archive photo of the original AMB machine shop" loading="lazy"></div>
+      </div>
+      <div class="panel-pair">
+        <article class="panel panel--olive">
+          <header><h3>Called to the fleet</h3><a class="read" href="#story">Read more <span aria-hidden="true">↗</span></a></header>
+          <p>During the Second World War AMB became the preeminent supplier of propeller shaft bearings to the navies of the world, a role it has held since.</p>
+          <div class="panel-img"><img src="img/history-victory.webp" alt="Archive photo of a Weld-Tite bearing delivery train" loading="lazy"></div>
+        </article>
+        <article class="panel panel--grey">
+          <header><h3>The post-war fleet</h3><a class="read" href="#fleet">Read more <span aria-hidden="true">↗</span></a></header>
+          <p>Frigates, destroyers, amphibious transport docks and nuclear submarines all run AMB components in their propulsion systems.</p>
+          <div class="panel-img"><img src="img/cg-cruiser.webp" alt="U.S. Navy cruiser under way" loading="lazy"></div>
+        </article>
+      </div>
+      <div class="panel-pair">
+        <article class="panel panel--dark">
+          <header><h3>A new home in Garden Grove</h3><a class="read" href="#contact">Visit <span aria-hidden="true">↗</span></a></header>
+          <p>In April 1973 the company moved from downtown Los Angeles to its current facility at 7191 Acacia Avenue.</p>
+          <div class="panel-img"><img src="img/shop-assembly.webp" alt="AMB technicians assembling a line shaft bearing" loading="lazy"></div>
+        </article>
+        <article class="panel panel--sand">
+          <header><h3>The next century</h3><a class="read" href="#services">Read more <span aria-hidden="true">↗</span></a></header>
+          <p>Research with Department of Defense offices on new propulsor concepts, under an AS9100D and ISO 9001:2015 quality system.</p>
+          <div class="panel-img"><img src="img/sub-flag.webp" alt="Submarine and the American flag at sea" loading="lazy"></div>
         </article>
       </div>
     </section>
 
-    <!-- MANUFACTURING + SERVICES -->
-    <section class="process" id="manufacturing">
-      <div class="wrap sec-head">
-        <p class="label">06 — Manufacturing &amp; services</p>
-        <h2 data-lines>Cast, machined and tested under one roof.</h2>
+    <!-- COMPANY (HD framed) -->
+    <section class="hd hd--company" id="company">
+      <div class="hd-rails" aria-hidden="true"></div>
+      <div class="hd-frame">
+        <div class="band band--top">
+          <h2 class="serif">Who we are.</h2>
+          <p>With over 100 years of industry experience, AMB is dedicated to delivering superior quality and precision in every product it makes.</p>
+        </div>
+        <div class="team card"><img src="img/team.webp" alt="The AMB team on the shop floor in Garden Grove" loading="lazy"></div>
+        <div class="grid3 grid3--tight">
+          <article class="cell" id="story">
+            <p class="kicker">Our story</p>
+            <h3 class="serif">Since 1921</h3>
+            <p>A small Los Angeles bearing shop became the primary supplier of bearing propulsion systems to the U.S. Navy, with critical propulsion components for the marine and naval industries since the Second World War.</p>
+          </article>
+          <article class="cell" id="values">
+            <p class="kicker">Our values</p>
+            <h3 class="serif">Integrity, innovation, teamwork</h3>
+            <p>Lasting trust built by delivering on our promises, forward-thinking solutions, and engineering, machining and quality working as one.</p>
+          </article>
+          <article class="cell cell--navy" id="quality">
+            <p class="kicker">Our quality</p>
+            <h3 class="serif">AS9100D &amp; ISO 9001:2015</h3>
+            <img class="cert" src="img/cert-badge.webp" alt="ISO 9001:2015 and AS9100D certified company, PRI Registrar" loading="lazy">
+            <p>A robust Quality Management System, with NAVSEA and ABS approved welding and NDT procedures.</p>
+          </article>
+        </div>
       </div>
-      <ol class="wrap rows">
-        <li><span class="mono">01</span><h3>Babbitt casting</h3><p>Bearings and thrust pads centrifugally cast in house, a core competency since 1921.</p></li>
-        <li><span class="mono">02</span><h3>Multi-axis CNC</h3><p>High-tolerance components with complex specifications, from one-off designs to production runs.</p></li>
-        <li><span class="mono">03</span><h3>Qualified welding</h3><p>NAVSEA and ABS approved procedures for critical and shock-qualified equipment.</p></li>
-        <li><span class="mono">04</span><h3>In-house NDT</h3><p>Non-destructive testing so parts perform in harsh operating conditions.</p></li>
-        <li id="services"><span class="mono">05</span><h3>Engineering services</h3><p>In-house design, FEA and full or partial scale testing of application-specific bearing liners.</p></li>
-        <li id="lifecycle"><span class="mono">06</span><h3>Life cycle management</h3><p>Support for high-tolerance, precision components from first delivery through years of fleet service.</p></li>
-      </ol>
     </section>
 
-    <!-- CAREERS -->
-    <section class="careers" id="careers">
-      <div class="careers-media"><img src="img/sub-sail.jpg" alt="Submarine sail and masts" loading="lazy" data-parallax></div>
-      <div class="careers-shade" aria-hidden="true"></div>
-      <div class="wrap careers-body">
-        <p class="label">07 — Careers</p>
-        <h2 data-lines>Build the parts nobody sees.</h2>
-        <div class="careers-cols">
+    <!-- CAREERS + CONTACT: Human Delta closing CTA with navy swell -->
+    <section class="close" id="careers">
+      <div class="close-top">
+        <div class="hd-frame close-frame">
+          <h2 class="serif">Build the parts nobody sees.</h2>
           <p>Learn from skilled engineers, machinists and managers. Cross-training and collaboration help every team member grow with the company.</p>
-          <ul class="roles">
-            <li><span>CNC machinists</span><span class="mono">Multi-axis</span></li>
-            <li><span>Welders &amp; fabricators</span><span class="mono">Entry → Lead</span></li>
-            <li><span>Engineers</span><span class="mono">Design · Test</span></li>
-          </ul>
-          <ul class="roles">
-            <li><span>Performance bonus</span><span class="mono">All staff</span></li>
-            <li><span>401(k) with match</span><span class="mono">Yes</span></li>
-            <li><span>Life insurance</span><span class="mono">From $25k</span></li>
-          </ul>
-        </div>
-        <a class="btn btn-light" href="https://www.ambco.net/careers" target="_blank" rel="noopener">Open roles ↗</a>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section class="contact" id="contact">
-      <div class="wrap">
-        <p class="label">08 — Contact</p>
-        <h2 class="contact-title" data-lines>Send us the drawing.</h2>
-        <div class="contact-grid">
-          <div><span class="mono">Phone</span><a href="tel:+17148925527">(714) 892-5527</a><p>Mon–Thu 7 AM–5 PM · Fri 7–11 AM PT</p></div>
-          <div><span class="mono">Address</span><a href="https://maps.google.com/?q=7191+Acacia+Ave+Garden+Grove+CA+92841" target="_blank" rel="noopener">7191 Acacia Ave</a><p>Garden Grove, CA 92841</p></div>
-          <div><span class="mono">Web</span><a href="https://www.ambco.net/contact" target="_blank" rel="noopener">Contact form ↗</a><p>ambco.net</p></div>
+          <div class="roles">
+            <ul>
+              <li><strong>CNC machinists</strong><span>Multi-axis equipment</span></li>
+              <li><strong>Welders &amp; fabricators</strong><span>Entry level to lead</span></li>
+              <li><strong>Engineers</strong><span>Design and test</span></li>
+            </ul>
+            <ul>
+              <li><strong>Performance bonus</strong><span>Every employee</span></li>
+              <li><strong>401(k) with match</strong><span>Company contribution</span></li>
+              <li><strong>Life insurance</strong><span>From $25,000</span></li>
+            </ul>
+          </div>
+          <a class="btn btn-navy" href="https://www.ambco.net/careers" target="_blank" rel="noopener">See open roles ↗</a>
         </div>
       </div>
-      <footer class="foot">
-        <img class="foot-logo" src="../assets/logo.svg" alt="AMB" width="1200" height="347">
-        <div class="wrap foot-row">
-          <span>© <span id="year"></span> American Metal Bearing Company</span>
-          <nav aria-label="Footer"><a href="#products">Products</a><a href="#capabilities">Capabilities</a><a href="#company">Company</a><a href="#careers">Careers</a></nav>
-          <a href="#top">Top ↑</a>
+      <div class="close-swell" aria-hidden="true"></div>
+      <footer class="foot" id="contact">
+        <div class="foot-grid">
+          <div class="foot-brand">
+            <img src="img/amb-logo.webp" width="120" height="46" alt="AMB">
+            <p class="serif">Send us the drawing.</p>
+          </div>
+          <div><h4>Contact</h4>
+            <a href="tel:+17148925527">(714) 892-5527</a>
+            <a href="https://maps.google.com/?q=7191+Acacia+Ave+Garden+Grove+CA+92841" target="_blank" rel="noopener">7191 Acacia Ave<br>Garden Grove, CA 92841</a>
+            <span>Mon–Thu 7 AM–5 PM · Fri 7–11 AM PT</span>
+          </div>
+          <div><h4>What we do</h4>
+            <a href="#products">Bearing propulsion systems</a>
+            <a href="#manufacturing">Advanced manufacturing</a>
+            <a href="#services">Services</a>
+            <a href="#lifecycle">Life cycle management</a>
+          </div>
+          <div><h4>Who we are</h4>
+            <a href="#story">Our story</a>
+            <a href="#values">Our values</a>
+            <a href="#quality">Our quality</a>
+            <a href="https://www.ambco.net/contact" target="_blank" rel="noopener">Contact form ↗</a>
+          </div>
         </div>
+        <div class="foot-base"><span>© <span id="year"></span> American Metal Bearing Company</span><a href="#top">Back to top ↑</a></div>
       </footer>
     </section>
   </main>

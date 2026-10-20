@@ -8,7 +8,7 @@ apps/ambco/
   launch/        preview images for the launcher cards
   sub/           Sub concept: cinematic three.js submarine dive
   plain/         Plain concept: editorial, Anduril-style site
-    img/         imagery (renders of the submarine and bearing models for now)
+    img/         AMB photography and CAD renders from ambco.net
   assets/        shared: submarine.obj, AMB logo, favicon
   vendor/        three.js r169, GSAP 3.13 + ScrollTrigger, Lenis (no CDN)
 ```
@@ -24,9 +24,12 @@ Both concept sites have a small "Mango Studios demo" pill in the bottom-left cor
 
 ## Plain
 
-- Black and off-white, large grotesk type, mono labels, full-bleed media.
-- Sections: hero, mission (words light up as you read), product lines with detail rows, capabilities, legacy (sticky image that changes per year), company (story, values, quality), manufacturing & services, careers, contact.
-- Images in `plain/img/` are renders of our own submarine and bearing models. To use AMB's real photography, drop files with the same names into `plain/img/`.
+A blend of the Anduril and Human Delta sites: black, image-first sections with rounded mosaic tiles and a centered nav (Anduril), then white framed sections with hairline column rules, navy serif headings, a halftone dot wave, gradient navy buttons and a navy footer swell (Human Delta).
+
+- Hero, mission, product and capability mosaics on black.
+- "On the shafts of" fleet list, key figures, product detail rows, manufacturing 2x2 and services on white.
+- Legacy as beige / olive / grey news-style panels, then Who we are and a closing careers CTA.
+- **Images are scraped from ambco.net.** They are the real AMB photos and CAD renders, converted to WebP in `plain/img/`. The AMB lettermark is `plain/img/amb-logo.webp` (also `assets/amb-logo.webp`, used by Sub). Replace any file with the same name to swap an image.
 
 ## Run
 

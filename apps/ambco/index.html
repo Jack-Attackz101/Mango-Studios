@@ -9,7 +9,7 @@
   <link rel="icon" href="../../assets/logo-badge.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,900&family=Fredoka:wght@500;600&family=Inter+Tight:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,900&family=Fredoka:wght@500;600;700&family=Inter+Tight:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       --ink: #111111;
@@ -37,9 +37,8 @@
     .page { min-height: 100%; display: flex; flex-direction: column; padding: calc(20px + env(safe-area-inset-top, 0px)) clamp(16px, 4vw, 56px) calc(28px + env(safe-area-inset-bottom, 0px)); }
 
     .top { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
-    .studio { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); font: 600 22px/1 var(--round); }
-    .studio img { width: 48px; height: 48px; border-radius: 50%; box-shadow: 0 0 0 3px var(--ink); }
-    .tag { font: 500 14px/1 var(--round); background: var(--paper); border: 2.5px solid var(--ink); border-radius: 999px; padding: 9px 16px; box-shadow: 3px 3px 0 var(--ink); white-space: nowrap; }
+    .studio { text-decoration: none; color: var(--ink); font: 700 clamp(24px, 2.4vw, 32px)/1 var(--round); letter-spacing: -0.01em; }
+        .tag { font: 500 14px/1 var(--round); background: var(--paper); border: 2.5px solid var(--ink); border-radius: 999px; padding: 9px 16px; box-shadow: 3px 3px 0 var(--ink); white-space: nowrap; }
 
     .intro { text-align: center; margin: clamp(8px, 2vh, 40px) auto clamp(16px, 2.6vh, 32px); max-width: 980px; }
     .kicker { font: 600 16px/1 var(--round); letter-spacing: 0.02em; margin: 0 0 14px; }
@@ -118,7 +117,7 @@
 <body>
   <div class="page">
     <header class="top">
-      <a class="studio" href="../../"><img src="../../assets/logo-badge.png" alt="">mango studios</a>
+      <a class="studio" href="../../">mango studios</a>
       <span class="tag">Client demo · American Metal Bearing</span>
     </header>
 
