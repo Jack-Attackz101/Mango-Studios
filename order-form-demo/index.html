@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src https://script.google.com https://script.googleusercontent.com; script-src 'self'; style-src 'self'; img-src 'self' data:">
+<title>Automations that run themselves · Mango Studios</title>
+<meta name="description" content="Mango Studios automation demo. Made-up businesses, demo prices, and no real emails are sent.">
+<link rel="icon" href="/assets/logo-badge.png">
+<link rel="stylesheet" href="demo.css">
+</head>
+<body>
+<a class="skip" href="#app">Skip to content</a>
+<div class="sticky-top">
+  <header class="topbar">
+    <div class="bar">
+      <a class="brand" href="#">Mango Studios <span class="brand-sub">· automation demo</span></a>
+      <nav class="demo-nav" aria-label="Demo">
+        <a href="#" id="nav-showcase">Showcase</a>
+        <a href="#inbox" id="nav-inbox">Inbox <span id="inbox-count" class="count">0</span></a>
+      </nav>
+    </div>
+  </header>
+  <div class="wrap notice-wrap">
+    <p class="notice" id="top-notice"><strong>Mango Studios automation demo.</strong> All businesses are made up, prices are demo prices, and <strong>no real emails are sent</strong>. Emails appear in the Inbox on this page. Please use a made-up name and email. Demo entries are stored in a Google Sheet and cleared regularly.</p>
+  </div>
+</div>
+<div class="wrap">
+  <main id="app"></main>
+  <footer class="foot">
+    <p>Share views: <a href="#inbox">Inbox</a> (every simulated email for this visit).</p>
+  </footer>
+</div>
+<noscript>
+  <p class="notice wrap">This demo needs JavaScript. No real emails are sent.</p>
+</noscript>
+<script src="demo.js"></script>
+</body>
+</html>
