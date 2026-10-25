@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#09090b">
+  <title>ALLMIGHT | AI software builder for defense contractors</title>
+  <meta name="description" content="An AI software builder for the small and midsize contractors of the Defense Industrial Base. Plan, build, test, validate and deploy custom tools to your own enclave.">
+  <meta property="og:title" content="ALLMIGHT | Build Solutions for Real Problems">
+  <meta property="og:description" content="AI software for the Defense Industrial Base. Your data is not training data.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script type="importmap">
+    { "imports": { "three": "./vendor/three.module.min.js" } }
+  </script>
+</head>
+<body class="is-loading">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- Loader -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__mark">
+      <svg viewBox="-2 -2 96 104">
+        <path class="loader__stroke" d="M0 100 46 0 92 100H65L46 57 27 100Z" pathLength="1"/>
+        <path class="loader__fill" d="M10.5 93.5 46 16 81.5 93.5H69.5L46 40.5 22.5 93.5Z"/>
+      </svg>
+    </div>
+    <div class="loader__meta mono">
+      <span>Initialising forge</span>
+      <span class="loader__count" id="loader-count">000</span>
+    </div>
+    <div class="loader__bar"><span id="loader-bar"></span></div>
+  </div>
+
+  <!-- WebGL stage: fixed behind the hero and the finale -->
+  <canvas class="gl" id="gl" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"><span class="cursor__label"></span></span></div>
+
+  <header class="nav" id="nav">
+    <a class="nav__logo" href="#top" aria-label="ALLMIGHT home">
+      <svg viewBox="-12 -30 860 150" role="img" aria-hidden="true">
+        <g transform="translate(0 -18.4375) scale(1.25)"><path d="M0 100 46 0 92 100H65L46 57 27 100ZM10.5 93.5 46 16 81.5 93.5H69.5L46 40.5 22.5 93.5Z" fill="#ff4d2d" fill-rule="evenodd"/><path d="M10.5 93.5 46 16 81.5 93.5H69.5L46 40.5 22.5 93.5Z" fill="currentColor"/></g>
+        <g transform="translate(18.08 0)" fill="currentColor"><path transform="translate(99 100) scale(0.138889 -0.138889)" d="M57 0L57 721L189 721L189 133L777 133L777 0Z"/><path transform="translate(206.1893 100) scale(0.138889 -0.138889)" d="M57 0L57 721L189 721L189 133L777 133L777 0Z"/><path transform="translate(313.3786 100) scale(0.138889 -0.138889)" d="M56 0L56 720L201 720L462 409L722 720L868 720L868 0L735 0L735 528L462 203L188 527L188 0Z"/><path transform="translate(441.2674 100) scale(0.138889 -0.138889)" d="M42 0L42 720L173 720L173 0Z"/><path transform="translate(469.988 100) scale(0.138889 -0.138889)" d="M195 0Q157 0 125.5 19Q94 38 75 69.5Q56 101 56 139L56 581Q56 619 75 650.5Q94 682 125.5 701Q157 720 195 720L636 720Q674 720 706 701Q738 682 757 650.5Q776 619 776 581L776 525L643 525L643 575Q643 587 631 587L200 587Q188 587 188 575L188 145Q188 133 200 133L631 133Q643 133 643 145L643 275L480 275L480 408L776 408L776 139Q776 101 757 69.5Q738 38 706 19Q674 0 636 0Z"/><path transform="translate(584.2708 100) scale(0.138889 -0.138889)" d="M57 0L57 720L189 720L189 427L661 427L661 720L793 720L793 0L661 0L661 294L189 294L189 0Z"/><path transform="translate(701.4584 100) scale(0.138889 -0.138889)" d="M447 0L314 0L314 587L20 587L20 720L740 720L740 587L447 587Z"/></g>
+      </svg>
+    </a>
+    <nav class="nav__links" aria-label="Main">
+      <a href="#compliance" data-hover>Compliance</a>
+      <a href="#problems" data-hover>Problems</a>
+      <a href="#forge" data-hover>Forge</a>
+      <a href="#mission" data-hover>Mission</a>
+    </nav>
+    <a class="btn btn--line nav__cta" href="#waitlist" data-magnetic data-hover>
+      <span class="btn__label"><span>Join waitlist</span><span aria-hidden="true">Join waitlist</span></span>
+      <svg class="chev" viewBox="0 0 100 100" aria-hidden="true"><path d="M0 100 46 0 92 100H65L46 57 27 100Z" transform="translate(100 0) rotate(90)"/></svg>
+    </a>
+  </header>
+
+  <aside class="hud mono" id="hud" aria-hidden="true">
+    <span class="hud__index"><span id="hud-num">01</span> / 05</span>
+    <span class="hud__track"><span id="hud-bar"></span></span>
+    <span class="hud__name" id="hud-name">Compliance</span>
+  </aside>
+
+  <main id="main">
+
+    <!-- HERO -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero__frame" aria-hidden="true">
+        <span class="tick tick--tl"></span><span class="tick tick--tr"></span><span class="tick tick--bl"></span><span class="tick tick--br"></span>
+      </div>
+      <div class="hero__meta mono">
+        <p class="hero__eyebrow"><span class="dot"></span>AI software for the Defense Industrial Base</p>
+        <p class="hero__spec" aria-hidden="true">CMMC&nbsp;/&nbsp;NIST&nbsp;800-171 aligned<br>Product preview</p>
+      </div>
+
+      <h1 class="hero__title" id="hero-title">
+        <span class="line" data-hero-line><span>Build Solutions</span></span>
+        <span class="line line--offset" data-hero-line><span>for <em>Real</em> Problems</span></span>
+      </h1>
+
+      <div class="hero__foot">
+        <p class="hero__lede" data-hero-fade>We enable small and midsize defense contractors to securely use AI to accelerate their business and create custom solutions.</p>
+        <a class="hero__scroll mono" href="#manifesto" data-hero-fade data-hover>
+          <span class="hero__scroll-line"><span></span></span>
+          Scroll to explore
+        </a>
+        <button class="hero__pause mono" id="motion-toggle" type="button" aria-pressed="false" data-hero-fade data-hover>
+          <span class="hero__pause-icon" aria-hidden="true"></span><span class="hero__pause-text">Pause motion</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- MANIFESTO -->
+    <section class="manifesto" id="manifesto">
+      <div class="wrap">
+        <p class="label mono" data-reveal>Preface</p>
+        <p class="manifesto__text" data-words>The people who understand the work should be able to shape the software around it. Without starting every application from scratch. Without handing their data to anyone.</p>
+        <div class="manifesto__aside" data-reveal>
+          <span class="mono">Fig. 00</span>
+          <p>Software for the shops that make parts, manage programs and solve engineering problems across the Defense Industrial Base.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 01 COMPLIANCE -->
+    <section class="compliance" id="compliance" data-section="01" data-name="Compliance">
+      <div class="wrap">
+        <header class="sec-head">
+          <p class="label mono" data-reveal><span>01</span> / Compliance</p>
+          <h2 class="display">
+            <span class="line" data-line><span>Build with AI.</span></span>
+            <span class="line muted" data-line><span>Trust the process.</span></span>
+          </h2>
+        </header>
+      </div>
+
+      <div class="process" id="process">
+        <div class="wrap process__inner">
+          <ol class="process__steps" id="steps">
+            <li class="step is-active"><span class="step__n mono">01</span><div><h3>Plan</h3><p>Set the foundation. Describe the workflow and approve the plan before anything is built.</p></div></li>
+            <li class="step"><span class="step__n mono">02</span><div><h3>Build</h3><p>Forge with AI. The application is generated against the approved plan, inside a trusted build process.</p></div></li>
+            <li class="step"><span class="step__n mono">03</span><div><h3>Test</h3><p>Quality control. Domain tests run against real acceptance criteria, not just compile checks.</p></div></li>
+            <li class="step"><span class="step__n mono">04</span><div><h3>Validate</h3><p>Trust artifacts. Security review and evidence your assessor can actually read.</p></div></li>
+            <li class="step"><span class="step__n mono">05</span><div><h3>Deploy</h3><p>Deliver to your enclave. Release decisions stay with you.</p></div></li>
+          </ol>
+
+          <div class="stack" aria-hidden="true">
+            <div class="stack__scene" id="stack">
+              <div class="plate" data-plate="0"><span class="plate__grid"></span><span class="plate__tag mono">01 Plan</span><svg viewBox="0 0 40 40"><path d="M11 6h13l6 6v22H11zM24 6v6h6M15 19h11M15 24h11M15 29h7"/></svg></div>
+              <div class="plate" data-plate="1"><span class="plate__grid"></span><span class="plate__tag mono">02 Build</span><svg viewBox="0 0 40 40"><path d="M15 13l-7 7 7 7M25 13l7 7-7 7M22 10l-4 20"/></svg></div>
+              <div class="plate" data-plate="2"><span class="plate__grid"></span><span class="plate__tag mono">03 Test</span><svg viewBox="0 0 40 40"><path d="M16 7h8M17 7v10l-8 14a2 2 0 0 0 2 3h18a2 2 0 0 0 2-3l-8-14V7M13 26h14"/></svg></div>
+              <div class="plate" data-plate="3"><span class="plate__grid"></span><span class="plate__tag mono">04 Validate</span><svg viewBox="0 0 40 40"><path d="M8 8h24v24H8zM14 20l4 4 8-8"/></svg></div>
+              <div class="plate" data-plate="4"><span class="plate__grid"></span><span class="plate__tag mono">05 Deploy</span><svg viewBox="0 0 40 40"><path d="M20 26V8M13 15l7-7 7 7M8 24v8h24v-8"/></svg></div>
+            </div>
+            <div class="stack__readout mono">
+              <span>Stage</span><strong id="stage-num">01</strong><span id="stage-name">Plan</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wrap">
+        <div class="policy">
+          <p class="label mono" data-reveal>Platform data policy</p>
+          <p class="policy__title" data-policy>
+            <span class="line" data-line><span>Your data is <em>not</em></span></span>
+            <span class="line" data-line><span>training data.</span></span>
+          </p>
+          <ul class="policy__list">
+            <li data-reveal><span class="mono">A.</span>No training on prompts, code or project files.</li>
+            <li data-reveal><span class="mono">B.</span>Built to align with CMMC &amp; NIST 800-171 requirements.</li>
+            <li data-reveal><span class="mono">C.</span>Trusted build process and deployment to your enclave. ALLMIGHT never touches CUI.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 PROBLEMS -->
+    <section class="problems" id="problems" data-section="02" data-name="Problems">
+      <div class="problems__pin">
+        <div class="wrap problems__head">
+          <p class="label mono" data-reveal><span>02</span> / Problems</p>
+          <h2 class="display display--md">
+            <span class="line" data-line><span>Solve the problems</span></span>
+            <span class="line" data-line><span>slowing your team down.</span></span>
+          </h2>
+          <p class="problems__note mono">Planned starting paths. Examples use fictional data.</p>
+        </div>
+        <div class="track" id="track"><!-- cards injected by ui.js --></div>
+        <div class="wrap problems__progress mono" aria-hidden="true">
+          <span id="card-num">01</span>
+          <span class="problems__rail"><span id="card-bar"></span></span>
+          <span>07</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 FORGE -->
+    <section class="forge" id="forge" data-section="03" data-name="Forge">
+      <div class="wrap">
+        <header class="sec-head sec-head--split">
+          <div>
+            <p class="label mono" data-reveal><span>03</span> / Forge</p>
+            <h2 class="display"><span class="line" data-line><span>Inside Forge.</span></span></h2>
+          </div>
+          <p class="sec-head__lede" data-reveal>Move through Plan, Build, Test, Validate and Deploy to see how the intended workspace fits together. Scroll drives the walkthrough.</p>
+        </header>
+      </div>
+      <div class="forge__pin" id="forge-pin">
+        <div class="window" id="window">
+          <div class="window__bar">
+            <span class="window__dots"><i></i><i></i><i></i></span>
+            <span class="window__url mono">forge / inventory-app / <b id="forge-crumb">plan</b></span>
+            <span class="window__tag mono">Wireframe</span>
+          </div>
+          <div class="window__body">
+            <nav class="window__nav" aria-label="Forge stages">
+              <button class="is-active" data-stage="0"><span class="mono">01</span>Plan</button>
+              <button data-stage="1"><span class="mono">02</span>Build</button>
+              <button data-stage="2"><span class="mono">03</span>Test</button>
+              <button data-stage="3"><span class="mono">04</span>Validate</button>
+              <button data-stage="4"><span class="mono">05</span>Deploy</button>
+              <span class="window__nav-ind" id="nav-ind"></span>
+            </nav>
+            <div class="window__panes" id="panes"><!-- injected by ui.js --></div>
+          </div>
+        </div>
+      </div>
+      <div class="wrap">
+        <p class="fineprint">Read-only product preview. AI generation, security checks and deployment are not connected. Planned, not live: controlled-data handling, CMMC evidence workflows, customer-owned AWS GovCloud releases and updates. Do not submit CUI or security-protection data.</p>
+      </div>
+    </section>
+
+    <!-- 04 MISSION -->
+    <section class="mission" id="mission" data-section="04" data-name="Mission">
+      <div class="band" aria-hidden="true">
+        <div class="band__row" data-band="-1"><span>Plan&nbsp;&nbsp;/&nbsp;&nbsp;Build&nbsp;&nbsp;/&nbsp;&nbsp;Test&nbsp;&nbsp;/&nbsp;&nbsp;Validate&nbsp;&nbsp;/&nbsp;&nbsp;Deploy&nbsp;&nbsp;/&nbsp;&nbsp;</span><span>Plan&nbsp;&nbsp;/&nbsp;&nbsp;Build&nbsp;&nbsp;/&nbsp;&nbsp;Test&nbsp;&nbsp;/&nbsp;&nbsp;Validate&nbsp;&nbsp;/&nbsp;&nbsp;Deploy&nbsp;&nbsp;/&nbsp;&nbsp;</span></div>
+        <div class="band__row band__row--outline" data-band="1"><span>Defense Industrial Base&nbsp;&nbsp;&#9650;&nbsp;&nbsp;Defense Industrial Base&nbsp;&nbsp;&#9650;&nbsp;&nbsp;</span><span>Defense Industrial Base&nbsp;&nbsp;&#9650;&nbsp;&nbsp;Defense Industrial Base&nbsp;&nbsp;&#9650;&nbsp;&nbsp;</span></div>
+      </div>
+      <div class="wrap">
+        <div class="mission__grid">
+          <div>
+            <p class="label mono" data-reveal><span>04</span> / Mission</p>
+            <h2 class="display display--md">
+              <span class="line" data-line><span>Help defense</span></span>
+              <span class="line" data-line><span>contractors build</span></span>
+              <span class="line" data-line><span>their own software.</span></span>
+            </h2>
+          </div>
+          <p class="mission__lede" data-words>We are building ALLMIGHT for the small and midsize companies that make parts, manage programs and solve engineering problems across the Defense Industrial Base.</p>
+        </div>
+
+        <div class="tenets">
+          <article class="tenet" data-tenet>
+            <span class="tenet__n mono">i.</span>
+            <h3>Why we are building it</h3>
+            <p>The people who understand the work should be able to shape the software around it, without starting every application from scratch.</p>
+          </article>
+          <article class="tenet" data-tenet>
+            <span class="tenet__n mono">ii.</span>
+            <h3>What it is designed to do</h3>
+            <p>Turn a described workflow into a plan, an application and a controlled path through testing, security review and release.</p>
+          </article>
+          <article class="tenet" data-tenet>
+            <span class="tenet__n mono">iii.</span>
+            <h3>Who stays in control</h3>
+            <p>The planned workflow keeps plan approval, permissions and release decisions with the customer. Optional engineering support is also planned.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 WAITLIST -->
+    <section class="finale" id="waitlist" data-section="05" data-name="Join waitlist">
+      <div class="wrap finale__inner">
+        <p class="label mono" data-reveal><span>05</span> / Join waitlist</p>
+        <h2 class="display display--xl">
+          <span class="line" data-line><span>What will</span></span>
+          <span class="line" data-line><span>you build?</span></span>
+        </h2>
+        <div class="finale__cta" data-reveal>
+          <a class="btn btn--solid" href="https://allmight.ai/#waitlist" data-magnetic data-hover>
+            <span class="btn__label"><span>Join the waitlist</span><span aria-hidden="true">Join the waitlist</span></span>
+            <svg class="chev" viewBox="0 0 100 100" aria-hidden="true"><path d="M0 100 46 0 92 100H65L46 57 27 100Z" transform="translate(100 0) rotate(90)"/></svg>
+          </a>
+          <p class="mono">Free. No payment required.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="footer">
+    <div class="footer__inner">
+      <div class="wrap footer__top">
+        <p class="footer__line">Built for the shops that build everything else.</p>
+        <nav class="footer__links mono" aria-label="Footer">
+          <a href="https://allmight.ai/privacy" data-hover>Privacy</a>
+          <a href="mailto:support@allmight.ai" data-hover>Contact</a>
+          <a href="#top" data-hover>Back to top &uarr;</a>
+        </nav>
+      </div>
+      <div class="footer__mark" aria-hidden="true">
+        <svg viewBox="-2 -20 828 128"><g class="ltr"><g transform="translate(0 -18.4375) scale(1.25)"><path d="M0 100 46 0 92 100H65L46 57 27 100ZM10.5 93.5 46 16 81.5 93.5H69.5L46 40.5 22.5 93.5Z" fill="#ff4d2d" fill-rule="evenodd"/><path d="M10.5 93.5 46 16 81.5 93.5H69.5L46 40.5 22.5 93.5Z" fill="currentColor"/></g></g><g transform="translate(18.08 0)" fill="currentColor"><g class="ltr"><path transform="translate(99 100) scale(0.138889 -0.138889)" d="M57 0L57 721L189 721L189 133L777 133L777 0Z"/></g><g class="ltr"><path transform="translate(206.1893 100) scale(0.138889 -0.138889)" d="M57 0L57 721L189 721L189 133L777 133L777 0Z"/></g><g class="ltr"><path transform="translate(313.3786 100) scale(0.138889 -0.138889)" d="M56 0L56 720L201 720L462 409L722 720L868 720L868 0L735 0L735 528L462 203L188 527L188 0Z"/></g><g class="ltr"><path transform="translate(441.2674 100) scale(0.138889 -0.138889)" d="M42 0L42 720L173 720L173 0Z"/></g><g class="ltr"><path transform="translate(469.988 100) scale(0.138889 -0.138889)" d="M195 0Q157 0 125.5 19Q94 38 75 69.5Q56 101 56 139L56 581Q56 619 75 650.5Q94 682 125.5 701Q157 720 195 720L636 720Q674 720 706 701Q738 682 757 650.5Q776 619 776 581L776 525L643 525L643 575Q643 587 631 587L200 587Q188 587 188 575L188 145Q188 133 200 133L631 133Q643 133 643 145L643 275L480 275L480 408L776 408L776 139Q776 101 757 69.5Q738 38 706 19Q674 0 636 0Z"/></g><g class="ltr"><path transform="translate(584.2708 100) scale(0.138889 -0.138889)" d="M57 0L57 720L189 720L189 427L661 427L661 720L793 720L793 0L661 0L661 294L189 294L189 0Z"/></g><g class="ltr"><path transform="translate(701.4584 100) scale(0.138889 -0.138889)" d="M447 0L314 0L314 587L20 587L20 720L740 720L740 587L447 587Z"/></g></g></svg>
+      </div>
+      <div class="wrap footer__base mono">
+        <span>Defense Industrial Base / Product preview</span>
+        <span>&copy; ALLMIGHT</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="vendor/gsap.min.js"></script>
+  <script src="vendor/ScrollTrigger.min.js"></script>
+  <script src="vendor/lenis.min.js"></script>
+  <script type="module" src="main.js"></script>
+</body>
+</html>
