@@ -45,6 +45,22 @@ $('details').forEach(function(dt){var sm=dt.querySelector('summary'),an=dt.query
   else{anim=an.animate({height:[from+'px','0px'],opacity:[1,0]},{duration:380,easing:'cubic-bezier(.4,0,.2,1)'});anim.onfinish=function(){dt.open=false}}
   anim.onfinish=anim.onfinish||null})});
 
+
+/* unboxing: opens on arrival, scroll lifts the products out; driven by one critically damped spring */
+var boxes=$('[data-unbox]').map(function(el){var u=Unbox(el.querySelector('svg'));return u&&{el:el,u:u}}).filter(Boolean);
+var heroBox=boxes.filter(function(b){return !b.u.final})[0];
+boxes.forEach(function(b){b.u.set(b.u.final?1:0)});
+if(heroBox){
+ var uc=0,uv=0,ut=0,uraf=0,ulast=0,arrived=false;
+ var ustep=function(t){var dt=Math.min((t-ulast)/1000,.032);ulast=t;uv+=((ut-uc)*90-uv*19)*dt;uc+=uv*dt;heroBox.u.set(Math.max(0,Math.min(1,uc)));
+  uraf=(Math.abs(uv)+Math.abs(ut-uc)>.0005)?requestAnimationFrame(ustep):0};
+ var uto=function(v){ut=v;if(reduce){uc=v;heroBox.u.set(v);return}if(!uraf){ulast=performance.now();uraf=requestAnimationFrame(ustep)}};
+ var top0=0,measureTop=function(){var r=heroBox.el.getBoundingClientRect();top0=r.top+scrollY};measureTop();addEventListener('resize',measureTop);
+ var utarget=function(){var p=Math.max(0,Math.min(1,scrollY/Math.max(160,top0-74)));uto(arrived?.5+.5*p:p*.5)};
+ setTimeout(function(){arrived=true;utarget()},reduce?0:450);
+ addEventListener('scroll',utarget,{passive:true});
+}
+
 /* layer depth for the illustration scenes */
 $('.lyr').forEach(function(l){l.style.setProperty('--dp',l.getAttribute('data-depth'))});
 
@@ -52,7 +68,7 @@ $('.lyr').forEach(function(l){l.style.setProperty('--dp',l.getAttribute('data-de
 var bar=document.querySelector('.progress'),hdr=document.querySelector('header.top'),
     story=document.querySelector('.story'),legend=$('.legend button'),
     px=$('[data-speed]'),sy=$('[data-sy]'),ticking=false,
-    links=$('header nav a'),secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))}),hc=document.querySelector('.hero-copy');
+    links=$('header nav a'),secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))}),hc=document.querySelector('.hero-head');
 function measure(){px.forEach(function(e){e.style.setProperty('--py','0px');var r=e.getBoundingClientRect();e._c=r.top+scrollY+r.height/2});frame()}
 function ss(x){x=clamp(x,0,1);return x*x*(3-2*x)}
 function frame(){ticking=false;var y=scrollY,vh=innerHeight,max=root.scrollHeight-vh;
@@ -66,7 +82,7 @@ function frame(){ticking=false;var y=scrollY,vh=innerHeight,max=root.scrollHeigh
  links.forEach(function(l,i){l.classList.toggle('on',i===cur)});
  if(reduce)return;
  px.forEach(function(e){var c=e._c;if(c<y-vh||c>y+2*vh)return;e.style.setProperty('--py',((y+vh/2-c)*parseFloat(e.dataset.speed)).toFixed(1)+'px')});
- if(hc&&y<vh*1.2){hc.style.setProperty('--hy',(y*.22).toFixed(1)+'px');hc.style.setProperty('--ho',Math.max(0,1-y/(vh*.85)).toFixed(3))}
+ if(hc&&y<vh*1.2){hc.style.setProperty('--hy',(-y*.12).toFixed(1)+'px');hc.style.setProperty('--ho',Math.max(0,1-y/(vh*.42)).toFixed(3))}
  sy.forEach(function(e){var r=e.getBoundingClientRect();e.style.setProperty('--sy',clamp(((r.top+r.height/2)-vh/2)/(vh*.75),-1.2,1.2).toFixed(3))})}
 addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(frame)}},{passive:true});
 addEventListener('resize',measure);addEventListener('load',measure);measure();

@@ -6,7 +6,8 @@ import scenes, icons
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(HERE, 'src')
 
-ill = {'hero': scenes.hero(), 'routine': scenes.routine(), 'final': scenes.final(), **scenes.familiar(), **scenes.kits(), 'drinks': scenes.drinks(), 'calendar': scenes.calendar()}
+UB, UBP = scenes.unbox(want_pos=True)
+ill = {'hero': scenes.hero(), 'final_box': scenes.unbox('ub2', final=True), 'routine': scenes.routine(), 'final': scenes.final(), **scenes.familiar(), **scenes.kits(), 'drinks': scenes.drinks(), 'calendar': scenes.calendar()}
 
 I = icons.build()
 _n = [0]
@@ -71,22 +72,26 @@ body = f"""<a class="skip" href="#main">Skip to content</a>
 <header class="top"><div class="wrap"><a class="brand" href="#">Founder Reset</a><nav aria-label="Main"><a href="#routine">The routine</a><a href="#how">How it works</a><a href="#ingredients">Ingredients</a><a href="#faq">Questions</a></nav><button class="btn" data-order>Start My 7-Day Reset</button></div></header>
 <main id="main">
 
-<section class="hero"><div class="wrap hero-grid">
-<div class="hero-copy">
+<section class="hero">
+<div class="wrap hero-head">
 <h1 class="h1" aria-label="Your business has a system. Now your daily supplements do too.">{words("Your business has a system. Now your daily supplements do too.")}</h1>
 <p class="tagline">Start strong. Recover well. Repeat.</p>
 <p class="lede">Two drinks a day, built for people who run companies. One to start the morning, one to wind down at night. No added caffeine. No shelf of half-used tubs. Just open a sachet.</p>
-<div class="price"><p><span class="big">$39</span>for your 7-Day Starter</p><p>then <strong>$99 every 30 days</strong> for your Monthly box ($3.30 a day)</p><small>The Starter rolls into a monthly subscription that renews until you cancel.</small></div>
-<div class="cta-row"><button class="btn" data-order>Start My 7-Day Reset</button><a class="link" href="#routine">See the routine</a></div>
-<ul class="perks"><li>{ic('nocaf')}<span>No added caffeine</span></li><li>{ic('sachets')}<span>Individually portioned</span></li><li>{ic('toggle')}<span>Renews until you cancel</span></li></ul>
+<div class="buy"><button class="btn" data-order>Start My 7-Day Reset</button><p><strong>$39</strong> for your 7-Day Starter, then <strong>$99 every 30 days</strong> ($3.30 a day)</p></div>
+<p class="fine">The Starter rolls into a monthly subscription that renews until you cancel.</p>
 </div>
-<div class="scene" data-sy><i class="glow a"></i><i class="glow b"></i>{ill["hero"]}</div>
-</div></section>
+<div class="hero-stage scene" data-sy data-unbox>{UB}
+<div class="callout" style="left:{UBP['am'][0]:.1f}%;top:{UBP['am'][1]:.1f}%;--c:var(--am)"><b>AM FUEL</b><span>Morning drink, 3,000 mg creatine</span></div>
+<div class="callout r" style="left:{UBP['pm'][0]:.1f}%;top:{UBP['pm'][1]:.1f}%;--c:var(--pm)"><b>PM RECOVER</b><span>Evening drink, 3,000 mg glycine</span></div>
+<div class="callout r" style="left:{UBP['b12'][0]:.1f}%;top:{UBP['b12'][1]:.1f}%;--c:#FF6F9C"><b>B12 RESET</b><span>1,000 &micro;g tablet, under the tongue</span></div>
+</div>
+<div class="wrap"><ul class="perks"><li>{ic('nocaf')}<span>No added caffeine</span></li><li>{ic('sachets')}<span>Individually portioned</span></li><li>{ic('toggle')}<span>Renews until you cancel</span></li><li>{ic('cal7')}<span>Start with 7 days</span></li></ul></div>
+</section>
 
 <div class="ticker" aria-hidden="true"><div class="tk-run">{tk()}{tk()}</div></div>
 
 <section class="familiar">
-{drift('tablet', 'left:2.5%;top:9%', .14, 64, 0)}{drift('capsule', 'right:3%;top:5%', -.1, 70, 1.5)}{drift('spark', 'right:9%;top:26%', .2, 34, 3)}
+{drift('tablet', 'left:2.5%;top:9%', .14, 64, 0)}{drift('capsule', 'right:3%;top:5%', -.1, 70, 1.5)}{drift('tablet', 'right:9%;top:26%', .2, 40, 3)}
 <div class="wrap">
 <div class="fam-head"><h2 data-r>You&rsquo;ve built systems for everything except yourself.</h2></div>
 {fam_html}
@@ -174,12 +179,12 @@ body = f"""<a class="skip" href="#main">Skip to content</a>
 </div></section>
 
 <section class="final">
-{drift('tablet', 'left:8%;top:14%', .2, 60, 0)}{drift('capsule', 'right:9%;top:10%', -.16, 72, 1.2)}{drift('coin', 'left:14%;top:52%', -.12, 64, 2.4)}{drift('spark', 'right:15%;top:44%', .22, 36, 3.6)}
+{drift('tablet', 'left:8%;top:14%', .2, 60, 0)}{drift('capsule', 'right:9%;top:10%', -.16, 72, 1.2)}{drift('coin', 'left:14%;top:52%', -.12, 64, 2.4)}{drift('capsule', 'right:15%;top:44%', .22, 54, 3.6)}
 <div class="wrap">
 <h2 data-r>Start strong. Recover well. Repeat.</h2>
 <p class="sub" data-r>$39 for your 7-Day Starter, then $99 every 30 days until you cancel.</p>
 <button class="btn" data-order data-r>Start My 7-Day Reset</button>
-<div class="scene" data-sy><i class="glow a"></i><i class="glow b"></i>{ill["final"]}</div>
+<div class="scene final-stage" data-sy data-unbox>{ill["final_box"]}</div>
 </div></section>
 </main>
 <footer><div class="wrap"><div><a class="brand" href="#">Founder Reset</a><p>Start strong. Recover well. Repeat.</p><p>Dietary supplements complement a varied, balanced diet and a healthy lifestyle.</p></div>
@@ -191,7 +196,7 @@ body = f"""<a class="skip" href="#main">Skip to content</a>
 
 fonts = 'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Geist:wght@400;500;600&display=swap'
 css = open(os.path.join(SRC, 'styles.css')).read()
-js = open(os.path.join(SRC, 'script.js')).read()
+js = open(os.path.join(SRC, 'unbox.js')).read() + '\n' + open(os.path.join(SRC, 'script.js')).read()
 open(os.path.join(HERE, 'styles.css'), 'w').write(css)
 open(os.path.join(HERE, 'script.js'), 'w').write(js)
 page = f'''<!DOCTYPE html>

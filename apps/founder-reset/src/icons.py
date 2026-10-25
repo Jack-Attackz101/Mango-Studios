@@ -13,8 +13,8 @@ def build():
     s = _sc('iBottle'); I['bottle'] = _wrap(s, lambda: s.bottle(0, 0, 0), .8)
     def vit():
         s.tile(-1.2, -.2, 0, 'B', '6', col='#F5C04A', w=1.3, h=.35)
-        s.tile(.4, -1.4, 0, 'C', '', col='#FFB766', w=1.3, h=.35)
-        s.tile(-.2, .9, 0, 'D3', '', col='#F28B2E', w=1.3, h=.35)
+        s.tile(.4, -1.4, 0, 'C', '', col='#FFB45C', w=1.3, h=.35)
+        s.tile(-.2, .9, 0, 'D3', '', col='#FF8A1F', w=1.3, h=.35)
     s = _sc('iVit'); I['vitamins'] = _wrap(s, vit, 1.4)
     s = _sc('iNocaf', 24); I['nocaf'] = _wrap(s, lambda: s.nocaf(0, 0, 0), .5)
     s = _sc('iMoon'); I['moon'] = _wrap(s, lambda: s.moon(0, 0, 0), 1.1)
@@ -26,7 +26,7 @@ def build():
     s = _sc('iCard'); I['card'] = _wrap(s, lambda: s.card(0, 0, 0), 1.0)
     s = _sc('iToggle', 30); I['toggle'] = _wrap(s, lambda: s.toggle(0, 0, 0), .6)
     s = _sc('iBox', 22); I['box'] = _wrap(s, lambda: s.pkg(0, 0, 0, 2.6, 2.0, 1.4, '7-Day Starter', '14 sachets'), .3)
-    s = _sc('iGlass', 24); I['glass'] = _wrap(s, lambda: s.glass(0, 0, 0, liquid='#FFB766', swirl='#F28B2E'), 1.2)
+    s = _sc('iGlass', 24); I['glass'] = _wrap(s, lambda: s.glass(0, 0, 0, liquid='#FFB45C', swirl='#FF8A1F'), 1.2)
     s = _sc('iStrip', 24); I['strip'] = _wrap(s, lambda: s.strip(0, 0, 0), .7)
     def sach2():
         s.sachet(-1.6, 0, 0, 'am', side='left', W=1.6, H=2.4)
@@ -42,7 +42,7 @@ def build():
     I['cal7'] = _wrap(s, cal7, .4)
     def bubbles():
         s.bubble(-.4, 1.4, 0, '#ffffff', '?', 120, 92)
-        s.bubble(1.8, -1.6, 1.4, '#9B82EA', '•••', 96, 70, tcol='#fff')
+        s.bubble(1.8, -1.6, 1.4, '#8B68F5', '•••', 96, 70, tcol='#fff')
     s = _sc('iBub', 34); s.layer('o', 1.0); I['bubbles'] = _wrap(s, bubbles, .6)
     s = _sc('iSpark', 30); I['spark'] = _wrap(s, lambda: s.sparkle(0, 0, 0, 34), 0)
     s = _sc('iTab', 30); I['tablet'] = _wrap(s, lambda: s.tablet(0, 0, 0, r=.42), 0)
