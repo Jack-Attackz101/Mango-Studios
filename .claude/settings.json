@@ -1,0 +1,10 @@
+{
+  "extraKnownMarketplaces": {
+    "claude-kit": {
+      "source": { "source": "github", "repo": "johnnyvizz/claude-kit" }
+    }
+  },
+  "enabledPlugins": {
+    "savvy-progress@claude-kit": true
+  }
+}
