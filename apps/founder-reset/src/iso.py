@@ -218,7 +218,7 @@ class Scene:
         # thick base
         s.ell(bx, by, r_b * k * 1.2247, r_b * k * .7071, 'none', stroke='#ffffff', sw=1, op=.5)
 
-    def cup(s, cx, cy, z, steam=True):
+    def cup(s, cx, cy, z, steam=True, liquid=('#6b3f23', '#3d2112')):
         k = s.k
         s.shadow_cyl(cx, cy, z, 1.25, .8)
         s.cyl(cx, cy, z, 1.18, .07, '#f2f2f4')
@@ -226,7 +226,7 @@ class Scene:
         gb = s.lg([(0, '#ffffff'), (.3, '#f6f6f8'), (.7, '#e0e0e6'), (1, '#b9b9c4')], 0, 0, 1, 0)
         f = s.frustum(cx, cy, z + .1, .55, .8, .78, gb)
         s.ell(f['tx'], f['ty'], f['rx1'], f['ry1'], '#fbfbfd')
-        s.ell(f['tx'], f['ty'], f['rx1'] * .86, f['ry1'] * .84, s.lg([(0, '#6b3f23'), (1, '#3d2112')], 0, 0, 1, 1))
+        s.ell(f['tx'], f['ty'], f['rx1'] * .86, f['ry1'] * .84, s.lg([(0, liquid[0]), (1, liquid[1])], 0, 0, 1, 1))
         s.ell(f['tx'] - f['rx1'] * .25, f['ty'] - f['ry1'] * .25, f['rx1'] * .28, f['ry1'] * .22, '#ffffff', op=.28)
         s.ell(f['tx'], f['ty'], f['rx1'], f['ry1'], 'none', stroke='#ffffff', sw=1, op=.9)
         # handle
@@ -270,7 +270,7 @@ class Scene:
         sw_ = (1 - 2 * ins) * w * k; sh_ = 110
         txt = (f'<circle cx="{sw_*.72:.1f}" cy="{sh_*.3:.1f}" r="{sh_*.2:.1f}" fill="#fff" fill-opacity=".14"/>'
                f'<circle cx="{sw_*.78:.1f}" cy="{sh_*.26:.1f}" r="{sh_*.13:.1f}" fill="#232a5c"/>'
-               f'<text x="{sw_*.08:.1f}" y="{sh_*.5:.1f}" font-family="{FONT}" font-size="{sh_*.26:.1f}" font-weight="700" letter-spacing="-1" fill="#fff">11:04</text>'
+               f'<text x="{sw_*.08:.1f}" y="{sh_*.5:.1f}" font-family="{FONT}" font-size="{sh_*.26:.1f}" font-weight="700" letter-spacing="-1" fill="#fff">11<tspan class="blink">:</tspan>04</text>'
                f'<text x="{sw_*.08:.1f}" y="{sh_*.66:.1f}" font-family="{FONT}" font-size="{sh_*.08:.1f}" font-weight="600" letter-spacing=".8" fill="#fff" fill-opacity=".65">PM</text>'
                f'<rect x="{sw_*.08:.1f}" y="{sh_*.78:.1f}" width="{sw_*.5:.1f}" height="3" rx="1.5" fill="#fff" fill-opacity=".35"/>'
                f'<rect x="{sw_*.08:.1f}" y="{sh_*.88:.1f}" width="{sw_*.32:.1f}" height="3" rx="1.5" fill="#fff" fill-opacity=".22"/>')
@@ -310,7 +310,7 @@ class Scene:
         lf = s.cyl(cx, cy, z + h, r * 1.04, h * .17, lid, top=lighten(lid, .18))
         s.poly([(f['tx'] - f['rx1'] * .8, f['ty'] + 6), (f['tx'] - f['rx1'] * .7, f['ty'] + 6), (f['bx'] - f['rx0'] * .66, f['by'] - 6), (f['bx'] - f['rx0'] * .76, f['by'] - 6)], '#ffffff', op=.6)
 
-    def capsule(s, cx, cy, z, ang=-28, a='#F58BAF', b='#ffffff', L=1.0, Rr=.26):
+    def capsule(s, cx, cy, z, ang=-28, a='#F58BAF', b='#ecebf1', L=1.0, Rr=.26):
         k = s.k; x, y = s.P(cx, cy, z); l = L * k; r = Rr * k
         s.g(x - l, y - l * .6); s.g(x + l, y + l * .6)
         s.ell(x + 2, y + r * .9, l * .52, r * .7, '#0b0b1a', op=.2, extra=f'filter="url(#{s.pid}-b2)"')
@@ -344,6 +344,7 @@ class Scene:
         for rr, op in ((r * .82, .07), (r * .58, .06), (r * .34, .05)):
             s.ell(f['tx'], f['ty'], rr * k * 1.2247, rr * k * .7071, 'none', stroke='#000000', sw=1, op=op)
         s.ell(f['tx'], f['ty'], f['rx1'], f['ry1'], 'none', stroke='#ffffff', sw=1.2, op=.9)
+        s.ell(f['tx'], f['ty'], r * .7 * k * 1.2247, r * .7 * k * .7071, 'none', stroke='#000000', sw=1.4, op=.16, extra='class="orbit" stroke-dasharray="1.5 9" stroke-linecap="round"')
         return f
 
     def pkg(s, x, y, z, w, d, h, label='7-Day Starter', sub='14 sachets, 7 B12 RESET tablets'):
@@ -364,6 +365,149 @@ class Scene:
         s.on_top(x, y, z, w, d, h, f'<text x="{w*k*.08:.1f}" y="{d*k*.5:.1f}" font-family="{FONT}" font-size="{fs:.1f}" font-weight="800" letter-spacing="-.5" fill="#111">{label}</text>'
                                    f'<text x="{w*k*.08:.1f}" y="{d*k*.5+fs*.85:.1f}" font-family="{FONT}" font-size="{fs2_:.1f}" font-weight="500" fill="#555">{sub}</text>')
         s.poly([s.P(x, y + d, z + h), s.P(x + w, y + d, z + h), s.P(x + w, y + d, z), s.P(x, y + d, z)], s.lg([(0, '#ffffff', .5), (.3, '#ffffff', 0), (1, '#ffffff', 0)], 0, 0, 1, 1))
+
+    def calendar_block(s, x, y, z, title='7-day reset', big='7', col='#F28B2E'):
+        w, d, h = 2.6, .45, 2.8
+        s.shadow_box(x, y, w, d, h)
+        s.box(x, y, z, w, d, h, '#ffffff', top='#ffffff', left='#f7f7f9', right='#d9d9df')
+        k = s.k; Wp = w * k; Hp = h * k
+        g = s.lg([(0, '#FFB766'), (1, col)], 0, 0, 1, 0)
+        inner = (f'<rect x="0" y="0" width="{Wp:.1f}" height="{Hp*.24:.1f}" fill="{g}"/>'
+                 f'<text x="{Wp*.5:.1f}" y="{Hp*.17:.1f}" text-anchor="middle" font-family="{FONT}" font-size="{Hp*.11:.1f}" font-weight="800" fill="#1a1208">{title}</text>'
+                 f'<text x="{Wp*.5:.1f}" y="{Hp*.82:.1f}" text-anchor="middle" font-family="{FONT}" font-size="{Hp*.52:.1f}" font-weight="800" letter-spacing="-2" fill="#111">{big}</text>')
+        s.on_left(x, y, z, w, d, h, inner)
+        for cx in (.6, 1.3, 2.0):
+            s.cyl(x + cx, y + .22, z + h - .1, .08, .4, '#2a2a31')
+
+    # ---------- extrusion: any 2D path given depth on a plane ----------
+    def extrude(s, plane, x, y, z, d, depth, front, side, w=60, h=60, inner='', hl=True, sidehi=None):
+        ox, oy = s.P(x, y, z)
+        if plane == 'left':
+            m = f'matrix({C30:.4f} {S30} 0 1 {ox:.2f} {oy:.2f})'; off = lambda i: (i, -i); corners = lambda u, v: (ox + u * C30, oy + u * S30 + v)
+        elif plane == 'right':
+            m = f'matrix({C30:.4f} {-S30} 0 1 {ox:.2f} {oy:.2f})'; off = lambda i: (-i, -i); corners = lambda u, v: (ox + u * C30, oy - u * S30 + v)
+        else:
+            m = f'matrix({C30:.4f} {S30} {-C30:.4f} {S30} {ox:.2f} {oy:.2f})'; off = lambda i: (-i, -i); corners = lambda u, v: (ox + (u - v) * C30, oy + (u + v) * S30)
+        n = max(1, int(round(depth)))
+        for u, v in ((0, 0), (w, 0), (0, h), (w, h)):
+            for i in (0, n):
+                a, b = off(i); px, py = corners(u + a, v + b); s.g(px, py)
+                if plane == 'top': s.g(px, py - n)
+        out = f'<g transform="{m}">'
+        hi = sidehi or lighten(side, .18)
+        if plane == 'top':
+            for i in range(n):
+                a, b = off(i); c = mix(side, hi, i / n)
+                out += f'<path d="{d}" transform="translate({a} {b})" fill="{c}"/>'
+            a, b = off(n)
+            out += f'<g transform="translate({a} {b})"><path d="{d}" fill="{front}"/>'
+        else:
+            for i in range(n, 0, -1):
+                a, b = off(i); c = mix(side, hi, 1 - i / n)
+                out += f'<path d="{d}" transform="translate({a} {b})" fill="{c}"/>'
+            out += '<g>' + f'<path d="{d}" fill="{front}"/>'
+        if hl: out += f'<path d="{d}" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="1"/>'
+        out += inner + '</g></g>'
+        s.add(out)
+
+    def top_at(s, cx, cy, z, inner):
+        ox, oy = s.P(cx, cy, z)
+        s.add(f'<g transform="matrix({C30:.4f} {S30} {-C30:.4f} {S30} {ox:.2f} {oy:.2f})">{inner}</g>')
+
+    def tile(s, x, y, z, sym, num='', col='#8F76E8', w=1.7, h=.42):
+        s.shadow_box(x, y, w, w, h, op=.18)
+        s.box(x, y, z, w, w, h, col, top=lighten(col, .55), left=lighten(col, .1), right=darken(col, .18))
+        k = s.k; W = w * k
+        fs = W * (.5 if len(sym) < 3 else .36)
+        s.on_top(x, y, z, w, w, h, f'<text x="{W*.5:.1f}" y="{W*.66:.1f}" text-anchor="middle" font-family="{FONT}" font-size="{fs:.1f}" font-weight="800" letter-spacing="-1" fill="{darken(col,.55)}">{sym}</text>'
+                                    + (f'<text x="{W*.12:.1f}" y="{W*.24:.1f}" font-family="{FONT}" font-size="{W*.14:.1f}" font-weight="700" fill="{darken(col,.4)}">{num}</text>' if num else ''))
+
+    def coin(s, cx, cy, z, n=3, col='#F5C04A'):
+        s.shadow_cyl(cx, cy, z, .9, .3 * n)
+        for i in range(n):
+            s.cyl(cx + (i % 2) * .05, cy - (i % 2) * .04, z + i * .2, .9, .2, col, top=lighten(col, .25))
+        tz = z + n * .2
+        s.top_at(cx, cy, tz, f'<circle r="{s.k*.62:.1f}" fill="none" stroke="{darken(col,.25)}" stroke-width="1.2" stroke-opacity=".6"/><text x="0" y="{s.k*.24:.1f}" text-anchor="middle" font-family="{FONT}" font-size="{s.k*.75:.1f}" font-weight="800" fill="{darken(col,.4)}">$</text>')
+
+    def card(s, x, y, z, col='#1d1d24'):
+        w, d = 2.7, 1.7
+        s.shadow_box(x, y, w, d, .3, op=.2)
+        s.box(x, y, z, w, d, .07, col, top=lighten(col, .12), left=darken(col, .05), right=darken(col, .3))
+        k = s.k; W = w * k; D = d * k
+        s.on_top(x, y, z, w, d, .07, f'<rect x="0" y="0" width="{W:.1f}" height="{D:.1f}" fill="url(#{s.pid}-cg)"/>'
+                 f'<rect x="{W*.1:.1f}" y="{D*.3:.1f}" width="{W*.16:.1f}" height="{D*.24:.1f}" rx="2" fill="#E9C46A"/>'
+                 f'<rect x="{W*.1:.1f}" y="{D*.68:.1f}" width="{W*.62:.1f}" height="2.5" rx="1" fill="#fff" fill-opacity=".55"/>'
+                 f'<rect x="{W*.1:.1f}" y="{D*.8:.1f}" width="{W*.32:.1f}" height="2.5" rx="1" fill="#fff" fill-opacity=".35"/>'
+                 f'<circle cx="{W*.78:.1f}" cy="{D*.36:.1f}" r="{D*.13:.1f}" fill="#F28B2E" fill-opacity=".9"/><circle cx="{W*.86:.1f}" cy="{D*.36:.1f}" r="{D*.13:.1f}" fill="#8F76E8" fill-opacity=".9"/>')
+        s.defs.append(f'<linearGradient id="{s.pid}-cg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".16"/><stop offset=".5" stop-color="#ffffff" stop-opacity="0"/><stop offset="1" stop-color="#8F76E8" stop-opacity=".25"/></linearGradient>')
+
+    def bottle(s, cx, cy, z, col='#3BB8E8'):
+        s.shadow_cyl(cx, cy, z, .6, 2.4)
+        g = s.lg([(0, lighten(col, .55), .9), (.3, lighten(col, .25), .85), (.7, col, .85), (1, darken(col, .3), .9)], 0, 0, 1, 0)
+        f = s.frustum(cx, cy, z, .6, .6, 2.1, g)
+        s.ell(f['tx'], f['ty'], f['rx1'], f['ry1'], lighten(col, .5))
+        b2 = s.lg([(0, '#ffffff'), (.6, '#f1f1f4'), (1, '#c9c9d2')], 0, 0, 1, 0)
+        s.frustum(cx, cy, z + .7, .61, .61, .8, b2)
+        bx, by = s.P(cx, cy, z + 1.1)
+        s.add(f'<text x="{bx-2:.1f}" y="{by+3:.1f}" text-anchor="middle" font-family="{FONT}" font-size="{s.k*.26:.1f}" font-weight="800" fill="{darken(col,.35)}">H₂O</text>')
+        s.cyl(cx, cy, z + 2.1, .42, .32, '#1d1d24', top='#3a3a44')
+        s.cyl(cx, cy, z + 2.42, .18, .3, '#f2f2f4', top='#ffffff')
+        s.poly([(f['tx'] - f['rx1'] * .7, f['ty'] + 6), (f['tx'] - f['rx1'] * .55, f['ty'] + 6), (f['bx'] - f['rx0'] * .55, f['by'] - 6), (f['bx'] - f['rx0'] * .7, f['by'] - 6)], '#fff', op=.55)
+
+    def scoop(s, cx, cy, z):
+        s.shadow_cyl(cx, cy, z, .9, .7)
+        s.box(cx + .55, cy - .14, z + .18, 1.5, .28, .12, '#F28B2E', top='#FFB766', left='#F28B2E', right='#C9681D')
+        f = s.cyl(cx, cy, z, .72, .55, '#FFB766', top='#FFD9A8', topline=False)
+        k = s.k
+        for i, (r, dz, c) in enumerate(((.7, .0, '#f3ece0'), (.6, .12, '#f7f1e7'), (.46, .22, '#faf6ef'), (.3, .3, '#fdfbf7'))):
+            tx, ty = s.P(cx, cy, z + .55 + dz)
+            s.ell(tx, ty, r * k * 1.2247, r * k * .7071, c)
+        for ox, oy in ((-1.2, .6), (-.9, 1.1), (1.0, 1.0), (.4, 1.4)):
+            px, py = s.P(cx + ox, cy + oy, z); s.ell(px, py, 1.6, 1, '#efe7da')
+
+    def moon(s, x, y, z, col='#9B82EA', size=70, ground=0):
+        cx = size * .55
+        d = f'M{cx:.1f},0 A{size/2:.1f},{size/2:.1f} 0 0 0 {cx:.1f},{size:.1f} A{size*1.0:.1f},{size*1.0:.1f} 0 0 1 {cx:.1f},0 Z'
+        s.shadow_cyl(x + size * .3 / s.k, y - .2, ground, size * .28 / s.k, .4, op=.14)
+        g = s.lg([(0, lighten(col, .45)), (1, col)], 0, 0, 1, 1)
+        s.extrude('left', x, y, z + size / s.k, d, 10, g, darken(col, .32), w=size, h=size)
+
+    def leafshape(s, plane, x, y, z, size=56, col='#3FB27F', depth=5):
+        d = f'M0,{size:.1f} C{size*.05:.1f},{size*.35:.1f} {size*.45:.1f},0 {size:.1f},0 C{size:.1f},{size*.6:.1f} {size*.6:.1f},{size:.1f} 0,{size:.1f} Z'
+        vein = f'<path d="M{size*.08:.1f},{size*.92:.1f} Q{size*.45:.1f},{size*.55:.1f} {size*.9:.1f},{size*.1:.1f}" stroke="#fff" stroke-opacity=".55" stroke-width="1.4" fill="none"/>'
+        s.extrude(plane, x, y, z, d, depth, s.lg([(0, lighten(col, .35)), (1, col)], 0, 0, 1, 1), darken(col, .3), w=size, h=size, inner=vein)
+
+    def teacup(s, cx, cy, z):
+        s.cup(cx, cy, z, steam=True, liquid=('#9cc46a', '#5f8f2e'))
+        s.leafshape('left', cx - 2.3, cy + .9, z + 1.3, size=34, depth=4)
+
+    def nocaf(s, cx, cy, z):
+        s.cup(cx, cy, z, steam=False)
+        size = 40
+        d = f'M{size/2},0 A{size/2},{size/2} 0 1 1 {size/2-.01},0 Z'
+        slash = f'<path d="M{size*.24:.1f},{size*.24:.1f} L{size*.76:.1f},{size*.76:.1f}" stroke="#fff" stroke-width="{size*.12:.1f}" stroke-linecap="round"/>'
+        s.extrude('left', cx + .5, cy - 1.5, z + 2.9, d, 6, s.lg([(0, '#ff8a8f'), (1, '#e5484d')], 0, 0, 1, 1), '#a92c31', w=size, h=size, inner=slash)
+
+    def toggle(s, x, y, z, on=True):
+        w = 64; h = 34
+        d = f'M{h/2},0 H{w-h/2} A{h/2},{h/2} 0 0 1 {w-h/2},{h} H{h/2} A{h/2},{h/2} 0 0 1 {h/2},0 Z'
+        s.shadow_box(x, y, w / s.k, h / s.k, .3, op=.16)
+        col = '#34C759' if on else '#c9c9d0'
+        s.extrude('top', x, y, z, d, 7, s.lg([(0, lighten(col, .3)), (1, col)], 0, 0, 1, 1), darken(col, .3), w=w, h=h)
+        kx = x + (w - h / 2) / s.k if on else x + (h / 2) / s.k
+        s.cyl(kx, y + (h / 2) / s.k, z + 7 / s.k, (h * .4) / s.k, .22, '#ffffff', top='#ffffff')
+
+    def bubble(s, x, y, z, col='#ffffff', text='?', w=84, h=64, tcol='#111', side=None):
+        r = 16
+        d = (f'M{r},0 H{w-r} Q{w},0 {w},{r} V{h-r} Q{w},{h} {w-r},{h} H{w*.42:.1f} L{w*.2:.1f},{h+16} L{w*.26:.1f},{h} H{r} Q0,{h} 0,{h-r} V{r} Q0,0 {r},0 Z')
+        s.shadow_cyl(x + w * .5 / s.k, y - .3, 0, w * .3 / s.k, .2, op=.07)
+        inner = f'<text x="{w/2}" y="{h*.68:.1f}" text-anchor="middle" font-family="{FONT}" font-size="{h*.58:.1f}" font-weight="800" fill="{tcol}">{text}</text>'
+        s.extrude('left', x, y, z + (h + 16) / s.k, d, 10, s.lg([(0, '#ffffff' if col == '#ffffff' else lighten(col, .3)), (1, col if col != '#ffffff' else '#ececf1')], 0, 0, 1, 1), side or darken(col, .2), w=w, h=h + 16, inner=inner)
+
+    def sparkle(s, x, y, z, size=26, col='#FFC94A'):
+        q = size / 2; t = size * .1
+        d = f'M{q},0 Q{q+t},{q-t} {size},{q} Q{q+t},{q+t} {q},{size} Q{q-t},{q+t} 0,{q} Q{q-t},{q-t} {q},0 Z'
+        s.extrude('left', x, y, z, d, 5, s.lg([(0, lighten(col, .55)), (1, col)], 0, 0, 1, 1), darken(col, .28), w=size, h=size, hl=False)
 
     # ---------- output ----------
     def render(s, aria='', cls='ill', pad=None):

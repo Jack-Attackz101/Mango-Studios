@@ -23,13 +23,36 @@ if(!('IntersectionObserver' in window)){rv.forEach(function(e){e.classList.add('
 else{var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);$('[data-count]',x.target).forEach(count)}})},{threshold:.12,rootMargin:'0px 0px -5% 0px'});
  rv.forEach(function(e){io.observe(e)})}
 
+
+/* formula tabs: segmented control with a sliding thumb */
+var tabs=$('[role="tab"]'),ind=document.querySelector('.tab-ind');
+function sel(t,focus){tabs.forEach(function(x){var on=x===t;x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;document.getElementById(x.getAttribute('aria-controls')).hidden=!on});
+ if(ind){ind.style.setProperty('--tx',t.offsetLeft+'px');ind.style.setProperty('--tw',t.offsetWidth+'px')}
+ if(focus)t.focus()}
+tabs.forEach(function(t,i){t.addEventListener('click',function(){sel(t)});
+ t.addEventListener('keydown',function(e){var n=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(n){e.preventDefault();sel(tabs[(i+n+tabs.length)%tabs.length],true)}})});
+if(tabs.length){var place=function(){sel(tabs.filter(function(t){return t.getAttribute('aria-selected')==='true'})[0]||tabs[0])};place();addEventListener('resize',place);document.fonts&&document.fonts.ready.then(place)}
+
+/* morning / evening controls jump the pinned scene */
+$('.legend button').forEach(function(b){b.addEventListener('click',function(){var story=document.querySelector('.story'),r=story.getBoundingClientRect(),pin=story.firstElementChild.offsetHeight,len=r.height-pin-60;
+ scrollTo({top:scrollY+r.top-60+len*(b.dataset.go==='1'?.86:.08),behavior:reduce?'auto':'smooth'})})});
+
+/* FAQ: the answer opens and closes with its height, not a jump */
+$('details').forEach(function(dt){var sm=dt.querySelector('summary'),an=dt.querySelector('.ans'),anim=null;
+ sm.addEventListener('click',function(e){if(reduce)return;e.preventDefault();
+  var from=an.offsetHeight;if(anim)anim.cancel();
+  if(!dt.open){dt.open=true;var to=an.scrollHeight;anim=an.animate({height:[from+'px',to+'px'],opacity:[0,1]},{duration:520,easing:'cubic-bezier(.16,1,.3,1)'})}
+  else{anim=an.animate({height:[from+'px','0px'],opacity:[1,0]},{duration:380,easing:'cubic-bezier(.4,0,.2,1)'});anim.onfinish=function(){dt.open=false}}
+  anim.onfinish=anim.onfinish||null})});
+
 /* layer depth for the illustration scenes */
 $('.lyr').forEach(function(l){l.style.setProperty('--dp',l.getAttribute('data-depth'))});
 
 /* scroll: progress line, header, parallax, scroll-linked story */
 var bar=document.querySelector('.progress'),hdr=document.querySelector('header.top'),
-    story=document.querySelector('.story'),legend=$('.legend span'),
-    px=$('[data-speed]'),sy=$('[data-sy]'),ticking=false;
+    story=document.querySelector('.story'),legend=$('.legend button'),
+    px=$('[data-speed]'),sy=$('[data-sy]'),ticking=false,
+    links=$('header nav a'),secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))}),hc=document.querySelector('.hero-copy');
 function measure(){px.forEach(function(e){e.style.setProperty('--py','0px');var r=e.getBoundingClientRect();e._c=r.top+scrollY+r.height/2});frame()}
 function ss(x){x=clamp(x,0,1);return x*x*(3-2*x)}
 function frame(){ticking=false;var y=scrollY,vh=innerHeight,max=root.scrollHeight-vh;
@@ -39,8 +62,11 @@ function frame(){ticking=false;var y=scrollY,vh=innerHeight,max=root.scrollHeigh
    p=clamp((60-r.top)/Math.max(1,r.height-pin-60),0,1),t=ss((p-.34)/.3);
   story.style.setProperty('--p',p.toFixed(4));story.style.setProperty('--t',t.toFixed(4));
   if(legend.length){legend[0].classList.toggle('on',t<.5);legend[1].classList.toggle('on',t>=.5)}}
+ var mid=vh*.45,cur=-1;secs.forEach(function(s,i){if(!s)return;var r=s.getBoundingClientRect();if(r.top<=mid&&r.bottom>mid)cur=i});
+ links.forEach(function(l,i){l.classList.toggle('on',i===cur)});
  if(reduce)return;
  px.forEach(function(e){var c=e._c;if(c<y-vh||c>y+2*vh)return;e.style.setProperty('--py',((y+vh/2-c)*parseFloat(e.dataset.speed)).toFixed(1)+'px')});
+ if(hc&&y<vh*1.2){hc.style.setProperty('--hy',(y*.22).toFixed(1)+'px');hc.style.setProperty('--ho',Math.max(0,1-y/(vh*.85)).toFixed(3))}
  sy.forEach(function(e){var r=e.getBoundingClientRect();e.style.setProperty('--sy',clamp(((r.top+r.height/2)-vh/2)/(vh*.75),-1.2,1.2).toFixed(3))})}
 addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(frame)}},{passive:true});
 addEventListener('resize',measure);addEventListener('load',measure);measure();
