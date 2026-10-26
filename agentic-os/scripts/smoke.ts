@@ -24,9 +24,11 @@ async function openai() {
 }
 
 async function jev() {
-  const key = process.env.OPENROUTER_API_KEY;
-  if (!key) return report("jev", "SKIPPED: OPENROUTER_API_KEY missing");
-  const model = process.env.JEV_MODEL || "typesafe/jev-1.13";
+  const tsKey = process.env.TYPESAFE_API_KEY, orKey = process.env.OPENROUTER_API_KEY;
+  if (!tsKey && !orKey) return report("jev", "SKIPPED: TYPESAFE_API_KEY / OPENROUTER_API_KEY missing");
+  const direct = !!tsKey;
+  const url = direct ? "https://api.typesafe.ai/v1/systemone" : "https://openrouter.ai/api/alpha/decisions";
+  const model = direct ? process.env.JEV_TS_MODEL || "jev-latest" : process.env.JEV_MODEL || "typesafe/jev-1.13";
   const body = {
     model,
     state: { customer_tier: "enterprise", ticket: "My checkout page shows a blank screen after I click Pay." },
@@ -40,14 +42,15 @@ async function jev() {
     },
   };
   const t0 = performance.now();
-  const res = await fetch("https://openrouter.ai/api/alpha/decisions", {
-    method: "POST", headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" }, body: JSON.stringify(body),
+  const res = await fetch(url, {
+    method: "POST", headers: { Authorization: `Bearer ${direct ? tsKey : orKey}`, "Content-Type": "application/json" }, body: JSON.stringify(body),
   });
   const ms = Math.round(performance.now() - t0);
   const json: any = await res.json().catch(() => ({}));
-  if (!res.ok) return report("jev", `FAILED: HTTP ${res.status} ${JSON.stringify(json).slice(0, 300)}`);
+  if (!res.ok) return report("jev", `FAILED: ${url} HTTP ${res.status} ${JSON.stringify(json).slice(0, 300)}`);
   console.log(JSON.stringify(json.answers, null, 2));
-  report("jev", `OK ${ms} ms, cost $${json.usage?.cost}, served by ${json.model}`);
+  console.log("usage:", JSON.stringify(json.usage));
+  report("jev", `OK ${ms} ms via ${direct ? "TypeSafe direct" : "OpenRouter"}, cost ${json.usage?.cost ?? "(not reported)"}, served by ${json.model}`);
 }
 
 async function fish() {
