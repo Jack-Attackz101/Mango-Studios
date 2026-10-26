@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "concurrently -n api,web -c cyan,magenta \"tsx watch server/index.ts\" \"vite --config web/vite.config.ts\"",
     "smoke": "tsx scripts/smoke.ts",
+    "test": "vitest run",
+    "check:comments": "tsx scripts/check-comments.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

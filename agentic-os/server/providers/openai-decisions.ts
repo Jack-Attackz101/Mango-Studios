@@ -1,6 +1,7 @@
 // Jev-shaped decisions on top of OpenAI chat completions + token logprobs.
 // Each question becomes one single-token completion; probabilities come from top_logprobs.
 import { requireEnv, env } from "../env.js";
+import { HttpError } from "../errors.js";
 
 export type Question =
   | { type: "noul"; instructions: string; criteria?: { true?: string; false?: string } }
@@ -70,7 +71,7 @@ export async function decideOpenAI(opts: { state: unknown; questions: Record<str
       }),
     });
     const json: any = await res.json().catch(() => ({}));
-    if (!res.ok) throw new Error(`OpenAI ${res.status}: ${JSON.stringify(json).slice(0, 300)}`);
+    if (!res.ok) throw new HttpError(res.status, `OpenAI ${res.status}: ${JSON.stringify(json).slice(0, 300)}`);
     const top = json.choices?.[0]?.logprobs?.content?.[0]?.top_logprobs;
     if (!Array.isArray(top)) throw new Error(`Model "${model}" returned no logprobs. Use a non-reasoning model (e.g. gpt-4o-mini) via DECISION_MODEL.`);
     const p = aggregate(top, tokens);
