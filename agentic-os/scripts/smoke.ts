@@ -7,6 +7,22 @@ import { resolve } from "node:path";
 const results: [string, string][] = [];
 const report = (name: string, status: string) => { results.push([name, status]); console.log(`[${name}] ${status}`); };
 
+async function openai() {
+  if (!process.env.OPENAI_API_KEY) return report("openai", "SKIPPED: OPENAI_API_KEY missing");
+  const { decideOpenAI } = await import("../server/providers/openai-decisions.js");
+  const t0 = performance.now();
+  const r = await decideOpenAI({
+    state: { customer_tier: "enterprise", ticket: "My checkout page shows a blank screen after I click Pay." },
+    questions: {
+      is_bug: { type: "noul", instructions: "Is the customer reporting a software defect?" },
+      team: { type: "choice", instructions: "Which team should own this ticket?", criteria: { payments: "Checkout, billing, or payment issues.", frontend: "Rendering or browser issues.", account: "Login or profile issues." } },
+      urgency: { type: "score", instructions: "How urgent is this ticket?", criteria: ["Can wait", "Fix this week", "Blocking revenue now"] },
+    },
+  });
+  console.log(JSON.stringify(r.answers, null, 2));
+  report("openai", `OK ${Math.round(performance.now() - t0)} ms, cost $${r.usage.cost.toFixed(8)}, model ${r.model}`);
+}
+
 async function jev() {
   const key = process.env.OPENROUTER_API_KEY;
   if (!key) return report("jev", "SKIPPED: OPENROUTER_API_KEY missing");
@@ -62,7 +78,7 @@ function claude() {
   report("claude", `OK ${ms} ms, fields: ${Object.keys(j).join(",")}, total_cost_usd=${j.total_cost_usd ?? "n/a"}, session_id=${j.session_id ?? "n/a"}`);
 }
 
-for (const step of [jev, fish, async () => claude()]) {
+for (const step of [openai, jev, fish, async () => claude()]) {
   try { await step(); } catch (e) { report(step.name || "step", `ERROR: ${(e as Error).message}`); }
 }
 console.log("\nSUMMARY"); results.forEach(([n, s]) => console.log(`  ${n}: ${s.split(":")[0].split(" ")[0]}`));
