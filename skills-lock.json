@@ -823,6 +823,12 @@
       "skillPath": "agent-skills/web-design/tailwindcss/SKILL.md",
       "computedHash": "ef3d211ba2fd4f64f23bee6547440de2341756dc3c697e942303cf5c503883f4"
     },
+    "tastemaker": {
+      "source": "codeswithroh/tastemaker",
+      "sourceType": "github",
+      "skillPath": "skills/tastemaker/SKILL.md",
+      "computedHash": "ef080ad8d242527d63cee1d94b7e5030aa8988cc20a0029f6a596d321843af9d"
+    },
     "tech-green-dark-mode-modern": {
       "source": "MengTo/Skills",
       "sourceType": "github",
