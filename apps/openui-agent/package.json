@@ -1,5 +1,5 @@
 {
-  "name": "apps/openui-agent",
+  "name": "openui-agent",
   "version": "0.1.0",
   "private": true,
   "scripts": {
