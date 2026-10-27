@@ -5,10 +5,22 @@
         "source": "github",
         "repo": "johnnyvizz/claude-kit"
       }
+    },
+    "inclusive-design-skills": {
+      "source": {
+        "source": "github",
+        "repo": "Owl-Listener/inclusive-design-skills"
+      }
     }
   },
   "enabledPlugins": {
     "savvy-progress@claude-kit": true,
-    "cc-plugin-you-should-know@builtin": true
+    "cc-plugin-you-should-know@builtin": true,
+    "cognitive-accessibility@inclusive-design-skills": true,
+    "inclusive-interaction@inclusive-design-skills": true,
+    "accessible-content@inclusive-design-skills": true,
+    "inclusive-personas@inclusive-design-skills": true,
+    "adaptive-interfaces@inclusive-design-skills": true,
+    "accessibility-decisions@inclusive-design-skills": true
   }
 }
