@@ -217,6 +217,12 @@
       "skillPath": "skills/ui-review/SKILL.md",
       "computedHash": "328a45a0ebd729fd9d14719f8a82391e855f2384776e19cf168d14ad76bf5454"
     },
+    "web-design-engineer": {
+      "source": "ConardLi/garden-skills",
+      "sourceType": "github",
+      "skillPath": "skills/web-design-engineer/SKILL.md",
+      "computedHash": "62a8ab0211bfad141e6866148de5d93c2edb307b5de41276909bcb559e6e93f2"
+    },
     "write-swift": {
       "source": "emilkowalski/skills",
       "sourceType": "github",
