@@ -799,6 +799,12 @@
       "skillPath": "agent-skills/web-design/split-layout-technical/SKILL.md",
       "computedHash": "4402ac0071d1ebfd68660a62a82724ce3d8f782f2a6bd504534c648d6d2bbf4d"
     },
+    "stageshow": {
+      "source": "benjitaylor/skills",
+      "sourceType": "github",
+      "skillPath": "stageshow/SKILL.md",
+      "computedHash": "a3c332b76583e2ed7048c8f24eaa9cb3694c8cba2adb43d8a3c0b2f15f84c7c2"
+    },
     "staggered-word-reveal": {
       "source": "MengTo/Skills",
       "sourceType": "github",
