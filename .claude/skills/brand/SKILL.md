@@ -13,6 +13,7 @@ The identity and the system underneath every page: what the brand looks like, an
 - **The whole app is inconsistent** ("we need a design system", "fix our UI"): start with `design-system-boss`. It triages, then runs the other system modules in order.
 - **One phase of system work** (extract tokens, add states and specs to a component, start from an empty repo): `build-design-system`.
 - **Move an app onto an existing system:** `migrate-design-system`.
+- **Audit, document or extend a design system** quickly (naming, hardcoded values, component docs): `design-system`.
 - **Check token use on a page or diff:** `token-mapping` (read-only).
 - **Document one component:** `component-docs`.
 - **A DESIGN.md for agents** (Google Stitch or any coding agent): `stitch-design-taste`.
@@ -27,7 +28,7 @@ The identity and the system underneath every page: what the brand looks like, an
 
 ## Modules
 
-9 merged skills live in `modules/`. Read a module's `MODULE.md` when its job comes up, and follow it. Paths inside a module are relative to that module's folder. When a module says to run or invoke another skill by its old name, open that module instead: it is in this skill's `modules/` folder or in another Mango skill's (`design`, `landing-page`, `prototype`, `scroll-site`, `animate`, `image`, `brand`, `review`, `demo`, `research`).
+10 merged skills live in `modules/`. Read a module's `MODULE.md` when its job comes up, and follow it. Paths inside a module are relative to that module's folder. When a module says to run or invoke another skill by its old name, open that module instead: it is in this skill's `modules/` folder or in another Mango skill's (`design`, `landing-page`, `prototype`, `scroll-site`, `animate`, `image`, `brand`, `review`, `demo`, `marketing`).
 
 ### Brand identity
 
@@ -47,5 +48,6 @@ The identity and the system underneath every page: what the brand looks like, an
 | `component-docs` | Writes one component's documentation entry from its code, stories and real call sites, in a Geist-style page order. |
 | `stitch-design-taste` | Semantic Design System Skill for Google Stitch. |
 | `pick-ui-library` | Pick the right library for a given frontend task from a curated, opinionated list — numbers, OTP inputs, charts, command menus, virtualization, drag and drop, toasts… |
+| `design-system` | Audit, document, or extend your design system. |
 
 Original authors and licenses: see `SOURCES.md`.

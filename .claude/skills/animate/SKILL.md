@@ -25,6 +25,7 @@ Follow `animate`'s order every time:
 - **Cursor and particles:** shader cursor trails, ripples, pointer trails, particle trails, ambient section particles, falling leaves, Matter.js physics.
 - **Backgrounds and 3D accents:** WebGL grids and lasers, globes (globe.gl, cobe, particle globe), Unicorn Studio, Vanta, Hairline line figures.
 - **React Native and Expo:** `animate-expo`.
+- **Copy an interaction you've seen:** `video-to-superprompt` turns a screen recording into a build prompt; `html-to-interaction-prompts` does the same from a page's code.
 - **Existing motion:** `review-animations` to critique, `improve-animations` for a codebase-wide plan, `find-animation-opportunities` for places that should move, `animation-performance` and `optimize-web-animations` for jank.
 
 ## Rules
@@ -36,7 +37,7 @@ Follow `animate`'s order every time:
 
 ## Modules
 
-35 merged skills live in `modules/`. Read a module's `MODULE.md` when its job comes up, and follow it. Paths inside a module are relative to that module's folder. When a module says to run or invoke another skill by its old name, open that module instead: it is in this skill's `modules/` folder or in another Mango skill's (`design`, `landing-page`, `prototype`, `scroll-site`, `animate`, `image`, `brand`, `review`, `demo`, `research`).
+37 merged skills live in `modules/`. Read a module's `MODULE.md` when its job comes up, and follow it. Paths inside a module are relative to that module's folder. When a module says to run or invoke another skill by its old name, open that module instead: it is in this skill's `modules/` folder or in another Mango skill's (`design`, `landing-page`, `prototype`, `scroll-site`, `animate`, `image`, `brand`, `review`, `demo`, `marketing`).
 
 ### Principles and building
 
@@ -97,5 +98,12 @@ Follow `animate`'s order every time:
 | `find-animation-opportunities` | Search a codebase or UI for places that don't animate but should, and reject everything that shouldn't. |
 | `animation-performance` | Keep web animations inside the frame budget — animate composite-only properties, keep motion off the main thread when the page is busy, and find the cause when an… |
 | `optimize-web-animations` | Profile, audit, and optimize frontend page performance with emphasis on animation work, memory-leak risks, long-session slowdowns, CSS animations, canvas/WebGL… |
+
+### Copy an interaction
+
+| Module | Use it for |
+|---|---|
+| `video-to-superprompt` | Turn a reference video into a super detailed recreation or inspiration prompt. |
+| `html-to-interaction-prompts` | Convert a supplied HTML page or generated HTML reference into a screenshot-backed article containing multiple reusable interaction prompts. |
 
 Original authors and licenses: see `SOURCES.md`.

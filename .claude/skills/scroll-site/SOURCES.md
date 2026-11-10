@@ -17,3 +17,4 @@ This skill merges these skills. Each module keeps its original files, credits an
 | scroll-scrubbed-word-reveal | MengTo/Skills |
 | masked-reveal | MengTo/Skills |
 | webgl-landing-steering | MengTo/Skills |
+| awwwards-motion-study | INSANE0777/Awwwards-mcp |

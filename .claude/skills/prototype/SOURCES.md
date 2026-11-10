@@ -42,3 +42,4 @@ This skill merges these skills. Each module keeps its original files, credits an
 | product-proof-saas | MengTo/Skills |
 | operational-enterprise-ai | MengTo/Skills |
 | solar-duotone-bold | MengTo/Skills |
+| daily-ui-inspiration-capture | MengTo/Skills |

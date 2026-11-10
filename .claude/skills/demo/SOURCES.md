@@ -9,3 +9,6 @@ This skill merges these skills. Each module keeps its original files, credits an
 | html-reel | MengTo/Skills |
 | browser-video-recording | MengTo/Skills |
 | elevenlabs-tts | MengTo/Skills |
+| workflow-progress-screenshots | MengTo/Skills |
+| workflow-ship-change | MengTo/Skills |
+| publish-project-to-github | MengTo/Skills |

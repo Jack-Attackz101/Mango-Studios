@@ -27,11 +27,13 @@ The scorecard here is the same one `/design` uses for its judge loop, so a revie
 3. **Audits** (full mode):
    - AI-design slop: `audit-ai-design-slop` for an evidence-backed list, with `no-ai-design-slop` as the rule set.
    - UI and flows: `ui-review` for severity-ranked findings, keyboard and screen-reader checks.
-   - Accessibility: the `design:accessibility-review` plugin skill for WCAG 2.1 AA, and the inclusive-design plugins for cognitive and adaptive concerns. If the awwwards MCP is connected, `analyze_accessibility` gives contrast and alt evidence.
+   - Accessibility: `accessibility-review` for a WCAG 2.1 AA audit, and the inclusive-design plugins for cognitive and adaptive concerns. If the awwwards MCP is connected, `analyze_accessibility` gives contrast and alt evidence.
    - Performance: `performance-profiling`, and the awwwards MCP `audit_url` for frame drops and long tasks when available.
    - Motion: `/animate`'s review modules (`review-animations`, `animation-performance`).
    - Originality: `audit-reference-originality` when the page was built from reference sites.
    - Tokens: `/brand`'s `token-mapping` when the project has design tokens.
+   - Worst-case data: `break-ui` feeds long names, empty states, huge numbers and non-Latin text, then reports what broke.
+   - Work in progress across sessions: `workflow-threads-manager` checks what other Claude sessions are doing and whether finished work is merged and live.
 4. **Report.** Use the format below.
 5. **Hand-off.** Offer to run `/design` on the issues. `workflow-score-to-target` describes the score-to-target loop it will run.
 
@@ -54,7 +56,7 @@ For a non-technical reader, add a plain-language summary following `audit-verify
 
 ## Modules
 
-7 merged skills live in `modules/`. Read a module's `MODULE.md` when its job comes up, and follow it. Paths inside a module are relative to that module's folder. When a module says to run or invoke another skill by its old name, open that module instead: it is in this skill's `modules/` folder or in another Mango skill's (`design`, `landing-page`, `prototype`, `scroll-site`, `animate`, `image`, `brand`, `review`, `demo`, `research`).
+10 merged skills live in `modules/`. Read a module's `MODULE.md` when its job comes up, and follow it. Paths inside a module are relative to that module's folder. When a module says to run or invoke another skill by its old name, open that module instead: it is in this skill's `modules/` folder or in another Mango skill's (`design`, `landing-page`, `prototype`, `scroll-site`, `animate`, `image`, `brand`, `review`, `demo`, `marketing`).
 
 ### Design review
 
@@ -72,5 +74,18 @@ For a non-technical reader, add a plain-language summary following `audit-verify
 | `audit-reference-originality` | Audit a website or digital experience against its supplied source references for originality and plagiarism risk. |
 | `performance-profiling` | Guide performance profiling for Apple platform apps with Instruments, Xcode diagnostics, and MetricKit. |
 | `audit-verify-explain-grade-5` | Audit work, verify claims with concrete evidence, and explain the result in simple grade-5 language. |
+
+### Stress tests and status
+
+| Module | Use it for |
+|---|---|
+| `break-ui` | Try to break a piece of UI by feeding it worst-case data — long names, unbreakable emails, one-letter names, missing fields, huge counts, zero items, long labels… |
+| `workflow-threads-manager` | Oversee the other Claude threads (sessions) working on the same project. |
+
+### Accessibility
+
+| Module | Use it for |
+|---|---|
+| `accessibility-review` | Run a WCAG 2.1 AA accessibility audit on a design or page. |
 
 Original authors and licenses: see `SOURCES.md`.

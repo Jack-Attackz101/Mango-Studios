@@ -1,6 +1,6 @@
 ---
 name: design
-description: Super Design. The main skill for making any website, page, app screen or component look great. It sets an art direction, builds or redesigns the UI, then runs a judge loop where a second AI scores the result against the Mango rubric and the builder fixes issues until it scores 8/10 or higher. Use for "design this", "make this look good", "redesign this", "this looks AI-generated", "polish this screen", app screens, dashboards, components, illustration, CSS details and UI polish, on any stack (HTML/CSS, React, Next.js, Vue, Svelte, Astro, Tailwind). For landing pages and marketing sites use landing-page; for many themed versions side by side use prototype; for scroll-driven story sites use scroll-site; for a review without changes use review.
+description: Super Design. The main skill for making any website, page, app screen or component look great. It sets an art direction, builds or redesigns the UI, then runs a judge loop where a second AI scores the result against the Mango rubric and the builder fixes issues until it scores 8/10 or higher. Use for "design this", "make this look good", "redesign this", "this looks AI-generated", "polish this screen", "critique this", app screens, dashboards, components, illustration, CSS details, UX copy, user research, dev handoff and design inspiration from Awwwards, on any stack (HTML/CSS, React, Next.js, Vue, Svelte, Astro, Tailwind). For landing pages and marketing sites use landing-page; for many themed versions side by side use prototype; for scroll-driven story sites use scroll-site; for a review without changes use review.
 ---
 
 # Super Design
@@ -43,6 +43,8 @@ Pick one art direction before writing code, and write it down as tokens (palette
 5. `better-ui`, `high-end-visual-design` and `emil-design-eng` for the finish: exact values for radius, shadows, icon states, press and transition timing.
 6. The theme families in `/prototype` when you want a ready-made look.
 
+Need references first? `awwwards-inspiration` searches award-winning sites by style, color or tech and pulls their design DNA (run `awwwards-setup` on first use, `awwwards-doctor` if the tools fail). References inform the direction; they are never copied.
+
 Use only one direction per page. Mixing modules' looks produces exactly the generic result this skill exists to avoid.
 
 ### 4. Build or redesign
@@ -52,13 +54,14 @@ Use only one direction per page. Mixing modules' looks produces exactly the gene
 - Details: `better-ui` first for exact polish values, then the other Details and CSS modules (shadows, gradient borders, masks, corner cuts, progressive blur, container lines).
 - Illustration: one of the illustration modules when the page needs drawn art. Pick one style for the whole page.
 - Phone: `mobile-native` for the fixes that make a web page feel native.
+- Words on the page: `ux-copy` for buttons, errors, empty states and microcopy.
 - Long outputs: follow `full-output-enforcement`; never leave placeholder code.
 
 ### 5. Judge loop
 
 Repeat until the judge passes the page or a stop rule fires:
 1. Shoot desktop and phone with `shoot.mjs`.
-2. Spawn a fresh judge subagent with only the rubric, the screenshots and the brief (see `judge.md`).
+2. Spawn a fresh judge subagent with only the rubric, the screenshots and the brief (see `judge.md`). The judge scores with the rubric and writes a full critique using the `design-critique` framework: first impression, usability, hierarchy, consistency, accessibility.
 3. Fix issues worst first: every critical, then majors, then cheap minors.
 4. Log the round in the score table.
 
@@ -66,7 +69,15 @@ Pass is overall 8.0 or more, no dimension below 7, and no critical issue. Stop a
 
 ### 6. Report
 
-Give the user: the score table, before and after screenshots (fold, desktop and phone), what changed, and anything left under 8. Keep it short.
+Give the user: the score table, the judge's final critique, before and after screenshots (fold, desktop and phone), what changed, and anything left under 8. Keep it short.
+
+## Other jobs this skill covers
+
+- **Critique only:** run one judge round and return the critique without changing anything. For a full graded audit, use `/review`.
+- **Plan the research:** `user-research` for interview guides, usability tests and surveys; `research-synthesis` to turn notes, transcripts or survey results into themes and next steps.
+- **Handoff:** `design-handoff` for a developer spec sheet (layout, tokens, props, states, breakpoints).
+- **Big multi-step work:** `iterate-until-verified` for fanning work out to subagents with independent checks.
+- **Make a new skill from a source:** `web-technique-to-skill` or `article-prompts-to-skills`.
 
 ## Rules that always apply
 
@@ -77,7 +88,7 @@ Give the user: the score table, before and after screenshots (fold, desktop and 
 
 ## Modules
 
-29 merged skills live in `modules/`. Read a module's `MODULE.md` when its job comes up, and follow it. Paths inside a module are relative to that module's folder. When a module says to run or invoke another skill by its old name, open that module instead: it is in this skill's `modules/` folder or in another Mango skill's (`design`, `landing-page`, `prototype`, `scroll-site`, `animate`, `image`, `brand`, `review`, `demo`, `research`).
+40 merged skills live in `modules/`. Read a module's `MODULE.md` when its job comes up, and follow it. Paths inside a module are relative to that module's folder. When a module says to run or invoke another skill by its old name, open that module instead: it is in this skill's `modules/` folder or in another Mango skill's (`design`, `landing-page`, `prototype`, `scroll-site`, `animate`, `image`, `brand`, `review`, `demo`, `marketing`).
 
 ### Art direction and taste
 
@@ -127,5 +138,31 @@ Give the user: the score table, before and after screenshots (fold, desktop and 
 | `illustration-ink-sketch` | Draws hand-inked cartoon critters and living objects as SVG cards (480x360), each acting out a coding or design idea. |
 | `illustration-line-interior` | Draws original hand-written SVG spot scenes in the Line interior style, wide airy rooms or terraces where slim, realistic people do design and coding work. |
 | `illustration-one-line` | Draws original hand-written SVG spot illustrations in the One-line style, joyful action figures doing design and coding work. |
+
+### References and inspiration
+
+| Module | Use it for |
+|---|---|
+| `awwwards-inspiration` | Use when building a site that needs design references (e.g. |
+| `awwwards-setup` | Use when the awwwards MCP server or its skills are invoked for the first time in a session or on a new machine — when no awwwards preferences exist yet, or the user asks… |
+| `awwwards-doctor` | Use when awwwards-mcp scraping or tools stop working — BlockedError, "layout may have changed" parser errors, empty results, failed captures, stale searches — or when… |
+| `web-technique-to-skill` | Turn a visual or interaction technique you already built into a reusable web-design skill, by isolating the one mechanism that makes it work while reproducing its… |
+| `article-prompts-to-skills` | Convert an article, tutorial, or prompt pack into focused reusable AgentSkills, one independent capability per skill, with portable instructions, example prompts… |
+
+### Loops and verification
+
+| Module | Use it for |
+|---|---|
+| `iterate-until-verified` | Apply a prompt-agnostic execution and verification loop to any substantial task while preserving the original request. |
+
+### Critique and research
+
+| Module | Use it for |
+|---|---|
+| `design-critique` | Get structured design feedback on usability, hierarchy, and consistency. |
+| `user-research` | Plan, conduct, and synthesize user research. |
+| `research-synthesis` | Synthesize user research into themes, insights, and recommendations. |
+| `ux-copy` | Write or review UX copy — microcopy, error messages, empty states, CTAs. |
+| `design-handoff` | Generate developer handoff specs from a design. |
 
 Original authors and licenses: see `SOURCES.md`.

@@ -33,3 +33,14 @@ This skill merges these skills. Each module keeps its original files, credits an
 | illustration-line-interior | MengTo/Skills |
 | illustration-one-line | MengTo/Skills |
 | better-ui | Uploaded by you (BetterUI) |
+| awwwards-inspiration | INSANE0777/Awwwards-mcp |
+| awwwards-setup | INSANE0777/Awwwards-mcp |
+| awwwards-doctor | INSANE0777/Awwwards-mcp |
+| web-technique-to-skill | MengTo/Skills |
+| article-prompts-to-skills | MengTo/Skills |
+| iterate-until-verified | MengTo/Skills |
+| design-critique | Anthropic design plugin 1.2.0 |
+| user-research | Anthropic design plugin 1.2.0 |
+| research-synthesis | Anthropic design plugin 1.2.0 |
+| ux-copy | Anthropic design plugin 1.2.0 |
+| design-handoff | Anthropic design plugin 1.2.0 |

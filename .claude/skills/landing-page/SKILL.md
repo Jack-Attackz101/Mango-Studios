@@ -24,6 +24,7 @@ Apply `landing-page-design` Part B as the default, non-negotiable rules for type
 - Premium, motion-led, award-level marketing site: `build-awwwards-quality-sites`. For pinned and scrubbed scroll storytelling, hand that part to `/scroll-site`.
 - HTML craft, React artifacts, design critique and browser acceptance: `web-design-engineer`.
 - Images: `/image`. Motion moments: `/animate`. Product shots: `/demo`.
+- Rebuilding from a reference site: `recreate` for evidence-driven reconstruction, `awwwards-section-loop` to build and verify one section at a time, `stitched-full-page-capture` for pages that resist full-page screenshots. Change brands, copy, people, numbers and images; take the ideas, not the assets.
 - Want to compare directions first? Run `/prototype` on the content, pick one, then come back here.
 
 ### 4. Judge loop to 8/10
@@ -46,7 +47,7 @@ Run `landing-page-design`'s quick checklist and ship requirements: meta tags, Op
 
 ## Modules
 
-5 merged skills live in `modules/`. Read a module's `MODULE.md` when its job comes up, and follow it. Paths inside a module are relative to that module's folder. When a module says to run or invoke another skill by its old name, open that module instead: it is in this skill's `modules/` folder or in another Mango skill's (`design`, `landing-page`, `prototype`, `scroll-site`, `animate`, `image`, `brand`, `review`, `demo`, `research`).
+8 merged skills live in `modules/`. Read a module's `MODULE.md` when its job comes up, and follow it. Paths inside a module are relative to that module's folder. When a module says to run or invoke another skill by its old name, open that module instead: it is in this skill's `modules/` folder or in another Mango skill's (`design`, `landing-page`, `prototype`, `scroll-site`, `animate`, `image`, `brand`, `review`, `demo`, `marketing`).
 
 ### Landing page system
 
@@ -62,5 +63,13 @@ Run `landing-page-design`'s quick checklist and ship requirements: meta tags, Op
 |---|---|
 | `web-design-engineer` | Build or redesign polished browser-rendered visual artifacts with HTML/CSS/JavaScript/React: pages, dashboards, prototypes, slide decks, animations, UI mockups, and data… |
 | `build-awwwards-quality-sites` | Art-direct and implement distinctive, motion-rich marketing, editorial, portfolio, and landing websites with original reference-inspired imagery, standout heroes, GSAP… |
+
+### Rebuild from a reference site
+
+| Module | Use it for |
+|---|---|
+| `recreate` | Recreate a website from a link — evidence-driven reconstruction with the awwwards MCP. |
+| `awwwards-section-loop` | Use when recreating or rebuilding a multi-section page from a reference site — build section by section instead of all at once. |
+| `stitched-full-page-capture` | Capture or repair reliable full-page screenshots for lazy-loaded, scroll-animated, Framer, WebGL/canvas, or reveal-heavy web pages. |
 
 Original authors and licenses: see `SOURCES.md`.
