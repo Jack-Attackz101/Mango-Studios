@@ -3,6 +3,25 @@
     "taste-engine": {
       "type": "http",
       "url": "https://mcp.tastelabs.com/mcp"
+    },
+    "awwwards": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "awwwards-mcp"
+      ],
+      "env": {}
+    },
+    "rea": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "rea-agents@6.8.0",
+        "mcp"
+      ],
+      "env": {}
     }
   }
 }
