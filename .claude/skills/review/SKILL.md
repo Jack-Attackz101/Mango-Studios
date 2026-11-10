@@ -7,13 +7,15 @@ description: Review and audit a website, page, screen or app and return a graded
 
 A full, evidence-based report on a page or site. Review only reports; it changes nothing unless the user asks, and then it hands off to `/design`.
 
+Paths that start with `<skills>/` point into your other Mango skills. `<skills>` is the folder that holds this skill's folder (the parent of this skill's base directory), so `<skills>/review` is the review skill, wherever the skills are installed.
+
 The scorecard here is the same one `/design` uses for its judge loop, so a review score and a design score mean the same thing.
 
 ## Files this skill owns
 
 - `references/rubric.md`: the Mango rubric. Dimensions, weights, anchors, caps, output format.
 - `references/judge.md`: how to run the independent judge AI.
-- `scripts/shoot.mjs`: desktop and phone screenshots plus overflow check. `node .claude/skills/review/scripts/shoot.mjs <url-or-file> <outDir> --label name`
+- `scripts/shoot.mjs`: desktop and phone screenshots plus overflow check. `node <skills>/review/scripts/shoot.mjs <url-or-file> <outDir> --label name`
 
 ## Modes
 

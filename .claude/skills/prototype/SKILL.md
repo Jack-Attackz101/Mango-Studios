@@ -7,6 +7,8 @@ description: Turn a site, app or idea into a gallery page of many full-page prot
 
 Make one gallery page that holds several complete versions of the same site, each in a different theme. The user clicks a version to open it full size or full screen, then picks a direction to take into `/design`.
 
+Paths that start with `<skills>/` point into your other Mango skills. `<skills>` is the folder that holds this skill's folder (the parent of this skill's base directory), so `<skills>/review` is the review skill, wherever the skills are installed.
+
 ## Inputs
 
 - **A URL**: capture its content and structure.
@@ -28,7 +30,7 @@ Every version uses this same content, so the comparison is about design, not wor
 
 ### 2. Pick themes
 
-Default to 6 versions, each from a different family, unless the user names themes or a count. See the family table below. Mix light and dark. Add a brand-inspired recipe from `/landing-page`'s `web-design-engineer` module (`.claude/skills/landing-page/modules/web-design-engineer/references/style-recipes/`) when it fits the subject. The user can also ask for a theme not in the list; write a short token set for it and build it the same way.
+Default to 6 versions, each from a different family, unless the user names themes or a count. See the family table below. Mix light and dark. Add a brand-inspired recipe from `/landing-page`'s `web-design-engineer` module (`<skills>/landing-page/modules/web-design-engineer/references/style-recipes/`) when it fits the subject. The user can also ask for a theme not in the list; write a short token set for it and build it the same way.
 
 ### 3. Build the versions
 
@@ -46,7 +48,7 @@ Copy `assets/gallery.html` to `index.html` in the output folder and fill in the 
 
 ### 5. Optional quick score
 
-If the user wants a pick, shoot each version with `.claude/skills/review/scripts/shoot.mjs` and run one judge round per version (`.claude/skills/review/references/judge.md`). Put the score in each variant's `score` field so the gallery shows it.
+If the user wants a pick, shoot each version with `<skills>/review/scripts/shoot.mjs` and run one judge round per version (`<skills>/review/references/judge.md`). Put the score in each variant's `score` field so the gallery shows it.
 
 ### 6. Deliver
 

@@ -7,6 +7,8 @@ description: Build, redesign or review landing pages and marketing sites: one of
 
 The web design skill for pages that sell: one offer, one audience, one primary action. It owns the strategy, structure, copy and visual rules for landing pages and marketing sites. `/design` owns the general craft and the judge loop it finishes with.
 
+Paths that start with `<skills>/` point into your other Mango skills. `<skills>` is the folder that holds this skill's folder (the parent of this skill's base directory), so `<skills>/review` is the review skill, wherever the skills are installed.
+
 ## Process
 
 ### 1. Intake and strategy
@@ -29,7 +31,7 @@ Apply `landing-page-design` Part B as the default, non-negotiable rules for type
 
 ### 4. Judge loop to 8/10
 
-Hand the built page to `/design`'s judge loop: screenshots with `.claude/skills/review/scripts/shoot.mjs`, an independent judge per `.claude/skills/review/references/judge.md`, fixes worst first, until it passes or a stop rule fires. Add these landing-page checks to the judge's brief:
+Hand the built page to `/design`'s judge loop: screenshots with `<skills>/review/scripts/shoot.mjs`, an independent judge per `<skills>/review/references/judge.md`, fixes worst first, until it passes or a stop rule fires. Add these landing-page checks to the judge's brief:
 - Is the one primary action obvious above the fold on desktop and phone?
 - Does the hero say what it is, who it's for and why now, in plain words?
 - Does every section move the reader toward the action?
