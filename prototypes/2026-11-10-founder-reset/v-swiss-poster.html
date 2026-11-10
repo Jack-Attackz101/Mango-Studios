@@ -199,6 +199,7 @@ p,li,td{text-wrap:pretty}
 .bill ul{grid-column:6/13;grid-row:1/4}
 .bill li{padding:var(--s3) 0;border-bottom:1px solid var(--hair);font-size:18px;line-height:28px}
 .bill li:first-child{padding-top:0}
+@media (max-width:600px){.kit .nm{flex-direction:column;gap:var(--s1)}.kit .nm span{align-self:flex-start}}
 @media (max-width:860px){.kits,.steps{grid-template-columns:1fr;row-gap:var(--s6)}.kit{min-height:260px}.kit .pz{font-size:96px}.bill{grid-template-columns:1fr}.bill h3,.bill .bx,.bill ul{grid-column:1/-1;grid-row:auto}.bill ul{margin-top:var(--s6)}}
 
 .kit-cta{justify-content:flex-start;margin-top:var(--s6)}.kit-cta p{font-size:16px;line-height:24px;color:var(--ink2)}
@@ -228,13 +229,19 @@ td:last-child,th:last-child{text-align:right;font-family:var(--mono);white-space
 .sc>div p{color:var(--ink2)}.sc strong{color:var(--ink);font-weight:700}
 .src{font:500 12px/16px var(--mono);display:grid;gap:var(--s2)}
 .fda{margin-top:var(--s8);padding-top:var(--s4);border-top:1px solid var(--hair);font-size:14px;line-height:20px;color:var(--ink2);max-width:880px}
+@media (min-width:1101px){.fx.b12{position:sticky;top:96px}}
 @media (max-width:1100px){.fxs{grid-template-columns:1fr 1fr;row-gap:var(--s10)}.fx.am{grid-row:span 2}}
 @media (max-width:860px){.ing-head h2,.ing-head .lede,.sci-head h3,.sci-head p{grid-column:1/-1}.sci-head p{margin-top:var(--s4)}.fxs{grid-template-columns:1fr}.fx.am{grid-row:auto}.sc{grid-template-columns:1fr;row-gap:var(--s3)}.sc h4,.sc>div,.src{grid-column:1/-1}.sci-head h3{font-size:36px;line-height:40px}}
 
 .mc>summary{display:none}
-@media (max-width:600px){.mc>summary{display:flex;align-items:center;min-height:44px;cursor:pointer;list-style:none;font:500 14px/20px var(--mono);text-decoration:underline;text-underline-offset:4px}.mc>summary::-webkit-details-marker{display:none}.mc[open]>summary{margin-bottom:var(--s2)}}
+@media (max-width:600px){.mc>summary{display:flex;align-items:center;justify-content:space-between;min-height:48px;cursor:pointer;list-style:none;font:500 14px/20px var(--mono);border-top:2px solid var(--ink);border-bottom:1px solid var(--hair)}
+ .mc>summary::-webkit-details-marker{display:none}
+ .mc>summary::after{content:"";width:14px;height:14px;background:linear-gradient(var(--ink),var(--ink)) center/14px 2px no-repeat,linear-gradient(var(--ink),var(--ink)) center/2px 14px no-repeat}
+ .mc[open]>summary::after{background:linear-gradient(var(--ink),var(--ink)) center/14px 2px no-repeat}
+ .mc[open]>summary{margin-bottom:var(--s2)}}
 .sc details{display:grid;gap:var(--s3)}.sc .src{margin-top:var(--s3)}
 .fx-after{margin-top:var(--s10);padding-top:var(--s6);border-top:2px solid var(--ink);display:grid;gap:var(--s6);justify-items:start}.fx-after .fnote{margin:0}
+@media (max-width:600px){.after.m-hide,.after.m-trim .btn{display:none}}
 /* faq */
 .faq .grid{align-items:start}
 .faq h2{grid-column:1/5;position:sticky;top:96px}
@@ -263,7 +270,7 @@ details[open] summary i::after{transform:rotate(0)}
 /* footer */
 .foot{background:var(--ink);color:var(--paper);padding:var(--s16) 0 calc(var(--s10) + env(safe-area-inset-bottom,0px))}
 .foot .logo{color:var(--paper)}
-.foot .f1{grid-column:1/6}.foot .f2{grid-column:7/10}.foot .f3{grid-column:10/13}
+.foot .grid{align-items:start}.foot .f1{grid-column:1/6}.foot .f1 .logo{min-height:44px}.foot button.lk{font:inherit;line-height:20px}.foot .f2{grid-column:7/10}.foot .f3{grid-column:10/13}
 .foot p{margin-top:var(--s4);font-size:14px;line-height:20px;color:#FFFFFFB3;max-width:360px}
 .foot ul{display:grid;font-size:14px;line-height:20px}
 .foot ul li{min-height:44px;display:flex;align-items:center}
@@ -305,14 +312,14 @@ dialog .bar i{background:var(--am)}dialog .bar i+i{background:var(--pm)}
 .fin-art{grid-column:9/13;grid-row:1/3;align-self:end;display:grid;gap:var(--s2)}
 .tix{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2)}
 .sach{position:relative;min-height:340px;padding:var(--s10) var(--s4) var(--s4);display:flex;flex-direction:column;justify-content:flex-end;gap:var(--s1);color:var(--ink)}
-.sach b{font:700 30px/36px var(--sans);letter-spacing:-.03em}
+.sach b{font:700 24px/32px var(--sans);letter-spacing:-.02em;white-space:nowrap}
 .sach small{font:500 12px/16px var(--mono)}
 .sach.am{background:var(--am)}.sach.pm{background:var(--pm)}
 .sach::before,.sach::after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='6'%3E%3Cpath d='M0 0h12L6 6z' fill='%23000'/%3E%3C/svg%3E")}
-.strip{background:var(--paper);display:flex;justify-content:space-between;padding:var(--s4)}
+.strip{background:var(--paper);color:var(--ink);display:flex;align-items:center;justify-content:space-between;gap:var(--s4);padding:var(--s4);font:500 12px/16px var(--mono)}.strip .d{display:flex;gap:var(--s2)}
 .strip i{width:20px;height:20px;border-radius:50%;background:var(--b12)}
 @media (max-width:960px){.final h2,.final .fb,.fin-art{grid-column:1/-1}.fin-art{grid-row:auto;margin-top:var(--s12)}}
-@media (max-width:720px){.sach{min-height:240px}.sach b{font-size:24px;line-height:32px}.strip i{width:14px;height:14px}}
+@media (max-width:720px){.sach{min-height:240px}.sach b{font-size:20px;line-height:28px}.strip i{width:12px;height:12px}.strip .d{gap:var(--s1)}}
 
 /* motion */
 @keyframes up{from{transform:translateY(105%)}}
@@ -382,7 +389,7 @@ dialog .bar i{background:var(--am)}dialog .bar i+i{background:var(--pm)}
   <article class="half am"><span class="sun" aria-hidden="true"></span><span class="lab">Morning</span><h3>AM FUEL + B12 RESET</h3><p>Stir one AM FUEL sachet into 400 to 500 mL of water. Dissolve one B12 RESET tablet under your tongue.</p></article>
   <article class="half pm"><span class="moon" aria-hidden="true"></span><span class="lab">Evening</span><h3>PM RECOVER</h3><p>Stir one PM RECOVER sachet into 250 to 400 mL of water as you wind down.</p></article>
  </div>
- <div class="wrap after"><p class="rt-note">Keep your regular meals. These are supplements, not meal replacements.</p><button class="btn" type="button" data-order>Start My 7-Day Reset</button></div>
+ <div class="wrap after m-trim"><p class="rt-note">Keep your regular meals. These are supplements, not meal replacements.</p><button class="btn" type="button" data-order>Start My 7-Day Reset</button></div>
 </section>
 
 <section class="sec" id="how" aria-labelledby="h-h">
@@ -392,8 +399,8 @@ dialog .bar i{background:var(--am)}dialog .bar i+i{background:var(--pm)}
    <article class="kit" data-r><div class="nm">7-Day Starter<span>14 sachets, 7 B12 RESET tablets</span></div><div class="pz">$39</div><p class="ct">Days 1 to 7, then the Monthly box</p></article>
    <article class="kit dk" data-r style="--d:120ms"><div class="nm">Monthly box<span>60 sachets, 30 B12 RESET tablets</span></div><div class="pz">$99</div><p class="ct">Every 30 days, until you cancel</p></article>
   </div>
-  <div class="after kit-cta" data-r><button class="btn" type="button" data-order>Start My 7-Day Reset</button></div>
-  <ol class="steps"><li data-r><span class="n">1</span><span class="lab">Days 1 to 7</span><h3>Build the habit. $39</h3><p>Your 7-Day Starter: 7 AM FUEL sachets, 7 PM RECOVER sachets and 7 B12 RESET tablets.</p></li><li data-r><span class="n">2</span><span class="lab">Every day</span><h3>Two drinks, one tablet.</h3><p>AM FUEL and B12 RESET in the morning. PM RECOVER in the evening. Under a minute each.</p></li><li data-r><span class="n">3</span><span class="lab">Every 30 days</span><h3>Keep it going. $99</h3><p>Your Monthly box: 30 AM FUEL sachets, 30 PM RECOVER sachets and 30 B12 RESET tablets. That’s $3.30 a day. It renews automatically until you cancel.</p></li></ol>
+  <div class="after kit-cta m-hide" data-r><button class="btn" type="button" data-order>Start My 7-Day Reset</button></div>
+  <ol class="steps"><li data-r><span class="n">1</span><span class="lab">Days 1 to 7</span><h3>Build the habit.</h3><p>Your 7-Day Starter: 7 AM FUEL sachets, 7 PM RECOVER sachets and 7 B12 RESET tablets.</p></li><li data-r><span class="n">2</span><span class="lab">Every day</span><h3>Two drinks, one tablet.</h3><p>AM FUEL and B12 RESET in the morning. PM RECOVER in the evening. Under a minute each.</p></li><li data-r><span class="n">3</span><span class="lab">Every 30 days</span><h3>Keep it going.</h3><p>Your Monthly box: 30 AM FUEL sachets, 30 PM RECOVER sachets and 30 B12 RESET tablets. That’s $3.30 a day. It renews automatically until you cancel.</p></li></ol>
   <div class="bill" data-r><h3>How billing works</h3><ul><li><strong>Today:</strong> $39 for your 7-Day Starter.</li><li>The timing of your first $99 Monthly box charge will be confirmed before ordering opens. You’ll see the exact date before you pay.</li><li><strong>After that:</strong> $99 every 30 days, until you cancel.</li><li>Canceling before your renewal date prevents the next charge. The cancellation process and full terms will be confirmed before ordering opens.</li><li>Shipping, taxes and refund terms are shown before you pay.</li></ul><div class="bx"><button class="btn" type="button" data-order>Start My 7-Day Reset</button></div></div>
  </div>
 </section>
@@ -406,7 +413,6 @@ dialog .bar i{background:var(--am)}dialog .bar i+i{background:var(--pm)}
   <div class="sci">
    <div class="grid sci-head"><h3 data-r>The science behind the ingredients</h3><p data-r>Independent research on the key ingredients. These studies looked at the ingredients, not the finished Founder Reset product.</p></div>
    <div class="sci-list"><article class="sc" data-r><h4>Creatine</h4><div><p><strong>What it does.</strong> Supports strength and power during high-intensity exercise, with consistent daily use.*</p><details class="mc" open><summary>Read the research</summary><p><strong>What the research shows.</strong> The International Society of Sports Nutrition reviewed research on creatine in exercise and training. At 3 g a day without a loading phase, muscle creatine stores typically build up over around four weeks.</p><ul class="src"><li>International Society of Sports Nutrition position stand (2017)</li></ul></details></div></article><article class="sc" data-r><h4>Vitamin B12</h4><div><p><strong>What it does.</strong> Needed for normal energy metabolism, red blood cell formation and nervous system function.*</p><details class="mc" open><summary>Read the research</summary><p><strong>What the research shows.</strong> The NIH fact sheet covers B12 intake and absorption. Supplementing matters most when intake or absorption is low, which is more common with age and plant-based diets. Additional B12 has not been shown to improve energy or endurance when B12 status is adequate.</p><ul class="src"><li>NIH Office of Dietary Supplements, Vitamin B12 fact sheet</li></ul></details></div></article><article class="sc" data-r><h4>Magnesium</h4><div><p><strong>What it does.</strong> Supports normal muscle and nerve function and is involved in more than 300 enzyme systems, including energy metabolism.*</p><details class="mc" open><summary>Read the research</summary><p><strong>What the research shows.</strong> The NIH fact sheet notes that many US adults get less magnesium from food than recommended. It reviews nutritional roles and intake, rather than testing the finished Founder Reset product.</p><ul class="src"><li>NIH Office of Dietary Supplements, Magnesium fact sheet</li></ul></details></div></article><article class="sc" data-r><h4>Glycine</h4><div><p><strong>What it does.</strong> An amino acid studied for its role in sleep quality.*</p><details class="mc" open><summary>Read the research</summary><p><strong>What the research shows.</strong> Small studies in Japan gave volunteers 3 g of glycine before bed. Yamadera and colleagues (2007) measured self-reported sleep quality and sleep recordings in people with unsatisfactory sleep. Bannai and colleagues (2012) studied next-day fatigue and performance during partial sleep restriction. These studies were small and involved industry-affiliated researchers.</p><ul class="src"><li>Bannai et al., Frontiers in Neurology (2012)</li><li>Yamadera et al., Sleep and Biological Rhythms (2007)</li></ul></details></div></article><article class="sc" data-r><h4>L-theanine</h4><div><p><strong>What it does.</strong> An amino acid found in tea, studied for relaxation.*</p><details class="mc" open><summary>Read the research</summary><p><strong>What the research shows.</strong> Hidese and colleagues (2019) gave 30 healthy adults 200 mg a day of L-theanine or placebo for four weeks in a randomized crossover trial, measuring stress-related symptoms, sleep and cognitive function. The study was small and received industry support.</p><ul class="src"><li>Hidese et al., Nutrients (2019)</li></ul></details></div></article></div>
-   <p class="fda">* These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.</p>
   </div>
  </div>
 </section>
@@ -422,7 +428,7 @@ dialog .bar i{background:var(--am)}dialog .bar i+i{background:var(--pm)}
  <div class="wrap"><div class="grid">
   <h2 class="disp" id="c-h" data-r>Start strong. Recover well. Repeat.</h2>
   <div class="fb" data-r><button class="btn" type="button" data-order>Start My 7-Day Reset</button><p>$39 for your 7-Day Starter, then $99 every 30 days until you cancel.</p></div>
-  <div class="fin-art" aria-hidden="true"><div class="tix"><div class="sach am"><span class="seal"></span><b>AM FUEL</b><small>Morning</small></div><div class="sach pm"><span class="seal"></span><b>PM RECOVER</b><small>Evening</small></div></div><div class="strip"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i><i style="--i:6"></i></div></div>
+  <div class="fin-art" aria-hidden="true"><div class="tix"><div class="sach am"><span class="seal"></span><b>AM FUEL</b><small>Morning</small></div><div class="sach pm"><span class="seal"></span><b>PM RECOVER</b><small>Evening</small></div></div><div class="strip"><span>B12 RESET</span><span class="d"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i><i style="--i:6"></i></span></div></div>
  </div></div>
 </section>
 </main>

@@ -42,7 +42,7 @@ prob_items = ''.join(f'<li data-r>{e(t)}</li>' for t in prob['items'])
 def fact_list(fs):
     return ''.join(f'<li>{e(f)}</li>' for f in fs)
 
-steps = ''.join(f'<li data-r><span class="n">{k+1}</span><span class="lab">{e(s["label"])}</span><h3>{e(s["title"])}</h3><p>{e(s["body"])}</p></li>' for k, s in enumerate(how['steps']))
+steps = ''.join(f'<li data-r><span class="n">{k+1}</span><span class="lab">{e(s["label"])}</span><h3>{e(s["title"].replace(" $39", "").replace(" $99", ""))}</h3><p>{e(s["body"])}</p></li>' for k, s in enumerate(how['steps']))
 bill = ''.join(f'<li>{lead(r)}</li>' for r in how['billing']['rows'])
 
 def formula(f, cls, ben=None, plus=None):
@@ -265,6 +265,7 @@ p,li,td{{text-wrap:pretty}}
 .bill ul{{grid-column:6/13;grid-row:1/4}}
 .bill li{{padding:var(--s3) 0;border-bottom:1px solid var(--hair);font-size:18px;line-height:28px}}
 .bill li:first-child{{padding-top:0}}
+@media (max-width:600px){{.kit .nm{{flex-direction:column;gap:var(--s1)}}.kit .nm span{{align-self:flex-start}}}}
 @media (max-width:860px){{.kits,.steps{{grid-template-columns:1fr;row-gap:var(--s6)}}.kit{{min-height:260px}}.kit .pz{{font-size:96px}}.bill{{grid-template-columns:1fr}}.bill h3,.bill .bx,.bill ul{{grid-column:1/-1;grid-row:auto}}.bill ul{{margin-top:var(--s6)}}}}
 
 .kit-cta{{justify-content:flex-start;margin-top:var(--s6)}}.kit-cta p{{font-size:16px;line-height:24px;color:var(--ink2)}}
@@ -294,13 +295,19 @@ td:last-child,th:last-child{{text-align:right;font-family:var(--mono);white-spac
 .sc>div p{{color:var(--ink2)}}.sc strong{{color:var(--ink);font-weight:700}}
 .src{{font:500 12px/16px var(--mono);display:grid;gap:var(--s2)}}
 .fda{{margin-top:var(--s8);padding-top:var(--s4);border-top:1px solid var(--hair);font-size:14px;line-height:20px;color:var(--ink2);max-width:880px}}
+@media (min-width:1101px){{.fx.b12{{position:sticky;top:96px}}}}
 @media (max-width:1100px){{.fxs{{grid-template-columns:1fr 1fr;row-gap:var(--s10)}}.fx.am{{grid-row:span 2}}}}
 @media (max-width:860px){{.ing-head h2,.ing-head .lede,.sci-head h3,.sci-head p{{grid-column:1/-1}}.sci-head p{{margin-top:var(--s4)}}.fxs{{grid-template-columns:1fr}}.fx.am{{grid-row:auto}}.sc{{grid-template-columns:1fr;row-gap:var(--s3)}}.sc h4,.sc>div,.src{{grid-column:1/-1}}.sci-head h3{{font-size:36px;line-height:40px}}}}
 
 .mc>summary{{display:none}}
-@media (max-width:600px){{.mc>summary{{display:flex;align-items:center;min-height:44px;cursor:pointer;list-style:none;font:500 14px/20px var(--mono);text-decoration:underline;text-underline-offset:4px}}.mc>summary::-webkit-details-marker{{display:none}}.mc[open]>summary{{margin-bottom:var(--s2)}}}}
+@media (max-width:600px){{.mc>summary{{display:flex;align-items:center;justify-content:space-between;min-height:48px;cursor:pointer;list-style:none;font:500 14px/20px var(--mono);border-top:2px solid var(--ink);border-bottom:1px solid var(--hair)}}
+ .mc>summary::-webkit-details-marker{{display:none}}
+ .mc>summary::after{{content:"";width:14px;height:14px;background:linear-gradient(var(--ink),var(--ink)) center/14px 2px no-repeat,linear-gradient(var(--ink),var(--ink)) center/2px 14px no-repeat}}
+ .mc[open]>summary::after{{background:linear-gradient(var(--ink),var(--ink)) center/14px 2px no-repeat}}
+ .mc[open]>summary{{margin-bottom:var(--s2)}}}}
 .sc details{{display:grid;gap:var(--s3)}}.sc .src{{margin-top:var(--s3)}}
 .fx-after{{margin-top:var(--s10);padding-top:var(--s6);border-top:2px solid var(--ink);display:grid;gap:var(--s6);justify-items:start}}.fx-after .fnote{{margin:0}}
+@media (max-width:600px){{.after.m-hide,.after.m-trim .btn{{display:none}}}}
 /* faq */
 .faq .grid{{align-items:start}}
 .faq h2{{grid-column:1/5;position:sticky;top:96px}}
@@ -329,7 +336,7 @@ details[open] summary i::after{{transform:rotate(0)}}
 /* footer */
 .foot{{background:var(--ink);color:var(--paper);padding:var(--s16) 0 calc(var(--s10) + env(safe-area-inset-bottom,0px))}}
 .foot .logo{{color:var(--paper)}}
-.foot .f1{{grid-column:1/6}}.foot .f2{{grid-column:7/10}}.foot .f3{{grid-column:10/13}}
+.foot .grid{{align-items:start}}.foot .f1{{grid-column:1/6}}.foot .f1 .logo{{min-height:44px}}.foot button.lk{{font:inherit;line-height:20px}}.foot .f2{{grid-column:7/10}}.foot .f3{{grid-column:10/13}}
 .foot p{{margin-top:var(--s4);font-size:14px;line-height:20px;color:#FFFFFFB3;max-width:360px}}
 .foot ul{{display:grid;font-size:14px;line-height:20px}}
 .foot ul li{{min-height:44px;display:flex;align-items:center}}
@@ -371,14 +378,14 @@ dialog .bar i{{background:var(--am)}}dialog .bar i+i{{background:var(--pm)}}
 .fin-art{{grid-column:9/13;grid-row:1/3;align-self:end;display:grid;gap:var(--s2)}}
 .tix{{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2)}}
 .sach{{position:relative;min-height:340px;padding:var(--s10) var(--s4) var(--s4);display:flex;flex-direction:column;justify-content:flex-end;gap:var(--s1);color:var(--ink)}}
-.sach b{{font:700 30px/36px var(--sans);letter-spacing:-.03em}}
+.sach b{{font:700 24px/32px var(--sans);letter-spacing:-.02em;white-space:nowrap}}
 .sach small{{font:500 12px/16px var(--mono)}}
 .sach.am{{background:var(--am)}}.sach.pm{{background:var(--pm)}}
 .sach::before,.sach::after{{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='6'%3E%3Cpath d='M0 0h12L6 6z' fill='%23000'/%3E%3C/svg%3E")}}
-.strip{{background:var(--paper);display:flex;justify-content:space-between;padding:var(--s4)}}
+.strip{{background:var(--paper);color:var(--ink);display:flex;align-items:center;justify-content:space-between;gap:var(--s4);padding:var(--s4);font:500 12px/16px var(--mono)}}.strip .d{{display:flex;gap:var(--s2)}}
 .strip i{{width:20px;height:20px;border-radius:50%;background:var(--b12)}}
 @media (max-width:960px){{.final h2,.final .fb,.fin-art{{grid-column:1/-1}}.fin-art{{grid-row:auto;margin-top:var(--s12)}}}}
-@media (max-width:720px){{.sach{{min-height:240px}}.sach b{{font-size:24px;line-height:32px}}.strip i{{width:14px;height:14px}}}}
+@media (max-width:720px){{.sach{{min-height:240px}}.sach b{{font-size:20px;line-height:28px}}.strip i{{width:12px;height:12px}}.strip .d{{gap:var(--s1)}}}}
 
 /* motion */
 @keyframes up{{from{{transform:translateY(105%)}}}}
@@ -448,7 +455,7 @@ dialog .bar i{{background:var(--am)}}dialog .bar i+i{{background:var(--pm)}}
   <article class="half am"><span class="sun" aria-hidden="true"></span><span class="lab">{e(rt['steps'][0]['label'])}</span><h3>{e(rt['steps'][0]['title'])}</h3><p>{e(rt['steps'][0]['body'])}</p></article>
   <article class="half pm"><span class="moon" aria-hidden="true"></span><span class="lab">{e(rt['steps'][1]['label'])}</span><h3>{e(rt['steps'][1]['title'])}</h3><p>{e(rt['steps'][1]['body'])}</p></article>
  </div>
- <div class="wrap after"><p class="rt-note">{e(rt['note'])}</p><button class="btn" type="button" data-order>{e(hero['cta_primary'])}</button></div>
+ <div class="wrap after m-trim"><p class="rt-note">{e(rt['note'])}</p><button class="btn" type="button" data-order>{e(hero['cta_primary'])}</button></div>
 </section>
 
 <section class="sec" id="how" aria-labelledby="h-h">
@@ -458,7 +465,7 @@ dialog .bar i{{background:var(--am)}}dialog .bar i+i{{background:var(--pm)}}
    <article class="kit" data-r><div class="nm">{e(kit1['name'])}<span>{e(kit1['contents'])}</span></div><div class="pz">{e(kit1['price'])}</div><p class="ct">Days 1 to 7, then the Monthly box</p></article>
    <article class="kit dk" data-r style="--d:120ms"><div class="nm">{e(kit2['name'])}<span>{e(kit2['contents'])}</span></div><div class="pz">{e(kit2['price'])}</div><p class="ct">Every 30 days, until you cancel</p></article>
   </div>
-  <div class="after kit-cta" data-r><button class="btn" type="button" data-order>{e(hero['cta_primary'])}</button></div>
+  <div class="after kit-cta m-hide" data-r><button class="btn" type="button" data-order>{e(hero['cta_primary'])}</button></div>
   <ol class="steps">{steps}</ol>
   <div class="bill" data-r><h3>{e(how['billing']['heading'])}</h3><ul>{bill}</ul><div class="bx"><button class="btn" type="button" data-order>{e(hero['cta_primary'])}</button></div></div>
  </div>
@@ -472,7 +479,6 @@ dialog .bar i{{background:var(--am)}}dialog .bar i+i{{background:var(--pm)}}
   <div class="sci">
    <div class="grid sci-head"><h3 data-r>{e(ing['science']['heading'])}</h3><p data-r>{e(ing['science']['body'])}</p></div>
    <div class="sci-list">{sci}</div>
-   <p class="fda">{e(ing['fda'])}</p>
   </div>
  </div>
 </section>
@@ -488,7 +494,7 @@ dialog .bar i{{background:var(--am)}}dialog .bar i+i{{background:var(--pm)}}
  <div class="wrap"><div class="grid">
   <h2 class="disp" id="c-h" data-r>{e(fin['heading'])}</h2>
   <div class="fb" data-r><button class="btn" type="button" data-order>{e(fin['cta'])}</button><p>{e(fin['body'])}</p></div>
-  <div class="fin-art" aria-hidden="true"><div class="tix"><div class="sach am"><span class="seal"></span><b>{e(pr[0]['name'])}</b><small>{e(pr[0]['when'])}</small></div><div class="sach pm"><span class="seal"></span><b>{e(pr[2]['name'])}</b><small>{e(pr[2]['when'])}</small></div></div><div class="strip">{dots}</div></div>
+  <div class="fin-art" aria-hidden="true"><div class="tix"><div class="sach am"><span class="seal"></span><b>{e(pr[0]['name'])}</b><small>{e(pr[0]['when'])}</small></div><div class="sach pm"><span class="seal"></span><b>{e(pr[2]['name'])}</b><small>{e(pr[2]['when'])}</small></div></div><div class="strip"><span>{e(pr[1]['name'])}</span><span class="d">{dots}</span></div></div>
  </div></div>
 </section>
 </main>
