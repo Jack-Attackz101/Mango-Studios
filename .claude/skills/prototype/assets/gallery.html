@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prototypes</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap">
+<style>
+:root{--bg:#F3F4F6;--surface:#FFFFFF;--ink:#16181D;--muted:#5E6470;--line:#DCDFE4;--accent:#2A5BD7;--on-accent:#FFFFFF;
+  --display:"Space Grotesk",system-ui,sans-serif;--body:"Inter",system-ui,sans-serif;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#0F1115;--surface:#171A20;--ink:#E8EAEE;--muted:#9AA1AD;--line:#272B33;--accent:#7FA2FF;--on-accent:#0B1020;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;
+  padding-block:32px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1280px;margin:0 auto}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(26px,4vw,36px);margin:0 0 6px;letter-spacing:-.01em}
+.sub{color:var(--muted);margin:0 0 24px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,360px),1fr));gap:20px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.thumb{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--bg);cursor:pointer;border:0;padding:0;display:block;width:100%}
+.thumb iframe{position:absolute;top:0;left:0;width:1440px;height:900px;border:0;transform-origin:0 0;pointer-events:none}
+.meta{padding:12px 14px;display:grid;gap:4px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.name{font-family:var(--display);font-weight:600;font-size:16px}
+.fam{font-size:12px;color:var(--muted)}
+.desc{font-size:13.5px;color:var(--muted);margin:0}
+.score{font-size:12px;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--bg);font-variant-numeric:tabular-nums}
+.btns{display:flex;gap:8px;margin-top:6px}
+button.b,a.b{font:inherit;font-size:13px;border:1px solid var(--line);background:none;color:var(--ink);border-radius:7px;padding:6px 12px;cursor:pointer;text-decoration:none}
+button.b.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+button:focus-visible,a:focus-visible,.thumb:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.viewer{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;z-index:10}
+.vbar{display:flex;align-items:center;gap:10px;padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));padding-top:max(10px,env(safe-area-inset-top,0px));border-bottom:1px solid var(--line);background:var(--surface)}
+.vbar .name{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.frame{flex:1;position:relative;background:#fff}
+.frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.sizes{display:flex;gap:4px}
+.frame.phone iframe{width:390px;left:50%;transform:translateX(-50%);box-shadow:0 0 0 1px var(--line)}
+@media (max-width:640px){.sizes{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1 id="title">Prototypes</h1>
+  <p class="sub" id="sub">Click a version to open it. Use the arrow keys to flip between versions and Esc to close.</p>
+  <div class="grid" id="grid"></div>
+</div>
+<div class="viewer" id="viewer" hidden>
+  <div class="vbar">
+    <button class="b" id="prev" aria-label="Previous version">←</button>
+    <button class="b" id="next" aria-label="Next version">→</button>
+    <span class="name" id="vname"></span>
+    <span class="sizes"><button class="b" id="desk">Desktop</button><button class="b" id="phone">Phone</button></span>
+    <button class="b" id="fs">Full screen</button>
+    <a class="b" id="open" target="_blank" rel="noopener">Open in tab</a>
+    <button class="b primary" id="close">Close</button>
+  </div>
+  <div class="frame" id="frame"><iframe id="vframe" title="Prototype"></iframe></div>
+</div>
+<script>
+/* FILL IN: one entry per version. score is optional (0-10 from the judge). */
+const PROJECT = { title: "Prototypes", subtitle: "" };
+const VARIANTS = [
+  /* { slug: "editorial", file: "v-editorial.html", name: "Editorial", family: "Editorial", desc: "Serif-led magazine layout with image-first sections.", score: null } */
+];
+const $ = s => document.querySelector(s);
+const esc = t => String(t ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+if (PROJECT.title) { $("#title").textContent = PROJECT.title; document.title = PROJECT.title; }
+if (PROJECT.subtitle) $("#sub").textContent = PROJECT.subtitle;
+$("#grid").innerHTML = VARIANTS.map((v, i) => `
+  <article class="card">
+    <button class="thumb" data-i="${i}" aria-label="Open ${esc(v.name)}"><iframe src="${esc(v.file)}" loading="lazy" tabindex="-1" title="${esc(v.name)} preview"></iframe></button>
+    <div class="meta">
+      <div class="row"><span class="name">${esc(v.name)}</span>${v.score != null ? `<span class="score">${esc(v.score)}/10</span>` : ""}</div>
+      <span class="fam">${esc(v.family)}</span>
+      <p class="desc">${esc(v.desc)}</p>
+      <div class="btns"><button class="b primary" data-i="${i}">Open</button><a class="b" href="${esc(v.file)}" target="_blank" rel="noopener">New tab</a></div>
+    </div>
+  </article>`).join("");
+function fit(){ document.querySelectorAll(".thumb").forEach(t => { const f = t.querySelector("iframe"); f.style.transform = `scale(${t.clientWidth / 1440})`; }); }
+addEventListener("resize", fit); fit();
+let cur = -1;
+function show(i){
+  cur = (i + VARIANTS.length) % VARIANTS.length;
+  const v = VARIANTS[cur];
+  $("#vframe").src = v.file; $("#open").href = v.file;
+  $("#vname").textContent = `${cur + 1} / ${VARIANTS.length} · ${v.name} · ${v.family}`;
+  $("#viewer").hidden = false; document.body.style.overflow = "hidden";
+}
+function close(){ $("#viewer").hidden = true; document.body.style.overflow = ""; cur = -1; if (document.fullscreenElement) document.exitFullscreen().catch(()=>{}); }
+$("#grid").addEventListener("click", e => { const b = e.target.closest("[data-i]"); if (b) show(+b.dataset.i); });
+$("#prev").onclick = () => show(cur - 1); $("#next").onclick = () => show(cur + 1); $("#close").onclick = close;
+$("#desk").onclick = () => $("#frame").classList.remove("phone"); $("#phone").onclick = () => $("#frame").classList.add("phone");
+$("#fs").onclick = () => { const el = $("#frame"); (el.requestFullscreen ? el.requestFullscreen() : Promise.reject()).catch(() => { $("#fs").textContent = "Not available"; }); };
+addEventListener("keydown", e => { if (cur < 0) return; if (e.key === "ArrowRight") show(cur + 1); else if (e.key === "ArrowLeft") show(cur - 1); else if (e.key === "Escape" && !document.fullscreenElement) close(); });
+</script>
+</body>
+</html>
