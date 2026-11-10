@@ -1,0 +1,390 @@
+{
+ "brand": {
+  "name": "Founder Reset",
+  "tagline": "Start strong. Recover well. Repeat.",
+  "palette_note": "Product colors: AM FUEL is sunrise orange (#FF8A1F), PM RECOVER is dusk lavender (#8B68F5), B12 RESET tablet is pink (#FF6F9C). These are product identity, keep them; everything else about the look is yours.",
+  "disclaimer": "Dietary supplements complement a varied, balanced diet and a healthy lifestyle."
+ },
+ "nav": [
+  "The routine",
+  "How it works",
+  "Ingredients",
+  "Questions"
+ ],
+ "hero": {
+  "headline": "Your business has a system. Now your daily supplements do too.",
+  "tagline": "Start strong. Recover well. Repeat.",
+  "subhead": "Two drinks a day, built for people who run companies. One to start the morning, one to wind down at night. No added caffeine. No shelf of half-used tubs. Just open a sachet.",
+  "price": "$39 for your 7-Day Starter, then $99 every 30 days for your Monthly box ($3.30 a day)",
+  "price_note": "The Starter rolls into a monthly subscription that renews until you cancel.",
+  "cta_primary": "Start My 7-Day Reset",
+  "cta_secondary": "See the routine",
+  "trust": [
+   "No added caffeine",
+   "Individually portioned",
+   "Renews until you cancel"
+  ],
+  "products": [
+   {
+    "name": "AM FUEL",
+    "when": "Morning",
+    "what": "Drink sachet, stir into 400 to 500 mL water",
+    "key": "3,000 mg creatine"
+   },
+   {
+    "name": "B12 RESET",
+    "when": "Morning",
+    "what": "1,000 µg tablet, dissolve under the tongue",
+    "key": "1,000 µg vitamin B12"
+   },
+   {
+    "name": "PM RECOVER",
+    "when": "Evening",
+    "what": "Drink sachet, stir into 250 to 400 mL water",
+    "key": "3,000 mg glycine"
+   }
+  ]
+ },
+ "sections": [
+  {
+   "type": "problem",
+   "heading": "You’ve built systems for everything except yourself.",
+   "items": [
+    "Coffee is doing most of the heavy lifting.",
+    "The laptop closes at 11. Your head doesn’t.",
+    "Lunch was a protein bar between calls.",
+    "There’s a cupboard of supplement tubs you swore you’d take."
+   ],
+   "body": "Founder Reset won’t fix your calendar. It gives your day two fixed points, morning and evening, that take under a minute and zero decisions."
+  },
+  {
+   "type": "routine",
+   "id": "routine",
+   "heading": "Open the day. Close the day. That’s the whole routine.",
+   "body": "Two moments that bookend the day you already have. Sunrise orange to start, dusk lavender to finish, so you never have to think about which one’s next.",
+   "steps": [
+    {
+     "label": "Morning",
+     "title": "AM FUEL + B12 RESET",
+     "body": "Stir one AM FUEL sachet into 400 to 500 mL of water. Dissolve one B12 RESET tablet under your tongue."
+    },
+    {
+     "label": "Evening",
+     "title": "PM RECOVER",
+     "body": "Stir one PM RECOVER sachet into 250 to 400 mL of water as you wind down."
+    }
+   ],
+   "note": "Keep your regular meals. These are supplements, not meal replacements."
+  },
+  {
+   "type": "benefits",
+   "heading": "One drink to start strong. One to recover well.",
+   "body": "Full doses, every amount on the label. No proprietary blends.",
+   "items": [
+    {
+     "title": "AM FUEL. Start strong.",
+     "body": "3,000 mg of creatine monohydrate, one of the most studied supplements in sports nutrition*. Sodium and potassium for hydration. B vitamins that support normal energy metabolism*. Plus vitamins D3 and C. All without adding to your caffeine load.",
+     "facts": [
+      "3,000 mg creatine",
+      "Electrolytes",
+      "B vitamins, D3 and C",
+      "No added caffeine"
+     ]
+    },
+    {
+     "title": "PM RECOVER. Recover well.",
+     "body": "3,000 mg of glycine, 200 mg of L-theanine, plus magnesium and zinc, for a caffeine-free evening wind-down*. Made for the hour before bed.",
+     "facts": [
+      "3,000 mg glycine",
+      "200 mg L-theanine",
+      "Magnesium",
+      "Zinc",
+      "Caffeine-free"
+     ]
+    }
+   ],
+   "plus": "Plus B12 RESET. A 1,000 µg tablet that dissolves under your tongue. Vitamin B12 supports normal energy metabolism and nervous system function*.",
+   "note": "Some ingredients, like creatine, build up over weeks of daily use. This is a routine, not a quick fix. Results vary from person to person."
+  },
+  {
+   "type": "how",
+   "id": "how",
+   "heading": "Begin with a week. Keep the rhythm.",
+   "body": "Seven days to build the habit. Then your Monthly box arrives every 30 days, until you cancel.",
+   "kits": [
+    {
+     "name": "7-Day Starter",
+     "price": "$39",
+     "contents": "14 sachets, 7 B12 RESET tablets"
+    },
+    {
+     "name": "Monthly box",
+     "price": "$99",
+     "contents": "60 sachets, 30 B12 RESET tablets"
+    }
+   ],
+   "steps": [
+    {
+     "label": "Days 1 to 7",
+     "title": "Build the habit. $39",
+     "body": "Your 7-Day Starter: 7 AM FUEL sachets, 7 PM RECOVER sachets and 7 B12 RESET tablets."
+    },
+    {
+     "label": "Every day",
+     "title": "Two drinks, one tablet.",
+     "body": "AM FUEL and B12 RESET in the morning. PM RECOVER in the evening. Under a minute each."
+    },
+    {
+     "label": "Every 30 days",
+     "title": "Keep it going. $99",
+     "body": "Your Monthly box: 30 AM FUEL sachets, 30 PM RECOVER sachets and 30 B12 RESET tablets. That’s $3.30 a day. It renews automatically until you cancel."
+    }
+   ],
+   "billing": {
+    "heading": "How billing works",
+    "rows": [
+     "Today: $39 for your 7-Day Starter.",
+     "The timing of your first $99 Monthly box charge will be confirmed before ordering opens. You’ll see the exact date before you pay.",
+     "After that: $99 every 30 days, until you cancel.",
+     "Canceling before your renewal date prevents the next charge. The cancellation process and full terms will be confirmed before ordering opens.",
+     "Shipping, taxes and refund terms are shown before you pay."
+    ]
+   }
+  },
+  {
+   "type": "ingredients",
+   "id": "ingredients",
+   "heading": "Everything, clearly laid out.",
+   "body": "Every active ingredient and amount, per serving. No proprietary blends, nothing hidden.",
+   "formulas": [
+    {
+     "name": "AM FUEL",
+     "meta": "Morning, 11 active ingredients",
+     "unit": "Per sachet",
+     "rows": [
+      [
+       "Creatine monohydrate",
+       "3,000 mg"
+      ],
+      [
+       "Sodium, elemental",
+       "200 mg"
+      ],
+      [
+       "Potassium, elemental",
+       "150 mg"
+      ],
+      [
+       "Vitamin D3",
+       "15 µg (600 IU)"
+      ],
+      [
+       "Vitamin C",
+       "80 mg"
+      ],
+      [
+       "Vitamin B1 (Thiamine)",
+       "1.2 mg"
+      ],
+      [
+       "Vitamin B2 (Riboflavin)",
+       "1.3 mg"
+      ],
+      [
+       "Vitamin B3 (Niacinamide)",
+       "16 mg NE"
+      ],
+      [
+       "Vitamin B5 (Pantothenic acid)",
+       "5 mg"
+      ],
+      [
+       "Vitamin B6",
+       "1.7 mg"
+      ],
+      [
+       "Folate",
+       "400 µg DFE"
+      ]
+     ],
+     "desc": "The first step of the day: creatine monohydrate, electrolytes, vitamin D3, vitamin C and a set of B vitamins, with a separate B12 tablet alongside.",
+     "prep": "One sachet stirred into approximately 400 to 500 mL water, following the label directions."
+    },
+    {
+     "name": "PM RECOVER",
+     "meta": "Evening, 4 active ingredients",
+     "unit": "Per sachet",
+     "rows": [
+      [
+       "Glycine",
+       "3,000 mg"
+      ],
+      [
+       "L-theanine",
+       "200 mg"
+      ],
+      [
+       "Magnesium, elemental",
+       "100 mg"
+      ],
+      [
+       "Zinc, elemental",
+       "5 mg"
+      ]
+     ],
+     "desc": "The closing step of the day: glycine, L-theanine, magnesium and zinc, organized around your evening routine.",
+     "prep": "One sachet stirred into approximately 250 to 400 mL water, following the label directions. The magnesium quantity shown is the elemental amount."
+    },
+    {
+     "name": "B12 RESET",
+     "meta": "Morning tablet, 1,000 µg",
+     "unit": "Per tablet",
+     "rows": [
+      [
+       "Vitamin B12",
+       "1,000 µg"
+      ]
+     ],
+     "desc": "Sublingual tablet, kept apart from both drinks.",
+     "prep": "One tablet each morning, dissolved under the tongue."
+    }
+   ],
+   "formula_note": "Formula awaiting manufacturing sign-off. Final label, ingredient forms and amounts will be confirmed before ordering opens.",
+   "science": {
+    "heading": "The science behind the ingredients",
+    "body": "Independent research on the key ingredients. These studies looked at the ingredients, not the finished Founder Reset product.",
+    "items": [
+     {
+      "name": "Creatine",
+      "does": "Supports strength and power during high-intensity exercise, with consistent daily use.*",
+      "research": "The International Society of Sports Nutrition reviewed research on creatine in exercise and training. At 3 g a day without a loading phase, muscle creatine stores typically build up over around four weeks.",
+      "sources": [
+       "International Society of Sports Nutrition position stand (2017)"
+      ]
+     },
+     {
+      "name": "Vitamin B12",
+      "does": "Needed for normal energy metabolism, red blood cell formation and nervous system function.*",
+      "research": "The NIH fact sheet covers B12 intake and absorption. Supplementing matters most when intake or absorption is low, which is more common with age and plant-based diets. Additional B12 has not been shown to improve energy or endurance when B12 status is adequate.",
+      "sources": [
+       "NIH Office of Dietary Supplements, Vitamin B12 fact sheet"
+      ]
+     },
+     {
+      "name": "Magnesium",
+      "does": "Supports normal muscle and nerve function and is involved in more than 300 enzyme systems, including energy metabolism.*",
+      "research": "The NIH fact sheet notes that many US adults get less magnesium from food than recommended. It reviews nutritional roles and intake, rather than testing the finished Founder Reset product.",
+      "sources": [
+       "NIH Office of Dietary Supplements, Magnesium fact sheet"
+      ]
+     },
+     {
+      "name": "Glycine",
+      "does": "An amino acid studied for its role in sleep quality.*",
+      "research": "Small studies in Japan gave volunteers 3 g of glycine before bed. Yamadera and colleagues (2007) measured self-reported sleep quality and sleep recordings in people with unsatisfactory sleep. Bannai and colleagues (2012) studied next-day fatigue and performance during partial sleep restriction. These studies were small and involved industry-affiliated researchers.",
+      "sources": [
+       "Bannai et al., Frontiers in Neurology (2012)",
+       "Yamadera et al., Sleep and Biological Rhythms (2007)"
+      ]
+     },
+     {
+      "name": "L-theanine",
+      "does": "An amino acid found in tea, studied for relaxation.*",
+      "research": "Hidese and colleagues (2019) gave 30 healthy adults 200 mg a day of L-theanine or placebo for four weeks in a randomized crossover trial, measuring stress-related symptoms, sleep and cognitive function. The study was small and received industry support.",
+      "sources": [
+       "Hidese et al., Nutrients (2019)"
+      ]
+     }
+    ]
+   },
+   "fda": "* These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease."
+  },
+  {
+   "type": "faq",
+   "id": "faq",
+   "heading": "Good to know.",
+   "items": [
+    {
+     "q": "Who is Founder Reset for?",
+     "a": "Adults who want a simple daily supplement routine that fits a busy working day. We built it with founders in mind, but you don't need to run a company to use it."
+    },
+    {
+     "q": "When will I notice a difference?",
+     "a": "Everyone's different, and we won't promise a change by a set day. With 3 g a day, creatine stores typically build up over around four weeks. The 7-Day Starter is there to build the habit and see if the routine suits you."
+    },
+    {
+     "q": "What does it taste like?",
+     "a": "Flavors will be confirmed before ordering opens."
+    },
+    {
+     "q": "Why not just buy these ingredients separately?",
+     "a": "You can. Founder Reset is for people who'd rather not manage a shelf of tubs, measure scoops and remember what goes when. Two sachets, already measured, with every dose on the label."
+    },
+    {
+     "q": "Does it contain caffeine?",
+     "a": "No. Neither drink has added caffeine, so it won't stack on top of your coffee."
+    },
+    {
+     "q": "Is this a subscription?",
+     "a": "Yes. Your $39 7-Day Starter rolls into a $99 Monthly box every 30 days until you cancel. See “How billing works” above."
+    },
+    {
+     "q": "How do I cancel?",
+     "a": "Canceling before your renewal date prevents the next charge. The exact cancellation process and full terms will be confirmed before ordering opens."
+    },
+    {
+     "q": "Can I pause or skip a month?",
+     "a": "This has not been confirmed yet. It will be shown in full before ordering opens, and before any payment."
+    },
+    {
+     "q": "When will it arrive, and what does shipping cost?",
+     "a": "Delivery times and shipping costs: this has not been confirmed yet. It will be shown in full before ordering opens, and before any payment."
+    },
+    {
+     "q": "What's your refund policy?",
+     "a": "Refund terms: this has not been confirmed yet. It will be shown in full before ordering opens, and before any payment."
+    },
+    {
+     "q": "Is it right for me if I take medicines or other supplements?",
+     "a": "Founder Reset is for adults. Compare the ingredient tables above with anything you already take, and talk to a pharmacist about any overlap. If you take medicines, have a health condition, or are pregnant or breastfeeding, check with a pharmacist or clinician first. Always follow the label."
+    },
+    {
+     "q": "Where are the full ingredients and allergens?",
+     "a": "Every active ingredient is listed above. The full ingredient list, allergens and directions are printed on each label."
+    }
+   ]
+  },
+  {
+   "type": "final_cta",
+   "heading": "Start strong. Recover well. Repeat.",
+   "body": "$39 for your 7-Day Starter, then $99 every 30 days until you cancel.",
+   "cta": "Start My 7-Day Reset"
+  }
+ ],
+ "proof": {
+  "note": "No customers, reviews, ratings or logos exist yet. Do not invent any. Ordering is not open: the CTA opens a notice saying so."
+ },
+ "order_notice": {
+  "title": "Ordering isn’t open yet",
+  "body": "Final formula, flavors, shipping, refund and cancellation terms will be confirmed before ordering opens. You’ll see everything before any payment.",
+  "button": "Got it"
+ },
+ "footer": {
+  "tagline": "Start strong. Recover well. Repeat.",
+  "disclaimer": "Dietary supplements complement a varied, balanced diet and a healthy lifestyle.",
+  "links": [
+   "The routine",
+   "How it works",
+   "Ingredients",
+   "Questions"
+  ],
+  "extra": [
+   "Ordering",
+   "The Core collection",
+   "AM FUEL, B12 RESET, PM RECOVER"
+  ]
+ },
+ "images": {
+  "note": "No product photography exists. Build any product visual in code (CSS, inline SVG, canvas or WebGL)."
+ }
+}
