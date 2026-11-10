@@ -1,0 +1,870 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Founder Reset, Night Signal</title>
+<meta name="description" content="Founder Reset. Start strong. Recover well. Repeat.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#060608;
+  --bg-2:#0b0b0f;
+  --panel:#0f0f14;
+  --panel-2:#14141b;
+  --line:rgba(255,255,255,.09);
+  --line-2:rgba(255,255,255,.16);
+  --text:#f3f1ec;
+  --muted:#b0aeb8;
+  --dim:#85838d;
+  --am:#FF8A1F;
+  --pm:#8B68F5;
+  --pm-text:#ab92ff;
+  --b12:#FF6F9C;
+  --beam:linear-gradient(90deg,var(--am),#ff7d63 38%,#c56bd0 62%,var(--pm));
+  --serif:"Instrument Serif",Georgia,"Times New Roman",serif;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --gut:clamp(16px,4vw,56px);
+  --max:1280px;
+  --r:6px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+/* faint ordered-dither texture over the whole page, masked so it pools at edges */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.55;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' shape-rendering='crispEdges'%3E%3Cg fill='%23ffffff'%3E%3Crect x='0' y='0' width='2' height='2' fill-opacity='.05'/%3E%3Crect x='4' y='4' width='2' height='2' fill-opacity='.05'/%3E%3Crect x='4' y='0' width='2' height='2' fill-opacity='.025'/%3E%3Crect x='0' y='4' width='2' height='2' fill-opacity='.025'/%3E%3Crect x='2' y='6' width='2' height='2' fill-opacity='.015'/%3E%3C/g%3E%3C/svg%3E");
+  -webkit-mask-image:radial-gradient(120% 80% at 50% 50%,transparent 35%,#000 100%);
+          mask-image:radial-gradient(120% 80% at 50% 50%,transparent 35%,#000 100%);
+}
+main,header,footer{position:relative;z-index:1}
+a{color:inherit}
+img,svg,canvas{display:block}
+::selection{background:rgba(255,138,31,.35);color:#fff}
+:focus-visible{outline:2px solid #ffd9b5;outline-offset:3px;border-radius:3px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gut)}
+.mono{font-family:var(--mono);font-size:12.5px;letter-spacing:.02em}
+h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-.01em;line-height:1.04;margin:0}
+h2{font-size:clamp(36px,5vw,64px);max-width:18ch}
+h3{font-size:clamp(24px,2.4vw,30px);line-height:1.15}
+p{margin:0}
+.lede{color:var(--muted);font-size:clamp(16px,1.3vw,18px);max-width:58ch}
+
+/* buttons */
+.btn{
+  -webkit-appearance:none;appearance:none;font:500 15px/1 var(--sans);cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:48px;padding:0 22px;border-radius:999px;text-decoration:none;white-space:nowrap;
+  transition:background-color .2s,border-color .2s,color .2s,box-shadow .2s;
+}
+.btn-primary{background:var(--text);color:#0a0a0d;border:1px solid var(--text)}
+.btn-primary:hover{background:#fff;box-shadow:0 0 0 4px rgba(255,138,31,.18)}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--line-2)}
+.btn-ghost:hover{border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.03)}
+.btn .tick{width:7px;height:7px;border-radius:50%;background:var(--am);box-shadow:0 0 0 3px rgba(255,138,31,.2)}
+
+/* nav */
+.nav{position:fixed;top:12px;left:0;right:0;z-index:20;padding:0 var(--gut)}
+.nav-shell{
+  max-width:var(--max);margin:0 auto;display:flex;align-items:center;gap:24px;
+  height:56px;padding:0 8px 0 18px;border-radius:999px;
+  background:rgba(10,10,14,.72);border:1px solid var(--line);
+  -webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2);
+}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-size:22px;text-decoration:none;letter-spacing:-.005em;white-space:nowrap}
+.brand-mark{width:22px;height:22px;position:relative;flex:none}
+.brand-mark::before{content:"";position:absolute;left:0;right:0;top:10px;height:2px;border-radius:2px;background:var(--beam)}
+.brand-mark::after{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:var(--b12);left:8px;top:8px;box-shadow:0 0 0 2px var(--bg)}
+.nav ul{display:flex;gap:4px;list-style:none;margin:0 0 0 auto;padding:0}
+.nav ul a{display:block;padding:8px 12px;border-radius:999px;color:var(--muted);text-decoration:none;font-size:14.5px}
+.nav ul a:hover{color:var(--text);background:rgba(255,255,255,.04)}
+.nav .btn{min-height:40px;padding:0 18px;font-size:14px}
+
+/* hero */
+.hero{position:relative;min-height:100vh;padding:132px 0 72px;overflow:hidden;isolation:isolate}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:-1}
+.hero::after{content:"";position:absolute;inset:auto 0 0 0;height:120px;background:linear-gradient(transparent,var(--bg));pointer-events:none;z-index:-1}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:48px 64px;align-items:end}
+.hero h1{font-size:clamp(46px,6.6vw,104px);line-height:.98;letter-spacing:-.02em;max-width:13ch;text-wrap:balance}
+.hero h1 em{font-style:italic;color:#fff}
+.hero-tag{margin-top:22px;font-family:var(--serif);font-style:italic;font-size:clamp(22px,2vw,28px);color:var(--muted)}
+.hero-side{display:grid;gap:22px;padding-bottom:10px}
+.hero-side .lede{font-size:17px;color:#c9c7cf}
+.price{border-left:2px solid;border-image:linear-gradient(var(--am),var(--pm)) 1;padding:2px 0 2px 16px}
+.price strong{display:block;font-weight:500;font-size:16.5px;color:var(--text)}
+.price span{display:block;color:var(--muted);font-size:14px;margin-top:6px}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px}
+.trust{display:flex;flex-wrap:wrap;gap:8px 18px;list-style:none;padding:0;margin:0;color:var(--muted)}
+.trust li{display:flex;align-items:center;gap:8px;font-size:14px}
+.trust li::before{content:"";width:5px;height:5px;background:var(--text);opacity:.5}
+
+.beam-anchor{height:1px;margin:76px 0 0}
+.products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:64px}
+.product{
+  position:relative;padding:20px 20px 22px;border-radius:var(--r);
+  background:linear-gradient(180deg,rgba(20,20,27,.86),rgba(12,12,16,.86));
+  border:1px solid var(--line);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+}
+.product::before{content:"";position:absolute;left:-1px;right:-1px;top:-1px;height:1px;background:var(--c);opacity:.8;border-radius:var(--r) var(--r) 0 0}
+.product .corner{position:absolute;width:8px;height:8px;border:1px solid rgba(255,255,255,.28)}
+.product .c1{left:-4px;bottom:-4px;border-width:0 0 1px 1px}
+.product .c2{right:-4px;bottom:-4px;border-width:0 1px 1px 0}
+.p-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.p-name{font-family:var(--mono);font-weight:500;font-size:13px;letter-spacing:.08em;color:var(--c-text,var(--c))}
+.p-when{font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;align-items:center;gap:7px}
+.p-when::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--c)}
+.p-key{font-family:var(--serif);font-size:clamp(30px,2.8vw,40px);line-height:1.05;margin:22px 0 10px}
+.p-what{color:var(--muted);font-size:14.5px}
+.am{--c:var(--am)}
+.b12{--c:var(--b12)}
+.pm{--c:var(--pm);--c-text:var(--pm-text)}
+
+/* sections */
+section{position:relative}
+.sec{padding:clamp(88px,11vw,152px) 0}
+.sec-rule{position:relative;height:1px;background:var(--line)}
+.sec-rule::after{content:"";position:absolute;left:var(--gut);top:-2px;width:5px;height:5px;background:var(--text);opacity:.5}
+.head{display:grid;gap:22px;margin-bottom:56px}
+
+/* problem */
+.problem-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px 80px;align-items:start}
+.problem-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.problem-list li{display:grid;grid-template-columns:44px 1fr;gap:12px;padding:20px 0;border-bottom:1px solid var(--line);font-size:clamp(18px,1.6vw,21px);line-height:1.4}
+.problem-list li .mono{color:var(--dim);padding-top:5px}
+.problem-body{margin-top:28px;font-size:clamp(17px,1.4vw,19px);color:#d6d4dc;max-width:52ch}
+
+/* routine */
+.day{position:relative;margin-top:8px;padding-top:44px}
+.day-rail{position:absolute;left:0;right:0;top:0;height:2px;background:var(--beam);border-radius:2px;opacity:.9}
+.day-rail::before,.day-rail::after{content:"";position:absolute;top:-6px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid}
+.day-rail::before{left:0;border-color:var(--am)}
+.day-rail::after{right:0;border-color:var(--pm)}
+.day-steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.step{padding:28px;border:1px solid var(--line);border-radius:var(--r);background:var(--panel)}
+.step-label{font-family:var(--mono);font-size:12.5px;color:var(--c-text,var(--c));display:flex;align-items:center;gap:8px}
+.step-label::before{content:"";width:16px;height:1px;background:var(--c)}
+.step h3{margin:18px 0 12px}
+.step p{color:var(--muted)}
+.day-steps .step:last-child{text-align:right}
+.day-steps .step:last-child .step-label{justify-content:flex-end}
+.note{margin-top:28px;color:var(--muted);font-size:14.5px;display:flex;gap:10px;align-items:baseline}
+.note::before{content:"";flex:none;width:6px;height:6px;border:1px solid var(--dim);transform:translateY(-1px)}
+
+/* benefits */
+.benefits{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.benefit{padding:clamp(24px,3vw,40px);border-radius:var(--r);border:1px solid var(--line);background:linear-gradient(180deg,var(--panel-2),var(--panel));position:relative;overflow:hidden}
+.benefit::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--c)}
+.benefit h3{font-size:clamp(28px,3vw,40px)}
+.benefit p{color:#cfcdd5;margin-top:18px;max-width:52ch}
+.facts{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:28px 0 0;padding:0}
+.facts li{font-family:var(--mono);font-size:12.5px;padding:6px 10px;border:1px solid var(--line-2);border-radius:4px;color:var(--text)}
+.plus{margin-top:20px;padding:22px 26px;border-radius:var(--r);border:1px solid rgba(255,111,156,.32);background:rgba(255,111,156,.05);display:flex;gap:16px;align-items:flex-start;font-size:16.5px;color:#e6e4ea}
+.plus .sig{flex:none;width:10px;height:10px;border-radius:50%;background:var(--b12);margin-top:8px;box-shadow:0 0 0 4px rgba(255,111,156,.16)}
+
+/* how */
+.kits{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.kit{padding:28px;border-radius:var(--r);border:1px solid var(--line);background:var(--panel);display:grid;grid-template-columns:1fr auto;gap:8px 24px;align-items:end}
+.kit h3{font-size:28px}
+.kit .kit-price{font-family:var(--serif);font-size:clamp(52px,6vw,76px);line-height:.9;grid-row:span 2;align-self:center}
+.kit p{color:var(--muted);font-family:var(--mono);font-size:13px}
+.kit:first-child .kit-price{color:var(--am)}
+.kit:last-child .kit-price{color:var(--pm-text)}
+.timeline{list-style:none;margin:56px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--line)}
+.timeline li{padding:28px 28px 8px 0;position:relative}
+.timeline li::before{content:"";position:absolute;top:-4px;left:0;width:7px;height:7px;background:var(--text)}
+.timeline li:nth-child(1)::before{background:var(--am)}
+.timeline li:nth-child(2)::before{background:var(--b12)}
+.timeline li:nth-child(3)::before{background:var(--pm)}
+.timeline .mono{color:var(--muted)}
+.timeline h3{margin:12px 0 12px;font-size:26px}
+.timeline p{color:var(--muted);max-width:36ch}
+.billing{margin-top:56px;border:1px solid var(--line);border-radius:var(--r);background:var(--bg-2);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr)}
+.billing h3{padding:28px;border-right:1px solid var(--line);font-size:28px}
+.billing ol{list-style:none;margin:0;padding:0;counter-reset:b}
+.billing li{counter-increment:b;display:grid;grid-template-columns:40px 1fr;gap:8px;padding:18px 28px;border-bottom:1px solid var(--line);color:#d4d2da}
+.billing li:last-child{border-bottom:0}
+.billing li::before{content:counter(b,decimal-leading-zero);font-family:var(--mono);font-size:12.5px;color:var(--dim);padding-top:3px}
+
+/* ingredients */
+.formulas{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:20px;align-items:start}
+.formula-stack{display:grid;gap:20px}
+.formula{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);overflow:hidden}
+.f-top{padding:24px 24px 20px;border-bottom:1px solid var(--line);position:relative}
+.f-top::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:var(--c)}
+.f-name{font-family:var(--mono);font-weight:500;font-size:14px;letter-spacing:.08em;color:var(--c-text,var(--c))}
+.f-meta{margin-top:6px;font-family:var(--serif);font-size:24px;line-height:1.2}
+table{width:100%;border-collapse:collapse;font-size:15px}
+caption{text-align:left}
+th,td{padding:11px 24px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+thead th{font-family:var(--mono);font-weight:400;font-size:12px;color:var(--dim);padding-top:14px;padding-bottom:10px}
+td:last-child,th:last-child{text-align:right;font-family:var(--mono);font-size:13.5px;white-space:nowrap;font-variant-numeric:tabular-nums}
+tbody tr:hover td{background:rgba(255,255,255,.02)}
+.f-foot{padding:20px 24px 24px;display:grid;gap:10px;color:var(--muted);font-size:14.5px}
+.f-foot p:first-child{color:#d4d2da}
+.f-foot .prep{font-family:var(--mono);font-size:12.5px;line-height:1.6;color:var(--muted)}
+.formula-note{margin-top:20px;padding:16px 20px;border:1px dashed var(--line-2);border-radius:var(--r);color:#d4d2da;font-size:14.5px;display:flex;gap:12px;align-items:baseline}
+.formula-note::before{content:"";flex:none;width:7px;height:7px;background:var(--b12)}
+
+.science{margin-top:clamp(80px,9vw,128px)}
+.science h3.sh{font-size:clamp(32px,4vw,52px);max-width:18ch}
+.sci-list{list-style:none;margin:48px 0 0;padding:0;border-top:1px solid var(--line)}
+.sci{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) minmax(0,1.6fr) minmax(0,1fr);gap:28px;padding:28px 0;border-bottom:1px solid var(--line)}
+.sci h4{margin:0;font-family:var(--serif);font-weight:400;font-size:28px;line-height:1.1}
+.sci .does{color:var(--text)}
+.sci .research{color:var(--muted);font-size:15px}
+.sci .src{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.sci .src li{font-family:var(--mono);font-size:12px;line-height:1.5;color:var(--muted);padding-left:12px;border-left:1px solid var(--line-2)}
+.fda{margin-top:32px;font-size:13.5px;color:var(--muted);max-width:90ch}
+
+/* faq */
+.faq-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.6fr);gap:48px 80px;align-items:start}
+.faq-grid .head{position:sticky;top:110px}
+.faq{border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:1fr 22px;gap:20px;align-items:center;padding:22px 0;font-size:clamp(17px,1.5vw,19px);font-weight:500;border-radius:3px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .pm-icon{width:22px;height:22px;position:relative;border:1px solid var(--line-2);border-radius:50%}
+.faq summary .pm-icon::before,.faq summary .pm-icon::after{content:"";position:absolute;left:50%;top:50%;width:9px;height:1px;background:var(--text);transform:translate(-50%,-50%);transition:transform .25s}
+.faq summary .pm-icon::after{transform:translate(-50%,-50%) rotate(90deg)}
+.faq details[open] summary .pm-icon::after{transform:translate(-50%,-50%) rotate(0)}
+.faq details[open] summary .pm-icon{border-color:var(--am)}
+.faq summary:hover{color:#fff}
+.faq .a{padding:0 42px 24px 0;color:var(--muted);max-width:66ch}
+
+/* final */
+.final{padding:clamp(100px,12vw,168px) 0;text-align:center;overflow:hidden}
+.final .line{position:relative;height:2px;margin:0 auto 64px;max-width:720px;background:var(--beam);border-radius:2px;box-shadow:0 0 12px rgba(255,138,31,.35),0 0 18px rgba(139,104,245,.3)}
+.final .line::after{content:"";position:absolute;left:50%;top:-1px;height:4px;width:30%;transform:translateX(-50%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.9),transparent);border-radius:2px}
+.final h2{margin:0 auto;max-width:14ch;font-size:clamp(44px,7vw,96px);line-height:.98}
+.final p{margin:28px auto 36px;color:var(--muted);font-size:clamp(16px,1.4vw,19px);max-width:44ch}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding:56px 0 40px;background:var(--bg-2)}
+.foot-grid{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(2,minmax(0,1fr));gap:40px}
+.foot-grid .brand{font-size:26px}
+.foot-tag{margin-top:14px;font-family:var(--serif);font-style:italic;font-size:20px;color:var(--muted)}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+footer ul a,footer ul button{color:var(--muted);text-decoration:none;font:inherit;font-size:15px;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+footer ul a:hover,footer ul button:hover{color:var(--text)}
+footer ul li.plain{color:var(--muted);font-size:15px}
+.foot-bottom{margin-top:48px;padding-top:24px;border-top:1px solid var(--line);color:var(--dim);font-size:13.5px}
+
+/* dialog */
+dialog{
+  width:min(480px,calc(100vw - 32px));padding:0;border:1px solid var(--line-2);border-radius:10px;
+  background:var(--panel-2);color:var(--text);box-shadow:0 30px 80px rgba(0,0,0,.6)
+}
+dialog::backdrop{background:rgba(3,3,5,.72);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.dlg{padding:32px 28px 28px;position:relative}
+.dlg::before{content:"";position:absolute;left:28px;right:28px;top:0;height:2px;background:var(--beam)}
+.dlg .sig{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--b12);box-shadow:0 0 0 4px rgba(255,111,156,.16);margin-bottom:20px}
+.dlg h2{font-size:36px;max-width:none}
+.dlg p{margin:14px 0 26px;color:#d2d0d8}
+
+/* responsive */
+@media (max-width:1080px){
+  .sci{grid-template-columns:minmax(0,1fr) minmax(0,2fr)}
+  .sci .research{grid-column:2}
+  .sci .src{grid-column:2}
+}
+@media (max-width:900px){
+  .nav ul{display:none}
+  .nav .btn{margin-left:auto}
+  .hero-grid,.problem-grid,.faq-grid,.formulas{grid-template-columns:minmax(0,1fr)}
+  .faq-grid .head{position:static}
+  .billing{grid-template-columns:minmax(0,1fr)}
+  .billing h3{border-right:0;border-bottom:1px solid var(--line)}
+  .timeline{grid-template-columns:minmax(0,1fr)}
+  .timeline li{padding:28px 0 28px 0;border-bottom:1px solid var(--line)}
+  .timeline li::before{top:-4px}
+}
+@media (max-width:760px){
+  .products,.day-steps,.benefits,.kits{grid-template-columns:minmax(0,1fr)}
+  .products{gap:12px;margin-top:48px}
+  .beam-anchor{margin-top:56px}
+  .day-steps .step:last-child{text-align:left}
+  .day-steps .step:last-child .step-label{justify-content:flex-start}
+  .foot-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .foot-grid > div:first-child{grid-column:1/-1}
+  .sci{grid-template-columns:minmax(0,1fr);gap:12px}
+  .sci .research,.sci .src{grid-column:auto}
+}
+@media (max-width:480px){
+  .hero{padding-top:108px}
+  .nav-shell{padding-left:14px;gap:12px}
+  .brand{font-size:20px}
+  .nav .btn{padding:0 14px;font-size:13.5px}
+  .cta-row .btn{flex:1 1 100%}
+  .kit{grid-template-columns:minmax(0,1fr)}
+  .kit .kit-price{grid-row:auto;order:-1}
+  th,td{padding:10px 16px}
+  .f-top,.f-foot{padding-left:16px;padding-right:16px}
+  .billing li{padding:16px 18px;grid-template-columns:32px 1fr}
+  .billing h3{padding:22px 18px}
+  .step{padding:22px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <nav class="nav-shell" aria-label="Primary">
+    <a class="brand" href="#top" aria-label="Founder Reset, back to top"><span class="brand-mark" aria-hidden="true"></span>Founder Reset</a>
+    <ul>
+      <li><a href="#routine">The routine</a></li>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#ingredients">Ingredients</a></li>
+      <li><a href="#faq">Questions</a></li>
+    </ul>
+    <button class="btn btn-primary" type="button" data-order>Start My 7-Day Reset</button>
+  </nav>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero" id="hero" aria-labelledby="hero-title">
+    <canvas id="field" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <h1 id="hero-title">Your business has a system. <em>Now your daily supplements do too.</em></h1>
+          <p class="hero-tag">Start strong. Recover well. Repeat.</p>
+        </div>
+        <div class="hero-side">
+          <p class="lede">Two drinks a day, built for people who run companies. One to start the morning, one to wind down at night. No added caffeine. No shelf of half-used tubs. Just open a sachet.</p>
+          <div class="price">
+            <strong>$39 for your 7-Day Starter, then $99 every 30 days for your Monthly box ($3.30 a day)</strong>
+            <span>The Starter rolls into a monthly subscription that renews until you cancel.</span>
+          </div>
+          <div class="cta-row">
+            <button class="btn btn-primary" type="button" data-order><span class="tick" aria-hidden="true"></span>Start My 7-Day Reset</button>
+            <a class="btn btn-ghost" href="#routine">See the routine</a>
+          </div>
+          <ul class="trust">
+            <li>No added caffeine</li>
+            <li>Individually portioned</li>
+            <li>Renews until you cancel</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="beam-anchor" id="beamAnchor" aria-hidden="true"></div>
+
+      <ul class="products" role="list" aria-label="The three products">
+        <li class="product am" data-node>
+          <span class="corner c1" aria-hidden="true"></span><span class="corner c2" aria-hidden="true"></span>
+          <div class="p-head"><span class="p-name">AM FUEL</span><span class="p-when">Morning</span></div>
+          <p class="p-key">3,000 mg creatine</p>
+          <p class="p-what">Drink sachet, stir into 400 to 500 mL water</p>
+        </li>
+        <li class="product b12" data-node>
+          <span class="corner c1" aria-hidden="true"></span><span class="corner c2" aria-hidden="true"></span>
+          <div class="p-head"><span class="p-name">B12 RESET</span><span class="p-when">Morning</span></div>
+          <p class="p-key">1,000 µg vitamin B12</p>
+          <p class="p-what">1,000 µg tablet, dissolve under the tongue</p>
+        </li>
+        <li class="product pm" data-node>
+          <span class="corner c1" aria-hidden="true"></span><span class="corner c2" aria-hidden="true"></span>
+          <div class="p-head"><span class="p-name">PM RECOVER</span><span class="p-when">Evening</span></div>
+          <p class="p-key">3,000 mg glycine</p>
+          <p class="p-what">Drink sachet, stir into 250 to 400 mL water</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <div class="sec-rule" aria-hidden="true"></div>
+  <section class="sec" aria-labelledby="problem-title">
+    <div class="wrap problem-grid">
+      <h2 id="problem-title">You’ve built systems for everything except yourself.</h2>
+      <div>
+        <ol class="problem-list">
+          <li><span class="mono" aria-hidden="true">01</span><span>Coffee is doing most of the heavy lifting.</span></li>
+          <li><span class="mono" aria-hidden="true">02</span><span>The laptop closes at 11. Your head doesn’t.</span></li>
+          <li><span class="mono" aria-hidden="true">03</span><span>Lunch was a protein bar between calls.</span></li>
+          <li><span class="mono" aria-hidden="true">04</span><span>There’s a cupboard of supplement tubs you swore you’d take.</span></li>
+        </ol>
+        <p class="problem-body">Founder Reset won’t fix your calendar. It gives your day two fixed points, morning and evening, that take under a minute and zero decisions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROUTINE -->
+  <div class="sec-rule" aria-hidden="true"></div>
+  <section class="sec" id="routine" aria-labelledby="routine-title">
+    <div class="wrap">
+      <div class="head">
+        <h2 id="routine-title">Open the day. Close the day. That’s the whole routine.</h2>
+        <p class="lede">Two moments that bookend the day you already have. Sunrise orange to start, dusk lavender to finish, so you never have to think about which one’s next.</p>
+      </div>
+      <div class="day">
+        <div class="day-rail" aria-hidden="true"></div>
+        <ol class="day-steps" role="list" style="list-style:none;margin:0;padding:0">
+          <li class="step am">
+            <span class="step-label">Morning</span>
+            <h3>AM FUEL + B12 RESET</h3>
+            <p>Stir one AM FUEL sachet into 400 to 500 mL of water. Dissolve one B12 RESET tablet under your tongue.</p>
+          </li>
+          <li class="step pm">
+            <span class="step-label">Evening</span>
+            <h3>PM RECOVER</h3>
+            <p>Stir one PM RECOVER sachet into 250 to 400 mL of water as you wind down.</p>
+          </li>
+        </ol>
+      </div>
+      <p class="note">Keep your regular meals. These are supplements, not meal replacements.</p>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <div class="sec-rule" aria-hidden="true"></div>
+  <section class="sec" aria-labelledby="benefits-title">
+    <div class="wrap">
+      <div class="head">
+        <h2 id="benefits-title">One drink to start strong. One to recover well.</h2>
+        <p class="lede">Full doses, every amount on the label. No proprietary blends.</p>
+      </div>
+      <div class="benefits">
+        <article class="benefit am">
+          <h3>AM FUEL. Start strong.</h3>
+          <p>3,000 mg of creatine monohydrate, one of the most studied supplements in sports nutrition*. Sodium and potassium for hydration. B vitamins that support normal energy metabolism*. Plus vitamins D3 and C. All without adding to your caffeine load.</p>
+          <ul class="facts">
+            <li>3,000 mg creatine</li><li>Electrolytes</li><li>B vitamins, D3 and C</li><li>No added caffeine</li>
+          </ul>
+        </article>
+        <article class="benefit pm">
+          <h3>PM RECOVER. Recover well.</h3>
+          <p>3,000 mg of glycine, 200 mg of L-theanine, plus magnesium and zinc, for a caffeine-free evening wind-down*. Made for the hour before bed.</p>
+          <ul class="facts">
+            <li>3,000 mg glycine</li><li>200 mg L-theanine</li><li>Magnesium</li><li>Zinc</li><li>Caffeine-free</li>
+          </ul>
+        </article>
+      </div>
+      <p class="plus"><span class="sig" aria-hidden="true"></span><span>Plus B12 RESET. A 1,000 µg tablet that dissolves under your tongue. Vitamin B12 supports normal energy metabolism and nervous system function*.</span></p>
+      <p class="note">Some ingredients, like creatine, build up over weeks of daily use. This is a routine, not a quick fix. Results vary from person to person.</p>
+    </div>
+  </section>
+
+  <!-- HOW -->
+  <div class="sec-rule" aria-hidden="true"></div>
+  <section class="sec" id="how" aria-labelledby="how-title">
+    <div class="wrap">
+      <div class="head">
+        <h2 id="how-title">Begin with a week. Keep the rhythm.</h2>
+        <p class="lede">Seven days to build the habit. Then your Monthly box arrives every 30 days, until you cancel.</p>
+      </div>
+      <div class="kits">
+        <div class="kit">
+          <h3>7-Day Starter</h3>
+          <span class="kit-price">$39</span>
+          <p>14 sachets, 7 B12 RESET tablets</p>
+        </div>
+        <div class="kit">
+          <h3>Monthly box</h3>
+          <span class="kit-price">$99</span>
+          <p>60 sachets, 30 B12 RESET tablets</p>
+        </div>
+      </div>
+      <ol class="timeline">
+        <li><span class="mono">Days 1 to 7</span><h3>Build the habit. $39</h3><p>Your 7-Day Starter: 7 AM FUEL sachets, 7 PM RECOVER sachets and 7 B12 RESET tablets.</p></li>
+        <li><span class="mono">Every day</span><h3>Two drinks, one tablet.</h3><p>AM FUEL and B12 RESET in the morning. PM RECOVER in the evening. Under a minute each.</p></li>
+        <li><span class="mono">Every 30 days</span><h3>Keep it going. $99</h3><p>Your Monthly box: 30 AM FUEL sachets, 30 PM RECOVER sachets and 30 B12 RESET tablets. That’s $3.30 a day. It renews automatically until you cancel.</p></li>
+      </ol>
+      <div class="billing" id="billing">
+        <h3>How billing works</h3>
+        <ol>
+          <li>Today: $39 for your 7-Day Starter.</li>
+          <li>The timing of your first $99 Monthly box charge will be confirmed before ordering opens. You’ll see the exact date before you pay.</li>
+          <li>After that: $99 every 30 days, until you cancel.</li>
+          <li>Canceling before your renewal date prevents the next charge. The cancellation process and full terms will be confirmed before ordering opens.</li>
+          <li>Shipping, taxes and refund terms are shown before you pay.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- INGREDIENTS -->
+  <div class="sec-rule" aria-hidden="true"></div>
+  <section class="sec" id="ingredients" aria-labelledby="ing-title">
+    <div class="wrap">
+      <div class="head">
+        <h2 id="ing-title">Everything, clearly laid out.</h2>
+        <p class="lede">Every active ingredient and amount, per serving. No proprietary blends, nothing hidden.</p>
+      </div>
+
+      <div class="formulas">
+        <article class="formula am" aria-labelledby="f-am">
+          <div class="f-top"><h3 class="f-name" id="f-am">AM FUEL</h3><p class="f-meta">Morning, 11 active ingredients</p></div>
+          <table>
+            <caption class="sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">AM FUEL active ingredients, per sachet</caption>
+            <thead><tr><th scope="col">Ingredient</th><th scope="col">Per sachet</th></tr></thead>
+            <tbody>
+              <tr><td>Creatine monohydrate</td><td>3,000 mg</td></tr>
+              <tr><td>Sodium, elemental</td><td>200 mg</td></tr>
+              <tr><td>Potassium, elemental</td><td>150 mg</td></tr>
+              <tr><td>Vitamin D3</td><td>15 µg (600 IU)</td></tr>
+              <tr><td>Vitamin C</td><td>80 mg</td></tr>
+              <tr><td>Vitamin B1 (Thiamine)</td><td>1.2 mg</td></tr>
+              <tr><td>Vitamin B2 (Riboflavin)</td><td>1.3 mg</td></tr>
+              <tr><td>Vitamin B3 (Niacinamide)</td><td>16 mg NE</td></tr>
+              <tr><td>Vitamin B5 (Pantothenic acid)</td><td>5 mg</td></tr>
+              <tr><td>Vitamin B6</td><td>1.7 mg</td></tr>
+              <tr><td>Folate</td><td>400 µg DFE</td></tr>
+            </tbody>
+          </table>
+          <div class="f-foot">
+            <p>The first step of the day: creatine monohydrate, electrolytes, vitamin D3, vitamin C and a set of B vitamins, with a separate B12 tablet alongside.</p>
+            <p class="prep">One sachet stirred into approximately 400 to 500 mL water, following the label directions.</p>
+          </div>
+        </article>
+
+        <div class="formula-stack">
+          <article class="formula pm" aria-labelledby="f-pm">
+            <div class="f-top"><h3 class="f-name" id="f-pm">PM RECOVER</h3><p class="f-meta">Evening, 4 active ingredients</p></div>
+            <table>
+              <caption style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">PM RECOVER active ingredients, per sachet</caption>
+              <thead><tr><th scope="col">Ingredient</th><th scope="col">Per sachet</th></tr></thead>
+              <tbody>
+                <tr><td>Glycine</td><td>3,000 mg</td></tr>
+                <tr><td>L-theanine</td><td>200 mg</td></tr>
+                <tr><td>Magnesium, elemental</td><td>100 mg</td></tr>
+                <tr><td>Zinc, elemental</td><td>5 mg</td></tr>
+              </tbody>
+            </table>
+            <div class="f-foot">
+              <p>The closing step of the day: glycine, L-theanine, magnesium and zinc, organized around your evening routine.</p>
+              <p class="prep">One sachet stirred into approximately 250 to 400 mL water, following the label directions. The magnesium quantity shown is the elemental amount.</p>
+            </div>
+          </article>
+          <article class="formula b12" aria-labelledby="f-b12">
+            <div class="f-top"><h3 class="f-name" id="f-b12">B12 RESET</h3><p class="f-meta">Morning tablet, 1,000 µg</p></div>
+            <table>
+              <caption style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">B12 RESET active ingredients, per tablet</caption>
+              <thead><tr><th scope="col">Ingredient</th><th scope="col">Per tablet</th></tr></thead>
+              <tbody><tr><td>Vitamin B12</td><td>1,000 µg</td></tr></tbody>
+            </table>
+            <div class="f-foot">
+              <p>Sublingual tablet, kept apart from both drinks.</p>
+              <p class="prep">One tablet each morning, dissolved under the tongue.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+      <p class="formula-note">Formula awaiting manufacturing sign-off. Final label, ingredient forms and amounts will be confirmed before ordering opens.</p>
+
+      <div class="science">
+        <div class="head" style="margin-bottom:0">
+          <h3 class="sh">The science behind the ingredients</h3>
+          <p class="lede">Independent research on the key ingredients. These studies looked at the ingredients, not the finished Founder Reset product.</p>
+        </div>
+        <ul class="sci-list">
+          <li class="sci">
+            <h4>Creatine</h4>
+            <p class="does">Supports strength and power during high-intensity exercise, with consistent daily use.*</p>
+            <p class="research">The International Society of Sports Nutrition reviewed research on creatine in exercise and training. At 3 g a day without a loading phase, muscle creatine stores typically build up over around four weeks.</p>
+            <ul class="src" aria-label="Sources"><li>International Society of Sports Nutrition position stand (2017)</li></ul>
+          </li>
+          <li class="sci">
+            <h4>Vitamin B12</h4>
+            <p class="does">Needed for normal energy metabolism, red blood cell formation and nervous system function.*</p>
+            <p class="research">The NIH fact sheet covers B12 intake and absorption. Supplementing matters most when intake or absorption is low, which is more common with age and plant-based diets. Additional B12 has not been shown to improve energy or endurance when B12 status is adequate.</p>
+            <ul class="src" aria-label="Sources"><li>NIH Office of Dietary Supplements, Vitamin B12 fact sheet</li></ul>
+          </li>
+          <li class="sci">
+            <h4>Magnesium</h4>
+            <p class="does">Supports normal muscle and nerve function and is involved in more than 300 enzyme systems, including energy metabolism.*</p>
+            <p class="research">The NIH fact sheet notes that many US adults get less magnesium from food than recommended. It reviews nutritional roles and intake, rather than testing the finished Founder Reset product.</p>
+            <ul class="src" aria-label="Sources"><li>NIH Office of Dietary Supplements, Magnesium fact sheet</li></ul>
+          </li>
+          <li class="sci">
+            <h4>Glycine</h4>
+            <p class="does">An amino acid studied for its role in sleep quality.*</p>
+            <p class="research">Small studies in Japan gave volunteers 3 g of glycine before bed. Yamadera and colleagues (2007) measured self-reported sleep quality and sleep recordings in people with unsatisfactory sleep. Bannai and colleagues (2012) studied next-day fatigue and performance during partial sleep restriction. These studies were small and involved industry-affiliated researchers.</p>
+            <ul class="src" aria-label="Sources"><li>Bannai et al., Frontiers in Neurology (2012)</li><li>Yamadera et al., Sleep and Biological Rhythms (2007)</li></ul>
+          </li>
+          <li class="sci">
+            <h4>L-theanine</h4>
+            <p class="does">An amino acid found in tea, studied for relaxation.*</p>
+            <p class="research">Hidese and colleagues (2019) gave 30 healthy adults 200 mg a day of L-theanine or placebo for four weeks in a randomized crossover trial, measuring stress-related symptoms, sleep and cognitive function. The study was small and received industry support.</p>
+            <ul class="src" aria-label="Sources"><li>Hidese et al., Nutrients (2019)</li></ul>
+          </li>
+        </ul>
+        <p class="fda">* These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <div class="sec-rule" aria-hidden="true"></div>
+  <section class="sec" id="faq" aria-labelledby="faq-title">
+    <div class="wrap faq-grid">
+      <div class="head"><h2 id="faq-title">Good to know.</h2></div>
+      <div class="faq">
+        <details><summary>Who is Founder Reset for?<span class="pm-icon" aria-hidden="true"></span></summary><p class="a">Adults who want a simple daily supplement routine that fits a busy working day. We built it with founders in mind, but you don't need to run a company to use it.</p></details>
+        <details><summary>When will I notice a difference?<span class="pm-icon" aria-hidden="true"></span></summary><p class="a">Everyone's different, and we won't promise a change by a set day. With 3 g a day, creatine stores typically build up over around four weeks. The 7-Day Starter is there to build the habit and see if the routine suits you.</p></details>
+        <details><summary>What does it taste like?<span class="pm-icon" aria-hidden="true"></span></summary><p class="a">Flavors will be confirmed before ordering opens.</p></details>
+        <details><summary>Why not just buy these ingredients separately?<span class="pm-icon" aria-hidden="true"></span></summary><p class="a">You can. Founder Reset is for people who'd rather not manage a shelf of tubs, measure scoops and remember what goes when. Two sachets, already measured, with every dose on the label.</p></details>
+        <details><summary>Does it contain caffeine?<span class="pm-icon" aria-hidden="true"></span></summary><p class="a">No. Neither drink has added caffeine, so it won't stack on top of your coffee.</p></details>
+        <details><summary>Is this a subscription?<span class="pm-icon" aria-hidden="true"></span></summary><p class="a">Yes. Your $39 7-Day Starter rolls into a $99 Monthly box every 30 days until you cancel. See <a href="#billing">“How billing works”</a> above.</p></details>
+        <details><summary>How do I cancel?<span class="pm-icon" aria-hidden="true"></span></summary><p class="a">Canceling before your renewal date prevents the next charge. The exact cancellation process and full terms will be confirmed before ordering opens.</p></details>
+        <details><summary>Can I pause or skip a month?<span class="pm-icon" aria-hidden="true"></span></summary><p class="a">This has not been confirmed yet. It will be shown in full before ordering opens, and before any payment.</p></details>
+        <details><summary>When will it arrive, and what does shipping cost?<span class="pm-icon" aria-hidden="true"></span></summary><p class="a">Delivery times and shipping costs: this has not been confirmed yet. It will be shown in full before ordering opens, and before any payment.</p></details>
+        <details><summary>What's your refund policy?<span class="pm-icon" aria-hidden="true"></span></summary><p class="a">Refund terms: this has not been confirmed yet. It will be shown in full before ordering opens, and before any payment.</p></details>
+        <details><summary>Is it right for me if I take medicines or other supplements?<span class="pm-icon" aria-hidden="true"></span></summary><p class="a">Founder Reset is for adults. Compare the ingredient tables above with anything you already take, and talk to a pharmacist about any overlap. If you take medicines, have a health condition, or are pregnant or breastfeeding, check with a pharmacist or clinician first. Always follow the label.</p></details>
+        <details><summary>Where are the full ingredients and allergens?<span class="pm-icon" aria-hidden="true"></span></summary><p class="a">Every active ingredient is listed above. The full ingredient list, allergens and directions are printed on each label.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final" aria-labelledby="final-title">
+    <div class="wrap">
+      <div class="line" aria-hidden="true"></div>
+      <h2 id="final-title">Start strong. Recover well. Repeat.</h2>
+      <p>$39 for your 7-Day Starter, then $99 every 30 days until you cancel.</p>
+      <button class="btn btn-primary" type="button" data-order><span class="tick" aria-hidden="true"></span>Start My 7-Day Reset</button>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span>Founder Reset</a>
+        <p class="foot-tag">Start strong. Recover well. Repeat.</p>
+      </div>
+      <nav aria-label="Footer">
+        <ul>
+          <li><a href="#routine">The routine</a></li>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#ingredients">Ingredients</a></li>
+          <li><a href="#faq">Questions</a></li>
+        </ul>
+      </nav>
+      <ul>
+        <li><button type="button" data-order>Ordering</button></li>
+        <li class="plain">The Core collection</li>
+        <li class="plain">AM FUEL, B12 RESET, PM RECOVER</li>
+      </ul>
+    </div>
+    <p class="foot-bottom">Dietary supplements complement a varied, balanced diet and a healthy lifestyle.</p>
+  </div>
+</footer>
+
+<dialog id="orderDialog" aria-labelledby="dlg-title" aria-describedby="dlg-body">
+  <div class="dlg">
+    <span class="sig" aria-hidden="true"></span>
+    <h2 id="dlg-title">Ordering isn’t open yet</h2>
+    <p id="dlg-body">Final formula, flavors, shipping, refund and cancellation terms will be confirmed before ordering opens. You’ll see everything before any payment.</p>
+    <form method="dialog"><button class="btn btn-primary" type="submit" autofocus>Got it</button></form>
+  </div>
+</dialog>
+
+<script>
+(function(){
+  /* order dialog */
+  var dlg = document.getElementById('orderDialog');
+  var lastFocus = null;
+  document.querySelectorAll('[data-order]').forEach(function(b){
+    b.addEventListener('click', function(){
+      lastFocus = b;
+      if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open','');
+    });
+  });
+  dlg.addEventListener('click', function(e){ if (e.target === dlg) dlg.close(); });
+  dlg.addEventListener('close', function(){ if (lastFocus) lastFocus.focus(); });
+
+  /* hero: ordered-dither field + laser beam */
+  var hero = document.getElementById('hero');
+  var canvas = document.getElementById('field');
+  var anchor = document.getElementById('beamAnchor');
+  var nodes = Array.prototype.slice.call(document.querySelectorAll('[data-node]'));
+  var ctx = canvas.getContext('2d');
+  if (!ctx) return;
+  var mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var reduced = mq.matches;
+
+  var AM = [255,138,31], PM = [139,104,245], B12 = [255,111,156];
+  var NODE_COLORS = [AM, B12, PM];
+  function lerp(a,b,t){return a+(b-a)*t}
+  function mix(t){ return [lerp(AM[0],PM[0],t)|0, lerp(AM[1],PM[1],t)|0, lerp(AM[2],PM[2],t)|0]; }
+
+  // 8x8 Bayer matrix, normalised to 0..1
+  var BAYER = (function(){
+    var m = [[0]];
+    for (var n=1;n<8;n*=2){
+      var s = m.length, out = [];
+      for (var y=0;y<s*2;y++){ out.push(new Array(s*2)); }
+      for (var y2=0;y2<s;y2++) for (var x2=0;x2<s;x2++){
+        var v = m[y2][x2]*4;
+        out[y2][x2]=v; out[y2][x2+s]=v+2; out[y2+s][x2]=v+3; out[y2+s][x2+s]=v+1;
+      }
+      m = out;
+    }
+    var flat = new Float32Array(64);
+    for (var i=0;i<8;i++) for (var j=0;j<8;j++) flat[i*8+j]=(m[i][j]+.5)/64;
+    return flat;
+  })();
+
+  var W=0,H=0,dpr=1,cell=3,cols=0,rows=0,off,octx,img,colColors;
+  var beamY0=0, nodeX=[], nodeTop=[], narrow=false;
+
+  function measure(){
+    var r = hero.getBoundingClientRect();
+    W = Math.round(r.width); H = Math.round(r.height);
+    dpr = Math.min(window.devicePixelRatio||1, 2);
+    canvas.width = Math.round(W*dpr); canvas.height = Math.round(H*dpr);
+    narrow = W < 760;
+    cell = narrow ? 2 : 3;
+    cols = Math.ceil(W/cell); rows = Math.ceil(H/cell);
+    off = document.createElement('canvas'); off.width = cols; off.height = rows;
+    octx = off.getContext('2d'); img = octx.createImageData(cols, rows);
+    colColors = new Uint8Array(cols*3);
+    for (var x=0;x<cols;x++){ var c = mix(x/(cols-1||1)); colColors[x*3]=c[0];colColors[x*3+1]=c[1];colColors[x*3+2]=c[2]; }
+    var a = anchor.getBoundingClientRect();
+    beamY0 = a.top - r.top;
+    nodeX = nodes.map(function(n){ var b=n.getBoundingClientRect(); return b.left - r.left + b.width/2; });
+    nodeTop = nodes.map(function(n){ return n.getBoundingClientRect().top - r.top; });
+  }
+
+  var SLOPE = -0.022;
+  function beamAt(x, t){
+    var drift = reduced ? 0 : 5*Math.sin(t*0.28);
+    var tilt = reduced ? SLOPE : SLOPE + 0.006*Math.sin(t*0.17 + 1.3);
+    return beamY0 + tilt*(x - W/2) + drift;
+  }
+
+  function drawField(t, prog){
+    var data = img.data, sigma = narrow ? 46 : 74, s2 = 2*sigma*sigma;
+    var reveal = prog*W, shimmer = reduced ? 0 : 1;
+    var tilt = reduced ? SLOPE : SLOPE + 0.006*Math.sin(t*0.17 + 1.3);
+    var drift = reduced ? 0 : 5*Math.sin(t*0.28);
+    for (var j=0;j<rows;j++){
+      var y = j*cell + cell/2;
+      for (var i=0;i<cols;i++){
+        var x = i*cell + cell/2;
+        var by = beamY0 + tilt*(x - W/2) + drift;
+        var d = y - by;
+        var haze = Math.exp(-(d*d)/s2);
+        // fade the haze in behind the drawing head
+        var rv = (reveal - x)/140; rv = rv<0?0:(rv>1?1:rv);
+        var v = 0.52*haze*rv;
+        // a faint upper ambient pool, top right, so the dark has material
+        var ax = (x - W*0.86)/(W*0.5), ay = (y + H*0.05)/(H*0.55);
+        v += 0.12*Math.exp(-(ax*ax+ay*ay)*2.2);
+        if (shimmer) v += 0.035*Math.sin(x*0.011 + t*0.35)*Math.sin(y*0.017 - t*0.22);
+        var k = (j*cols+i)*4;
+        if (v > BAYER[(j&7)*8+(i&7)]){
+          data[k]=colColors[i*3]; data[k+1]=colColors[i*3+1]; data[k+2]=colColors[i*3+2];
+          data[k+3]= 40 + (haze*rv*60|0);
+        } else { data[k+3]=0; }
+      }
+    }
+    octx.putImageData(img,0,0);
+    ctx.imageSmoothingEnabled = false;
+    ctx.drawImage(off, 0, 0, cols*cell*dpr, rows*cell*dpr);
+  }
+
+  function drawBeam(t, prog){
+    var x1 = prog*W;
+    if (x1 <= 0) return;
+    var g = ctx.createLinearGradient(0,0,W,0);
+    g.addColorStop(0,'rgb(255,138,31)'); g.addColorStop(.4,'rgb(255,125,99)');
+    g.addColorStop(.62,'rgb(197,107,208)'); g.addColorStop(1,'rgb(139,104,245)');
+    var steps = 48;
+    function path(){
+      ctx.beginPath();
+      for (var s=0;s<=steps;s++){ var x = x1*s/steps; var y = beamAt(x,t); if(s===0)ctx.moveTo(x,y); else ctx.lineTo(x,y); }
+    }
+    ctx.save();
+    ctx.lineCap='round';
+    // halo
+    ctx.globalCompositeOperation='lighter';
+    path(); ctx.strokeStyle=g; ctx.globalAlpha=.16; ctx.lineWidth=10; ctx.shadowColor='rgba(255,140,90,.6)'; ctx.shadowBlur=18; ctx.stroke();
+    ctx.shadowBlur=0;
+    path(); ctx.globalAlpha=.55; ctx.lineWidth=3; ctx.stroke();
+    // white-hot core
+    path(); ctx.globalAlpha=.9; ctx.lineWidth=1; ctx.strokeStyle='rgba(255,247,240,.95)'; ctx.stroke();
+    ctx.restore();
+
+    // nodes + connectors to the product panels
+    for (var n=0;n<nodeX.length;n++){
+      var nx = nodeX[n]; if (nx > x1) continue;
+      var ny = beamAt(nx,t), c = NODE_COLORS[n];
+      if (!narrow){
+        var top = nodeTop[n];
+        var lg = ctx.createLinearGradient(0,ny,0,top);
+        lg.addColorStop(0,'rgba('+c+',.7)'); lg.addColorStop(1,'rgba('+c+',.08)');
+        ctx.fillStyle = lg; ctx.fillRect(nx-.5, ny+6, 1, Math.max(0, top-ny-6));
+      }
+      ctx.beginPath(); ctx.arc(nx,ny,5.5,0,Math.PI*2); ctx.fillStyle='#060608'; ctx.fill();
+      ctx.lineWidth=1.5; ctx.strokeStyle='rgb('+c+')'; ctx.stroke();
+      ctx.beginPath(); ctx.arc(nx,ny,2,0,Math.PI*2); ctx.fillStyle='rgb('+c+')'; ctx.fill();
+    }
+
+    // drawing head
+    if (prog < 1){
+      var hy = beamAt(x1,t);
+      var rg = ctx.createRadialGradient(x1,hy,0,x1,hy,22);
+      rg.addColorStop(0,'rgba(255,255,255,.95)'); rg.addColorStop(.25,'rgba(255,200,170,.5)'); rg.addColorStop(1,'rgba(255,160,120,0)');
+      ctx.fillStyle=rg; ctx.beginPath(); ctx.arc(x1,hy,22,0,Math.PI*2); ctx.fill();
+    }
+  }
+
+  function frame(t, prog){
+    ctx.setTransform(1,0,0,1,0,0);
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    drawField(t, prog);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    drawBeam(t, prog);
+  }
+
+  var start = null, raf = 0, visible = true, last = 0, DRAW_MS = 1800;
+  function ease(p){ return 1 - Math.pow(1-p, 3); }
+  function loop(now){
+    raf = 0;
+    if (!visible) return;
+    if (start === null) start = now;
+    var el = now - start;
+    var prog = ease(Math.min(1, el/DRAW_MS));
+    // full rate while drawing, ~30fps while drifting
+    if (prog >= 1 && now - last < 33){ raf = requestAnimationFrame(loop); return; }
+    last = now;
+    frame(el/1000, prog);
+    raf = requestAnimationFrame(loop);
+  }
+  function kick(){ if (!raf && !reduced && visible) raf = requestAnimationFrame(loop); }
+  function staticDraw(){ frame(0, 1); }
+
+  function init(){
+    measure();
+    if (reduced) staticDraw(); else kick();
+  }
+
+  var rt;
+  function onResize(){ clearTimeout(rt); rt = setTimeout(function(){ measure(); if (reduced) staticDraw(); else if (start !== null) frame((performance.now()-start)/1000, ease(Math.min(1,(performance.now()-start)/DRAW_MS))); }, 80); }
+  if ('ResizeObserver' in window) new ResizeObserver(onResize).observe(hero); else window.addEventListener('resize', onResize);
+
+  if ('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){ visible = es[0].isIntersecting; if (visible) kick(); }).observe(hero);
+  }
+  var onMq = function(e){ reduced = e.matches; if (reduced){ if (raf) cancelAnimationFrame(raf); raf=0; staticDraw(); } else kick(); };
+  if (mq.addEventListener) mq.addEventListener('change', onMq); else if (mq.addListener) mq.addListener(onMq);
+
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ measure(); if (reduced) staticDraw(); });
+  init();
+})();
+</script>
+</body>
+</html>
