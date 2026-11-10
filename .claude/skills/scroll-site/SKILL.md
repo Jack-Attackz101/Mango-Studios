@@ -18,7 +18,7 @@ Anthropic's `10k-websites` skill also builds and deploys scroll sites, and it ha
    - A persistent WebGL world when the page is one continuous 3D place: `scroll-world-storytelling`, `webgl-landing-steering`.
    Only one smooth-scroll engine per page.
 3. **Build chapter by chapter.** Lock each section before starting the next. The effect modules below each own one move: horizontal scenes, scrubbed image sequences, word reveals, masked reveals, progress timelines.
-4. **Copying a reference site's motion:** capture it with `/research` (`awwwards-motion-study`), then build it with `motion-authoring`.
+4. **Copying a reference site's motion:** capture it with `awwwards-motion-study`, then build it with `motion-authoring`.
 5. **Check it.**
    - Phone: pinned sections must not trap scroll; test at 390px.
    - Reduced motion: every scrubbed or pinned effect has a static fallback.
@@ -33,7 +33,7 @@ Anthropic's `10k-websites` skill also builds and deploys scroll sites, and it ha
 
 ## Modules
 
-13 merged skills live in `modules/`. Read a module's `MODULE.md` when its job comes up, and follow it. Paths inside a module are relative to that module's folder. When a module says to run or invoke another skill by its old name, open that module instead: it is in this skill's `modules/` folder or in another Mango skill's (`design`, `landing-page`, `prototype`, `scroll-site`, `animate`, `image`, `brand`, `review`, `demo`, `research`).
+14 merged skills live in `modules/`. Read a module's `MODULE.md` when its job comes up, and follow it. Paths inside a module are relative to that module's folder. When a module says to run or invoke another skill by its old name, open that module instead: it is in this skill's `modules/` folder or in another Mango skill's (`design`, `landing-page`, `prototype`, `scroll-site`, `animate`, `image`, `brand`, `review`, `demo`, `marketing`).
 
 ### Scroll engines and storytelling
 
@@ -57,5 +57,11 @@ Anthropic's `10k-websites` skill also builds and deploys scroll sites, and it ha
 | `scroll-scrubbed-word-reveal` | Reveal marked-up text word by word as scroll progress advances, while preserving semantic inline links, emphasis, responsive line wrapping, and reduced-motion readability. |
 | `masked-reveal` | Create masked staggered word reveals on scroll with GSAP ScrollTrigger. |
 | `webgl-landing-steering` | Use when creating or refining WebGL-heavy landing pages and you need to steer toward a specific visual outcome (premium, technical, playful, cinematic) while balancing… |
+
+### Study and copy reference motion
+
+| Module | Use it for |
+|---|---|
+| `awwwards-motion-study` | Use when building a site whose reference has animation — before writing any motion code, and again when verifying a build. |
 
 Original authors and licenses: see `SOURCES.md`.

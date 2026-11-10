@@ -11,3 +11,6 @@ This skill merges these skills. Each module keeps its original files, credits an
 | audit-reference-originality | MengTo/Skills |
 | performance-profiling | MengTo/Skills |
 | audit-verify-explain-grade-5 | MengTo/Skills |
+| break-ui | emilkowalski/skills |
+| workflow-threads-manager | MengTo/Skills |
+| accessibility-review | Anthropic design plugin 1.2.0 |

@@ -13,3 +13,4 @@ This skill merges these skills. Each module keeps its original files, credits an
 | component-docs | arla6ka/skills |
 | stitch-design-taste | Leonxlnx/taste-skill |
 | pick-ui-library | emilkowalski/skills |
+| design-system | Anthropic design plugin 1.2.0 |

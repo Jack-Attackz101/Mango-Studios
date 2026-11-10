@@ -39,3 +39,5 @@ This skill merges these skills. Each module keeps its original files, credits an
 | find-animation-opportunities | emilkowalski/skills |
 | animation-performance | emilkowalski/skills |
 | optimize-web-animations | MengTo/Skills |
+| video-to-superprompt | MengTo/Skills |
+| html-to-interaction-prompts | MengTo/Skills |

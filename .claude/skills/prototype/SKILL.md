@@ -12,7 +12,7 @@ Make one gallery page that holds several complete versions of the same site, eac
 - **A URL**: capture its content and structure.
 - **A local project**: read the pages and components.
 - **A brief or idea**: write real draft copy for it first.
-- **A daily inspiration capture**: use the `build-daily-inspiration-sites` engine (5 original builds from 5 references).
+- **Daily inspiration**: `daily-ui-inspiration-capture` collects the day's references, then `build-daily-inspiration-sites` turns them into 5 original builds.
 
 ## Process
 
@@ -72,7 +72,7 @@ Each theme's module is listed under its family below.
 
 ## Modules
 
-38 merged skills live in `modules/`. Read a module's `MODULE.md` when its job comes up, and follow it. Paths inside a module are relative to that module's folder. When a module says to run or invoke another skill by its old name, open that module instead: it is in this skill's `modules/` folder or in another Mango skill's (`design`, `landing-page`, `prototype`, `scroll-site`, `animate`, `image`, `brand`, `review`, `demo`, `research`).
+39 merged skills live in `modules/`. Read a module's `MODULE.md` when its job comes up, and follow it. Paths inside a module are relative to that module's folder. When a module says to run or invoke another skill by its old name, open that module instead: it is in this skill's `modules/` folder or in another Mango skill's (`design`, `landing-page`, `prototype`, `scroll-site`, `animate`, `image`, `brand`, `review`, `demo`, `marketing`).
 
 ### Prototype engines
 
@@ -80,6 +80,7 @@ Each theme's module is listed under its family below.
 |---|---|
 | `prototype` | Build multiple genuinely different versions of a UI piece you describe, rendered behind a visual picker so you can flip through them live and promote the one that feels… |
 | `build-daily-inspiration-sites` | Turn a completed daily UI inspiration capture into exactly five original landing-page builds, one per separate Codex task, using Sites. |
+| `daily-ui-inspiration-capture` | Create a recurring daily UI inspiration capture. |
 
 ### Dark glass and tech
 
