@@ -52,11 +52,11 @@ def formula(f, cls, ben=None, plus=None):
     if plus:
         top = f'<div class="fb-ben"><p class="plusp">{e(plus)}</p></div>'
     return (f'<article class="fx {cls}" data-r><header><h3>{e(f["name"])}</h3><p>{e(f["meta"])}</p></header>{top}'
-            f'<div class="tw"><table><caption class="sr">Active ingredients per serving, {e(f["name"])}</caption><thead><tr><th scope="col">Ingredient</th><th scope="col">{e(f["unit"])}</th></tr></thead><tbody>{rows(f["rows"])}</tbody></table></div>'
+            f'<details class="mc" open><summary>Full ingredient table ({len(f["rows"])})</summary><div class="tw"><table><caption class="sr">Active ingredients per serving, {e(f["name"])}</caption><thead><tr><th scope="col">Ingredient</th><th scope="col">{e(f["unit"])}</th></tr></thead><tbody>{rows(f["rows"])}</tbody></table></div></details>'
             f'<p class="fdesc">{e(f["desc"])}</p><p class="fprep"><strong>Preparation.</strong> {e(f["prep"])}</p></article>')
-fx = formula(ing['formulas'][0], 'am', bn['items'][0]) + formula(ing['formulas'][1], 'pm', bn['items'][1]) + formula(ing['formulas'][2], 'b12', plus=bn['plus'])
+fx = formula(ing['formulas'][0], 'am', bn['items'][0]) + formula(ing['formulas'][1], 'pm', bn['items'][1]) + formula(ing['formulas'][2], 'b12', plus=bn['plus']).replace('</article>', f'<div class="fx-after"><p class="fnote">{e(ing["formula_note"])} {e(bn["note"])}</p><button class="btn" type="button" data-order>{e(hero["cta_primary"])}</button></div></article>')
 
-sci = ''.join(f'<article class="sc" data-r><h4>{e(x["name"])}</h4><div><p><strong>What it does.</strong> {e(x["does"])}</p><p><strong>What the research shows.</strong> {e(x["research"])}</p></div><ul class="src">' + ''.join(f'<li>{e(s)}</li>' for s in x['sources']) + '</ul></article>' for x in ing['science']['items'])
+sci = ''.join(f'<article class="sc" data-r><h4>{e(x["name"])}</h4><div><p><strong>What it does.</strong> {e(x["does"])}</p><details class="mc" open><summary>Read the research</summary><p><strong>What the research shows.</strong> {e(x["research"])}</p><ul class="src">' + ''.join(f'<li>{e(s)}</li>' for s in x['sources']) + '</ul></details></div></article>' for x in ing['science']['items'])
 
 faqs = ''.join(f'<details{" open" if k in (0, 5) else ""}><summary><span>{e(x["q"])}</span><i aria-hidden="true"></i></summary><div class="ans"><p>{e(x["a"])}</p></div></details>' for k, x in enumerate(faq['items']))
 
@@ -157,18 +157,18 @@ p,li,td{{text-wrap:pretty}}
 .h1{{font-size:96px;line-height:1}}
 .h1 .ln{{display:block;overflow:hidden;padding-bottom:6px;margin-bottom:-6px}}
 .h1 .ln>span{{display:block;animation:up .9s var(--ease) both;animation-delay:calc(var(--i) * 80ms)}}
-.sub{{margin-top:var(--s8);max-width:640px;font-size:20px;line-height:28px;color:var(--ink2)}}
-.buy{{margin-top:var(--s8);display:flex;flex-wrap:wrap;align-items:center;gap:var(--s4) var(--s8)}}
+.sub{{margin-top:var(--s6);max-width:640px;font-size:20px;line-height:28px;color:var(--ink2)}}
+.buy{{margin-top:var(--s6);display:flex;flex-wrap:wrap;align-items:center;gap:var(--s4) var(--s8)}}
 .price{{margin-top:var(--s6);max-width:640px;font-size:16px;line-height:24px}}
 .price strong{{font-weight:700}}
 .price small{{display:block;color:var(--ink2);font-size:14px;line-height:20px;margin-top:var(--s1)}}
-.trust{{margin-top:var(--s8);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:2px solid var(--ink);max-width:720px}}
+.trust{{margin-top:var(--s6);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:2px solid var(--ink);max-width:720px}}
 .trust li{{padding:var(--s3) var(--s4) 0 0;font-size:14px;line-height:20px;font-weight:500}}
 .trust li+li{{padding-left:var(--s4);border-left:1px solid var(--hair)}}
-.stack{{grid-column:9/13;display:grid;grid-template-rows:auto auto auto;gap:var(--s2)}}
+.stack{{grid-column:9/13;padding-left:var(--s10);display:grid;grid-template-rows:auto auto auto;gap:var(--s2)}}
 .blk{{position:relative;display:flex;flex-direction:column;justify-content:space-between;padding:var(--s4);color:var(--ink);animation:slide .8s var(--ease) both;animation-delay:calc(240ms + var(--i) * 110ms)}}
 .blk .k{{font:500 12px/16px var(--mono)}}
-.blk b{{display:block;font-size:60px;line-height:1;font-weight:700;letter-spacing:-.045em}}
+.blk b{{display:block;font-size:48px;line-height:1;font-weight:700;letter-spacing:-.045em;white-space:nowrap}}
 .blk .d{{font:500 14px/20px var(--mono)}}
 .blk.am{{background:var(--am);min-height:300px}}
 .blk.pm{{background:var(--pm);min-height:260px}}
@@ -177,8 +177,8 @@ p,li,td{{text-wrap:pretty}}
 .pills{{display:flex;gap:var(--s2);margin:var(--s3) 0}}
 .pills i{{width:20px;height:20px;border-radius:50%;background:var(--b12);animation:pop .5s var(--ease) both;animation-delay:calc(800ms + var(--i) * 60ms)}}
 .blk .row{{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s4)}}
-@media (max-width:1180px){{.h1{{font-size:72px}}.blk b{{font-size:48px}}}}
-@media (max-width:960px){{.hero-copy,.stack{{grid-column:1/-1}}.stack{{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:var(--s12)}}.blk.b12{{grid-column:1/-1}}.blk.am,.blk.pm{{min-height:220px}}}}
+@media (max-width:1180px){{.h1{{font-size:72px}}}}
+@media (max-width:960px){{.hero-copy,.stack{{grid-column:1/-1;padding-left:0}}.stack{{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:var(--s12)}}.blk.b12{{grid-column:1/-1}}.blk.am,.blk.pm{{min-height:220px}}}}
 @media (max-width:720px){{.hero{{padding-top:var(--s8)}}.h1{{font-size:48px}}.sub{{font-size:18px;line-height:28px;margin-top:var(--s6)}}.buy{{margin-top:var(--s6)}}.trust{{grid-template-columns:1fr}}.trust li+li{{padding-left:0;border-left:0;border-top:1px solid var(--hair);margin-top:var(--s3)}}.blk b{{font-size:36px;line-height:40px}}.blk.am,.blk.pm{{min-height:180px}}.blk.b12 b{{font-size:24px;line-height:32px}}.stack{{grid-template-columns:1fr}}.blk .k,.blk .d{{font-size:12px;line-height:16px}}}}
 
 /* sections */
@@ -201,8 +201,9 @@ p,li,td{{text-wrap:pretty}}
 @media (max-width:720px){{.prob h2{{grid-column:1/-1}}.prob ul{{grid-template-columns:1fr;margin-top:var(--s10)}}.prob li{{font-size:20px;line-height:28px}}}}
 
 /* reveal */
-.rev .lead{{grid-column:1/-1;font-size:20px;line-height:28px;font-weight:500}}
-.rev p.big{{grid-column:1/12;margin-top:var(--s6);font-size:96px;line-height:1;font-weight:700;letter-spacing:-.045em;text-wrap:balance}}
+.rev .lead{{grid-column:1/-1;font-size:30px;line-height:36px;font-weight:500;letter-spacing:-.02em}}
+@media (max-width:720px){{.rev .lead{{font-size:24px;line-height:32px}}}}
+.rev p.big{{grid-column:1/12;margin-top:var(--s4);font-size:96px;line-height:1;font-weight:700;letter-spacing:-.045em;text-wrap:balance}}
 .rw{{color:var(--ink);opacity:.3;transition:opacity .6s var(--ease)}}
 .rw.on{{opacity:1}}
 @media (max-width:1180px){{.rev p.big{{font-size:72px}}}}
@@ -260,8 +261,8 @@ p,li,td{{text-wrap:pretty}}
 .steps p{{color:var(--ink2)}}
 .bill{{margin-top:var(--s16);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);border-top:8px solid var(--ink);padding-top:var(--s6)}}
 .bill h3{{grid-column:1/5;font-size:36px;line-height:40px;letter-spacing:-.03em}}
-.bill .bx{{grid-column:1/5;margin-top:var(--s6)}}
-.bill ul{{grid-column:6/13;grid-row:1/3}}
+.bill .bx{{grid-column:1/5;grid-row:2;align-self:start;margin-top:var(--s6)}}
+.bill ul{{grid-column:6/13;grid-row:1/4}}
 .bill li{{padding:var(--s3) 0;border-bottom:1px solid var(--hair);font-size:18px;line-height:28px}}
 .bill li:first-child{{padding-top:0}}
 @media (max-width:860px){{.kits,.steps{{grid-template-columns:1fr;row-gap:var(--s6)}}.kit{{min-height:260px}}.kit .pz{{font-size:96px}}.bill{{grid-template-columns:1fr}}.bill h3,.bill .bx,.bill ul{{grid-column:1/-1;grid-row:auto}}.bill ul{{margin-top:var(--s6)}}}}
@@ -285,17 +286,21 @@ td:last-child,th:last-child{{text-align:right;font-family:var(--mono);white-spac
 .fnote{{margin-top:var(--s8);font-size:14px;line-height:20px;color:var(--ink2);max-width:720px}}
 .sci{{margin-top:var(--s24)}}
 .sci-head h3{{grid-column:1/7;font-size:48px;line-height:1;letter-spacing:-.04em}}
-.sci-head p{{grid-column:8/13;align-self:end;color:var(--ink2);font-size:18px;line-height:28px}}
+.sci-head p{{grid-column:8/13;align-self:start;margin-top:var(--s2);color:var(--ink2);font-size:18px;line-height:28px}}
 .sc{{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);padding:var(--s6) 0;border-top:2px solid var(--ink)}}
 .sci-list{{margin-top:var(--s12)}}
 .sc h4{{grid-column:1/4;font-size:30px;line-height:36px;letter-spacing:-.03em}}
-.sc>div{{grid-column:4/10;display:grid;gap:var(--s3);font-size:16px;line-height:24px}}
+.sc>div{{grid-column:4/13;display:grid;gap:var(--s3);font-size:16px;line-height:24px}}
 .sc>div p{{color:var(--ink2)}}.sc strong{{color:var(--ink);font-weight:700}}
-.src{{grid-column:10/13;font:500 12px/16px var(--mono);display:grid;gap:var(--s2);align-content:start}}
+.src{{font:500 12px/16px var(--mono);display:grid;gap:var(--s2)}}
 .fda{{margin-top:var(--s8);padding-top:var(--s4);border-top:1px solid var(--hair);font-size:14px;line-height:20px;color:var(--ink2);max-width:880px}}
 @media (max-width:1100px){{.fxs{{grid-template-columns:1fr 1fr;row-gap:var(--s10)}}.fx.am{{grid-row:span 2}}}}
 @media (max-width:860px){{.ing-head h2,.ing-head .lede,.sci-head h3,.sci-head p{{grid-column:1/-1}}.sci-head p{{margin-top:var(--s4)}}.fxs{{grid-template-columns:1fr}}.fx.am{{grid-row:auto}}.sc{{grid-template-columns:1fr;row-gap:var(--s3)}}.sc h4,.sc>div,.src{{grid-column:1/-1}}.sci-head h3{{font-size:36px;line-height:40px}}}}
 
+.mc>summary{{display:none}}
+@media (max-width:600px){{.mc>summary{{display:flex;align-items:center;min-height:44px;cursor:pointer;list-style:none;font:500 14px/20px var(--mono);text-decoration:underline;text-underline-offset:4px}}.mc>summary::-webkit-details-marker{{display:none}}.mc[open]>summary{{margin-bottom:var(--s2)}}}}
+.sc details{{display:grid;gap:var(--s3)}}.sc .src{{margin-top:var(--s3)}}
+.fx-after{{margin-top:var(--s10);padding-top:var(--s6);border-top:2px solid var(--ink);display:grid;gap:var(--s6);justify-items:start}}.fx-after .fnote{{margin:0}}
 /* faq */
 .faq .grid{{align-items:start}}
 .faq h2{{grid-column:1/5;position:sticky;top:96px}}
@@ -318,6 +323,7 @@ details[open] summary i::after{{transform:rotate(0)}}
 .final .fb{{grid-column:1/-1;margin-top:var(--s10);display:flex;flex-wrap:wrap;align-items:center;gap:var(--s4) var(--s8)}}
 .final .fb p{{font-size:20px;line-height:28px;font-weight:500}}
 @media (max-width:1180px){{.final h2{{font-size:96px}}}}
+.final :focus-visible{{outline-color:var(--paper)}}
 @media (max-width:720px){{.final h2{{grid-column:1/-1;font-size:48px}}.final .fb p{{font-size:18px}}}}
 
 /* footer */
@@ -325,7 +331,8 @@ details[open] summary i::after{{transform:rotate(0)}}
 .foot .logo{{color:var(--paper)}}
 .foot .f1{{grid-column:1/6}}.foot .f2{{grid-column:7/10}}.foot .f3{{grid-column:10/13}}
 .foot p{{margin-top:var(--s4);font-size:14px;line-height:20px;color:#FFFFFFB3;max-width:360px}}
-.foot ul{{display:grid;gap:var(--s2);font-size:14px;line-height:20px}}
+.foot ul{{display:grid;font-size:14px;line-height:20px}}
+.foot ul li{{min-height:44px;display:flex;align-items:center}}
 .foot a{{text-decoration:none;color:#FFFFFFCC;transition:color .3s var(--ease)}}.foot a:hover{{color:var(--paper)}}
 .foot button.lk{{all:unset;cursor:pointer;color:#FFFFFFCC}}.foot button.lk:hover{{color:var(--paper)}}
 .foot .base{{grid-column:1/-1;margin-top:var(--s16);padding-top:var(--s4);border-top:1px solid var(--hair-d);font-size:12px;line-height:16px;color:#FFFFFF99}}
@@ -355,18 +362,23 @@ dialog .bar i{{background:var(--am)}}dialog .bar i+i{{background:var(--pm)}}
 .fx .facts{{margin-top:var(--s6)}}.fx .facts li{{font-size:16px;line-height:24px}}
 .plusp{{font-size:16px;line-height:24px}}
 .ing-head .lede strong{{color:var(--ink);font-weight:700}}
-.final{{position:relative;overflow:hidden}}
+.final{{position:relative;overflow:hidden;background:var(--ink);color:var(--paper);border-bottom:1px solid var(--hair-d)}}
 .final h2{{grid-column:1/9}}
 .final .fb{{grid-column:1/9}}
-.fin-art{{grid-column:9/13;grid-row:1/3;position:relative;min-height:420px}}
-.sach{{position:absolute;width:52%;height:78%;padding:var(--s10) var(--s4) var(--s4);display:flex;align-items:flex-end;font:700 30px/36px var(--sans);letter-spacing:-.03em}}
-.sach.pm{{background:var(--pm);right:0;top:0}}
-.sach.am{{background:var(--ink);color:var(--am);left:0;top:12%}}
-.sach.am::before,.sach.am::after,.sach.pm::before,.sach.pm::after{{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='6'%3E%3Cpath d='M0 0h12L6 6z' fill='%23FF8A1F'/%3E%3C/svg%3E")}}
-.strip{{position:absolute;left:8%;right:8%;bottom:0;background:var(--paper);display:flex;justify-content:space-between;padding:var(--s4)}}
+.final .fb p{{color:#FFFFFFCC}}
+.final .btn{{background:var(--am);border-color:var(--am);color:var(--ink)}}
+.final .btn:hover{{background:var(--paper);border-color:var(--paper)}}
+.fin-art{{grid-column:9/13;grid-row:1/3;align-self:end;display:grid;gap:var(--s2)}}
+.tix{{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2)}}
+.sach{{position:relative;min-height:340px;padding:var(--s10) var(--s4) var(--s4);display:flex;flex-direction:column;justify-content:flex-end;gap:var(--s1);color:var(--ink)}}
+.sach b{{font:700 30px/36px var(--sans);letter-spacing:-.03em}}
+.sach small{{font:500 12px/16px var(--mono)}}
+.sach.am{{background:var(--am)}}.sach.pm{{background:var(--pm)}}
+.sach::before,.sach::after{{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='6'%3E%3Cpath d='M0 0h12L6 6z' fill='%23000'/%3E%3C/svg%3E")}}
+.strip{{background:var(--paper);display:flex;justify-content:space-between;padding:var(--s4)}}
 .strip i{{width:20px;height:20px;border-radius:50%;background:var(--b12)}}
-@media (max-width:960px){{.final h2,.final .fb,.fin-art{{grid-column:1/-1}}.fin-art{{grid-row:auto;margin-top:var(--s12);min-height:360px}}}}
-@media (max-width:720px){{.fin-art{{min-height:300px}}.sach{{font-size:24px;line-height:32px}}.strip i{{width:14px;height:14px}}}}
+@media (max-width:960px){{.final h2,.final .fb,.fin-art{{grid-column:1/-1}}.fin-art{{grid-row:auto;margin-top:var(--s12)}}}}
+@media (max-width:720px){{.sach{{min-height:240px}}.sach b{{font-size:24px;line-height:32px}}.strip i{{width:14px;height:14px}}}}
 
 /* motion */
 @keyframes up{{from{{transform:translateY(105%)}}}}
@@ -446,9 +458,9 @@ dialog .bar i{{background:var(--am)}}dialog .bar i+i{{background:var(--pm)}}
    <article class="kit" data-r><div class="nm">{e(kit1['name'])}<span>{e(kit1['contents'])}</span></div><div class="pz">{e(kit1['price'])}</div><p class="ct">Days 1 to 7, then the Monthly box</p></article>
    <article class="kit dk" data-r style="--d:120ms"><div class="nm">{e(kit2['name'])}<span>{e(kit2['contents'])}</span></div><div class="pz">{e(kit2['price'])}</div><p class="ct">Every 30 days, until you cancel</p></article>
   </div>
-  <div class="after kit-cta" data-r><button class="btn" type="button" data-order>{e(hero['cta_primary'])}</button><p>{e(fin['body'])}</p></div>
+  <div class="after kit-cta" data-r><button class="btn" type="button" data-order>{e(hero['cta_primary'])}</button></div>
   <ol class="steps">{steps}</ol>
-  <div class="bill" data-r><h3>{e(how['billing']['heading'])}</h3><div class="bx"><button class="btn" type="button" data-order>{e(hero['cta_primary'])}</button></div><ul>{bill}</ul></div>
+  <div class="bill" data-r><h3>{e(how['billing']['heading'])}</h3><ul>{bill}</ul><div class="bx"><button class="btn" type="button" data-order>{e(hero['cta_primary'])}</button></div></div>
  </div>
 </section>
 
@@ -456,7 +468,7 @@ dialog .bar i{{background:var(--am)}}dialog .bar i+i{{background:var(--pm)}}
  <div class="wrap">
   <div class="grid ing-head"><h2 class="h2 disp" id="i-h" data-r>{e(bn['heading'])}</h2><p class="lede" data-r><strong>{e(ing['heading'])}</strong> {e(ing['body'])}</p></div>
   <div class="fxs">{fx}</div>
-  <div class="after"><p class="fnote">{e(ing['formula_note'])} {e(bn['note'])}</p><button class="btn" type="button" data-order>{e(hero['cta_primary'])}</button></div>
+
   <div class="sci">
    <div class="grid sci-head"><h3 data-r>{e(ing['science']['heading'])}</h3><p data-r>{e(ing['science']['body'])}</p></div>
    <div class="sci-list">{sci}</div>
@@ -476,7 +488,7 @@ dialog .bar i{{background:var(--am)}}dialog .bar i+i{{background:var(--pm)}}
  <div class="wrap"><div class="grid">
   <h2 class="disp" id="c-h" data-r>{e(fin['heading'])}</h2>
   <div class="fb" data-r><button class="btn" type="button" data-order>{e(fin['cta'])}</button><p>{e(fin['body'])}</p></div>
-  <div class="fin-art" aria-hidden="true"><div class="sach pm"><span>{e(pr[2]['name'])}</span></div><div class="sach am"><span>{e(pr[0]['name'])}</span></div><div class="strip">{dots}</div></div>
+  <div class="fin-art" aria-hidden="true"><div class="tix"><div class="sach am"><span class="seal"></span><b>{e(pr[0]['name'])}</b><small>{e(pr[0]['when'])}</small></div><div class="sach pm"><span class="seal"></span><b>{e(pr[2]['name'])}</b><small>{e(pr[2]['when'])}</small></div></div><div class="strip">{dots}</div></div>
  </div></div>
 </section>
 </main>
@@ -510,6 +522,7 @@ $('a',mp).forEach(function(a){{a.addEventListener('click',closeMenu)}});
 addEventListener('keydown',function(ev){{if(ev.key==='Escape')closeMenu()}});
 // reveals, once
 var io='IntersectionObserver' in window?new IntersectionObserver(function(es){{es.forEach(function(x){{if(x.isIntersecting){{x.target.classList.add('in');io.unobserve(x.target)}}}})}},{{rootMargin:'0px 0px -8% 0px',threshold:.08}}):null;
+if(matchMedia('(max-width:600px)').matches)$('details.mc').forEach(function(d){{d.open=false}});
 var pend=$('[data-r]').filter(function(el){{return el.getBoundingClientRect().top>innerHeight*.92}});
 pend.forEach(function(el){{el.classList.add('pre');io?io.observe(el):el.classList.add('in')}});
 // tagline: each word inks in as it crosses the trigger line
