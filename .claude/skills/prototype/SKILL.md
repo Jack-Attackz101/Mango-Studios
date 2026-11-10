@@ -28,7 +28,7 @@ Every version uses this same content, so the comparison is about design, not wor
 
 ### 2. Pick themes
 
-Default to 6 versions, each from a different family, unless the user names themes or a count. See the family table below. Mix light and dark. Add a brand-inspired recipe from `/design`'s `web-design-engineer` module (`.claude/skills/design/modules/web-design-engineer/references/style-recipes/`) when it fits the subject. The user can also ask for a theme not in the list; write a short token set for it and build it the same way.
+Default to 6 versions, each from a different family, unless the user names themes or a count. See the family table below. Mix light and dark. Add a brand-inspired recipe from `/landing-page`'s `web-design-engineer` module (`.claude/skills/landing-page/modules/web-design-engineer/references/style-recipes/`) when it fits the subject. The user can also ask for a theme not in the list; write a short token set for it and build it the same way.
 
 ### 3. Build the versions
 
@@ -72,7 +72,7 @@ Each theme's module is listed under its family below.
 
 ## Modules
 
-38 merged skills live in `modules/`. Read a module's `MODULE.md` when its job comes up, and follow it. Paths inside a module are relative to that module's folder. When a module says to run or invoke another skill by its old name, open that module instead: it is in this skill's `modules/` folder or in another Mango skill's (`design`, `prototype`, `scroll-site`, `animate`, `image`, `brand`, `review`, `demo`, `research`).
+38 merged skills live in `modules/`. Read a module's `MODULE.md` when its job comes up, and follow it. Paths inside a module are relative to that module's folder. When a module says to run or invoke another skill by its old name, open that module instead: it is in this skill's `modules/` folder or in another Mango skill's (`design`, `landing-page`, `prototype`, `scroll-site`, `animate`, `image`, `brand`, `review`, `demo`, `research`).
 
 ### Prototype engines
 

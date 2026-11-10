@@ -11,13 +11,9 @@ This skill merges these skills. Each module keeps its original files, credits an
 | high-end-visual-design | Leonxlnx/taste-skill |
 | gpt-taste | Leonxlnx/taste-skill |
 | emil-design-eng | emilkowalski/skills |
-| web-design-engineer | ConardLi/garden-skills |
-| build-awwwards-quality-sites | MengTo/Skills |
 | redesign-existing-projects | Leonxlnx/taste-skill |
 | unslop | heydamir/unslop (CC BY 4.0) |
 | design-first-ui-prompting | MengTo/Skills |
-| landing-page | MengTo/Skills |
-| pricing-page | MengTo/Skills |
 | mobile-native | emilkowalski/skills |
 | full-output-enforcement | Leonxlnx/taste-skill |
 | beautiful-shadows | MengTo/Skills |
@@ -36,3 +32,4 @@ This skill merges these skills. Each module keeps its original files, credits an
 | illustration-ink-sketch | MengTo/Skills |
 | illustration-line-interior | MengTo/Skills |
 | illustration-one-line | MengTo/Skills |
+| better-ui | Uploaded by you (BetterUI) |
