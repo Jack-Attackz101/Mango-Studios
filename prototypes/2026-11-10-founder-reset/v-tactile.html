@@ -1,0 +1,1141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Founder Reset, Tactile</title>
+<meta name="description" content="Founder Reset: two drinks a day, built for people who run companies. Start strong. Recover well. Repeat.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --page:#e3e3df;
+  --page-ink:#2a2b2e;
+  --shell:#0c0d0f;
+  --s0:#0a0b0d;
+  --s1:#141518;
+  --s2:#1b1c20;
+  --s3:#23252a;
+  --line:rgba(255,255,255,.07);
+  --line2:rgba(255,255,255,.12);
+  --hi:rgba(255,255,255,.10);
+  --text:#f4f4f1;
+  --muted:#a3a5ab;
+  --dim:#73767e;
+  --am:#FF8A1F;
+  --pm:#8B68F5;
+  --b12:#FF6F9C;
+  --signal:var(--am);
+  --r-xl:34px;
+  --r-l:22px;
+  --r-m:16px;
+  --r-s:11px;
+  --display:"Schibsted Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --plate:linear-gradient(180deg,#1e1f23 0%,#151619 100%);
+  --plate-shadow:inset 0 1px 0 rgba(255,255,255,.08),inset 0 -1px 0 rgba(0,0,0,.55),0 1px 0 rgba(0,0,0,.6),0 24px 40px -24px rgba(0,0,0,.9);
+  --well:#08090a;
+  --well-shadow:inset 0 2px 7px rgba(0,0,0,.85),inset 0 0 0 1px rgba(0,0,0,.7),0 1px 0 rgba(255,255,255,.06);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:24px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--page);color:var(--text);font-family:var(--display);font-size:16px;line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img,svg,canvas{display:block;max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit}
+h1,h2,h3,h4{margin:0;font-weight:700;letter-spacing:-.025em;line-height:1.05}
+p{margin:0}
+ul,ol{margin:0;padding:0;list-style:none}
+.mono{font-family:var(--mono);letter-spacing:0}
+:focus-visible{outline:2px solid #fff;outline-offset:3px;border-radius:8px}
+.skip{position:absolute;left:-999px;top:12px;z-index:50;background:#fff;color:#000;padding:10px 14px;border-radius:10px;font-weight:600}
+.skip:focus{left:24px}
+
+/* ---------- shell ---------- */
+.shell{
+  margin:14px;border-radius:var(--r-xl);position:relative;
+  background:
+    radial-gradient(120% 60% at 50% 0%,#1a1b1f 0%,rgba(26,27,31,0) 60%),
+    linear-gradient(180deg,#101114 0%,var(--shell) 40%,#0a0a0c 100%);
+  box-shadow:0 0 0 1px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.09),0 40px 80px -30px rgba(0,0,0,.55),0 10px 24px -10px rgba(0,0,0,.35);
+  overflow:clip;
+}
+.shell::before{ /* faint dot texture */
+  content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+  background-image:radial-gradient(rgba(255,255,255,.045) 1px,transparent 1.2px);
+  background-size:22px 22px;
+  -webkit-mask:linear-gradient(180deg,#000 0,rgba(0,0,0,.35) 900px,rgba(0,0,0,.15) 100%);
+          mask:linear-gradient(180deg,#000 0,rgba(0,0,0,.35) 900px,rgba(0,0,0,.15) 100%);
+}
+.wrap{max-width:1240px;margin:0 auto;padding:0 40px;position:relative}
+.rail{position:relative}
+.rail::before{content:"";position:absolute;left:40px;right:40px;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--line2) 18%,var(--line2) 82%,transparent)}
+.corner{position:absolute;width:9px;height:9px;border-color:rgba(255,255,255,.22);border-style:solid;border-width:0;pointer-events:none}
+.corner.tl{left:-1px;top:-1px;border-left-width:1px;border-top-width:1px}
+.corner.tr{right:-1px;top:-1px;border-right-width:1px;border-top-width:1px}
+.corner.bl{left:-1px;bottom:-1px;border-left-width:1px;border-bottom-width:1px}
+.corner.br{right:-1px;bottom:-1px;border-right-width:1px;border-bottom-width:1px}
+
+/* ---------- surfaces ---------- */
+.plate{background:var(--plate);border-radius:var(--r-l);box-shadow:var(--plate-shadow);border:1px solid rgba(255,255,255,.035)}
+.edge{
+  border:1px solid transparent;border-radius:var(--r-l);
+  background:linear-gradient(180deg,#1b1c20,#121316) padding-box,linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.03) 45%,rgba(255,255,255,.06)) border-box;
+  box-shadow:0 1px 0 rgba(0,0,0,.6),0 30px 50px -30px rgba(0,0,0,.95),inset 0 1px 0 rgba(255,255,255,.06);
+}
+.well{background:var(--well);border-radius:var(--r-m);box-shadow:var(--well-shadow)}
+.led{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--c,var(--signal));box-shadow:0 0 0 2px rgba(0,0,0,.6),0 0 8px 0 color-mix(in srgb,var(--c,var(--signal)) 70%,transparent),inset 0 -1px 1px rgba(0,0,0,.35),inset 0 1px 1px rgba(255,255,255,.55);flex:none}
+.led.off{background:#2a2c31;box-shadow:0 0 0 2px rgba(0,0,0,.6),inset 0 1px 1px rgba(255,255,255,.12),inset 0 -1px 1px rgba(0,0,0,.5)}
+
+/* ---------- buttons ---------- */
+.key{
+  --kpad:14px 22px;
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:var(--kpad);min-height:48px;border-radius:14px;border:0;cursor:pointer;text-decoration:none;
+  font-weight:650;font-size:15.5px;letter-spacing:-.005em;white-space:nowrap;
+  transition:transform .12s ease,box-shadow .12s ease,filter .15s ease;
+  -webkit-tap-highlight-color:transparent;
+}
+.key-light{
+  color:#121316;background:linear-gradient(180deg,#ffffff 0%,#e6e6e1 55%,#d3d3cd 100%);
+  box-shadow:inset 0 1px 0 #fff,inset 0 -2px 0 rgba(0,0,0,.16),0 0 0 1px rgba(0,0,0,.85),0 2px 0 rgba(0,0,0,.65),0 14px 24px -10px rgba(0,0,0,.85);
+}
+.key-dark{
+  color:var(--text);background:linear-gradient(180deg,#2a2c31 0%,#1c1d21 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),inset 0 -2px 0 rgba(0,0,0,.4),0 0 0 1px rgba(0,0,0,.9),0 2px 0 rgba(0,0,0,.65),0 14px 24px -12px rgba(0,0,0,.9);
+}
+.key:hover{filter:brightness(1.06)}
+.key:active{transform:translateY(2px)}
+.key-light:active{box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 2px 5px rgba(0,0,0,.18),0 0 0 1px rgba(0,0,0,.85),0 0 0 rgba(0,0,0,.65),0 6px 12px -8px rgba(0,0,0,.85)}
+.key-dark:active{box-shadow:inset 0 2px 6px rgba(0,0,0,.6),0 0 0 1px rgba(0,0,0,.9),0 0 0 rgba(0,0,0,.65),0 6px 12px -8px rgba(0,0,0,.9)}
+.key .led{width:7px;height:7px}
+.key-sm{--kpad:9px 16px;min-height:40px;font-size:14px;border-radius:12px}
+
+/* ---------- nav ---------- */
+.top{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:26px 0 0}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-weight:700;letter-spacing:-.01em;font-size:16px}
+.brand-mark{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--plate);box-shadow:var(--plate-shadow);border:1px solid rgba(255,255,255,.05)}
+.brand-mark span{display:block;width:16px;height:16px;border-radius:50%;background:conic-gradient(from 180deg,var(--am) 0 50%,var(--pm) 50% 100%);box-shadow:inset 0 1px 1px rgba(255,255,255,.4),0 0 0 2px rgba(0,0,0,.5)}
+.navpill{display:flex;gap:2px;padding:5px;border-radius:999px;background:var(--well);box-shadow:var(--well-shadow);overflow-x:auto;scrollbar-width:none;max-width:100%}
+.navpill::-webkit-scrollbar{display:none}
+.navpill a{padding:9px 16px;border-radius:999px;text-decoration:none;color:var(--muted);font-size:14px;font-weight:500;white-space:nowrap;transition:color .15s,background .15s}
+.navpill a:hover{color:var(--text);background:linear-gradient(180deg,#22242a,#191a1e);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 1px 2px rgba(0,0,0,.6)}
+
+/* ---------- hero ---------- */
+.hero{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);gap:48px;padding:72px 0 80px;align-items:start}
+.hero h1{font-size:clamp(40px,5.3vw,74px);font-weight:750;letter-spacing:-.045em;line-height:.98}
+.hero h1 em{font-style:normal;color:var(--muted);font-weight:500}
+.tagline{display:flex;align-items:center;gap:10px;margin-top:26px;font-size:19px;font-weight:600;letter-spacing:-.01em}
+.tagline .led:nth-child(2){--c:var(--pm)}
+.subhead{margin-top:16px;color:var(--muted);font-size:17.5px;max-width:540px;line-height:1.6}
+.pricebox{margin-top:30px;padding:18px 20px;max-width:560px;display:grid;gap:8px}
+.pricebox .p{font-size:15.5px;line-height:1.5}
+.pricebox .p strong{font-weight:700}
+.pricebox .n{font-size:13.5px;color:var(--muted)}
+.ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:26px}
+.trust{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.chip{display:inline-flex;align-items:center;gap:9px;padding:8px 13px 8px 11px;border-radius:999px;font-size:13.5px;color:#d6d7da;background:linear-gradient(180deg,#191a1e,#121316);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 0 0 1px rgba(0,0,0,.8)}
+.chip .led{width:6px;height:6px}
+
+/* stage */
+.stage-col{position:relative}
+.stage{position:relative;aspect-ratio:1/1.02;border-radius:28px;background:radial-gradient(90% 70% at 50% 35%,#16171b 0%,#0a0b0d 70%);box-shadow:inset 0 2px 10px rgba(0,0,0,.9),inset 0 0 0 1px rgba(0,0,0,.8),0 1px 0 rgba(255,255,255,.07);overflow:hidden;touch-action:pan-y;cursor:grab}
+.stage:active{cursor:grabbing}
+.stage::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:
+  linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px) 0 0/25% 100%,
+  linear-gradient(180deg,rgba(255,255,255,.035) 1px,transparent 1px) 0 0/100% 25%;
+  -webkit-mask:radial-gradient(80% 70% at 50% 50%,transparent 30%,#000 100%);mask:radial-gradient(80% 70% at 50% 50%,transparent 30%,#000 100%)}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .6s ease}
+.stage.gl-on canvas{opacity:1}
+.stage.gl-on .fallback{display:none}
+.stage-tag{position:absolute;left:18px;top:16px;z-index:2;display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11.5px;color:var(--dim);pointer-events:none}
+.stage-hint{position:absolute;right:18px;top:16px;z-index:2;font-family:var(--mono);font-size:11.5px;color:var(--dim);pointer-events:none}
+.stage.no-gl .stage-hint{display:none}
+
+/* CSS fallback */
+.fallback{position:absolute;inset:0;display:grid;place-items:center}
+.fb-comp{position:relative;width:78%;height:78%}
+.cpouch{position:absolute;width:44%;aspect-ratio:1/1.45;border-radius:14px 14px 14px 14px;color:#1b1006;padding:12% 9% 10%;display:flex;flex-direction:column;
+  background:
+    repeating-linear-gradient(90deg,rgba(255,255,255,.16) 0 2px,rgba(0,0,0,.08) 2px 4px) top/100% 8.5% no-repeat,
+    repeating-linear-gradient(90deg,rgba(255,255,255,.16) 0 2px,rgba(0,0,0,.08) 2px 4px) bottom/100% 8.5% no-repeat,
+    radial-gradient(120% 80% at 30% 20%,rgba(255,255,255,.45),rgba(255,255,255,0) 45%),
+    linear-gradient(160deg,var(--pc) 0%,color-mix(in srgb,var(--pc) 70%,#000) 100%);
+  -webkit-mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/10px 51% repeat-x,conic-gradient(from 135deg at top,#0000,#000 1deg 89deg,#0000 90deg) top/10px 51% repeat-x;
+          mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/10px 51% repeat-x,conic-gradient(from 135deg at top,#0000,#000 1deg 89deg,#0000 90deg) top/10px 51% repeat-x;
+  filter:drop-shadow(0 30px 24px rgba(0,0,0,.6))}
+.cpouch.am{--pc:var(--am);left:6%;top:6%;transform:rotate(-7deg)}
+.cpouch.pm{--pc:var(--pm);right:6%;top:0;transform:rotate(6deg);color:#fff}
+.cpouch b{font-family:var(--mono);font-size:clamp(7px,1vw,11px);font-weight:600;letter-spacing:.12em}
+.cpouch strong{font-size:clamp(26px,4.4vw,58px);line-height:.88;letter-spacing:-.05em;margin-top:14%;font-weight:850}
+.cpouch strong small{display:block;font-size:.5em;letter-spacing:-.03em}
+.cpouch i{font-style:normal;font-family:var(--mono);font-size:clamp(7px,1vw,11px);margin-top:auto;letter-spacing:.1em}
+.cpouch u{text-decoration:none;font-weight:700;font-size:clamp(9px,1.25vw,15px);margin-top:4px}
+.cblister{position:absolute;left:22%;bottom:4%;width:56%;height:14%;border-radius:10px;background:linear-gradient(180deg,#e7e7ea,#9c9ca3);box-shadow:0 20px 20px -10px rgba(0,0,0,.7),inset 0 1px 0 #fff;display:flex;align-items:center;justify-content:space-evenly;padding:0 4%;transform:perspective(500px) rotateX(38deg)}
+.cblister span{width:9%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffc2d6,var(--b12) 55%,#c94272);box-shadow:0 0 0 3px rgba(255,255,255,.55),0 2px 3px rgba(0,0,0,.35)}
+.fb-shadow{position:absolute;left:10%;right:10%;bottom:-2%;height:12%;background:radial-gradient(50% 50% at 50% 50%,rgba(0,0,0,.65),transparent 70%)}
+
+/* stage console */
+.console{margin-top:16px;padding:14px;display:grid;gap:14px}
+.console-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.console-head p{font-size:13px;color:var(--muted)}
+.seg{position:relative;display:inline-grid;grid-template-columns:1fr 1fr;padding:5px;border-radius:14px;background:var(--well);box-shadow:var(--well-shadow);min-width:240px}
+.seg-thumb{position:absolute;top:5px;bottom:5px;left:5px;width:calc(50% - 5px);border-radius:10px;background:linear-gradient(180deg,#2c2e34,#1d1e22);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 -1px 0 rgba(0,0,0,.5),0 0 0 1px rgba(0,0,0,.85),0 4px 10px -2px rgba(0,0,0,.8);transition:transform .32s cubic-bezier(.3,1.35,.5,1)}
+.seg[data-v="pm"] .seg-thumb{transform:translateX(100%)}
+.seg button{position:relative;z-index:1;border:0;background:none;padding:10px 16px;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;font-weight:600;font-size:14.5px;color:var(--dim);transition:color .2s}
+.seg button[aria-checked="true"]{color:var(--text)}
+.seg button .led{width:7px;height:7px}
+.seg button[aria-checked="false"] .led{background:#2a2c31;box-shadow:0 0 0 2px rgba(0,0,0,.6),inset 0 1px 1px rgba(255,255,255,.12)}
+.seg button[data-v="am"] .led{--c:var(--am)}
+.seg button[data-v="pm"] .led{--c:var(--pm)}
+@media (prefers-reduced-motion:reduce){.seg-thumb{transition:none}}
+.prodlist{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.prod{padding:13px 14px;border-radius:13px;background:var(--well);box-shadow:var(--well-shadow);transition:opacity .3s,filter .3s;display:grid;gap:4px;align-content:start}
+.prod[data-dim="1"]{opacity:.42;filter:saturate(.3)}
+.prod .ph{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px;letter-spacing:.01em}
+.prod .pw{font-family:var(--mono);font-size:11px;color:var(--dim)}
+.prod .pk{font-size:13.5px;font-weight:600;color:#e6e6e3}
+.prod .pd{font-size:12.5px;color:var(--muted);line-height:1.45}
+
+/* ---------- sections ---------- */
+section{position:relative}
+.sec{padding:100px 0}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.8fr);gap:48px;align-items:end;margin-bottom:48px}
+.sec-head h2{font-size:clamp(32px,3.9vw,54px);letter-spacing:-.04em;line-height:1.02;max-width:15ch}
+.sec-head p{color:var(--muted);font-size:17px;max-width:46ch}
+.idx{font-family:var(--mono);font-size:12px;color:var(--dim);display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.idx::after{content:"";height:1px;flex:1;background:var(--line)}
+
+/* problem */
+.problem{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:start}
+.problem h2{font-size:clamp(32px,3.9vw,54px);letter-spacing:-.04em;line-height:1.02}
+.problem .body{margin-top:26px;color:var(--muted);font-size:17px;max-width:46ch}
+.problem .body strong{color:var(--text);font-weight:600}
+.signals{padding:10px;display:grid;gap:6px}
+.signal{display:flex;align-items:center;gap:16px;padding:18px 18px;border-radius:13px;background:var(--well);box-shadow:var(--well-shadow);font-size:16.5px;color:#dcdcd9}
+.signal .n{font-family:var(--mono);font-size:12px;color:var(--dim);width:22px;flex:none}
+.signal .led{margin-left:auto;--c:#ff5a4a}
+
+/* routine */
+.routine-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.step{position:relative;padding:28px;display:grid;gap:14px;align-content:start;min-height:260px;overflow:hidden}
+.step .bar{position:absolute;left:28px;right:28px;top:0;height:3px;border-radius:0 0 3px 3px;background:var(--c);box-shadow:0 0 14px color-mix(in srgb,var(--c) 55%,transparent)}
+.step .lbl{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+.step h3{font-size:clamp(24px,2.4vw,32px);letter-spacing:-.03em}
+.step p{color:var(--muted);font-size:16px;max-width:44ch}
+.step .clock{position:absolute;right:24px;top:24px;width:64px;height:64px;border-radius:50%;background:var(--well);box-shadow:var(--well-shadow)}
+.step .clock::before{content:"";position:absolute;inset:9px;border-radius:50%;background:conic-gradient(from var(--from),var(--c) 0 var(--sweep),transparent var(--sweep));-webkit-mask:radial-gradient(circle,transparent 58%,#000 60%);mask:radial-gradient(circle,transparent 58%,#000 60%);opacity:.9}
+.note{display:flex;align-items:flex-start;gap:12px;margin-top:18px;padding:16px 18px;border-radius:14px;background:var(--well);box-shadow:var(--well-shadow);color:var(--muted);font-size:14.5px}
+.note .led{margin-top:7px;--c:#d9d9d4;width:6px;height:6px}
+
+/* benefits */
+.benefit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.benefit{padding:30px;display:flex;flex-direction:column;gap:18px}
+.benefit h3{font-size:clamp(24px,2.4vw,32px);letter-spacing:-.03em;display:flex;align-items:center;gap:12px}
+.benefit h3 .led{width:10px;height:10px}
+.benefit p{color:var(--muted);font-size:16px}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:8px}
+.fact{padding:9px 13px;border-radius:10px;background:var(--well);box-shadow:var(--well-shadow);font-family:var(--mono);font-size:12.5px;color:#e4e4e1;display:inline-flex;align-items:center;gap:8px}
+.fact::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--c)}
+.plus{margin-top:18px;padding:22px 26px;display:flex;align-items:center;gap:20px}
+.tabs-ic{display:flex;gap:6px;flex:none}
+.tabs-ic span{width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffc6d8,var(--b12) 55%,#c3416f);box-shadow:0 0 0 3px #0b0c0e,0 0 0 4px rgba(255,255,255,.12),0 3px 5px rgba(0,0,0,.6)}
+.plus p{font-size:16px;color:#d9dadc}
+.plus p strong{color:var(--text)}
+
+/* how */
+.kits{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.kit{padding:26px 28px;display:grid;grid-template-columns:1fr auto;gap:10px 20px;align-items:end;position:relative}
+.kit h3{font-size:24px;letter-spacing:-.025em}
+.kit .c{color:var(--muted);font-size:15px;grid-column:1}
+.kit .price{grid-row:1/3;grid-column:2;font-family:var(--mono);font-weight:500;font-size:clamp(36px,4vw,52px);letter-spacing:-.04em;padding:10px 18px;border-radius:14px;background:var(--well);box-shadow:var(--well-shadow);line-height:1}
+.timeline{margin-top:18px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;padding:8px}
+.tl{padding:24px 22px;position:relative;display:grid;gap:10px;align-content:start}
+.tl + .tl{border-left:1px solid var(--line)}
+.tl .lbl{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+.tl .lbl b{display:grid;place-items:center;width:26px;height:26px;border-radius:8px;background:var(--well);box-shadow:var(--well-shadow);font-weight:500;color:var(--text)}
+.tl h3{font-size:21px;letter-spacing:-.02em}
+.tl p{color:var(--muted);font-size:15px}
+.billing{margin-top:18px;display:grid;grid-template-columns:minmax(0,.6fr) minmax(0,1.4fr);gap:28px;padding:28px}
+.billing h3{font-size:24px;letter-spacing:-.025em}
+.billing ol{display:grid;gap:6px;counter-reset:b}
+.billing li{counter-increment:b;display:grid;grid-template-columns:34px 1fr;gap:12px;padding:14px 16px;border-radius:12px;background:var(--well);box-shadow:var(--well-shadow);font-size:15px;color:#d8d9db}
+.billing li::before{content:counter(b,decimal-leading-zero);font-family:var(--mono);font-size:12px;color:var(--dim);padding-top:2px}
+
+/* ingredients */
+.formulas{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:18px;align-items:start}
+.formula{padding:22px;display:grid;gap:16px}
+.formula-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.formula-head h3{font-size:24px;letter-spacing:-.02em;display:flex;align-items:center;gap:10px}
+.formula-head .meta{font-size:13.5px;color:var(--muted);margin-top:6px}
+.formula-head .unit{font-family:var(--mono);font-size:11.5px;color:var(--dim);padding:6px 9px;border-radius:8px;background:var(--well);box-shadow:var(--well-shadow);white-space:nowrap}
+.spec{border-collapse:separate;border-spacing:0;width:100%;font-size:14.5px;background:var(--well);box-shadow:var(--well-shadow);border-radius:13px;overflow:hidden}
+.spec caption{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.spec th,.spec td{padding:11px 14px;text-align:left;font-weight:400;border-top:1px solid rgba(255,255,255,.045);vertical-align:top}
+.spec tr:first-child th,.spec tr:first-child td{border-top:0}
+.spec td{text-align:right;font-family:var(--mono);font-size:13px;color:var(--text);white-space:nowrap}
+.spec th{color:#d2d3d6}
+.spec tr:first-child td{color:var(--c)}
+.formula .desc{font-size:14.5px;color:var(--muted)}
+.formula .prep{display:flex;gap:10px;font-size:13.5px;color:#c9cacd;padding-top:14px;border-top:1px solid var(--line)}
+.formula .prep::before{content:"";flex:none;width:6px;height:6px;margin-top:7px;border-radius:50%;background:var(--c)}
+.signoff{margin-top:18px}
+.science{margin-top:96px}
+.science-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.8fr);gap:48px;align-items:end;margin-bottom:32px}
+.science-head h3{font-size:clamp(26px,2.8vw,38px);letter-spacing:-.035em}
+.science-head p{color:var(--muted);font-size:16px}
+.sci-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:18px}
+.sci{grid-column:span 2;padding:24px;display:flex;flex-direction:column;gap:12px}
+.sci:nth-child(4),.sci:nth-child(5){grid-column:span 3}
+.sci h4{font-size:21px;letter-spacing:-.02em;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.sci .does{font-size:15px;color:#e3e3e0;font-weight:500}
+.sci .res{font-size:14.5px;color:var(--muted)}
+.sci .src{margin-top:auto;padding-top:12px;display:grid;gap:6px}
+.sci .src li{font-family:var(--mono);font-size:11.5px;color:#babcc1;padding:8px 10px;border-radius:9px;background:var(--well);box-shadow:var(--well-shadow);line-height:1.45}
+.fda{margin-top:24px;padding:18px 20px;border-radius:14px;border:1px dashed rgba(255,255,255,.16);color:var(--muted);font-size:13.5px;line-height:1.6}
+
+/* faq */
+.faq{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:48px;align-items:start}
+.faq h2{font-size:clamp(32px,3.9vw,54px);letter-spacing:-.04em;position:sticky;top:40px}
+.faq-list{display:grid;gap:8px}
+.qa{border-radius:16px;background:var(--plate);box-shadow:var(--plate-shadow);border:1px solid rgba(255,255,255,.035)}
+.qa summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px 18px 18px 22px;font-weight:600;font-size:16.5px;letter-spacing:-.01em;border-radius:16px}
+.qa summary::-webkit-details-marker{display:none}
+.qa .pk{flex:none;position:relative;width:34px;height:34px;border-radius:10px;background:linear-gradient(180deg,#2a2c31,#1c1d21);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),inset 0 -1px 0 rgba(0,0,0,.4),0 0 0 1px rgba(0,0,0,.9),0 2px 0 rgba(0,0,0,.6);transition:transform .15s,box-shadow .15s}
+.qa .pk::before,.qa .pk::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:2px;margin:-1px 0 0 -6px;background:#d8d8d5;border-radius:2px;transition:transform .25s}
+.qa .pk::after{transform:rotate(90deg)}
+.qa[open] .pk{transform:translateY(1px);box-shadow:inset 0 2px 5px rgba(0,0,0,.6),0 0 0 1px rgba(0,0,0,.9)}
+.qa[open] .pk::after{transform:rotate(0)}
+.qa .a{padding:0 22px 20px;color:var(--muted);font-size:15.5px;max-width:64ch}
+
+/* final */
+.final{padding:28px 0 100px}
+.final-card{padding:64px 48px;text-align:center;display:grid;justify-items:center;gap:20px;position:relative;overflow:hidden}
+.final-card::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--am),var(--am) 50%,var(--pm) 50%,var(--pm))}
+.final-card h2{font-size:clamp(36px,5.2vw,72px);letter-spacing:-.045em;max-width:14ch}
+.final-card p{color:var(--muted);font-size:17px;max-width:50ch}
+.final-card .key{margin-top:8px}
+
+/* footer */
+footer{padding:48px 0 40px}
+.foot{display:grid;grid-template-columns:minmax(0,1.2fr) repeat(2,minmax(0,.8fr));gap:40px;padding-top:40px}
+.foot .tg{font-size:22px;font-weight:700;letter-spacing:-.02em;margin-top:18px}
+.foot .dis{color:var(--muted);font-size:14px;margin-top:10px;max-width:42ch}
+.foot h4{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--dim);letter-spacing:0;margin-bottom:14px}
+.foot ul{display:grid;gap:10px}
+.foot a,.foot button.lnk{color:#d6d7da;text-decoration:none;font-size:15px;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+.foot a:hover,.foot button.lnk:hover{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.foot li.t{color:var(--muted);font-size:15px}
+.baseline{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);font-family:var(--mono);font-size:11.5px;color:var(--dim);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+/* dialog */
+dialog{border:0;padding:0;background:transparent;color:var(--text);max-width:min(460px,calc(100vw - 32px));width:100%}
+dialog::backdrop{background:rgba(6,6,8,.72)}
+.dlg{padding:30px;display:grid;gap:14px;border-radius:24px}
+.dlg .lamp{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.dlg h2{font-size:28px;letter-spacing:-.03em}
+.dlg p{color:var(--muted);font-size:15.5px}
+.dlg .key{justify-self:start;margin-top:8px}
+dialog[open] .dlg{animation:pop .28s cubic-bezier(.2,1.2,.4,1)}
+@keyframes pop{from{transform:translateY(10px) scale(.97);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){dialog[open] .dlg{animation:none}}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+
+/* ---------- responsive ---------- */
+@media (max-width:1080px){
+  .hero{grid-template-columns:1fr;gap:40px;padding-top:56px}
+  .stage-col{max-width:640px;width:100%;margin:0 auto}
+  .formulas{grid-template-columns:1fr 1fr}
+  .formulas .formula:first-child{grid-row:span 2}
+  .sci-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sci,.sci:nth-child(4),.sci:nth-child(5){grid-column:span 1}
+  .sci:nth-child(5){grid-column:span 2}
+}
+@media (max-width:860px){
+  .wrap{padding:0 22px}
+  .rail::before{left:22px;right:22px}
+  .top{flex-wrap:wrap}
+  .navpill{order:3;width:100%}
+  .sec{padding:76px 0}
+  .sec-head,.science-head,.problem,.faq,.billing{grid-template-columns:1fr;gap:22px}
+  .faq h2{position:static}
+  .routine-grid,.benefit-grid,.kits{grid-template-columns:1fr}
+  .timeline{grid-template-columns:1fr}
+  .tl + .tl{border-left:0;border-top:1px solid var(--line)}
+  .formulas{grid-template-columns:1fr}
+  .formulas .formula:first-child{grid-row:auto}
+  .sci-grid{grid-template-columns:1fr}
+  .sci:nth-child(5){grid-column:span 1}
+  .foot{grid-template-columns:1fr 1fr}
+  .foot > div:first-child{grid-column:1/-1}
+}
+@media (max-width:560px){
+  .shell{margin:8px;border-radius:24px}
+  .wrap{padding:0 16px}
+  .rail::before{left:16px;right:16px}
+  .top{padding-top:18px}
+  .top .key-sm{display:none}
+  .navpill{justify-content:space-between}
+  .navpill a{padding:8px 10px;font-size:13px}
+  .hero{padding:40px 0 60px}
+  .hero h1{font-size:clamp(34px,10vw,44px)}
+  .tagline{font-size:17px}
+  .subhead{font-size:16px}
+  .ctas .key{flex:1 1 100%}
+  .stage{aspect-ratio:1/1.08;border-radius:22px}
+  .prodlist{grid-template-columns:1fr}
+  .seg{min-width:0;width:100%}
+  .console-head{flex-direction:column;align-items:stretch}
+  .step,.benefit,.kit,.formula,.sci,.billing{padding:20px}
+  .step .clock{width:48px;height:48px;right:18px;top:18px}
+  .kit{grid-template-columns:1fr}
+  .kit .price{grid-row:auto;grid-column:1;justify-self:start;font-size:34px}
+  .plus{flex-direction:column;align-items:flex-start;padding:20px}
+  .final-card{padding:44px 20px}
+  .spec th,.spec td{padding:10px 11px}
+  .spec td{white-space:normal}
+  .qa summary{padding:16px 14px 16px 16px;font-size:15.5px}
+  .qa .a{padding:0 16px 18px}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="shell">
+  <div class="wrap">
+    <header class="top">
+      <a class="brand" href="#top" aria-label="Founder Reset, back to top"><span class="brand-mark" aria-hidden="true"><span></span></span>Founder Reset</a>
+      <nav class="navpill" aria-label="Primary">
+        <a href="#routine">The routine</a>
+        <a href="#how">How it works</a>
+        <a href="#ingredients">Ingredients</a>
+        <a href="#faq">Questions</a>
+      </nav>
+      <button class="key key-light key-sm" data-order type="button">Start My 7-Day Reset</button>
+    </header>
+  </div>
+
+  <main id="main">
+    <div class="wrap" id="top">
+      <section class="hero" aria-labelledby="hero-h">
+        <div>
+          <h1 id="hero-h">Your business has a system. <em>Now your daily supplements do too.</em></h1>
+          <p class="tagline"><span class="led" aria-hidden="true"></span><span class="led" aria-hidden="true"></span>Start strong. Recover well. Repeat.</p>
+          <p class="subhead">Two drinks a day, built for people who run companies. One to start the morning, one to wind down at night. No added caffeine. No shelf of half-used tubs. Just open a sachet.</p>
+          <div class="pricebox well">
+            <p class="p"><strong>$39 for your 7-Day Starter</strong>, then $99 every 30 days for your Monthly box ($3.30 a day)</p>
+            <p class="n">The Starter rolls into a monthly subscription that renews until you cancel.</p>
+          </div>
+          <div class="ctas">
+            <button class="key key-light" data-order type="button"><span class="led" aria-hidden="true"></span>Start My 7-Day Reset</button>
+            <a class="key key-dark" href="#routine">See the routine</a>
+          </div>
+          <ul class="trust" aria-label="At a glance">
+            <li class="chip"><span class="led" aria-hidden="true" style="--c:#e9e9e4"></span>No added caffeine</li>
+            <li class="chip"><span class="led" aria-hidden="true" style="--c:#e9e9e4"></span>Individually portioned</li>
+            <li class="chip"><span class="led" aria-hidden="true" style="--c:#e9e9e4"></span>Renews until you cancel</li>
+          </ul>
+        </div>
+
+        <div class="stage-col">
+          <div class="stage" id="stage" role="img" aria-label="AM FUEL orange sachet, PM RECOVER lavender sachet and a B12 RESET blister strip with pink tablets">
+            <span class="corner tl" aria-hidden="true"></span><span class="corner tr" aria-hidden="true"></span><span class="corner bl" aria-hidden="true"></span><span class="corner br" aria-hidden="true"></span>
+            <div class="stage-tag" aria-hidden="true"><span class="led" id="stageLed"></span><span id="stageName">AM FUEL + B12 RESET</span></div>
+            <div class="stage-hint" aria-hidden="true">drag to turn</div>
+            <canvas id="gl" aria-hidden="true"></canvas>
+            <div class="fallback" aria-hidden="true">
+              <div class="fb-comp">
+                <div class="fb-shadow"></div>
+                <div class="cpouch pm"><b>FOUNDER RESET</b><strong>PM<small>RECOVER</small></strong><i>EVENING</i><u>3,000 mg glycine</u></div>
+                <div class="cpouch am"><b>FOUNDER RESET</b><strong>AM<small>FUEL</small></strong><i>MORNING</i><u>3,000 mg creatine</u></div>
+                <div class="cblister"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="console plate">
+            <div class="console-head">
+              <div class="seg" role="radiogroup" aria-label="Show the morning or evening products" data-v="am" id="seg">
+                <span class="seg-thumb" aria-hidden="true"></span>
+                <button type="button" role="radio" aria-checked="true" data-v="am" tabindex="0"><span class="led" aria-hidden="true"></span>Morning</button>
+                <button type="button" role="radio" aria-checked="false" data-v="pm" tabindex="-1"><span class="led" aria-hidden="true"></span>Evening</button>
+              </div>
+            </div>
+            <ul class="prodlist">
+              <li class="prod" data-when="am">
+                <span class="ph"><span class="led" style="--c:var(--am)" aria-hidden="true"></span>AM FUEL</span>
+                <span class="pw">Morning</span>
+                <span class="pk">3,000 mg creatine</span>
+                <span class="pd">Drink sachet, stir into 400 to 500 mL water</span>
+              </li>
+              <li class="prod" data-when="am">
+                <span class="ph"><span class="led" style="--c:var(--b12)" aria-hidden="true"></span>B12 RESET</span>
+                <span class="pw">Morning</span>
+                <span class="pk">1,000 µg vitamin B12</span>
+                <span class="pd">1,000 µg tablet, dissolve under the tongue</span>
+              </li>
+              <li class="prod" data-when="pm" data-dim="1">
+                <span class="ph"><span class="led" style="--c:var(--pm)" aria-hidden="true"></span>PM RECOVER</span>
+                <span class="pw">Evening</span>
+                <span class="pk">3,000 mg glycine</span>
+                <span class="pd">Drink sachet, stir into 250 to 400 mL water</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- problem -->
+    <section class="sec rail" aria-labelledby="prob-h">
+      <div class="wrap problem">
+        <div class="rv">
+          <h2 id="prob-h">You’ve built systems for everything except yourself.</h2>
+          <p class="body">Founder Reset won’t fix your calendar. It gives your day <strong>two fixed points, morning and evening,</strong> that take under a minute and zero decisions.</p>
+        </div>
+        <ul class="signals plate rv">
+          <li class="signal"><span class="n">01</span>Coffee is doing most of the heavy lifting.<span class="led" aria-hidden="true"></span></li>
+          <li class="signal"><span class="n">02</span>The laptop closes at 11. Your head doesn’t.<span class="led" aria-hidden="true"></span></li>
+          <li class="signal"><span class="n">03</span>Lunch was a protein bar between calls.<span class="led" aria-hidden="true"></span></li>
+          <li class="signal"><span class="n">04</span>There’s a cupboard of supplement tubs you swore you’d take.<span class="led" aria-hidden="true"></span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- routine -->
+    <section class="sec rail" id="routine" aria-labelledby="rt-h">
+      <div class="wrap">
+        <div class="sec-head rv">
+          <h2 id="rt-h">Open the day. Close the day. That’s the whole routine.</h2>
+          <p>Two moments that bookend the day you already have. Sunrise orange to start, dusk lavender to finish, so you never have to think about which one’s next.</p>
+        </div>
+        <div class="routine-grid">
+          <article class="step edge rv" style="--c:var(--am);--from:-90deg;--sweep:90deg">
+            <span class="bar" aria-hidden="true"></span>
+            <span class="clock" aria-hidden="true"></span>
+            <span class="lbl"><span class="led" aria-hidden="true"></span>Morning</span>
+            <h3>AM FUEL + B12 RESET</h3>
+            <p>Stir one AM FUEL sachet into 400 to 500 mL of water. Dissolve one B12 RESET tablet under your tongue.</p>
+          </article>
+          <article class="step edge rv" style="--c:var(--pm);--from:90deg;--sweep:90deg">
+            <span class="bar" aria-hidden="true"></span>
+            <span class="clock" aria-hidden="true"></span>
+            <span class="lbl"><span class="led" aria-hidden="true"></span>Evening</span>
+            <h3>PM RECOVER</h3>
+            <p>Stir one PM RECOVER sachet into 250 to 400 mL of water as you wind down.</p>
+          </article>
+        </div>
+        <p class="note rv"><span class="led" aria-hidden="true"></span>Keep your regular meals. These are supplements, not meal replacements.</p>
+      </div>
+    </section>
+
+    <!-- benefits -->
+    <section class="sec rail" aria-labelledby="bn-h">
+      <div class="wrap">
+        <div class="sec-head rv">
+          <h2 id="bn-h">One drink to start strong. One to recover well.</h2>
+          <p>Full doses, every amount on the label. No proprietary blends.</p>
+        </div>
+        <div class="benefit-grid">
+          <article class="benefit edge rv" style="--c:var(--am)">
+            <h3><span class="led" aria-hidden="true"></span>AM FUEL. Start strong.</h3>
+            <p>3,000 mg of creatine monohydrate, one of the most studied supplements in sports nutrition*. Sodium and potassium for hydration. B vitamins that support normal energy metabolism*. Plus vitamins D3 and C. All without adding to your caffeine load.</p>
+            <ul class="facts">
+              <li class="fact">3,000 mg creatine</li>
+              <li class="fact">Electrolytes</li>
+              <li class="fact">B vitamins, D3 and C</li>
+              <li class="fact">No added caffeine</li>
+            </ul>
+          </article>
+          <article class="benefit edge rv" style="--c:var(--pm)">
+            <h3><span class="led" aria-hidden="true"></span>PM RECOVER. Recover well.</h3>
+            <p>3,000 mg of glycine, 200 mg of L-theanine, plus magnesium and zinc, for a caffeine-free evening wind-down*. Made for the hour before bed.</p>
+            <ul class="facts">
+              <li class="fact">3,000 mg glycine</li>
+              <li class="fact">200 mg L-theanine</li>
+              <li class="fact">Magnesium</li>
+              <li class="fact">Zinc</li>
+              <li class="fact">Caffeine-free</li>
+            </ul>
+          </article>
+        </div>
+        <div class="plus plate rv">
+          <span class="tabs-ic" aria-hidden="true"><span></span><span></span><span></span></span>
+          <p><strong>Plus B12 RESET.</strong> A 1,000 µg tablet that dissolves under your tongue. Vitamin B12 supports normal energy metabolism and nervous system function*.</p>
+        </div>
+        <p class="note rv"><span class="led" aria-hidden="true"></span>Some ingredients, like creatine, build up over weeks of daily use. This is a routine, not a quick fix. Results vary from person to person.</p>
+      </div>
+    </section>
+
+    <!-- how -->
+    <section class="sec rail" id="how" aria-labelledby="hw-h">
+      <div class="wrap">
+        <div class="sec-head rv">
+          <h2 id="hw-h">Begin with a week. Keep the rhythm.</h2>
+          <p>Seven days to build the habit. Then your Monthly box arrives every 30 days, until you cancel.</p>
+        </div>
+        <div class="kits">
+          <article class="kit edge rv">
+            <span class="corner tl" aria-hidden="true"></span><span class="corner br" aria-hidden="true"></span>
+            <h3>7-Day Starter</h3>
+            <p class="c">14 sachets, 7 B12 RESET tablets</p>
+            <p class="price">$39</p>
+          </article>
+          <article class="kit edge rv">
+            <span class="corner tl" aria-hidden="true"></span><span class="corner br" aria-hidden="true"></span>
+            <h3>Monthly box</h3>
+            <p class="c">60 sachets, 30 B12 RESET tablets</p>
+            <p class="price">$99</p>
+          </article>
+        </div>
+        <ol class="timeline plate rv">
+          <li class="tl"><span class="lbl"><b>1</b>Days 1 to 7</span><h3>Build the habit. $39</h3><p>Your 7-Day Starter: 7 AM FUEL sachets, 7 PM RECOVER sachets and 7 B12 RESET tablets.</p></li>
+          <li class="tl"><span class="lbl"><b>2</b>Every day</span><h3>Two drinks, one tablet.</h3><p>AM FUEL and B12 RESET in the morning. PM RECOVER in the evening. Under a minute each.</p></li>
+          <li class="tl"><span class="lbl"><b>3</b>Every 30 days</span><h3>Keep it going. $99</h3><p>Your Monthly box: 30 AM FUEL sachets, 30 PM RECOVER sachets and 30 B12 RESET tablets. That’s $3.30 a day. It renews automatically until you cancel.</p></li>
+        </ol>
+        <div class="billing edge rv" id="billing">
+          <h3>How billing works</h3>
+          <ol>
+            <li>Today: $39 for your 7-Day Starter.</li>
+            <li>The timing of your first $99 Monthly box charge will be confirmed before ordering opens. You’ll see the exact date before you pay.</li>
+            <li>After that: $99 every 30 days, until you cancel.</li>
+            <li>Canceling before your renewal date prevents the next charge. The cancellation process and full terms will be confirmed before ordering opens.</li>
+            <li>Shipping, taxes and refund terms are shown before you pay.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ingredients -->
+    <section class="sec rail" id="ingredients" aria-labelledby="in-h">
+      <div class="wrap">
+        <div class="sec-head rv">
+          <h2 id="in-h">Everything, clearly laid out.</h2>
+          <p>Every active ingredient and amount, per serving. No proprietary blends, nothing hidden.</p>
+        </div>
+        <div class="formulas">
+          <article class="formula edge rv" style="--c:var(--am)">
+            <div class="formula-head">
+              <div><h3><span class="led" aria-hidden="true"></span>AM FUEL</h3><p class="meta">Morning, 11 active ingredients</p></div>
+              <span class="unit">Per sachet</span>
+            </div>
+            <table class="spec">
+              <caption>AM FUEL, per sachet</caption>
+              <tbody>
+                <tr><th scope="row">Creatine monohydrate</th><td>3,000 mg</td></tr>
+                <tr><th scope="row">Sodium, elemental</th><td>200 mg</td></tr>
+                <tr><th scope="row">Potassium, elemental</th><td>150 mg</td></tr>
+                <tr><th scope="row">Vitamin D3</th><td>15 µg (600 IU)</td></tr>
+                <tr><th scope="row">Vitamin C</th><td>80 mg</td></tr>
+                <tr><th scope="row">Vitamin B1 (Thiamine)</th><td>1.2 mg</td></tr>
+                <tr><th scope="row">Vitamin B2 (Riboflavin)</th><td>1.3 mg</td></tr>
+                <tr><th scope="row">Vitamin B3 (Niacinamide)</th><td>16 mg NE</td></tr>
+                <tr><th scope="row">Vitamin B5 (Pantothenic acid)</th><td>5 mg</td></tr>
+                <tr><th scope="row">Vitamin B6</th><td>1.7 mg</td></tr>
+                <tr><th scope="row">Folate</th><td>400 µg DFE</td></tr>
+              </tbody>
+            </table>
+            <p class="desc">The first step of the day: creatine monohydrate, electrolytes, vitamin D3, vitamin C and a set of B vitamins, with a separate B12 tablet alongside.</p>
+            <p class="prep">One sachet stirred into approximately 400 to 500 mL water, following the label directions.</p>
+          </article>
+          <article class="formula edge rv" style="--c:var(--pm)">
+            <div class="formula-head">
+              <div><h3><span class="led" aria-hidden="true"></span>PM RECOVER</h3><p class="meta">Evening, 4 active ingredients</p></div>
+              <span class="unit">Per sachet</span>
+            </div>
+            <table class="spec">
+              <caption>PM RECOVER, per sachet</caption>
+              <tbody>
+                <tr><th scope="row">Glycine</th><td>3,000 mg</td></tr>
+                <tr><th scope="row">L-theanine</th><td>200 mg</td></tr>
+                <tr><th scope="row">Magnesium, elemental</th><td>100 mg</td></tr>
+                <tr><th scope="row">Zinc, elemental</th><td>5 mg</td></tr>
+              </tbody>
+            </table>
+            <p class="desc">The closing step of the day: glycine, L-theanine, magnesium and zinc, organized around your evening routine.</p>
+            <p class="prep">One sachet stirred into approximately 250 to 400 mL water, following the label directions. The magnesium quantity shown is the elemental amount.</p>
+          </article>
+          <article class="formula edge rv" style="--c:var(--b12)">
+            <div class="formula-head">
+              <div><h3><span class="led" aria-hidden="true"></span>B12 RESET</h3><p class="meta">Morning tablet, 1,000 µg</p></div>
+              <span class="unit">Per tablet</span>
+            </div>
+            <table class="spec">
+              <caption>B12 RESET, per tablet</caption>
+              <tbody>
+                <tr><th scope="row">Vitamin B12</th><td>1,000 µg</td></tr>
+              </tbody>
+            </table>
+            <p class="desc">Sublingual tablet, kept apart from both drinks.</p>
+            <p class="prep">One tablet each morning, dissolved under the tongue.</p>
+          </article>
+        </div>
+        <p class="note signoff rv"><span class="led" aria-hidden="true" style="--c:#ffb020"></span>Formula awaiting manufacturing sign-off. Final label, ingredient forms and amounts will be confirmed before ordering opens.</p>
+
+        <div class="science">
+          <div class="science-head rv">
+            <h3>The science behind the ingredients</h3>
+            <p>Independent research on the key ingredients. These studies looked at the ingredients, not the finished Founder Reset product.</p>
+          </div>
+          <div class="sci-grid">
+            <article class="sci plate rv">
+              <h4>Creatine<span class="led" style="--c:var(--am)" aria-hidden="true"></span></h4>
+              <p class="does">Supports strength and power during high-intensity exercise, with consistent daily use.*</p>
+              <p class="res">The International Society of Sports Nutrition reviewed research on creatine in exercise and training. At 3 g a day without a loading phase, muscle creatine stores typically build up over around four weeks.</p>
+              <ul class="src" aria-label="Sources"><li>International Society of Sports Nutrition position stand (2017)</li></ul>
+            </article>
+            <article class="sci plate rv">
+              <h4>Vitamin B12<span class="led" style="--c:var(--b12)" aria-hidden="true"></span></h4>
+              <p class="does">Needed for normal energy metabolism, red blood cell formation and nervous system function.*</p>
+              <p class="res">The NIH fact sheet covers B12 intake and absorption. Supplementing matters most when intake or absorption is low, which is more common with age and plant-based diets. Additional B12 has not been shown to improve energy or endurance when B12 status is adequate.</p>
+              <ul class="src" aria-label="Sources"><li>NIH Office of Dietary Supplements, Vitamin B12 fact sheet</li></ul>
+            </article>
+            <article class="sci plate rv">
+              <h4>Magnesium<span class="led" style="--c:var(--pm)" aria-hidden="true"></span></h4>
+              <p class="does">Supports normal muscle and nerve function and is involved in more than 300 enzyme systems, including energy metabolism.*</p>
+              <p class="res">The NIH fact sheet notes that many US adults get less magnesium from food than recommended. It reviews nutritional roles and intake, rather than testing the finished Founder Reset product.</p>
+              <ul class="src" aria-label="Sources"><li>NIH Office of Dietary Supplements, Magnesium fact sheet</li></ul>
+            </article>
+            <article class="sci plate rv">
+              <h4>Glycine<span class="led" style="--c:var(--pm)" aria-hidden="true"></span></h4>
+              <p class="does">An amino acid studied for its role in sleep quality.*</p>
+              <p class="res">Small studies in Japan gave volunteers 3 g of glycine before bed. Yamadera and colleagues (2007) measured self-reported sleep quality and sleep recordings in people with unsatisfactory sleep. Bannai and colleagues (2012) studied next-day fatigue and performance during partial sleep restriction. These studies were small and involved industry-affiliated researchers.</p>
+              <ul class="src" aria-label="Sources"><li>Bannai et al., Frontiers in Neurology (2012)</li><li>Yamadera et al., Sleep and Biological Rhythms (2007)</li></ul>
+            </article>
+            <article class="sci plate rv">
+              <h4>L-theanine<span class="led" style="--c:var(--pm)" aria-hidden="true"></span></h4>
+              <p class="does">An amino acid found in tea, studied for relaxation.*</p>
+              <p class="res">Hidese and colleagues (2019) gave 30 healthy adults 200 mg a day of L-theanine or placebo for four weeks in a randomized crossover trial, measuring stress-related symptoms, sleep and cognitive function. The study was small and received industry support.</p>
+              <ul class="src" aria-label="Sources"><li>Hidese et al., Nutrients (2019)</li></ul>
+            </article>
+          </div>
+          <p class="fda rv">* These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- faq -->
+    <section class="sec rail" id="faq" aria-labelledby="fq-h">
+      <div class="wrap faq">
+        <h2 id="fq-h" class="rv">Good to know.</h2>
+        <div class="faq-list">
+          <details class="qa"><summary>Who is Founder Reset for?<span class="pk" aria-hidden="true"></span></summary><p class="a">Adults who want a simple daily supplement routine that fits a busy working day. We built it with founders in mind, but you don't need to run a company to use it.</p></details>
+          <details class="qa"><summary>When will I notice a difference?<span class="pk" aria-hidden="true"></span></summary><p class="a">Everyone's different, and we won't promise a change by a set day. With 3 g a day, creatine stores typically build up over around four weeks. The 7-Day Starter is there to build the habit and see if the routine suits you.</p></details>
+          <details class="qa"><summary>What does it taste like?<span class="pk" aria-hidden="true"></span></summary><p class="a">Flavors will be confirmed before ordering opens.</p></details>
+          <details class="qa"><summary>Why not just buy these ingredients separately?<span class="pk" aria-hidden="true"></span></summary><p class="a">You can. Founder Reset is for people who'd rather not manage a shelf of tubs, measure scoops and remember what goes when. Two sachets, already measured, with every dose on the label.</p></details>
+          <details class="qa"><summary>Does it contain caffeine?<span class="pk" aria-hidden="true"></span></summary><p class="a">No. Neither drink has added caffeine, so it won't stack on top of your coffee.</p></details>
+          <details class="qa"><summary>Is this a subscription?<span class="pk" aria-hidden="true"></span></summary><p class="a">Yes. Your $39 7-Day Starter rolls into a $99 Monthly box every 30 days until you cancel. See <a href="#billing">“How billing works”</a> above.</p></details>
+          <details class="qa"><summary>How do I cancel?<span class="pk" aria-hidden="true"></span></summary><p class="a">Canceling before your renewal date prevents the next charge. The exact cancellation process and full terms will be confirmed before ordering opens.</p></details>
+          <details class="qa"><summary>Can I pause or skip a month?<span class="pk" aria-hidden="true"></span></summary><p class="a">This has not been confirmed yet. It will be shown in full before ordering opens, and before any payment.</p></details>
+          <details class="qa"><summary>When will it arrive, and what does shipping cost?<span class="pk" aria-hidden="true"></span></summary><p class="a">Delivery times and shipping costs: this has not been confirmed yet. It will be shown in full before ordering opens, and before any payment.</p></details>
+          <details class="qa"><summary>What's your refund policy?<span class="pk" aria-hidden="true"></span></summary><p class="a">Refund terms: this has not been confirmed yet. It will be shown in full before ordering opens, and before any payment.</p></details>
+          <details class="qa"><summary>Is it right for me if I take medicines or other supplements?<span class="pk" aria-hidden="true"></span></summary><p class="a">Founder Reset is for adults. Compare the ingredient tables above with anything you already take, and talk to a pharmacist about any overlap. If you take medicines, have a health condition, or are pregnant or breastfeeding, check with a pharmacist or clinician first. Always follow the label.</p></details>
+          <details class="qa"><summary>Where are the full ingredients and allergens?<span class="pk" aria-hidden="true"></span></summary><p class="a">Every active ingredient is listed above. The full ingredient list, allergens and directions are printed on each label.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- final -->
+    <section class="final" aria-labelledby="fn-h">
+      <div class="wrap">
+        <div class="final-card edge rv">
+          <span class="corner tl" aria-hidden="true"></span><span class="corner tr" aria-hidden="true"></span><span class="corner bl" aria-hidden="true"></span><span class="corner br" aria-hidden="true"></span>
+          <h2 id="fn-h">Start strong. Recover well. Repeat.</h2>
+          <p>$39 for your 7-Day Starter, then $99 every 30 days until you cancel.</p>
+          <button class="key key-light" data-order type="button"><span class="led" aria-hidden="true"></span>Start My 7-Day Reset</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rail">
+    <div class="wrap">
+      <div class="foot">
+        <div>
+          <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"><span></span></span>Founder Reset</a>
+          <p class="tg">Start strong. Recover well. Repeat.</p>
+          <p class="dis">Dietary supplements complement a varied, balanced diet and a healthy lifestyle.</p>
+        </div>
+        <nav aria-label="Footer">
+          <h4>Pages</h4>
+          <ul>
+            <li><a href="#routine">The routine</a></li>
+            <li><a href="#how">How it works</a></li>
+            <li><a href="#ingredients">Ingredients</a></li>
+            <li><a href="#faq">Questions</a></li>
+          </ul>
+        </nav>
+        <div>
+          <h4>Shop</h4>
+          <ul>
+            <li><button class="lnk" type="button" data-order>Ordering</button></li>
+            <li class="t">The Core collection</li>
+            <li class="t">AM FUEL, B12 RESET, PM RECOVER</li>
+          </ul>
+        </div>
+      </div>
+      <div class="baseline"><span>Founder Reset</span><span>Start strong. Recover well. Repeat.</span></div>
+    </div>
+  </footer>
+</div>
+
+<dialog id="orderDlg" aria-labelledby="dlg-h" aria-describedby="dlg-p">
+  <div class="dlg edge">
+    <span class="lamp"><span class="led" style="--c:#ffb020" aria-hidden="true"></span>Notice</span>
+    <h2 id="dlg-h">Ordering isn’t open yet</h2>
+    <p id="dlg-p">Final formula, flavors, shipping, refund and cancellation terms will be confirmed before ordering opens. You’ll see everything before any payment.</p>
+    <button class="key key-light" type="button" id="dlgClose" autofocus>Got it</button>
+  </div>
+</dialog>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  'use strict';
+  /* ---------- dialog ---------- */
+  var dlg=document.getElementById('orderDlg');
+  var lastFocus=null;
+  document.querySelectorAll('[data-order]').forEach(function(b){
+    b.addEventListener('click',function(){
+      lastFocus=b;
+      if(typeof dlg.showModal==='function'){dlg.showModal();}else{dlg.setAttribute('open','');}
+      document.getElementById('dlgClose').focus();
+    });
+  });
+  function closeDlg(){ if(dlg.open){ if(dlg.close) dlg.close(); else dlg.removeAttribute('open'); } }
+  document.getElementById('dlgClose').addEventListener('click',closeDlg);
+  dlg.addEventListener('click',function(e){ if(e.target===dlg) closeDlg(); });
+  dlg.addEventListener('close',function(){ if(lastFocus) lastFocus.focus(); });
+
+  /* ---------- reveal ---------- */
+  var rvs=document.querySelectorAll('.rv');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -8% 0px'});
+    rvs.forEach(function(el){io.observe(el);});
+  } else rvs.forEach(function(el){el.classList.add('in');});
+
+  /* ---------- segmented switch ---------- */
+  var seg=document.getElementById('seg');
+  var segBtns=seg.querySelectorAll('button');
+  var prods=document.querySelectorAll('.prod');
+  var stageName=document.getElementById('stageName');
+  var stageLed=document.getElementById('stageLed');
+  window.__focus='am';
+  function setMode(v,focus){
+    seg.dataset.v=v; window.__focus=v;
+    segBtns.forEach(function(b){var on=b.dataset.v===v;b.setAttribute('aria-checked',on?'true':'false');b.tabIndex=on?0:-1;if(on&&focus)b.focus();});
+    prods.forEach(function(p){ if(p.dataset.when===v) p.removeAttribute('data-dim'); else p.setAttribute('data-dim','1'); });
+    stageName.textContent= v==='am' ? 'AM FUEL + B12 RESET' : 'PM RECOVER';
+    stageLed.style.setProperty('--c', v==='am' ? 'var(--am)' : 'var(--pm)');
+  }
+  segBtns.forEach(function(b){
+    b.addEventListener('click',function(){setMode(b.dataset.v);});
+    b.addEventListener('keydown',function(e){
+      if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].indexOf(e.key)>-1){e.preventDefault();setMode(seg.dataset.v==='am'?'pm':'am',true);}
+    });
+  });
+  setMode('am');
+
+  /* ---------- 3D hero ---------- */
+  var stage=document.getElementById('stage');
+  var canvas=document.getElementById('gl');
+  var mqReduce=window.matchMedia('(prefers-reduced-motion: reduce)');
+  function glOK(){try{var c=document.createElement('canvas');return !!(window.WebGLRenderingContext&&(c.getContext('webgl')||c.getContext('experimental-webgl')));}catch(e){return false;}}
+  if(!window.THREE||!glOK()){stage.classList.add('no-gl');return;}
+  var renderer;
+  try{ renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:true,powerPreference:'high-performance'}); }
+  catch(e){ stage.classList.add('no-gl'); return; }
+  var T=THREE;
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+  renderer.outputEncoding=T.sRGBEncoding;
+  renderer.toneMapping=T.ACESFilmicToneMapping;
+  renderer.toneMappingExposure=1.0;
+  renderer.setClearColor(0x000000,0);
+
+  var scene=new T.Scene();
+  var camera=new T.PerspectiveCamera(30,1,0.1,60);
+  camera.position.set(0,0.35,6.2);
+  camera.lookAt(0,-0.05,0);
+
+  /* environment: a few soft boxes, prefiltered */
+  (function(){
+    var pm=new T.PMREMGenerator(renderer);
+    var env=new T.Scene();
+    env.background=new T.Color(0x060608);
+    function soft(w,h,c,x,y,z){var m=new T.Mesh(new T.PlaneGeometry(w,h),new T.MeshBasicMaterial({color:c,side:T.DoubleSide}));m.position.set(x,y,z);m.lookAt(0,0,0);env.add(m);}
+    soft(8,4,new T.Color(3.2,3.1,3.0),0,7,4);      // top key
+    soft(2,8,new T.Color(2.2,2.2,2.4),-7,0.5,2);   // left strip
+    soft(2,8,new T.Color(1.6,1.6,1.9),7,0.5,-2);   // right rim strip
+    soft(10,2,new T.Color(.25,.25,.28),0,-6,0);    // floor bounce
+    soft(4,3,new T.Color(1.2,1.15,1.1),3,2,7);     // front fill
+    scene.environment=pm.fromScene(env,0.035).texture;
+    pm.dispose();
+  })();
+
+  var key=new T.DirectionalLight(0xfff4ea,1.5); key.position.set(3,4.5,5); scene.add(key);
+  var rim=new T.DirectionalLight(0xcdd6ff,1.6); rim.position.set(-4,2.5,-5); scene.add(rim);
+  var rim2=new T.DirectionalLight(0xffffff,0.8); rim2.position.set(5,1,-4); scene.add(rim2);
+  scene.add(new T.HemisphereLight(0xffffff,0x1a1a1f,0.35));
+
+  /* ---------- label textures ---------- */
+  var W=800,H=1160,SEAL=0.085,COLS=120;
+  function shade(hex,amt){var c=new T.Color(hex);var h={};c.getHSL(h);c.setHSL(h.h,h.s,Math.max(0,Math.min(1,h.l+amt)));return '#'+c.getHexString();}
+  function fit(ctx,text,maxW,size,weight,family){var s=size;do{ctx.font=weight+' '+s+'px '+family;s-=2;}while(ctx.measureText(text).width>maxW&&s>10);return s+2;}
+  function drawPouch(ctx,o,back){
+    var g=ctx.createLinearGradient(0,0,W*0.4,H);
+    g.addColorStop(0,shade(o.color,0.06)); g.addColorStop(.55,o.color); g.addColorStop(1,shade(o.color,-0.1));
+    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+    var sh=H*SEAL, cw=W/COLS;
+    [0,H-sh].forEach(function(y){
+      ctx.fillStyle='rgba(0,0,0,.10)'; ctx.fillRect(0,y,W,sh);
+      for(var i=0;i<COLS;i+=2){ctx.fillStyle='rgba(255,255,255,.10)';ctx.fillRect(i*cw,y,cw,sh);}
+    });
+    ctx.fillStyle='rgba(0,0,0,.18)'; ctx.fillRect(0,sh-3,W,3); ctx.fillRect(0,H-sh,W,3);
+    var ink=o.ink, M=70, sans='"Schibsted Grotesk", Arial, sans-serif', mono='"JetBrains Mono", monospace';
+    ctx.fillStyle=ink; ctx.strokeStyle=ink; ctx.textBaseline='alphabetic';
+    if(back){
+      ctx.globalAlpha=.9;
+      ctx.font='600 30px '+mono; if('letterSpacing' in ctx) ctx.letterSpacing='8px';
+      ctx.fillText('FOUNDER RESET',M,sh+110);
+      if('letterSpacing' in ctx) ctx.letterSpacing='0px';
+      var s=fit(ctx,o.name,W-2*M,96,'800',sans); ctx.font='800 '+s+'px '+sans; ctx.fillText(o.name,M,sh+240);
+      ctx.lineWidth=3; ctx.globalAlpha=.5; ctx.beginPath(); ctx.moveTo(M,sh+290); ctx.lineTo(W-M,sh+290); ctx.stroke(); ctx.globalAlpha=.9;
+      ctx.font='500 34px '+sans;
+      wrap(ctx,o.what,M,sh+360,W-2*M,46);
+      ctx.font='700 40px '+sans; ctx.fillText(o.key,M,H-sh-150);
+      ctx.font='600 26px '+mono; if('letterSpacing' in ctx) ctx.letterSpacing='6px'; ctx.fillText(o.when,M,H-sh-90); if('letterSpacing' in ctx) ctx.letterSpacing='0px';
+      ctx.globalAlpha=1; return;
+    }
+    // top brand line
+    ctx.font='600 30px '+mono; if('letterSpacing' in ctx) ctx.letterSpacing='9px';
+    ctx.fillText('FOUNDER RESET',M,sh+86);
+    if('letterSpacing' in ctx) ctx.letterSpacing='0px';
+    ctx.lineWidth=3; ctx.beginPath(); ctx.moveTo(M,sh+118); ctx.lineTo(W-M,sh+118); ctx.stroke();
+    // mark
+    var cx=W-M-62, cy=sh+228;
+    ctx.lineWidth=7; ctx.beginPath(); ctx.arc(cx,cy,56,0,Math.PI*2); ctx.stroke();
+    if(o.mark==='sun'){ ctx.beginPath(); ctx.arc(cx,cy+8,34,Math.PI,0); ctx.closePath(); ctx.fill(); ctx.fillRect(cx-50,cy+14,100,7); }
+    else { ctx.beginPath(); ctx.arc(cx,cy,34,0,Math.PI*2); ctx.fill(); ctx.globalCompositeOperation='destination-out'; ctx.beginPath(); ctx.arc(cx+18,cy-12,30,0,Math.PI*2); ctx.fill(); ctx.globalCompositeOperation='source-over';
+      ctx.fillStyle=o.color; ctx.beginPath(); ctx.arc(cx+18,cy-12,30,0,Math.PI*2); ctx.fill(); ctx.fillStyle=ink; }
+    // big name
+    ctx.font='850 300px '+sans; if('letterSpacing' in ctx) ctx.letterSpacing='-14px';
+    ctx.fillText(o.a,M-12,sh+470);
+    var s2=fit(ctx,o.b,W-2*M+10,170,'800',sans); ctx.font='800 '+s2+'px '+sans; if('letterSpacing' in ctx) ctx.letterSpacing='-5px';
+    ctx.fillText(o.b,M-6,sh+470+s2*0.95);
+    if('letterSpacing' in ctx) ctx.letterSpacing='0px';
+    // when pill
+    var py=H-sh-250;
+    ctx.font='600 30px '+mono; if('letterSpacing' in ctx) ctx.letterSpacing='8px';
+    var tw=ctx.measureText(o.when).width;
+    ctx.lineWidth=3; roundRect(ctx,M,py-44,tw+44,64,32); ctx.stroke();
+    ctx.fillText(o.when,M+24,py);
+    if('letterSpacing' in ctx) ctx.letterSpacing='0px';
+    // dose
+    ctx.lineWidth=3; ctx.beginPath(); ctx.moveTo(M,H-sh-150); ctx.lineTo(W-M,H-sh-150); ctx.stroke();
+    ctx.font='700 52px '+sans; ctx.fillText(o.key,M,H-sh-75);
+  }
+  function roundRect(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+  function wrap(ctx,text,x,y,maxW,lh){var words=text.split(' '),line='';for(var i=0;i<words.length;i++){var t=line?line+' '+words[i]:words[i];if(ctx.measureText(t).width>maxW&&line){ctx.fillText(line,x,y);y+=lh;line=words[i];}else line=t;}if(line)ctx.fillText(line,x,y);}
+  function makeTex(o,back){
+    var c=document.createElement('canvas'); c.width=W; c.height=H;
+    var ctx=c.getContext('2d'); drawPouch(ctx,o,back);
+    var t=new T.CanvasTexture(c); t.encoding=T.sRGBEncoding; t.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());
+    t.userData={redraw:function(){ctx.clearRect(0,0,W,H);drawPouch(ctx,o,back);t.needsUpdate=true;}};
+    return t;
+  }
+
+  /* ---------- pouch geometry: pillow with crimped, serrated seals ---------- */
+  function pouchHalf(w,h,t){
+    var sx=COLS, sy=96;
+    var g=new T.PlaneGeometry(w,h,sx,sy);
+    var p=g.attributes.position, hw=w/2, hh=h/2, sealH=h*SEAL, zig=h*0.014;
+    for(var iy=0;iy<=sy;iy++){
+      for(var ix=0;ix<=sx;ix++){
+        var k=iy*(sx+1)+ix, x=p.getX(k), y=p.getY(k), z=0;
+        var nx=x/hw;
+        if(iy===0) y-= (ix%2)?zig:0;
+        if(iy===sy) y+= (ix%2)?zig:0;
+        var inSeal=(hh-Math.abs(y))<sealH+1e-6;
+        if(inSeal){
+          z=t*0.07*((ix%2)?1:0.15);
+        } else {
+          var ny=y/(hh-sealH);
+          var fx=Math.pow(Math.max(0,1-Math.pow(Math.abs(nx),3.2)),0.55);
+          var fy=Math.pow(Math.max(0,1-Math.pow(Math.abs(ny),5)),0.6);
+          var f=fx*fy;
+          var wr=0.05*Math.sin(nx*9.0+ny*4.0)*Math.sin(ny*7.0-nx*2.0);
+          z=t*f*(1+wr);
+          // a touch of side seam pinch so edges read thin
+          z+= t*0.04*(1-fx)*0;
+        }
+        p.setXYZ(k,x,y,z);
+      }
+    }
+    g.computeVertexNormals();
+    return g;
+  }
+  function makePouch(o){
+    var grp=new T.Group(), w=1.0, h=1.45, t=0.075;
+    var front=pouchHalf(w,h,t);
+    var back=pouchHalf(w,h,t); back.rotateY(Math.PI);
+    var common={roughness:0.28,metalness:0.35,clearcoat:0.7,clearcoatRoughness:0.22,envMapIntensity:1.15};
+    var mf=new T.MeshPhysicalMaterial(Object.assign({map:makeTex(o,false)},common));
+    var mb=new T.MeshPhysicalMaterial(Object.assign({map:makeTex(o,true)},common));
+    grp.add(new T.Mesh(front,mf)); grp.add(new T.Mesh(back,mb));
+    grp.userData.tex=[mf.map,mb.map];
+    return grp;
+  }
+
+  /* ---------- blister strip ---------- */
+  function makeBlister(){
+    var grp=new T.Group(), bw=1.34, bh=0.44, n=7, r=0.06;
+    var shape=new T.Shape(), rr=0.05, x0=-bw/2, y0=-bh/2;
+    shape.moveTo(x0+rr,y0); shape.lineTo(x0+bw-rr,y0); shape.quadraticCurveTo(x0+bw,y0,x0+bw,y0+rr);
+    shape.lineTo(x0+bw,y0+bh-rr); shape.quadraticCurveTo(x0+bw,y0+bh,x0+bw-rr,y0+bh);
+    shape.lineTo(x0+rr,y0+bh); shape.quadraticCurveTo(x0,y0+bh,x0,y0+bh-rr); shape.lineTo(x0,y0+rr); shape.quadraticCurveTo(x0,y0,x0+rr,y0);
+    var base=new T.Mesh(new T.ExtrudeGeometry(shape,{depth:0.018,bevelEnabled:true,bevelThickness:0.004,bevelSize:0.004,bevelSegments:2,curveSegments:8}),
+      new T.MeshStandardMaterial({color:0xcfd0d6,metalness:0.95,roughness:0.32,envMapIntensity:1.1}));
+    base.position.z=-0.018; grp.add(base);
+    // printed face
+    var c=document.createElement('canvas'); c.width=1024; c.height=336; var x=c.getContext('2d');
+    function drawB(){
+      var g=x.createLinearGradient(0,0,0,336); g.addColorStop(0,'#f1f1f4'); g.addColorStop(1,'#b9bac2');
+      x.fillStyle=g; x.fillRect(0,0,1024,336);
+      x.fillStyle='rgba(0,0,0,.06)'; for(var i=0;i<1024;i+=6) x.fillRect(i,0,2,336);
+      x.fillStyle='#FF6F9C'; x.fillRect(0,250,1024,86);
+      x.fillStyle='#1a0d12'; x.font='800 46px "Schibsted Grotesk", Arial, sans-serif'; x.fillText('B12 RESET',40,308);
+      x.font='600 30px "JetBrains Mono", monospace'; var s='1,000 µg'; x.fillText(s,1024-40-x.measureText(s).width,306);
+    }
+    drawB();
+    var bt=new T.CanvasTexture(c); bt.encoding=T.sRGBEncoding;
+    bt.userData={redraw:function(){drawB();bt.needsUpdate=true;}};
+    var face=new T.Mesh(new T.PlaneGeometry(bw-0.02,bh-0.02),new T.MeshStandardMaterial({map:bt,metalness:0.7,roughness:0.3,envMapIntensity:1.0}));
+    face.position.z=0.0045; grp.add(face);
+    grp.userData.tex=[bt];
+    var domeGeo=new T.SphereGeometry(r*1.15,28,14,0,Math.PI*2,0,Math.PI/2); domeGeo.rotateX(Math.PI/2); domeGeo.scale(1,1,0.75);
+    var domeMat=new T.MeshPhysicalMaterial({color:0xffffff,metalness:0,roughness:0.06,transparent:true,opacity:0.28,clearcoat:1,envMapIntensity:1.6,depthWrite:false});
+    var tabGeo=new T.SphereGeometry(r*0.92,28,14); tabGeo.scale(1,1,0.42);
+    var tabMat=new T.MeshStandardMaterial({color:0xFF6F9C,roughness:0.5,metalness:0.0});
+    var span=bw-0.24;
+    for(var i=0;i<n;i++){
+      var px=-span/2+span*i/(n-1), py=0.045;
+      var tab=new T.Mesh(tabGeo,tabMat); tab.position.set(px,py,0.03); grp.add(tab);
+      var d=new T.Mesh(domeGeo,domeMat); d.position.set(px,py,0.005); d.renderOrder=2; grp.add(d);
+    }
+    return grp;
+  }
+
+  /* ---------- contact shadow ---------- */
+  var shTex=(function(){var c=document.createElement('canvas');c.width=c.height=256;var x=c.getContext('2d');var g=x.createRadialGradient(128,128,0,128,128,128);g.addColorStop(0,'rgba(0,0,0,.85)');g.addColorStop(.45,'rgba(0,0,0,.35)');g.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=g;x.fillRect(0,0,256,256);return new T.CanvasTexture(c);})();
+  function shadow(sx,sz){var m=new T.Mesh(new T.PlaneGeometry(1,1),new T.MeshBasicMaterial({map:shTex,transparent:true,depthWrite:false,opacity:.7}));m.rotation.x=-Math.PI/2;m.scale.set(sx,sz,1);m.renderOrder=-1;return m;}
+
+  /* ---------- composition ---------- */
+  var rig=new T.Group(); scene.add(rig);
+  var am=makePouch({color:'#FF8A1F',ink:'#1d0f04',a:'AM',b:'FUEL',when:'MORNING',key:'3,000 mg creatine',mark:'sun',name:'AM FUEL',what:'Drink sachet, stir into 400 to 500 mL water'});
+  var pmP=makePouch({color:'#8B68F5',ink:'#ffffff',a:'PM',b:'RECOVER',when:'EVENING',key:'3,000 mg glycine',mark:'moon',name:'PM RECOVER',what:'Drink sachet, stir into 250 to 400 mL water'});
+  var bl=makeBlister();
+  rig.add(am,pmP,bl);
+  var FLOOR=-1.32;
+  var shA=shadow(1.3,0.5), shP=shadow(1.3,0.5), shB=shadow(1.5,0.4);
+  rig.add(shA,shP,shB);
+  [shA,shP,shB].forEach(function(s){s.position.y=FLOOR;});
+
+  var poses={
+    am:{am:{x:-0.5,y:0.12,z:0.45,ry:0.28,rz:0.07,s:1.04},pm:{x:0.62,y:0.24,z:-0.45,ry:-0.38,rz:-0.06,s:0.94}},
+    pm:{am:{x:-0.62,y:0.24,z:-0.45,ry:0.38,rz:0.06,s:0.94},pm:{x:0.5,y:0.12,z:0.45,ry:-0.28,rz:-0.07,s:1.04}}
+  };
+  var cur={am:Object.assign({},poses.am.am),pm:Object.assign({},poses.am.pm)};
+
+  // fonts can land after first paint; redraw labels when ready
+  if(document.fonts&&document.fonts.ready){
+    Promise.all([document.fonts.load('850 300px "Schibsted Grotesk"'),document.fonts.load('600 30px "JetBrains Mono"')]).catch(function(){}).then(function(){
+      [am,pmP,bl].forEach(function(o){o.userData.tex.forEach(function(t){t.userData.redraw();});});
+      if(!running) renderOnce();
+    });
+  }
+
+  /* ---------- interaction ---------- */
+  var rotY=0, velY=0, rotX=0, velX=0, dragging=false, lx=0, ly=0, scrollP=0;
+  canvas.addEventListener('pointerdown',function(e){dragging=true;lx=e.clientX;ly=e.clientY;velY=0;velX=0;try{canvas.setPointerCapture(e.pointerId);}catch(_){}});
+  canvas.addEventListener('pointermove',function(e){
+    if(!dragging) return;
+    var dx=e.clientX-lx, dy=e.clientY-ly; lx=e.clientX; ly=e.clientY;
+    velY=dx*0.0085; velX=dy*0.004; rotY+=velY; rotX=Math.max(-0.45,Math.min(0.45,rotX+velX));
+    if(!running) renderOnce();
+  });
+  function up(){dragging=false;}
+  canvas.addEventListener('pointerup',up); canvas.addEventListener('pointercancel',up); canvas.addEventListener('lostpointercapture',up);
+  window.addEventListener('scroll',function(){
+    var r=stage.getBoundingClientRect(); scrollP=Math.max(-1,Math.min(1,(-r.top)/Math.max(1,r.height)));
+  },{passive:true});
+
+  /* ---------- sizing ---------- */
+  function resize(){
+    var w=stage.clientWidth,h=stage.clientHeight; if(!w||!h) return;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+    renderer.setSize(w,h,false);
+    camera.aspect=w/h;
+    camera.position.z= camera.aspect<0.95 ? 6.9 : 6.2;
+    camera.updateProjectionMatrix();
+    if(!running) renderOnce();
+  }
+  if('ResizeObserver' in window) new ResizeObserver(resize).observe(stage); else window.addEventListener('resize',resize);
+
+  /* ---------- loop ---------- */
+  var clock=new T.Clock(), t=0, running=false, raf=0, visible=true;
+  function L(a,b,k){return a+(b-a)*k;}
+  function place(obj,p,sh,phase,still){
+    var bob= still?0:Math.sin(t*0.9+phase)*0.045;
+    var sway= still?0:Math.sin(t*0.35+phase)*0.32;
+    obj.position.set(p.x,p.y+bob,p.z);
+    obj.rotation.set(-0.06+(still?0:Math.sin(t*0.5+phase)*0.04),p.ry+sway,p.rz);
+    obj.scale.setScalar(p.s);
+    var lift=(obj.position.y-FLOOR);
+    sh.position.x=p.x; sh.position.z=p.z+0.05;
+    sh.material.opacity=Math.max(0.18,0.95-lift*0.42);
+    var sc=1.0+lift*0.18; sh.scale.set(1.25*sc*p.s,0.42*sc*p.s,1);
+  }
+  function step(dt){
+    var still=mqReduce.matches;
+    if(!still) t+=dt;
+    var target=poses[window.__focus]||poses.am, k=1-Math.pow(0.0025,dt);
+    ['am','pm'].forEach(function(n){var c=cur[n],g=target[n];for(var q in g) c[q]=L(c[q],g[q],k);});
+    if(!dragging){ rotY+=velY; velY*=Math.pow(0.05,dt); rotX+=velX; velX*=Math.pow(0.05,dt); rotX=L(rotX,0,1-Math.pow(0.3,dt)); }
+    place(am,cur.am,shA,0,still);
+    place(pmP,cur.pm,shP,1.7,still);
+    // blister lies tilted in front
+    var bb= still?0:Math.sin(t*0.8+3.1)*0.03;
+    bl.position.set(0.02,-0.86+bb,1.0); bl.rotation.set(-1.05,0,still?0.05:0.05+Math.sin(t*0.3)*0.08);
+    shB.position.set(0.02,FLOOR,1.05); shB.material.opacity=0.7; shB.scale.set(1.6,0.45,1);
+    rig.rotation.y=rotY+(still?0:Math.sin(t*0.18)*0.12);
+    rig.rotation.x=rotX+scrollP*0.22;
+    rig.position.y=scrollP*0.35;
+  }
+  function renderOnce(){ step(0); renderer.render(scene,camera); }
+  function frame(){
+    raf=requestAnimationFrame(frame);
+    var dt=Math.min(clock.getDelta(),0.05);
+    step(dt); renderer.render(scene,camera);
+  }
+  function start(){ if(running) return; running=true; clock.getDelta(); raf=requestAnimationFrame(frame); }
+  function stop(){ running=false; cancelAnimationFrame(raf); }
+  function sync(){ if(visible&&!document.hidden) start(); else stop(); }
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){visible=es[0].isIntersecting;sync();},{threshold:0}).observe(stage);
+  }
+  document.addEventListener('visibilitychange',sync);
+  canvas.addEventListener('webglcontextlost',function(e){e.preventDefault();stop();stage.classList.remove('gl-on');stage.classList.add('no-gl');});
+
+  resize();
+  try{ renderOnce(); stage.classList.add('gl-on'); }catch(e){ stage.classList.add('no-gl'); return; }
+  sync();
+})();
+</script>
+</body>
+</html>

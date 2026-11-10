@@ -97,6 +97,12 @@ button{ font:inherit; color:inherit; }
 
 /* ---------- hero ---------- */
 .hero{ padding-top:clamp(108px, 14vh, 150px); position:relative; }
+.hero .wrap{ position:relative; }
+.hero h1, .hero-grid > div:first-child{ position:relative; z-index:1; }
+@media (min-width:961px){
+  .hero .horizon{ position:absolute; right:var(--gutter); top:clamp(150px,17vw,250px); width:min(44%,600px); }
+  .hero-grid{ grid-template-columns:minmax(0,1fr) minmax(0,1fr); }
+}
 .hero h1{
   font-size:clamp(44px, 7.6vw, 128px); font-weight:760; letter-spacing:-.04em; line-height:.93;
   max-width:13.5ch;
@@ -123,7 +129,7 @@ button{ font:inherit; color:inherit; }
   background:var(--am); transform:translate(-50%, var(--rise, 38%));
   will-change:transform;
 }
-.horizon .bands{ position:absolute; inset:auto 0 0 0; height:46%; display:flex; flex-direction:column; justify-content:flex-end; }
+.horizon .bands{ position:absolute; left:0; right:0; bottom:16%; height:46%; display:flex; flex-direction:column; justify-content:flex-end; }
 .horizon .bands i{ display:block; background:var(--sky); }
 .horizon .ground{ position:absolute; left:0; right:0; bottom:0; height:16%; background:var(--sky); border-top:2px solid var(--ink); }
 .horizon-mark{ position:absolute; left:0; bottom:16%; font-family:var(--display); font-weight:650; font-size:14px; padding:0 0 8px; }
@@ -147,7 +153,7 @@ button{ font:inherit; color:inherit; }
 
 /* ---------- generic section rhythm ---------- */
 section{ position:relative; }
-.sec{ padding:clamp(80px,11vw,168px) 0; }
+.sec{ padding:clamp(72px,9vw,136px) 0; }
 .h2{ font-size:clamp(38px,5.6vw,88px); font-weight:740; max-width:16ch; }
 .lede{ font-size:clamp(18px,1.5vw,21px); max-width:34em; margin-top:22px; line-height:1.5; }
 
@@ -245,7 +251,7 @@ tbody tr:first-child td{ font-weight:650; }
 .sunset{ position:relative; height:clamp(160px,20vw,280px); overflow:hidden; margin-bottom:clamp(36px,4vw,56px); }
 .sunset .sun{ position:absolute; right:6%; bottom:0; width:clamp(200px,26vw,380px); aspect-ratio:1; border-radius:50%; background:var(--am); transform:translateY(var(--set, 20%)); will-change:transform; }
 .sunset .line{ position:absolute; left:0; right:0; bottom:0; border-top:2px solid var(--ink); }
-.sunset h2{ position:absolute; left:0; bottom:22px; max-width:11ch; font-size:clamp(38px,5.6vw,88px); font-weight:740; }
+.sunset h2{ position:absolute; left:0; bottom:22px; max-width:14ch; font-size:clamp(38px,5.6vw,88px); font-weight:740; }
 .science .lede{ margin-top:0; }
 .studies{ margin-top:clamp(40px,5vw,64px); border-top:2px solid var(--ink); }
 .study{ display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.6fr) minmax(0,.9fr); gap:clamp(18px,3vw,48px); padding:clamp(24px,3vw,36px) 0; border-bottom:1px solid var(--line-strong); }
@@ -259,7 +265,7 @@ tbody tr:first-child td{ font-weight:650; }
 
 /* faq, night */
 .faq-grid{ display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.5fr); gap:clamp(32px,5vw,80px); }
-.faq-grid .h2{ position:sticky; top:110px; }
+.faq-grid .h2{ position:sticky; top:110px; align-self:start; }
 .faq-list{ border-top:2px solid var(--ink); }
 details{ border-bottom:1px solid var(--line-strong); }
 summary{ list-style:none; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:20px; padding:22px 0; font-family:var(--display); font-weight:600; font-size:clamp(19px,1.7vw,24px); letter-spacing:-.015em; line-height:1.2; border-radius:4px; }
@@ -277,8 +283,8 @@ details .ans{ padding:0 48px 24px 0; max-width:42em; }
 .final p{ font-size:clamp(18px,1.6vw,22px); margin-top:24px; max-width:28em; }
 .final .btn{ margin-top:28px; }
 .moonbox{ position:relative; aspect-ratio:1/1; overflow:hidden; max-width:440px; width:100%; justify-self:end; }
-.moonbox .moon{ position:absolute; left:50%; bottom:0; width:72%; aspect-ratio:1; border-radius:50%; background:#EDE6FF; transform:translate(-50%, var(--moon, 60%)); will-change:transform; overflow:hidden; }
-.moonbox .moon::after{ content:""; position:absolute; width:100%; height:100%; border-radius:50%; background:var(--sky); left:34%; top:-18%; }
+.moonbox .moon{ position:absolute; left:50%; bottom:0; width:72%; aspect-ratio:1; transform:translate(-50%, var(--moon, 60%)); will-change:transform; }
+.moonbox .moon svg{ display:block; width:100%; height:100%; }
 .moonbox .line{ position:absolute; left:0; right:0; bottom:0; height:2px; background:var(--ink); }
 .moonbox .line2{ position:absolute; left:12%; right:12%; bottom:14px; height:2px; background:rgba(var(--ink-rgb),.5); }
 .moonbox .line3{ position:absolute; left:28%; right:28%; bottom:26px; height:2px; background:rgba(var(--ink-rgb),.3); }
@@ -290,8 +296,8 @@ footer{ padding:clamp(56px,6vw,88px) 0 110px; border-top:1px solid var(--line); 
 .foot .ftag{ font-family:var(--display); font-size:clamp(22px,2vw,28px); font-weight:500; margin-top:14px; letter-spacing:-.015em; line-height:1.15; }
 .foot h3{ font-family:var(--body); font-size:14px; font-weight:650; letter-spacing:0; margin-bottom:12px; }
 .foot li + li{ margin-top:8px; }
-.foot a, .foot button.linkish{ text-decoration:none; border-bottom:1px solid var(--line-strong); }
-.foot a:hover, .foot button.linkish:hover{ border-bottom-color:currentColor; }
+.foot li a, .foot button.linkish{ text-decoration:none; border-bottom:1px solid var(--line-strong); }
+.foot li a:hover, .foot button.linkish:hover{ border-bottom-color:currentColor; }
 button.linkish{ background:none; border:0; padding:0; cursor:pointer; font-size:inherit; }
 .disc{ margin-top:clamp(40px,5vw,64px); padding-top:22px; border-top:1px solid var(--line); font-size:14px; }
 
@@ -732,7 +738,7 @@ dialog :focus-visible{ outline-color:#130F22; }
       <button class="btn btn-sun" type="button" data-order>Start My 7-Day Reset</button>
     </div>
     <div class="moonbox" aria-hidden="true">
-      <div class="moon" id="moon"></div>
+      <div class="moon" id="moon"><svg viewBox="0 0 100 100"><mask id="crescent"><rect width="100" height="100" fill="#fff"/><circle cx="84" cy="32" r="50" fill="#000"/></mask><circle cx="50" cy="50" r="50" fill="#EDE6FF" mask="url(#crescent)"/></svg></div>
       <div class="line3"></div><div class="line2"></div><div class="line"></div>
     </div>
   </div>
