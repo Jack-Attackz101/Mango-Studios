@@ -1,14 +1,16 @@
 # Judge protocol
 
+Paths that start with `<skills>/` point into your other Mango skills. `<skills>` is the folder that holds this skill's folder (the parent of this skill's base directory), so `<skills>/review` is the review skill, wherever the skills are installed.
+
 The judge is a second AI that grades the work. It never sees the builder's reasoning, so it can't be talked into a good score. `/design` runs it every round; `/review` runs it once.
 
 ## Spawning the judge
 
 Start a fresh subagent each round (Agent tool, general-purpose). Starting fresh stops it from anchoring on its last score. Give it only:
 
-1. The rubric: `.claude/skills/review/references/rubric.md` (tell it to read the file).
-2. The critique framework: `.claude/skills/design/modules/design-critique/MODULE.md` (first impression, usability, hierarchy, consistency, accessibility).
-3. The screenshots for this round: desktop fold, desktop full, phone fold, phone full. Use `.claude/skills/review/scripts/shoot.mjs` to make them.
+1. The rubric: `<skills>/review/references/rubric.md` (tell it to read the file).
+2. The critique framework: `<skills>/design/modules/design-critique/MODULE.md` (first impression, usability, hierarchy, consistency, accessibility).
+3. The screenshots for this round: desktop fold, desktop full, phone fold, phone full. Use `<skills>/review/scripts/shoot.mjs` to make them.
 4. The overflow numbers from the screenshot script.
 5. The brief in two or three sentences: what the page is, who it is for, and any direction the user gave.
 6. From round 2 on, last round's issue list only, so it can check what got fixed. No scores.

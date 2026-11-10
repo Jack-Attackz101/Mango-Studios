@@ -7,6 +7,8 @@ description: Super Design. The main skill for making any website, page, app scre
 
 Take a page from wherever it is to a design that scores 8/10 or higher with an independent judge. The modules below hold the detailed playbooks from the merged skills; this file is the process that ties them together.
 
+Paths that start with `<skills>/` point into your other Mango skills. `<skills>` is the folder that holds this skill's folder (the parent of this skill's base directory), so `<skills>/review` is the review skill, wherever the skills are installed.
+
 ## When to use something else
 
 - Landing pages and marketing sites: `/landing-page` (it uses this skill's judge loop to finish)
@@ -28,10 +30,10 @@ Work out what exists and what it is for. Read the code or open the URL. Note the
 If there is an existing page, shoot it and judge it before changing anything (round 0). This shows the user where it started and tells you what to fix first.
 
 ```
-node .claude/skills/review/scripts/shoot.mjs <url-or-file> <outDir> --label r0
+node <skills>/review/scripts/shoot.mjs <url-or-file> <outDir> --label r0
 ```
 
-Then run the judge as described in `.claude/skills/review/references/judge.md`.
+Then run the judge as described in `<skills>/review/references/judge.md`.
 
 ### 3. Direction
 
