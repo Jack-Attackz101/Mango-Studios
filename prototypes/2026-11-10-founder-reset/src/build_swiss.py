@@ -51,8 +51,8 @@ def formula(f, cls, ben=None, plus=None):
         top = f'<div class="fb-ben"><h4>{e(ben["title"])}</h4><p>{e(ben["body"])}</p><ul class="facts">{fact_list(ben["facts"])}</ul></div>'
     if plus:
         top = f'<div class="fb-ben"><p class="plusp">{e(plus)}</p></div>'
-    return (f'<article class="fx {cls}" data-r><header><h3>{e(f["name"])}</h3><p>{e(f["meta"])}</p></header>{top}'
-            f'<details class="mc" open><summary>Full ingredient table ({len(f["rows"])})</summary><div class="tw"><table><caption class="sr">Active ingredients per serving, {e(f["name"])}</caption><thead><tr><th scope="col">Ingredient</th><th scope="col">{e(f["unit"])}</th></tr></thead><tbody>{rows(f["rows"])}</tbody></table></div></details>'
+    return (f'<article class="fx {cls}" data-r><header><h3>{e(f["name"])}</h3><p>{e(f["meta"])}</p></header>{top}' +
+            (f'<details class="mc" open><summary>Full ingredient table ({len(f["rows"])})</summary>' if len(f["rows"]) > 1 else '<div>') + f'<div class="tw"><table><caption class="sr">Active ingredients per serving, {e(f["name"])}</caption><thead><tr><th scope="col">Ingredient</th><th scope="col">{e(f["unit"])}</th></tr></thead><tbody>{rows(f["rows"])}</tbody></table></div>' + ('</details>' if len(f["rows"]) > 1 else '</div>') +
             f'<p class="fdesc">{e(f["desc"])}</p><p class="fprep"><strong>Preparation.</strong> {e(f["prep"])}</p></article>')
 fx = formula(ing['formulas'][0], 'am', bn['items'][0]) + formula(ing['formulas'][1], 'pm', bn['items'][1]) + formula(ing['formulas'][2], 'b12', plus=bn['plus']).replace('</article>', f'<div class="fx-after"><p class="fnote">{e(ing["formula_note"])} {e(bn["note"])}</p><button class="btn" type="button" data-order>{e(hero["cta_primary"])}</button></div></article>')
 
@@ -308,6 +308,9 @@ td:last-child,th:last-child{{text-align:right;font-family:var(--mono);white-spac
 .sc details{{display:grid;gap:var(--s3)}}.sc .src{{margin-top:var(--s3)}}
 .fx-after{{margin-top:var(--s10);padding-top:var(--s6);border-top:2px solid var(--ink);display:grid;gap:var(--s6);justify-items:start}}.fx-after .fnote{{margin:0}}
 @media (max-width:600px){{.after.m-hide,.after.m-trim .btn{{display:none}}}}
+.sl{{display:block}}
+@media (max-width:720px){{.prob li{{text-wrap:wrap}}}}
+.mc:not([open])>summary{{border-bottom:0}}
 /* faq */
 .faq .grid{{align-items:start}}
 .faq h2{{grid-column:1/5;position:sticky;top:96px}}
@@ -341,7 +344,7 @@ details[open] summary i::after{{transform:rotate(0)}}
 .foot ul{{display:grid;font-size:14px;line-height:20px}}
 .foot ul li{{min-height:44px;display:flex;align-items:center}}
 .foot a{{text-decoration:none;color:#FFFFFFCC;transition:color .3s var(--ease)}}.foot a:hover{{color:var(--paper)}}
-.foot button.lk{{all:unset;cursor:pointer;color:#FFFFFFCC}}.foot button.lk:hover{{color:var(--paper)}}
+.foot button.lk{{all:unset;cursor:pointer;color:var(--paper);font-weight:500}}.foot button.lk:hover{{color:var(--am)}}.foot .f3 li{{color:#FFFFFF99}}
 .foot .base{{grid-column:1/-1;margin-top:var(--s16);padding-top:var(--s4);border-top:1px solid var(--hair-d);font-size:12px;line-height:16px;color:#FFFFFF99}}
 @media (max-width:720px){{.foot .f1,.foot .f2,.foot .f3{{grid-column:1/-1}}.foot .f2,.foot .f3{{margin-top:var(--s8)}}}}
 
@@ -448,7 +451,7 @@ dialog .bar i{{background:var(--am)}}dialog .bar i+i{{background:var(--pm)}}
 
 <section class="sec" id="routine" aria-labelledby="r-h" style="padding-bottom:0">
  <div class="wrap"><div class="grid rt-head">
-  <h2 class="h2 disp" id="r-h" data-r>{e(rt['heading'])}</h2>
+  <h2 class="h2 disp" id="r-h" data-r>{''.join(f'<span class="sl">{e(x.strip())}</span> ' for x in rt['heading'].replace('. ', '.|').split('|'))}</h2>
   <p class="lede" data-r>{e(rt['body'])}</p>
  </div></div>
  <div class="halves">
@@ -465,7 +468,6 @@ dialog .bar i{{background:var(--am)}}dialog .bar i+i{{background:var(--pm)}}
    <article class="kit" data-r><div class="nm">{e(kit1['name'])}<span>{e(kit1['contents'])}</span></div><div class="pz">{e(kit1['price'])}</div><p class="ct">Days 1 to 7, then the Monthly box</p></article>
    <article class="kit dk" data-r style="--d:120ms"><div class="nm">{e(kit2['name'])}<span>{e(kit2['contents'])}</span></div><div class="pz">{e(kit2['price'])}</div><p class="ct">Every 30 days, until you cancel</p></article>
   </div>
-  <div class="after kit-cta m-hide" data-r><button class="btn" type="button" data-order>{e(hero['cta_primary'])}</button></div>
   <ol class="steps">{steps}</ol>
   <div class="bill" data-r><h3>{e(how['billing']['heading'])}</h3><ul>{bill}</ul><div class="bx"><button class="btn" type="button" data-order>{e(hero['cta_primary'])}</button></div></div>
  </div>
