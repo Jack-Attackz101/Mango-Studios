@@ -216,7 +216,7 @@ section{position:relative}
 .signals{padding:10px;display:grid;gap:6px}
 .signal{display:flex;align-items:center;gap:16px;padding:18px 18px;border-radius:13px;background:var(--well);box-shadow:var(--well-shadow);font-size:16.5px;color:#dcdcd9}
 .signal .n{font-family:var(--mono);font-size:12px;color:var(--dim);width:22px;flex:none}
-.signal .led{margin-left:auto;--c:#ff5a4a}
+.signal .led{margin-left:auto;--c:#ff6a3d;opacity:.85}
 
 /* routine */
 .routine-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
@@ -381,8 +381,8 @@ dialog[open] .dlg{animation:pop .28s cubic-bezier(.2,1.2,.4,1)}
   .rail::before{left:16px;right:16px}
   .top{padding-top:18px}
   .top .key-sm{display:none}
-  .navpill{justify-content:space-between}
-  .navpill a{padding:8px 10px;font-size:13px}
+  .navpill{display:grid;grid-template-columns:1fr 1fr;border-radius:18px;gap:4px}
+  .navpill a{padding:9px 8px;font-size:13.5px;text-align:center;border-radius:13px}
   .hero{padding:40px 0 60px}
   .hero h1{font-size:clamp(34px,10vw,44px)}
   .tagline{font-size:17px}
@@ -399,7 +399,6 @@ dialog[open] .dlg{animation:pop .28s cubic-bezier(.2,1.2,.4,1)}
   .plus{flex-direction:column;align-items:flex-start;padding:20px}
   .final-card{padding:44px 20px}
   .spec th,.spec td{padding:10px 11px}
-  .spec td{white-space:normal}
   .qa summary{padding:16px 14px 16px 16px;font-size:15.5px}
   .qa .a{padding:0 16px 18px}
 }
@@ -445,7 +444,6 @@ dialog[open] .dlg{animation:pop .28s cubic-bezier(.2,1.2,.4,1)}
 
         <div class="stage-col">
           <div class="stage" id="stage" role="img" aria-label="AM FUEL orange sachet, PM RECOVER lavender sachet and a B12 RESET blister strip with pink tablets">
-            <span class="corner tl" aria-hidden="true"></span><span class="corner tr" aria-hidden="true"></span><span class="corner bl" aria-hidden="true"></span><span class="corner br" aria-hidden="true"></span>
             <div class="stage-tag" aria-hidden="true"><span class="led" id="stageLed"></span><span id="stageName">AM FUEL + B12 RESET</span></div>
             <div class="stage-hint" aria-hidden="true">drag to turn</div>
             <canvas id="gl" aria-hidden="true"></canvas>
@@ -582,13 +580,11 @@ dialog[open] .dlg{animation:pop .28s cubic-bezier(.2,1.2,.4,1)}
         </div>
         <div class="kits">
           <article class="kit edge rv">
-            <span class="corner tl" aria-hidden="true"></span><span class="corner br" aria-hidden="true"></span>
             <h3>7-Day Starter</h3>
             <p class="c">14 sachets, 7 B12 RESET tablets</p>
             <p class="price">$39</p>
           </article>
           <article class="kit edge rv">
-            <span class="corner tl" aria-hidden="true"></span><span class="corner br" aria-hidden="true"></span>
             <h3>Monthly box</h3>
             <p class="c">60 sachets, 30 B12 RESET tablets</p>
             <p class="price">$99</p>
@@ -745,7 +741,6 @@ dialog[open] .dlg{animation:pop .28s cubic-bezier(.2,1.2,.4,1)}
     <section class="final" aria-labelledby="fn-h">
       <div class="wrap">
         <div class="final-card edge rv">
-          <span class="corner tl" aria-hidden="true"></span><span class="corner tr" aria-hidden="true"></span><span class="corner bl" aria-hidden="true"></span><span class="corner br" aria-hidden="true"></span>
           <h2 id="fn-h">Start strong. Recover well. Repeat.</h2>
           <p>$39 for your 7-Day Starter, then $99 every 30 days until you cancel.</p>
           <button class="key key-light" data-order type="button"><span class="led" aria-hidden="true"></span>Start My 7-Day Reset</button>
@@ -854,8 +849,7 @@ dialog[open] .dlg{animation:pop .28s cubic-bezier(.2,1.2,.4,1)}
   var T=THREE;
   renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
   renderer.outputEncoding=T.sRGBEncoding;
-  renderer.toneMapping=T.ACESFilmicToneMapping;
-  renderer.toneMappingExposure=1.0;
+  renderer.toneMapping=T.NoToneMapping;
   renderer.setClearColor(0x000000,0);
 
   var scene=new T.Scene();
@@ -878,10 +872,10 @@ dialog[open] .dlg{animation:pop .28s cubic-bezier(.2,1.2,.4,1)}
     pm.dispose();
   })();
 
-  var key=new T.DirectionalLight(0xfff4ea,1.5); key.position.set(3,4.5,5); scene.add(key);
+  var key=new T.DirectionalLight(0xfff4ea,1.05); key.position.set(3,4.5,5); scene.add(key);
   var rim=new T.DirectionalLight(0xcdd6ff,1.6); rim.position.set(-4,2.5,-5); scene.add(rim);
   var rim2=new T.DirectionalLight(0xffffff,0.8); rim2.position.set(5,1,-4); scene.add(rim2);
-  scene.add(new T.HemisphereLight(0xffffff,0x1a1a1f,0.35));
+  scene.add(new T.HemisphereLight(0xffffff,0x1a1a1f,0.25));
 
   /* ---------- label textures ---------- */
   var W=800,H=1160,SEAL=0.085,COLS=120;
@@ -926,7 +920,7 @@ dialog[open] .dlg{animation:pop .28s cubic-bezier(.2,1.2,.4,1)}
     // big name
     ctx.font='850 300px '+sans; if('letterSpacing' in ctx) ctx.letterSpacing='-14px';
     ctx.fillText(o.a,M-12,sh+470);
-    var s2=fit(ctx,o.b,W-2*M+10,170,'800',sans); ctx.font='800 '+s2+'px '+sans; if('letterSpacing' in ctx) ctx.letterSpacing='-5px';
+    var s2=fit(ctx,o.b,W-2*M-60,170,'800',sans); ctx.font='800 '+s2+'px '+sans; if('letterSpacing' in ctx) ctx.letterSpacing='-5px';
     ctx.fillText(o.b,M-6,sh+470+s2*0.95);
     if('letterSpacing' in ctx) ctx.letterSpacing='0px';
     // when pill
@@ -984,7 +978,7 @@ dialog[open] .dlg{animation:pop .28s cubic-bezier(.2,1.2,.4,1)}
     var grp=new T.Group(), w=1.0, h=1.45, t=0.075;
     var front=pouchHalf(w,h,t);
     var back=pouchHalf(w,h,t); back.rotateY(Math.PI);
-    var common={roughness:0.28,metalness:0.35,clearcoat:0.7,clearcoatRoughness:0.22,envMapIntensity:1.15};
+    var common={roughness:0.28,metalness:0.35,clearcoat:0.7,clearcoatRoughness:0.22,envMapIntensity:0.75};
     var mf=new T.MeshPhysicalMaterial(Object.assign({map:makeTex(o,false)},common));
     var mb=new T.MeshPhysicalMaterial(Object.assign({map:makeTex(o,true)},common));
     grp.add(new T.Mesh(front,mf)); grp.add(new T.Mesh(back,mb));
@@ -1019,9 +1013,9 @@ dialog[open] .dlg{animation:pop .28s cubic-bezier(.2,1.2,.4,1)}
     face.position.z=0.0045; grp.add(face);
     grp.userData.tex=[bt];
     var domeGeo=new T.SphereGeometry(r*1.15,28,14,0,Math.PI*2,0,Math.PI/2); domeGeo.rotateX(Math.PI/2); domeGeo.scale(1,1,0.75);
-    var domeMat=new T.MeshPhysicalMaterial({color:0xffffff,metalness:0,roughness:0.06,transparent:true,opacity:0.28,clearcoat:1,envMapIntensity:1.6,depthWrite:false});
+    var domeMat=new T.MeshPhysicalMaterial({color:0xffffff,metalness:0,roughness:0.06,transparent:true,opacity:0.14,clearcoat:1,envMapIntensity:1.2,depthWrite:false});
     var tabGeo=new T.SphereGeometry(r*0.92,28,14); tabGeo.scale(1,1,0.42);
-    var tabMat=new T.MeshStandardMaterial({color:0xFF6F9C,roughness:0.5,metalness:0.0});
+    var tabMat=new T.MeshStandardMaterial({color:0xFF6F9C,roughness:0.55,metalness:0.0,envMapIntensity:0.5});
     var span=bw-0.24;
     for(var i=0;i<n;i++){
       var px=-span/2+span*i/(n-1), py=0.045;
@@ -1081,7 +1075,7 @@ dialog[open] .dlg{animation:pop .28s cubic-bezier(.2,1.2,.4,1)}
     renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
     renderer.setSize(w,h,false);
     camera.aspect=w/h;
-    camera.position.z= camera.aspect<0.95 ? 6.9 : 6.2;
+    camera.position.z= camera.aspect<0.95 ? 6.45 : 6.2;
     camera.updateProjectionMatrix();
     if(!running) renderOnce();
   }
