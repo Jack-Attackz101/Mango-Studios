@@ -1,12 +1,12 @@
 import * as THREE from 'three';
-import { OBJLoader } from './vendor/OBJLoader.js';
-import { RoomEnvironment } from './vendor/RoomEnvironment.js';
+import { OBJLoader } from '../vendor/OBJLoader.js';
+import { RoomEnvironment } from '../vendor/RoomEnvironment.js';
 
 const { gsap, ScrollTrigger } = window;
 gsap.registerPlugin(ScrollTrigger);
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const OBJ_URL = 'assets/submarine.obj';
+const OBJ_URL = '../assets/submarine.obj';
 const OBJ_BYTES = 1303164; // fallback for progress when content-length is compressed/missing
 
 document.body.classList.add('is-loading');

@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { RoomEnvironment } from './vendor/RoomEnvironment.js';
+import { RoomEnvironment } from '../vendor/RoomEnvironment.js';
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -410,3 +410,5 @@ const loop = (now) => {
   requestAnimationFrame(loop);
 };
 requestAnimationFrame(loop);
+
+export { BUILDERS, PRODUCTS };

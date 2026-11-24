@@ -546,6 +546,19 @@ html.dialog-open { overflow: hidden; }
   .who-head h2 { font-size: 28px; }
 }
 
+/* ---------- Mango Studios demo switcher ---------- */
+.demo-switch {
+  position: fixed; left: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 60;
+  display: flex; align-items: center; gap: 4px; padding: 5px;
+  background: rgba(2, 8, 13, 0.8); border: 1px solid var(--line); border-radius: 999px;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  font: 500 12px/1 var(--sans);
+}
+.demo-switch a { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px 6px 6px; border-radius: 999px; text-decoration: none; color: var(--ink); }
+.demo-switch a:hover { background: rgba(233, 239, 242, 0.1); }
+.demo-switch img { border-radius: 50%; }
+.demo-other { padding-left: 12px !important; color: #ffde5f !important; }
+
 /* ---------- Responsive ---------- */
 @media (max-width: 1100px) {
 }

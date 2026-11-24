@@ -1,20 +1,41 @@
-# AMB — American Metal Bearing concept site
+# AMB — American Metal Bearing concept demo
 
-Scroll-driven 3D site for [American Metal Bearing](https://www.ambco.net/).
+A Mango Studios client demo with two complete concept sites for [American Metal Bearing](https://www.ambco.net/), behind a Mango-branded picker.
 
-- **Hero:** the submarine (`assets/submarine.obj`) with the camera slowly orbiting it and a ring reading "American Metal Bearing Company" rotating around the hull. Headline sits at the bottom.
-- **Journey:** as you scroll, the camera zooms in and moves through six angles of the submarine, paired with a timeline of AMB in national security (1921 → today). Between angles, five pinned pauses darken the scene and slide in a row of cards: capabilities, product lines, by the numbers, manufacturing, services & life cycle.
-- **Product lines:** propulsor (stave), line shaft and thrust bearings as drag-to-rotate 3D models (`products.js`), each with a Learn more panel.
-- **Who we are:** a pinned horizontal story. Our story scrolls, slides left to Our values, then Our quality, then the page scrolls normally into careers and contact.
-- **Logo:** `assets/logo.svg`, a vector redraw of the AMB wordmark. Replace it with the official file if one is available.
+```
+apps/ambco/
+  index.html     Mango Studios launcher: pick Sub or Plain, then Enter
+  launch/        preview images for the launcher cards
+  sub/           Sub concept: cinematic three.js submarine dive
+  plain/         Plain concept: editorial, Anduril-style site
+    img/         AMB photography and CAD renders from ambco.net
+  assets/        shared: submarine.obj, AMB logo, favicon
+  vendor/        three.js r169, GSAP 3.13 + ScrollTrigger, Lenis (no CDN)
+```
 
-Stack: three.js r169, GSAP 3.13 + ScrollTrigger, Lenis. All are vendored in `vendor/`, so nothing loads from a CDN.
+Both concept sites have a small "Mango Studios demo" pill in the bottom-left corner. It goes back to the picker or switches to the other concept.
 
-Run it from the repo root:
+## Sub
+
+- **Hero:** the submarine with the camera slowly orbiting it and a ring reading "American Metal Bearing Company" rotating around the hull.
+- **Journey:** scrolling moves the camera through six angles of the submarine, paired with AMB's legacy in national security. Five pinned pauses darken the scene and slide in card rows: capabilities, product lines (drag-to-rotate 3D bearings with Learn more), by the numbers, manufacturing, and services & life cycle.
+- **Who we are:** a pinned horizontal story: Our story → Our values → Our quality.
+- Camera angles live in the `KEYS` array at the top of `sub/main.js`.
+
+## Plain
+
+A blend of the Anduril and Human Delta sites: black, image-first sections with rounded mosaic tiles and a centered nav (Anduril), then white framed sections with hairline column rules, navy serif headings, a halftone dot wave, gradient navy buttons and a navy footer swell (Human Delta).
+
+- Hero, mission, product and capability mosaics on black.
+- "On the shafts of" fleet list, key figures, product detail rows, manufacturing 2x2 and services on white.
+- Legacy as beige / olive / grey news-style panels, then Who we are and a closing careers CTA.
+- **Images are scraped from ambco.net.** They are the real AMB photos and CAD renders, converted to WebP in `plain/img/`. The AMB lettermark is `plain/img/amb-logo.webp` (also `assets/amb-logo.webp`, used by Sub). Replace any file with the same name to swap an image.
+
+## Run
+
+From the repo root:
 
 ```
 python3 -m http.server 4173
 # open http://localhost:4173/apps/ambco/
 ```
-
-Camera angles are defined in the `KEYS` array at the top of `main.js`. Pauses are `<section class="pause">` blocks in `index.html`; the camera holds still while each one is pinned.
