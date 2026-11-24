@@ -2,152 +2,398 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<title>Outreach | Mango Studios</title>
-<link rel="icon" href="/assets/logo-badge.png">
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&display=swap" rel="stylesheet">
+<meta name="color-scheme" content="light dark">
+<title>Outreach</title>
 <style>
-:root { --ink: #111; --yellow: #FFDE5F; --orange: #F9B435; --paper: #fff8ec; --muted: #7a6650; --line: #f0e6d4; }
+:root {
+  color-scheme: light;
+  --bg: #f5f5f7;
+  --card: rgba(255, 255, 255, 0.78);
+  --card-solid: #ffffff;
+  --text: #1d1d1f;
+  --muted: #4e4e53;
+  --stroke: rgba(0, 0, 0, 0.08);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 12px 32px rgba(0, 0, 0, 0.05);
+  --accent: #0071e3;
+  --field: #ffffff;
+  --grid: rgba(0, 0, 0, 0.06);
+  --row: rgba(0, 0, 0, 0.035);
+  --tooltip-bg: #1d1d1f;
+  --tooltip-fg: #f5f5f7;
+  --danger: #b42318;
+  --pill-sent-bg: #e5f0ff; --pill-sent-fg: #003e86;
+  --pill-follow-bg: #efeaff; --pill-follow-fg: #432d86;
+  --pill-replied-bg: #e4f7ec; --pill-replied-fg: #0d5a30;
+  --pill-bounced-bg: #fdeaea; --pill-bounced-fg: #8d1d1d;
+  --pill-other-bg: #ececef; --pill-other-fg: #2c2c31;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --bg: #000000;
+    --card: rgba(28, 28, 30, 0.82);
+    --card-solid: #1c1c1e;
+    --text: #f5f5f7;
+    --muted: #c7c7cc;
+    --stroke: rgba(255, 255, 255, 0.12);
+    --shadow: 0 1px 1px rgba(0, 0, 0, 0.4), 0 16px 40px rgba(0, 0, 0, 0.45);
+    --accent: #0a84ff;
+    --field: #2c2c2e;
+    --grid: rgba(255, 255, 255, 0.08);
+    --row: rgba(255, 255, 255, 0.06);
+    --tooltip-bg: #3a3a3c;
+    --tooltip-fg: #f5f5f7;
+    --danger: #ffb4ab;
+    --pill-sent-bg: #0b2d52; --pill-sent-fg: #d0e6ff;
+    --pill-follow-bg: #2c2450; --pill-follow-fg: #e4d9ff;
+    --pill-replied-bg: #0d3322; --pill-replied-fg: #b6f0ce;
+    --pill-bounced-bg: #4a1518; --pill-bounced-fg: #ffd0d0;
+    --pill-other-bg: #3a3a3c; --pill-other-fg: #f2f2f7;
+  }
+}
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
-body { margin: 0; font-family: "Inter Tight", system-ui, sans-serif; background: var(--paper); color: #2b1d0e; }
-main { max-width: 1100px; margin: 0 auto; padding: 32px 20px 64px; }
-h1 { margin: 0 0 4px; font-size: 32px; font-weight: 800; letter-spacing: -0.03em; }
-h2 { margin: 28px 0 12px; font-size: 20px; font-weight: 800; }
-.sub, .kicker { color: var(--muted); }
-.sub { margin: 0 0 24px; }
-.kicker { margin: 0 0 6px; font: 800 12px/1 "Inter Tight", sans-serif; letter-spacing: 0.12em; text-transform: uppercase; }
-.gate { max-width: 440px; margin: 10vh auto; background: #fff; border: 3px solid var(--ink); border-radius: 24px; padding: 28px 26px 26px; box-shadow: 0 4px 0 var(--ink); }
-.mark { width: 72px; height: auto; margin-bottom: 14px; }
-.field { display: grid; gap: 8px; margin: 0 0 16px; }
-.field label, .search label { font: 700 14px/1.2 "Inter Tight", sans-serif; color: var(--ink); }
-.field input, .search input {
-  width: 100%; min-height: 52px; padding: 13px 15px;
-  border: 3px solid var(--ink); border-radius: 15px; background: #fff;
-  font: 500 16px/1.4 "Inter Tight", sans-serif; color: var(--ink);
+html, body { margin: 0; min-height: 100%; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  letter-spacing: -0.011em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
-.field input:focus-visible, .search input:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
-.btn {
-  display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 26px;
-  border: 3px solid var(--ink); border-radius: 999px; background: var(--yellow); box-shadow: 0 4px 0 var(--ink);
-  font: 700 16px/1 "Inter Tight", sans-serif; color: var(--ink); cursor: pointer;
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+a { color: var(--accent); text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.sr {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
 }
-.btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--ink); }
-.btn:disabled { opacity: 0.6; cursor: progress; transform: none; }
-.btn-white { background: #fff; }
-.btn-small { min-height: 42px; padding: 0 16px; font-size: 14px; box-shadow: 0 3px 0 var(--ink); }
-.err {
-  margin: 14px 0 0; padding: 10px 14px; border: 2.5px solid #c2412a; border-radius: 14px;
-  background: #fff3f0; color: #9a3412; font: 700 14px/1.4 "Inter Tight", sans-serif;
+.gate-wrap {
+  min-height: 100vh; min-height: 100dvh;
+  display: grid; place-items: center;
+  padding: max(28px, env(safe-area-inset-top)) 20px max(28px, env(safe-area-inset-bottom));
 }
+.card {
+  background: var(--card);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border: 1px solid var(--stroke);
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+}
+.gate { width: min(420px, 100%); padding: 36px 28px 28px; }
+.eyebrow {
+  margin: 0 0 8px;
+  font-size: 13px; font-weight: 600; letter-spacing: 0.04em;
+  text-transform: uppercase; color: var(--muted);
+}
+h1 { margin: 0; font-size: 40px; font-weight: 600; letter-spacing: -0.035em; line-height: 1.05; }
+.lede { margin: 10px 0 0; color: var(--muted); font-size: 17px; line-height: 1.4; }
+.field { display: grid; gap: 8px; margin: 28px 0 16px; }
+.field span, .finder span { font-size: 13px; font-weight: 600; color: var(--muted); }
+.field input, .finder input, .sort-mobile select {
+  width: 100%; min-height: 52px; padding: 0 16px;
+  border: 1px solid var(--stroke); border-radius: 14px;
+  background: var(--field);
+  font-size: 17px;
+}
+.primary {
+  width: 100%; min-height: 52px; border: 0; border-radius: 999px;
+  background: var(--accent); color: #fff;
+  font-size: 17px; font-weight: 600;
+}
+.primary:disabled { opacity: 0.55; cursor: progress; }
+.primary:active { transform: scale(0.985); }
+.err { min-height: 1.3em; margin: 14px 0 0; color: var(--danger); font-size: 15px; font-weight: 500; }
 .err:empty { display: none; }
-.top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
-.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 24px; }
-.stat, .card, .table-wrap { background: #fff; border-radius: 16px; box-shadow: 0 2px 8px rgba(0, 0, 0, .06); }
-.stat { padding: 16px; }
-.stat b { display: block; font-size: 30px; color: #f28c00; }
-.stat span { font-size: 13px; color: var(--muted); }
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
-.card { padding: 16px; }
-.card h2 { font-size: 16px; margin: 0 0 12px; }
-canvas { width: 100%; height: 220px; }
-.legend { font-size: 12px; color: var(--muted); margin-top: 8px; }
-.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin: 0 4px 0 10px; }
-.search { margin: 0 0 12px; max-width: 420px; }
-.table-wrap { overflow: auto; margin: 0 0 8px; }
-table { width: 100%; border-collapse: collapse; font-size: 14px; }
-th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
-th { font-size: 12px; color: var(--muted); font-weight: 700; white-space: nowrap; }
+.app {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  padding: max(28px, env(safe-area-inset-top)) 20px max(48px, env(safe-area-inset-bottom));
+}
+.top { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; margin-bottom: 28px; }
+.updated { margin: 8px 0 0; color: var(--muted); font-size: 15px; }
+.ghost {
+  flex: none; border: 0; border-radius: 999px; background: transparent;
+  color: var(--accent); font-size: 16px; font-weight: 600;
+  min-height: 44px; padding: 0 14px;
+}
+.ghost:hover { background: var(--row); }
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.stat { padding: 18px 18px 16px; }
+.stat h2 { margin: 0; font-size: 14px; font-weight: 600; color: var(--muted); letter-spacing: -0.01em; }
+.stat b {
+  display: block; margin: 8px 0 6px;
+  font-size: clamp(32px, 4vw, 40px); font-weight: 600;
+  letter-spacing: -0.04em; font-variant-numeric: tabular-nums; line-height: 1;
+}
+.stat p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.35; }
+.charts { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+.chart { padding: 20px 20px 16px; }
+.chart h2 { margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.03em; }
+.sub { margin: 6px 0 0; color: var(--muted); font-size: 14px; line-height: 1.4; }
+.legend { list-style: none; display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 14px 0; padding: 0; }
+.legend li { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+.legend .pct { margin-left: auto; font-weight: 600; font-variant-numeric: tabular-nums; }
+.swatch { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+.legend-stack { display: grid; gap: 10px; align-content: center; }
+.legend-stack li { display: grid; grid-template-columns: 10px 1fr auto; }
+.donut-layout { display: grid; grid-template-columns: minmax(160px, 200px) 1fr; gap: 8px 18px; align-items: center; }
+.plot { position: relative; height: 250px; }
+.donut-layout .plot { height: 210px; }
+.chart-empty { margin: 18px 0 8px; color: var(--muted); font-size: 15px; }
+.section { margin-top: 28px; }
+.section-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; margin: 0 0 12px; }
+.section h2 { margin: 0; font-size: 28px; font-weight: 600; letter-spacing: -0.03em; }
+.count { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
+.finder { display: grid; gap: 6px; min-width: min(280px, 100%); }
+.sheet { padding: 8px 8px 4px; overflow: hidden; }
+.sort-mobile { display: none; padding: 8px 10px 0; }
+.sort-mobile label { display: grid; gap: 6px; font-size: 13px; font-weight: 600; color: var(--muted); }
+.table-scroll { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+th, td { text-align: left; padding: 12px 12px; vertical-align: top; border-bottom: 1px solid var(--stroke); }
+th { font-size: 13px; font-weight: 600; color: var(--muted); }
+th button {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 0; border: 0; background: none; color: inherit; font-weight: 600;
+}
+th[aria-sort] button { color: var(--text); }
 tr:last-child td { border-bottom: 0; }
-td a { color: #9a4d00; font-weight: 700; }
-.muted { color: var(--muted); font-size: 12px; margin-top: 2px; }
-.reply { min-width: 160px; max-width: 320px; white-space: pre-wrap; word-break: break-word; }
-.empty { margin: 0; padding: 14px 16px; color: var(--muted); }
-.count { font-weight: 600; color: var(--muted); font-size: 14px; }
+tbody tr:hover td { background: var(--row); }
+.cell-label { display: none; }
+.who { display: grid; gap: 2px; }
+.quiet { color: var(--muted); font-size: 13px; }
+.reply { white-space: pre-wrap; word-break: break-word; max-width: 340px; }
+.pill {
+  display: inline-flex; align-items: center; min-height: 26px; padding: 0 10px;
+  border-radius: 999px; font-size: 12px; font-weight: 600; letter-spacing: 0.01em; white-space: nowrap;
+}
+td a, .reply { overflow-wrap: anywhere; }
+.pill-sent { background: var(--pill-sent-bg); color: var(--pill-sent-fg); }
+.pill-follow { background: var(--pill-follow-bg); color: var(--pill-follow-fg); }
+.pill-replied { background: var(--pill-replied-bg); color: var(--pill-replied-fg); }
+.pill-bounced { background: var(--pill-bounced-bg); color: var(--pill-bounced-fg); }
+.pill-other { background: var(--pill-other-bg); color: var(--pill-other-fg); }
+.blank { margin: 0; padding: 22px 14px 26px; color: var(--muted); font-size: 16px; line-height: 1.45; }
+.empty-hero { margin-top: 8px; padding: 48px 28px; text-align: center; }
+.empty-hero h2 { margin: 0; font-size: 28px; letter-spacing: -0.03em; }
+.empty-hero p { margin: 10px auto 0; max-width: 42ch; color: var(--muted); font-size: 17px; line-height: 1.45; }
+#dash { animation: rise 0.5s cubic-bezier(.2, .7, .2, 1) both; }
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  #dash { animation: none; }
+  .primary:active { transform: none; }
+}
+@media (max-width: 900px) {
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stat:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .charts, .donut-layout { grid-template-columns: 1fr; }
+  h1 { font-size: 34px; }
+}
+@media (max-width: 760px) {
+  .top, .section-head { align-items: stretch; flex-direction: column; }
+  .finder { width: 100%; }
+  .sort-mobile { display: block; }
+  thead { display: none; }
+  table, tbody { display: block; width: 100%; }
+  tr {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px 14px;
+    padding: 14px 10px 16px; border-bottom: 1px solid var(--stroke);
+  }
+  td { display: block; width: auto; border: 0; padding: 0; }
+  td.wide { grid-column: 1 / -1; }
+  tr:last-child { border-bottom: 0; }
+  .cell-label { display: block; margin-bottom: 2px; color: var(--muted); font-size: 12px; font-weight: 600; }
+  .reply { max-width: none; }
+  .plot { height: 230px; }
+  .sheet { padding-bottom: 8px; }
+}
 </style>
 </head>
 <body>
-<main>
-<section id="gate">
-  <img class="mark" src="/assets/logo-badge.png" alt="">
-  <p class="kicker">Mango Studios</p>
-  <h1>Outreach</h1>
-  <p class="sub">Enter the password to see the outreach log.</p>
-  <form id="gate-form" method="post" action="/api/outreach">
-    <div class="field">
-      <label for="pw">Password</label>
-      <input id="pw" name="password" type="password" autocomplete="current-password" required aria-describedby="gate-error">
-    </div>
-    <button class="btn" id="unlock" type="submit">Unlock</button>
-    <p class="err" id="gate-error" role="alert"></p>
-  </form>
-  <noscript><p class="err">This dashboard needs JavaScript to check the password.</p></noscript>
+<section class="gate-wrap" id="gate">
+  <section class="card gate" aria-labelledby="gate-title">
+    <p class="eyebrow">Private</p>
+    <h1 id="gate-title">Outreach</h1>
+    <p class="lede">Enter the password to see emails, replies, posts, and messages.</p>
+    <form id="gate-form" method="post" action="/api/outreach">
+      <label class="field">
+        <span>Password</span>
+        <input id="pw" name="password" type="password" autocomplete="current-password" required aria-describedby="gate-error">
+      </label>
+      <button class="primary" id="open" type="submit">Open</button>
+      <p class="err" id="gate-error" role="alert"></p>
+    </form>
+    <noscript><p class="err">JavaScript needs to be on to check the password.</p></noscript>
+  </section>
 </section>
 
-<section id="dash" hidden>
-  <div class="top">
+<main class="app" id="dash" hidden>
+  <header class="top">
     <div>
-      <h1>Outreach dashboard</h1>
-      <p class="sub">Updated <span id="upd"></span>.</p>
+      <p class="eyebrow">Private</p>
+      <h1 id="dash-title" tabindex="-1">Outreach</h1>
+      <p class="updated">Last updated <time id="upd"></time></p>
     </div>
-    <button class="btn btn-white btn-small" id="lock" type="button">Lock</button>
+    <button class="ghost" id="lock" type="button">Lock</button>
+  </header>
+
+  <section class="card empty-hero" id="empty" hidden>
+    <h2>Nothing here yet</h2>
+    <p>When emails, LinkedIn posts, or direct messages are added, the totals, charts, and lists will show up here.</p>
+  </section>
+
+  <div id="content">
+    <section class="stats" id="stats" aria-label="Totals"></section>
+    <section class="charts" aria-label="Charts">
+      <article class="card chart">
+        <h2>Emails each day</h2>
+        <p class="sub">How many first emails and follow-ups went out on each day.</p>
+        <ul class="legend" id="leg-daily"></ul>
+        <p class="sr" id="sum-daily"></p>
+        <div class="plot" id="plot-daily"><canvas id="c-daily" aria-hidden="true"></canvas></div>
+        <p class="chart-empty" id="empty-daily" hidden>No emails yet.</p>
+      </article>
+      <article class="card chart">
+        <h2>People reached</h2>
+        <p class="sub">A running total of first emails, so you can see the list grow over time.</p>
+        <ul class="legend" id="leg-line"></ul>
+        <p class="sr" id="sum-line"></p>
+        <div class="plot" id="plot-line"><canvas id="c-line" aria-hidden="true"></canvas></div>
+        <p class="chart-empty" id="empty-line" hidden>No first emails yet.</p>
+      </article>
+      <article class="card chart">
+        <h2>What the emails are about</h2>
+        <p class="sub">The share of emails in each service line.</p>
+        <p class="sr" id="sum-linechart"></p>
+        <div class="donut-layout" id="plot-donut">
+          <div class="plot"><canvas id="c-donut" aria-hidden="true"></canvas></div>
+          <ul class="legend legend-stack" id="leg-donut"></ul>
+        </div>
+        <p class="chart-empty" id="empty-donut" hidden>No emails yet.</p>
+      </article>
+      <article class="card chart">
+        <h2>Where emails stand</h2>
+        <p class="sub">Each email is counted once: sent, follow-up, replied, bounced, or another status.</p>
+        <ul class="legend" id="leg-status"></ul>
+        <p class="sr" id="sum-status"></p>
+        <div class="plot" id="plot-status"><canvas id="c-status" aria-hidden="true"></canvas></div>
+        <p class="chart-empty" id="empty-status" hidden>No emails yet.</p>
+      </article>
+    </section>
+    <p class="chart-empty" id="chart-note" hidden>The charts couldn’t load. The numbers and lists below are still here.</p>
+
+    <section class="section" id="sec-emails" aria-labelledby="h-emails">
+      <div class="section-head">
+        <div>
+          <h2 id="h-emails">Emails</h2>
+          <p class="count" id="count-emails"></p>
+        </div>
+        <label class="finder"><span>Search emails</span><input id="q-emails" type="search" placeholder="Company, person, status, reply" autocomplete="off"></label>
+      </div>
+      <div class="card sheet">
+        <div class="sort-mobile"><label>Sort<select id="sort-emails"></select></label></div>
+        <div class="table-scroll">
+          <table>
+            <thead id="head-emails"></thead>
+            <tbody id="body-emails"></tbody>
+          </table>
+        </div>
+        <p class="blank" id="blank-emails" hidden></p>
+      </div>
+    </section>
+
+    <section class="section" id="sec-posts" aria-labelledby="h-posts">
+      <div class="section-head">
+        <div>
+          <h2 id="h-posts">LinkedIn posts</h2>
+          <p class="count" id="count-posts"></p>
+        </div>
+        <label class="finder"><span>Search posts</span><input id="q-posts" type="search" placeholder="Words in a post" autocomplete="off"></label>
+      </div>
+      <div class="card sheet">
+        <div class="sort-mobile"><label>Sort<select id="sort-posts"></select></label></div>
+        <div class="table-scroll">
+          <table>
+            <thead id="head-posts"></thead>
+            <tbody id="body-posts"></tbody>
+          </table>
+        </div>
+        <p class="blank" id="blank-posts" hidden></p>
+      </div>
+    </section>
+
+    <section class="section" id="sec-dms" aria-labelledby="h-dms">
+      <div class="section-head">
+        <div>
+          <h2 id="h-dms">LinkedIn DMs</h2>
+          <p class="count" id="count-dms"></p>
+        </div>
+        <label class="finder"><span>Search messages</span><input id="q-dms" type="search" placeholder="Company, person, message" autocomplete="off"></label>
+      </div>
+      <div class="card sheet">
+        <div class="sort-mobile"><label>Sort<select id="sort-dms"></select></label></div>
+        <div class="table-scroll">
+          <table>
+            <thead id="head-dms"></thead>
+            <tbody id="body-dms"></tbody>
+          </table>
+        </div>
+        <p class="blank" id="blank-dms" hidden></p>
+      </div>
+    </section>
   </div>
-  <div class="stats" id="stats"></div>
-  <div class="grid">
-    <div class="card"><h2>Emails per day (new vs follow-up)</h2><canvas id="c1"></canvas><div class="legend" id="l1"></div></div>
-    <div class="card"><h2>Replies per day</h2><canvas id="c2"></canvas></div>
-    <div class="card"><h2>LinkedIn posts per day</h2><canvas id="c3"></canvas></div>
-    <div class="card"><h2>Emails by service line</h2><canvas id="c4"></canvas><div class="legend" id="l4"></div></div>
-  </div>
-  <h2>Emails <span class="count" id="email-count"></span></h2>
-  <div class="search">
-    <label for="q">Search emails</label>
-    <input id="q" type="search" placeholder="Company, email, line, status, reply" autocomplete="off">
-  </div>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th>Date</th><th>Company</th><th>Contact email</th><th>Line</th><th>Type</th><th>Status</th><th>Reply</th>
-        </tr>
-      </thead>
-      <tbody id="email-rows"></tbody>
-    </table>
-    <p class="empty" id="email-empty" hidden>No emails match that search.</p>
-  </div>
-  <h2>LinkedIn posts <span class="count" id="post-count"></span></h2>
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>Date</th><th>Post</th><th>Link</th></tr></thead>
-      <tbody id="post-rows"></tbody>
-    </table>
-    <p class="empty" id="post-empty" hidden>No posts in this export.</p>
-  </div>
-  <div id="dm-block">
-    <h2>Direct messages <span class="count" id="dm-count"></span></h2>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Date</th><th>Company</th><th>Contact</th><th>Status</th><th>Message</th><th>Link</th></tr></thead>
-        <tbody id="dm-rows"></tbody>
-      </table>
-    </div>
-  </div>
-</section>
 </main>
+
 <script>
 const KEY = 'outreach-password';
-const C = ['#f28c00', '#4a9d5b', '#3b6fd8'];
+const FONT = '-apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif';
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const LINE_LABEL = { sites: 'Sites & Apps', automations: 'Automations', agents: 'Agents' };
+const COLUMNS = {
+  emails: [
+    { key: 'date', label: 'Date' },
+    { key: 'company', label: 'Company' },
+    { key: 'email', label: 'Email' },
+    { key: 'line', label: 'Line' },
+    { key: 'type', label: 'Type' },
+    { key: 'status', label: 'Status' },
+    { key: 'reply', label: 'Reply' },
+  ],
+  posts: [
+    { key: 'date', label: 'Date' },
+    { key: 'text', label: 'Post' },
+    { key: 'url', label: 'Link' },
+  ],
+  dms: [
+    { key: 'date', label: 'Date' },
+    { key: 'company', label: 'Company' },
+    { key: 'contact', label: 'Contact' },
+    { key: 'status', label: 'Status' },
+    { key: 'message', label: 'Message' },
+    { key: 'url', label: 'Link' },
+  ],
+};
 const gate = document.getElementById('gate');
 const form = document.getElementById('gate-form');
 const pw = document.getElementById('pw');
-const unlockBtn = document.getElementById('unlock');
+const openBtn = document.getElementById('open');
 const gateError = document.getElementById('gate-error');
 const dash = document.getElementById('dash');
 let pending = false;
-let chart = null;
-let emailRows = [];
+let data = { emails: [], posts: [], dms: [] };
+let charts = [];
+let chartPromise = null;
+const view = {
+  emails: { key: 'date', dir: 'desc', q: '' },
+  posts: { key: 'date', dir: 'desc', q: '' },
+  dms: { key: 'date', dir: 'desc', q: '' },
+};
 
 function storageGet() {
   try { return sessionStorage.getItem(KEY) || ''; } catch (err) { return ''; }
@@ -159,36 +405,101 @@ function storageSet(value) {
   } catch (err) {}
 }
 function showError(message) {
-  gateError.textContent = message;
+  gateError.textContent = message || '';
   pw.setAttribute('aria-invalid', message ? 'true' : 'false');
 }
 function setBusy(busy) {
-  unlockBtn.disabled = busy;
+  openBtn.disabled = busy;
   pw.disabled = busy;
-  unlockBtn.textContent = busy ? 'Checking…' : 'Unlock';
+  openBtn.textContent = busy ? 'Checking…' : 'Open';
+}
+function el(tag, className, text) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text != null) node.textContent = text;
+  return node;
+}
+function cssColor(name) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+function isDark() {
+  return matchMedia('(prefers-color-scheme: dark)').matches;
+}
+function palette() {
+  return isDark()
+    ? ['#0A84FF', '#30D158', '#FF9F0A', '#BF5AF2', '#FF453A', '#98989D']
+    : ['#007AFF', '#34C759', '#FF9F0A', '#AF52DE', '#FF3B30', '#8E8E93'];
 }
 function dayOf(row) {
   const match = /^(\d{4}-\d{2}-\d{2})/.exec(String(row && row.date || '').trim());
   return match ? match[1] : '';
 }
-function isFollow(row) {
-  return String(row && row.type || '').toLowerCase().replace(/[\s_]/g, '-').startsWith('follow');
+function shortDate(iso) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || '');
+  if (!match) return iso || '';
+  return MONTHS[Number(match[2]) - 1] + ' ' + Number(match[3]);
 }
-function isReply(row) {
-  return String(row && row.status || '').toLowerCase().startsWith('replied');
+function longDate(iso) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || '');
+  if (!match) return iso || '—';
+  return shortDate(iso) + ', ' + match[1];
+}
+function formatUpdated(value) {
+  const raw = String(value || '').trim();
+  if (!raw) return 'unknown';
+  if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) return longDate(raw) + ', Eastern Time';
+  const parsed = new Date(raw);
+  if (Number.isNaN(parsed.getTime())) return raw;
+  return new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York',
+    month: 'short', day: 'numeric', year: 'numeric',
+    hour: 'numeric', minute: '2-digit', timeZoneName: 'short',
+  }).format(parsed);
+}
+function isFollow(row) {
+  const type = String(row && row.type || '').toLowerCase().replace(/[\s_]/g, '-');
+  if (type.startsWith('follow')) return true;
+  if (type === 'new' || type === 'first' || type === 'first-email') return false;
+  return String(row && row.status || '').toLowerCase().replace(/[\s_]/g, '').startsWith('follow');
+}
+function isReplyStatus(status) {
+  const value = String(status || '').toLowerCase().replace(/[\s-]+/g, '_');
+  if (value.startsWith('not_') || value.includes('no_reply') || value.includes('not_replied')) return false;
+  return value === 'reply' || value.startsWith('replied') || value.includes('_replied') || value.includes('replied');
+}
+function statusKind(status) {
+  const value = String(status || '').toLowerCase().replace(/[\s_]+/g, ' ').trim();
+  if (value.includes('bounc')) return 'bounced';
+  if (isReplyStatus(status)) return 'replied';
+  if (value.startsWith('follow')) return 'follow';
+  if (!value || value === 'new' || value === 'sent' || value.startsWith('sent') || value === 'first') return 'sent';
+  return 'other';
+}
+function statusLabel(status) {
+  const kind = statusKind(status);
+  if (kind === 'bounced') return 'Bounced';
+  if (kind === 'replied') return 'Replied';
+  if (kind === 'follow') return 'Follow-up';
+  if (kind === 'sent') return 'Sent';
+  const raw = String(status || '').trim().replace(/[_-]+/g, ' ').replace(/\s+/g, ' ');
+  return raw ? raw.replace(/\b\w/g, (letter) => letter.toUpperCase()) : 'Sent';
 }
 function lineKey(line) {
-  const value = String(line || '');
-  return Object.prototype.hasOwnProperty.call(LINE_LABEL, value) ? value : '';
+  const compact = String(line || '').toLowerCase().replace(/[^a-z]/g, '');
+  if (!compact) return '';
+  if (compact.includes('autom')) return 'automations';
+  if (compact.includes('agent')) return 'agents';
+  if (compact.includes('site') || compact === 'app' || compact === 'apps') return 'sites';
+  return 'other';
 }
 function lineLabel(line) {
-  return LINE_LABEL[line] || String(line || '');
+  const key = lineKey(line);
+  if (key && key !== 'other') return LINE_LABEL[key];
+  const raw = String(line || '').trim();
+  return raw || 'Not set';
 }
-function typeLabel(type) {
-  const value = String(type || '');
-  if (value === 'follow-up') return 'Follow-up';
-  if (value === 'new') return 'New';
-  return value;
+function typeLabel(row) {
+  return isFollow(row) ? 'Follow-up' : 'First email';
 }
 function safeUrl(url) {
   const value = String(url || '').trim();
@@ -199,216 +510,602 @@ function safeUrl(url) {
   } catch (err) {}
   return '';
 }
-function cell(text, className) {
-  const td = document.createElement('td');
-  if (className) td.className = className;
-  td.textContent = text || '';
-  return td;
+function percentShares(counts) {
+  const total = counts.reduce((sum, count) => sum + count, 0);
+  if (!total) return counts.map(() => 0);
+  const raw = counts.map((count) => (count / total) * 100);
+  const floors = raw.map((value) => Math.floor(value));
+  let left = 100 - floors.reduce((sum, value) => sum + value, 0);
+  const order = raw.map((value, index) => ({ index, frac: value - Math.floor(value) })).sort((a, b) => b.frac - a.frac);
+  for (let i = 0; i < left; i++) floors[order[i % order.length].index] += 1;
+  return floors;
 }
-function linkCell(url) {
-  const td = document.createElement('td');
+function eachDay(start, end) {
+  const days = [];
+  const cursor = new Date(start + 'T00:00:00Z');
+  const last = new Date(end + 'T00:00:00Z');
+  while (cursor <= last && days.length < 120) {
+    days.push(cursor.toISOString().slice(0, 10));
+    cursor.setUTCDate(cursor.getUTCDate() + 1);
+  }
+  return days;
+}
+function timeline(dates) {
+  const unique = [...new Set(dates.filter(Boolean))].sort();
+  if (!unique.length) return [];
+  const span = (Date.parse(unique[unique.length - 1]) - Date.parse(unique[0])) / 86400000;
+  return span > 60 ? unique : eachDay(unique[0], unique[unique.length - 1]);
+}
+function rowsOf(kind) {
+  const rows = Array.isArray(data[kind]) ? data[kind].filter((row) => row && typeof row === 'object') : [];
+  return rows;
+}
+function pill(status) {
+  const node = el('span', 'pill pill-' + statusKind(status), statusLabel(status));
+  const raw = String(status || '').trim();
+  if (raw && raw.toLowerCase() !== node.textContent.toLowerCase()) node.title = raw;
+  return node;
+}
+function linkNode(url, label) {
   const href = safeUrl(url);
-  if (!href) {
-    td.textContent = '—';
-    return td;
-  }
-  const a = document.createElement('a');
-  a.href = href;
-  a.target = '_blank';
-  a.rel = 'noopener noreferrer';
-  a.textContent = 'Open';
-  td.append(a);
-  return td;
+  if (!href) return document.createTextNode('—');
+  const anchor = el('a', null, label || 'View');
+  anchor.href = href;
+  anchor.target = '_blank';
+  anchor.rel = 'noopener noreferrer';
+  return anchor;
 }
-function dateCell(row) {
-  const td = document.createElement('td');
-  td.textContent = row.date || '';
-  if (row.time) {
-    const sub = document.createElement('div');
-    sub.className = 'muted';
-    sub.textContent = row.time;
-    td.append(sub);
-  }
-  return td;
+function mailNode(address) {
+  const value = String(address || '').trim();
+  if (!value) return document.createTextNode('—');
+  const anchor = el('a', null, value);
+  if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) anchor.href = 'mailto:' + value;
+  return anchor;
 }
-function companyCell(row) {
-  const td = document.createElement('td');
+function companyNode(row) {
+  const wrap = el('span', 'who');
   const href = safeUrl(row.url);
-  if (href && row.company) {
-    const a = document.createElement('a');
-    a.href = href;
-    a.target = '_blank';
-    a.rel = 'noopener noreferrer';
-    a.textContent = row.company;
-    td.append(a);
-  } else {
-    td.textContent = row.company || '';
-  }
-  if (row.name) {
-    const sub = document.createElement('div');
-    sub.className = 'muted';
-    sub.textContent = row.name;
-    td.append(sub);
-  }
+  if (href && row.company) wrap.append(linkNode(href, row.company));
+  else wrap.append(document.createTextNode(row.company || '—'));
+  if (row.name) wrap.append(el('span', 'quiet', row.name));
+  return wrap;
+}
+function dateNode(row) {
+  const wrap = el('span', 'who');
+  wrap.append(document.createTextNode(row.date ? longDate(row.date) : '—'));
+  if (row.time) wrap.append(el('span', 'quiet', row.time));
+  return wrap;
+}
+function cell(label, content, className) {
+  const td = el('td', className || '');
+  td.append(el('span', 'cell-label', label));
+  const value = el('span', 'cell-value');
+  if (content == null || content === '') value.textContent = '—';
+  else if (typeof content === 'string') value.textContent = content;
+  else value.append(content);
+  td.append(value);
   return td;
 }
-function bars(id, labels, series, colors) {
-  const cv = document.getElementById(id);
-  const dpr = devicePixelRatio || 1;
-  const W = cv.clientWidth;
-  const H = cv.clientHeight;
-  if (!labels.length || !W || !H) return;
-  cv.width = W * dpr;
-  cv.height = H * dpr;
-  const x = cv.getContext('2d');
-  x.scale(dpr, dpr);
-  const tot = labels.map((_, i) => series.reduce((sum, row) => sum + row[i], 0));
-  const max = Math.max(1, ...tot);
-  const pad = 28;
-  const bw = (W - pad) / labels.length;
-  x.font = '11px Inter Tight, sans-serif';
-  x.fillStyle = '#7a6650';
-  x.fillText(max, 0, 12);
-  x.fillText(0, 0, H - pad);
-  labels.forEach((label, i) => {
-    let y = H - pad;
-    series.forEach((row, k) => {
-      const h = row[i] / max * (H - pad - 16);
-      x.fillStyle = colors[k];
-      x.fillRect(pad + i * bw + bw * 0.15, y - h, bw * 0.7, h);
-      y -= h;
+function clockKey(value) {
+  const match = /(\d{1,2}):(\d{2})\s*(AM|PM)?/i.exec(String(value || ''));
+  if (!match) return '00:00';
+  let hour = Number(match[1]);
+  const suffix = (match[3] || '').toUpperCase();
+  if (suffix === 'PM' && hour < 12) hour += 12;
+  if (suffix === 'AM' && hour === 12) hour = 0;
+  return String(hour).padStart(2, '0') + ':' + match[2];
+}
+function sortValue(row, key) {
+  if (key === 'date') return (dayOf(row) || '0000-00-00') + ' ' + clockKey(row.time);
+  if (key === 'line') return lineLabel(row.line);
+  if (key === 'type') return typeLabel(row);
+  if (key === 'status') return statusLabel(row.status);
+  if (key === 'contact') return [row.name, row.email].filter(Boolean).join(' ');
+  if (key === 'text') return row.text || '';
+  if (key === 'message') return row.message || '';
+  if (key === 'url') return safeUrl(row.url);
+  return row[key] || '';
+}
+function haystack(row, kind) {
+  if (kind === 'posts') return [row.date, row.text, row.url].join(' ');
+  if (kind === 'dms') return [row.date, row.time, row.company, row.name, row.email, row.status, statusLabel(row.status), row.message, row.url].join(' ');
+  return [row.date, row.time, row.company, row.name, row.email, lineLabel(row.line), typeLabel(row), row.status, statusLabel(row.status), row.reply].join(' ');
+}
+function ordered(kind) {
+  const state = view[kind];
+  const factor = state.dir === 'asc' ? 1 : -1;
+  const query = state.q.trim().toLowerCase();
+  return rowsOf(kind)
+    .slice()
+    .sort((a, b) => {
+      const left = String(sortValue(a, state.key)).toLowerCase();
+      const right = String(sortValue(b, state.key)).toLowerCase();
+      if (left < right) return -1 * factor;
+      if (left > right) return 1 * factor;
+      return 0;
+    })
+    .filter((row) => !query || haystack(row, kind).toLowerCase().includes(query));
+}
+function emailCell(row, column) {
+  if (column.key === 'date') return cell(column.label, dateNode(row), 'wide');
+  if (column.key === 'company') return cell(column.label, companyNode(row), 'wide');
+  if (column.key === 'email') return cell(column.label, mailNode(row.email));
+  if (column.key === 'line') return cell(column.label, lineLabel(row.line));
+  if (column.key === 'type') return cell(column.label, typeLabel(row));
+  if (column.key === 'status') return cell(column.label, pill(row.status));
+  return cell(column.label, row.reply || '—', 'wide reply');
+}
+function postCell(row, column) {
+  if (column.key === 'date') return cell(column.label, dateNode(row), 'wide');
+  if (column.key === 'url') return cell(column.label, linkNode(row.url, 'View post'));
+  return cell(column.label, row.text || '—', 'wide reply');
+}
+function dmCell(row, column) {
+  if (column.key === 'date') return cell(column.label, dateNode(row), 'wide');
+  if (column.key === 'company') return cell(column.label, row.company || '—', 'wide');
+  if (column.key === 'contact') {
+    const wrap = el('span', 'who');
+    if (row.name) wrap.append(document.createTextNode(row.name));
+    if (row.email) wrap.append(mailNode(row.email));
+    if (!row.name && !row.email) wrap.textContent = '—';
+    return cell(column.label, wrap);
+  }
+  if (column.key === 'status') return cell(column.label, pill(row.status));
+  if (column.key === 'url') return cell(column.label, linkNode(row.url, 'View profile'));
+  return cell(column.label, row.message || '—', 'wide reply');
+}
+let painting = false;
+function renderTable(kind) {
+  if (painting) return;
+  painting = true;
+  try {
+  const columns = COLUMNS[kind];
+  const state = view[kind];
+  const all = rowsOf(kind);
+  const visible = ordered(kind);
+  const head = document.getElementById('head-' + kind);
+  const body = document.getElementById('body-' + kind);
+  const blank = document.getElementById('blank-' + kind);
+  const count = document.getElementById('count-' + kind);
+  const select = document.getElementById('sort-' + kind);
+  head.textContent = '';
+  body.textContent = '';
+  const rowHead = el('tr');
+  columns.forEach((column) => {
+    const th = el('th');
+    const active = state.key === column.key;
+    if (active) th.setAttribute('aria-sort', state.dir === 'asc' ? 'ascending' : 'descending');
+    else th.setAttribute('aria-sort', 'none');
+    const button = el('button');
+    button.type = 'button';
+    button.append(document.createTextNode(column.label));
+    const mark = el('span', null, active ? (state.dir === 'asc' ? '↑' : '↓') : '');
+    mark.setAttribute('aria-hidden', 'true');
+    button.append(mark);
+    button.addEventListener('click', () => {
+      if (state.key === column.key) state.dir = state.dir === 'asc' ? 'desc' : 'asc';
+      else { state.key = column.key; state.dir = column.key === 'date' ? 'desc' : 'asc'; }
+      renderTable(kind);
     });
-    x.fillStyle = '#2b1d0e';
-    if (tot[i]) x.fillText(tot[i], pad + i * bw + bw * 0.42, y - 3);
-    x.fillStyle = '#7a6650';
-    x.fillText(label.length >= 10 ? label.slice(5) : label, pad + i * bw + bw * 0.12, H - 8);
+    th.append(button);
+    rowHead.append(th);
   });
-}
-function legend(id, names) {
-  const node = document.getElementById(id);
-  node.textContent = '';
-  names.forEach((name, i) => {
-    const swatch = document.createElement('i');
-    swatch.style.background = C[i];
-    node.append(swatch, document.createTextNode(name));
+  head.append(rowHead);
+  select.textContent = '';
+  columns.forEach((column) => {
+    ['desc', 'asc'].forEach((dir) => {
+      const option = el('option', null, column.label + (dir === 'asc' ? ', A to Z' : ', Z to A'));
+      if (column.key === 'date') option.textContent = column.label + (dir === 'asc' ? ', oldest first' : ', newest first');
+      option.value = column.key + ':' + dir;
+      option.selected = state.key === column.key && state.dir === dir;
+      select.append(option);
+    });
   });
-}
-function model(emails, posts) {
-  const dates = new Set();
-  emails.forEach((row) => { const day = dayOf(row); if (day) dates.add(day); });
-  posts.forEach((row) => { const day = dayOf(row); if (day) dates.add(day); });
-  const labels = [...dates].sort();
-  const at = Object.fromEntries(labels.map((day) => [day, { new: 0, followup: 0, replies: 0, posts: 0, sites: 0, automations: 0, agents: 0 }]));
-  emails.forEach((row) => {
-    const bucket = at[dayOf(row)];
-    if (!bucket) return;
-    bucket[isFollow(row) ? 'followup' : 'new'] += 1;
-    if (isReply(row)) bucket.replies += 1;
-    const key = lineKey(row.line);
-    if (key) bucket[key] += 1;
+  const noun = kind === 'emails' ? 'emails' : kind === 'posts' ? 'posts' : 'messages';
+  if (!all.length) {
+    count.textContent = 'None yet';
+    blank.hidden = false;
+    blank.textContent = kind === 'emails'
+      ? 'No emails yet. They will show up here after they are sent.'
+      : kind === 'posts'
+        ? 'No posts yet. A published LinkedIn post will show up here.'
+        : 'No direct messages yet. LinkedIn DMs will show up here.';
+    return;
+  }
+  count.textContent = visible.length === all.length
+    ? all.length + ' ' + noun
+    : 'Showing ' + visible.length + ' of ' + all.length;
+  if (!visible.length) {
+    blank.hidden = false;
+    blank.textContent = 'Nothing matches that search.';
+    return;
+  }
+  blank.hidden = true;
+  const builder = kind === 'emails' ? emailCell : kind === 'posts' ? postCell : dmCell;
+  visible.forEach((row) => {
+    const tr = el('tr');
+    columns.forEach((column) => tr.append(builder(row, column)));
+    body.append(tr);
   });
-  posts.forEach((row) => {
-    const bucket = at[dayOf(row)];
-    if (bucket) bucket.posts += 1;
-  });
-  const col = (key) => labels.map((day) => at[day][key]);
-  return { labels, col };
+  } finally {
+    painting = false;
+  }
 }
-function draw(state) {
-  if (!state) return;
-  bars('c1', state.labels, [state.col('new'), state.col('followup')], C);
-  legend('l1', ['New', 'Follow-up']);
-  bars('c2', state.labels, [state.col('replies')], [C[2]]);
-  bars('c3', state.labels, [state.col('posts')], [C[1]]);
-  bars('c4', state.labels, [state.col('sites'), state.col('automations'), state.col('agents')], C);
-  legend('l4', ['Sites & Apps', 'Automations', 'Agents']);
-}
-function fillStats(emails, posts) {
+function renderStats() {
+  const emails = rowsOf('emails');
+  const first = emails.filter((row) => !isFollow(row)).length;
+  const follow = emails.length - first;
+  const replies = emails.filter((row) => isReplyStatus(row.status)).length;
+  const rate = emails.length ? Math.round((replies / emails.length) * 100) + '%' : '—';
   const cards = [
-    ['New emails', emails.filter((row) => !isFollow(row)).length],
-    ['Follow-ups', emails.filter(isFollow).length],
-    ['Replies', emails.filter(isReply).length],
-    ['LinkedIn posts', posts.length],
+    ['Emails sent', emails.length, 'Every email in this log.'],
+    ['First emails', first, 'The first note sent to someone new.'],
+    ['Follow-ups', follow, 'A later note to someone already emailed.'],
+    ['Replies', replies, 'Emails that got a written reply.'],
+    ['Reply rate', rate, 'Replies divided by emails sent.'],
+    ['LinkedIn posts', rowsOf('posts').length, 'Posts published on LinkedIn.'],
+    ['LinkedIn DMs', rowsOf('dms').length, 'Direct messages sent on LinkedIn.'],
   ];
   const stats = document.getElementById('stats');
   stats.textContent = '';
-  cards.forEach(([name, value]) => {
-    const card = document.createElement('div');
-    card.className = 'stat';
-    const num = document.createElement('b');
-    num.textContent = String(value);
-    const label = document.createElement('span');
-    label.textContent = name;
-    card.append(num, label);
+  cards.forEach(([label, value, hint]) => {
+    const card = el('article', 'card stat');
+    card.append(el('h2', null, label), el('b', null, String(value)), el('p', null, hint));
     stats.append(card);
   });
 }
-function paintEmails() {
-  const query = document.getElementById('q').value.trim().toLowerCase();
-  const body = document.getElementById('email-rows');
-  body.textContent = '';
-  let shown = 0;
-  emailRows.forEach((row) => {
-    const hay = [row.date, row.time, row.company, row.name, row.email, lineLabel(row.line), typeLabel(row.type), row.status, row.reply]
-      .join(' ').toLowerCase();
-    if (query && !hay.includes(query)) return;
-    shown += 1;
-    const tr = document.createElement('tr');
-    tr.append(
-      dateCell(row),
-      companyCell(row),
-      cell(row.email),
-      cell(lineLabel(row.line)),
-      cell(typeLabel(row.type)),
-      cell(row.status),
-      cell(row.reply, 'reply')
-    );
-    body.append(tr);
+function legendList(id, items) {
+  const list = document.getElementById(id);
+  list.textContent = '';
+  items.forEach((item) => {
+    const li = el('li');
+    const swatch = el('span', 'swatch');
+    swatch.style.background = item.color;
+    li.append(swatch, el('span', 'name', item.label));
+    if (item.extra) li.append(el('span', 'pct', item.extra));
+    list.append(li);
   });
-  document.getElementById('email-empty').hidden = shown !== 0;
-  document.getElementById('email-count').textContent = shown === emailRows.length ? '(' + emailRows.length + ')' : '(' + shown + ' of ' + emailRows.length + ')';
 }
-function fillPosts(posts) {
-  const body = document.getElementById('post-rows');
-  body.textContent = '';
-  posts.forEach((row) => {
-    const tr = document.createElement('tr');
-    tr.append(dateCell(row), cell(row.text, 'reply'), linkCell(row.url));
-    body.append(tr);
+function setChartEmpty(name, empty) {
+  document.getElementById('plot-' + name).hidden = empty;
+  document.getElementById('empty-' + name).hidden = !empty;
+  const legend = document.getElementById('leg-' + name);
+  if (legend && name !== 'donut') legend.hidden = empty;
+}
+function axisTitle(text) {
+  return { display: true, text, color: cssColor('--muted'), font: { family: FONT, size: 12, weight: '500' } };
+}
+function axisTicks(dates) {
+  return {
+    color: cssColor('--muted'),
+    font: { family: FONT, size: 12 },
+    maxRotation: 0,
+    autoSkip: true,
+    maxTicksLimit: matchMedia('(max-width: 760px)').matches ? 4 : 7,
+    callback(value) {
+      const label = this.getLabelForValue ? this.getLabelForValue(value) : dates[value];
+      return label;
+    },
+  };
+}
+function tooltipPlugin() {
+  return {
+    backgroundColor: cssColor('--tooltip-bg'),
+    titleColor: cssColor('--tooltip-fg'),
+    bodyColor: cssColor('--tooltip-fg'),
+    padding: 12,
+    cornerRadius: 12,
+    boxPadding: 4,
+    titleFont: { family: FONT, size: 13, weight: '600' },
+    bodyFont: { family: FONT, size: 13 },
+  };
+}
+function baseScales(dates, yTitle, stacked) {
+  return {
+    x: {
+      stacked: !!stacked,
+      grid: { display: false },
+      border: { display: false },
+      ticks: axisTicks(dates),
+      title: axisTitle('Date'),
+    },
+    y: {
+      stacked: !!stacked,
+      beginAtZero: true,
+      grace: '12%',
+      grid: { color: cssColor('--grid') },
+      border: { display: false },
+      ticks: { color: cssColor('--muted'), precision: 0, font: { family: FONT, size: 12 } },
+      title: axisTitle(yTitle),
+    },
+  };
+}
+const valueLabels = {
+  id: 'valueLabels',
+  afterDatasetsDraw(chart) {
+    const { ctx } = chart;
+    const datasets = chart.data.datasets;
+    ctx.save();
+    ctx.fillStyle = cssColor('--text');
+    ctx.font = '600 12px ' + FONT;
+    if (chart.options.indexAxis === 'y') {
+      const meta = chart.getDatasetMeta(0);
+      meta.data.forEach((bar, index) => {
+        const value = Number(datasets[0].data[index]) || 0;
+        if (!value) return;
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(String(value), bar.x + 8, bar.y);
+      });
+    } else if (chart.config.type === 'bar' && chart.data.labels.length <= 16) {
+      chart.data.labels.forEach((_, index) => {
+        const total = datasets.reduce((sum, set) => sum + (Number(set.data[index]) || 0), 0);
+        if (!total) return;
+        let top = null;
+        datasets.forEach((set, setIndex) => {
+          if (Number(set.data[index])) top = chart.getDatasetMeta(setIndex).data[index];
+        });
+        if (!top) return;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'bottom';
+        ctx.fillText(String(total), top.x, top.y - 4);
+      });
+    } else if (chart.config.type === 'line') {
+      const meta = chart.getDatasetMeta(0);
+      const last = meta.data[meta.data.length - 1];
+      const value = datasets[0].data[datasets[0].data.length - 1];
+      if (last && value != null) {
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'bottom';
+        ctx.fillText(String(value), last.x, last.y - 8);
+      }
+    }
+    ctx.restore();
+  },
+};
+const donutCenter = {
+  id: 'donutCenter',
+  afterDraw(chart) {
+    const total = (chart.data.datasets[0].data || []).reduce((sum, value) => sum + value, 0);
+    const { ctx, chartArea } = chart;
+    if (!chartArea) return;
+    const x = (chartArea.left + chartArea.right) / 2;
+    const y = (chartArea.top + chartArea.bottom) / 2;
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = cssColor('--text');
+    ctx.font = '600 28px ' + FONT;
+    ctx.fillText(String(total), x, y - 8);
+    ctx.fillStyle = cssColor('--muted');
+    ctx.font = '500 12px ' + FONT;
+    ctx.fillText(total === 1 ? 'email' : 'emails', x, y + 16);
+    ctx.restore();
+  },
+};
+function chartMotion() {
+  return matchMedia('(prefers-reduced-motion: reduce)').matches ? false : { duration: 650, easing: 'easeOutQuart' };
+}
+function destroyCharts() {
+  charts.forEach((chart) => chart.destroy());
+  charts = [];
+}
+function dailyModel() {
+  const emails = rowsOf('emails');
+  const days = timeline(emails.map(dayOf));
+  const spanYears = new Set(days.map((date) => date.slice(0, 4))).size > 1;
+  return days.map((date) => {
+    const onDay = emails.filter((row) => dayOf(row) === date);
+    const follow = onDay.filter(isFollow).length;
+    const label = spanYears ? shortDate(date) + ', ' + date.slice(0, 4) : shortDate(date);
+    return { date, label, first: onDay.length - follow, follow };
   });
-  document.getElementById('post-empty').hidden = posts.length !== 0;
-  document.getElementById('post-count').textContent = '(' + posts.length + ')';
 }
-function fillDms(dms) {
-  const block = document.getElementById('dm-block');
-  block.hidden = dms.length === 0;
-  const body = document.getElementById('dm-rows');
-  body.textContent = '';
-  dms.forEach((row) => {
-    const tr = document.createElement('tr');
-    const contact = [row.name, row.email].filter(Boolean).join(' · ');
-    tr.append(dateCell(row), cell(row.company), cell(contact), cell(row.status), cell(row.message, 'reply'), linkCell(row.url));
-    body.append(tr);
+function drawCharts() {
+  destroyCharts();
+  if (!window.Chart) return;
+  const colors = palette();
+  const days = dailyModel();
+  const hasEmails = rowsOf('emails').length > 0;
+  const hasFirst = days.some((day) => day.first);
+  setChartEmpty('daily', !hasEmails);
+  setChartEmpty('line', !hasFirst);
+  setChartEmpty('donut', !hasEmails);
+  setChartEmpty('status', !hasEmails);
+  document.getElementById('leg-donut').hidden = !hasEmails;
+  if (hasEmails) {
+    legendList('leg-daily', [
+      { color: colors[0], label: 'First emails' },
+      { color: colors[3], label: 'Follow-ups' },
+    ]);
+    const labels = days.map((day) => day.label);
+    document.getElementById('sum-daily').textContent = 'Emails each day. ' + days.map((day) => day.label + ': ' + day.first + ' first, ' + day.follow + ' follow-ups').join('. ');
+    charts.push(new Chart(document.getElementById('c-daily'), {
+      type: 'bar',
+      plugins: [valueLabels],
+      data: {
+        labels,
+        datasets: [
+          { label: 'First emails', data: days.map((day) => day.first), backgroundColor: colors[0], borderRadius: 5, stack: 'emails' },
+          { label: 'Follow-ups', data: days.map((day) => day.follow), backgroundColor: colors[3], borderRadius: 5, stack: 'emails' },
+        ],
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: chartMotion(),
+        layout: { padding: { top: 18 } },
+        plugins: { legend: { display: false }, tooltip: tooltipPlugin() },
+        scales: baseScales(labels, 'Emails', true),
+      },
+    }));
+  } else {
+    document.getElementById('sum-daily').textContent = 'No emails yet.';
+  }
+  if (hasFirst) {
+    let running = 0;
+    const cumulative = days.map((day) => { running += day.first; return running; });
+    legendList('leg-line', [{ color: colors[0], label: 'People reached' }]);
+    document.getElementById('sum-line').textContent = 'People reached over time. ' + days.map((day, index) => day.label + ': ' + cumulative[index]).join('. ');
+    charts.push(new Chart(document.getElementById('c-line'), {
+      type: 'line',
+      plugins: [valueLabels],
+      data: {
+        labels: days.map((day) => day.label),
+        datasets: [{
+          label: 'People reached',
+          data: cumulative,
+          borderColor: colors[0],
+          backgroundColor: isDark() ? 'rgba(10, 132, 255, 0.18)' : 'rgba(0, 113, 227, 0.12)',
+          pointBackgroundColor: colors[0],
+          pointRadius: 3,
+          pointHoverRadius: 5,
+          borderWidth: 2,
+          fill: true,
+          tension: 0.35,
+        }],
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: chartMotion(),
+        layout: { padding: { top: 18 } },
+        interaction: { mode: 'index', intersect: false },
+        plugins: { legend: { display: false }, tooltip: tooltipPlugin() },
+        scales: baseScales(days.map((day) => day.label), 'People', false),
+      },
+    }));
+  } else {
+    document.getElementById('sum-line').textContent = 'No first emails yet.';
+  }
+  const lineCounts = new Map();
+  rowsOf('emails').forEach((row) => {
+    const label = lineLabel(row.line);
+    lineCounts.set(label, (lineCounts.get(label) || 0) + 1);
   });
-  document.getElementById('dm-count').textContent = '(' + dms.length + ')';
+  if (lineCounts.size) {
+    const entries = [...lineCounts.entries()].sort((a, b) => b[1] - a[1]);
+    const shares = percentShares(entries.map((entry) => entry[1]));
+    const lineColors = entries.map(([label]) => {
+      const key = lineKey(label === 'Not set' ? '' : label);
+      if (key === 'sites') return colors[0];
+      if (key === 'automations') return colors[1];
+      if (key === 'agents') return colors[2];
+      return colors[5];
+    });
+    legendList('leg-donut', entries.map(([label, count], index) => ({
+      color: lineColors[index],
+      label,
+      extra: count + ' · ' + shares[index] + '%',
+    })));
+    document.getElementById('sum-linechart').textContent = 'Emails by service line. ' + entries.map(([label, count], index) => label + ' ' + count + ' (' + shares[index] + '%)').join('. ');
+    charts.push(new Chart(document.getElementById('c-donut'), {
+      type: 'doughnut',
+      plugins: [donutCenter],
+      data: { labels: entries.map((entry) => entry[0]), datasets: [{ data: entries.map((entry) => entry[1]), backgroundColor: lineColors, borderWidth: 3, borderColor: cssColor('--card-solid'), hoverOffset: 0 }] },
+      options: {
+        responsive: true, maintainAspectRatio: false, cutout: '68%', animation: chartMotion(),
+        plugins: {
+          legend: { display: false },
+          tooltip: { ...tooltipPlugin(), callbacks: { label(item) { return ' ' + item.raw + ' emails, ' + shares[item.dataIndex] + '%'; } } },
+        },
+      },
+    }));
+  } else {
+    document.getElementById('sum-linechart').textContent = 'No emails yet.';
+  }
+  const statusCounts = new Map();
+  rowsOf('emails').forEach((row) => {
+    const label = statusLabel(row.status);
+    statusCounts.set(label, (statusCounts.get(label) || 0) + 1);
+  });
+  if (statusCounts.size) {
+    const order = ['Sent', 'Follow-up', 'Replied', 'Bounced'];
+    const entries = [...statusCounts.entries()].sort((a, b) => {
+      const ai = order.indexOf(a[0]);
+      const bi = order.indexOf(b[0]);
+      if (ai === -1 && bi === -1) return b[1] - a[1];
+      if (ai === -1) return 1;
+      if (bi === -1) return -1;
+      return ai - bi;
+    });
+    const statusColors = entries.map(([label]) => {
+      if (label === 'Sent') return colors[0];
+      if (label === 'Follow-up') return colors[3];
+      if (label === 'Replied') return colors[1];
+      if (label === 'Bounced') return colors[4];
+      return colors[5];
+    });
+    legendList('leg-status', entries.map(([label, count], index) => ({ color: statusColors[index], label, extra: String(count) })));
+    document.getElementById('sum-status').textContent = 'Where emails stand. ' + entries.map(([label, count]) => label + ' ' + count).join('. ');
+    charts.push(new Chart(document.getElementById('c-status'), {
+      type: 'bar',
+      plugins: [valueLabels],
+      data: { labels: entries.map((entry) => entry[0]), datasets: [{ label: 'Emails', data: entries.map((entry) => entry[1]), backgroundColor: statusColors, borderRadius: 8, barThickness: 18 }] },
+      options: {
+        indexAxis: 'y', responsive: true, maintainAspectRatio: false, animation: chartMotion(),
+        layout: { padding: { right: 32 } },
+        plugins: { legend: { display: false }, tooltip: tooltipPlugin() },
+        scales: {
+          x: {
+            beginAtZero: true, grace: '15%',
+            grid: { color: cssColor('--grid') }, border: { display: false },
+            ticks: { color: cssColor('--muted'), precision: 0, font: { family: FONT, size: 12 } },
+            title: axisTitle('Emails'),
+          },
+          y: {
+            grid: { display: false }, border: { display: false },
+            ticks: { color: cssColor('--text'), font: { family: FONT, size: 13, weight: '600' } },
+            title: axisTitle('Status'),
+          },
+        },
+      },
+    }));
+  } else {
+    document.getElementById('sum-status').textContent = 'No emails yet.';
+  }
 }
-function render(data) {
-  const asRows = (value) => (Array.isArray(value) ? value : []).filter((row) => row && typeof row === 'object');
-  const emails = asRows(data.emails).reverse();
-  const posts = asRows(data.posts).reverse();
-  const dms = asRows(data.dms).reverse();
-  emailRows = emails;
-  document.getElementById('upd').textContent = data.updated || '—';
-  document.getElementById('q').value = '';
-  fillStats(emails, posts);
-  fillPosts(posts);
-  fillDms(dms);
-  paintEmails();
-  chart = model(emails, posts);
+function loadChartJs() {
+  if (window.Chart) return Promise.resolve();
+  if (chartPromise) return chartPromise;
+  chartPromise = new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js';
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error('chart'));
+    document.head.appendChild(script);
+  });
+  return chartPromise;
+}
+function renderTables() {
+  renderTable('emails');
+  renderTable('posts');
+  renderTable('dms');
+}
+async function render(payload) {
+  data = payload || {};
+  const hasAny = rowsOf('emails').length + rowsOf('posts').length + rowsOf('dms').length > 0;
+  const stamp = formatUpdated(data.updated);
+  const time = document.getElementById('upd');
+  time.textContent = stamp;
+  time.setAttribute('datetime', String(data.updated || ''));
+  document.getElementById('empty').hidden = hasAny;
+  document.getElementById('content').hidden = !hasAny;
   gate.hidden = true;
   dash.hidden = false;
   pw.value = '';
-  requestAnimationFrame(() => draw(chart));
+  if (!hasAny) {
+    destroyCharts();
+    document.getElementById('dash-title').focus();
+    return;
+  }
+  renderStats();
+  renderTables();
+  await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+  try {
+    await loadChartJs();
+    drawCharts();
+    document.getElementById('chart-note').hidden = true;
+  } catch (err) {
+    document.getElementById('chart-note').hidden = false;
+  }
+  document.getElementById('dash-title').focus();
 }
 async function unlock(password) {
   if (pending) return;
@@ -418,29 +1115,29 @@ async function unlock(password) {
   try {
     const res = await fetch('/api/outreach', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       cache: 'no-store',
       body: JSON.stringify({ password }),
     });
     if (res.status === 401) {
       storageSet('');
-      showError('Wrong password.');
+      showError('That password isn’t right. Try again.');
       pw.focus();
       return;
     }
     if (!res.ok) {
-      showError('Could not open the dashboard. Try again.');
+      showError('The dashboard couldn’t open. Try again in a moment.');
       return;
     }
-    const data = await res.json();
-    if (!data || typeof data !== 'object' || Array.isArray(data)) {
-      showError('Outreach data is not available right now.');
+    const payload = await res.json();
+    if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
+      showError('The dashboard couldn’t open. Try again in a moment.');
       return;
     }
-    render(data);
+    await render(payload);
     storageSet(password);
   } catch (err) {
-    showError('Could not reach the dashboard. Try again.');
+    showError('We couldn’t reach the dashboard. Check the connection and try again.');
   } finally {
     pending = false;
     setBusy(false);
@@ -448,25 +1145,43 @@ async function unlock(password) {
 }
 function lock() {
   storageSet('');
-  chart = null;
-  emailRows = [];
+  destroyCharts();
+  data = { emails: [], posts: [], dms: [] };
   dash.hidden = true;
   gate.hidden = false;
   pw.value = '';
   showError('');
+  ['emails', 'posts', 'dms'].forEach((kind) => {
+    view[kind] = { key: 'date', dir: 'desc', q: '' };
+    document.getElementById('q-' + kind).value = '';
+    document.getElementById('body-' + kind).textContent = '';
+  });
   document.getElementById('stats').textContent = '';
-  document.getElementById('email-rows').textContent = '';
-  document.getElementById('post-rows').textContent = '';
-  document.getElementById('dm-rows').textContent = '';
   pw.focus();
 }
 form.addEventListener('submit', (event) => {
   event.preventDefault();
   unlock(pw.value);
 });
-document.getElementById('q').addEventListener('input', paintEmails);
 document.getElementById('lock').addEventListener('click', lock);
-window.addEventListener('resize', () => { if (chart && !dash.hidden) draw(chart); });
+['emails', 'posts', 'dms'].forEach((kind) => {
+  document.getElementById('q-' + kind).addEventListener('input', (event) => {
+    view[kind].q = event.target.value;
+    renderTable(kind);
+  });
+  document.getElementById('sort-' + kind).addEventListener('change', (event) => {
+    const [key, dir] = event.target.value.split(':');
+    view[kind].key = key;
+    view[kind].dir = dir;
+    renderTable(kind);
+  });
+});
+let theme = isDark();
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+  if (isDark() === theme || dash.hidden) return;
+  theme = isDark();
+  if (window.Chart) drawCharts();
+});
 const stored = storageGet();
 if (stored) unlock(stored);
 </script>

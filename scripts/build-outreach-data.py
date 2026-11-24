@@ -16,6 +16,7 @@ is the post text. A JSON object or array in the file is accepted too.
 dm-YYYY-MM-DD*.txt, dm-*.json, and dms.csv in that directory are direct messages.
 
 Stdout is one JSON object: {"updated", "emails", "posts", "dms"}.
+"updated" is the current time in Eastern Time.
 This script does not write any file. Put the JSON in the OUTREACH_DATA_B64
 env var (base64). The password lives in OUTREACH_PASSWORD. Example:
 
@@ -359,7 +360,7 @@ def main():
 
     emails.sort(key=lambda item: (item.get('date') or '', item.get('time') or ''))
     dms.sort(key=lambda item: (item.get('date') or '', item.get('time') or ''))
-    updated = datetime.now(ZoneInfo('America/New_York')).date().isoformat()
+    updated = datetime.now(ZoneInfo('America/New_York')).isoformat(timespec='minutes')
     payload = {'updated': updated, 'emails': emails, 'posts': posts, 'dms': dms}
     sys.stdout.write(json.dumps(payload, ensure_ascii=False, separators=(',', ':')))
     sys.stdout.write('\n')
